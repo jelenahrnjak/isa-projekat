@@ -25,21 +25,24 @@ public class User {
     private Address address;
     @Column(name = "phoneNumber", unique = true, nullable = false)
     private String phoneNumber;
+    @Column(name = "deleted", unique = false, nullable = false)
     private boolean deleted;
-
+    @Column(name = "enabled", unique = false, nullable = false)
+    private boolean enabled;
 
     public User() {
         super();
     }
 
-    public User(String username, String password, String email, String name, String surname, String phoneNumber, boolean deleted) {
+    public User(String username, String password, String email, String name, String surname, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
-        this.deleted = deleted;
+        this.deleted = false;
+        this.enabled = false;
     }
 
     public String getPhoneNumber() {
@@ -116,6 +119,14 @@ public class User {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

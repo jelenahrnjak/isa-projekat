@@ -121,6 +121,6 @@ public class RegistrationDTO {
     }
 
     public User getUser(){
-        return new User(this.getUsername(), this.getPassword(),this.getEmail(), this.getName(), this.getSurname(), this.getPhoneNumber(), false);
+        return new User(this.getUsername(), this.getPassword(),this.getEmail(), this.getName(), this.getSurname(), this.getPhoneNumber());
     }
 }
