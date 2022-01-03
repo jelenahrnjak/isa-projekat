@@ -2,14 +2,14 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
-import com.example.WishAndFish.server.AddressService;
-import com.example.WishAndFish.server.CityService;
-import com.example.WishAndFish.server.CountryService;
+import com.example.WishAndFish.service.AddressService;
+import com.example.WishAndFish.service.CityService;
+import com.example.WishAndFish.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.WishAndFish.server.UserService;
+import com.example.WishAndFish.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;

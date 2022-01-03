@@ -1,4 +1,4 @@
-package com.example.WishAndFish.server;
+package com.example.WishAndFish.service;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.WishAndFish.server;
+package com.example.WishAndFish.service;
 
 import java.util.List;
 
@@ -21,11 +21,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User save(User exam) {
-        return userRepository.save(exam);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     public void remove(Integer id) {
         userRepository.deleteById(id);
     }
+
+    public User findByEmail(String email) { return userRepository.findByEmail(email);}
 }
