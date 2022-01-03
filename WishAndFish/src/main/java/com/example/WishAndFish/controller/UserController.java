@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<User> saveUser(@RequestBody User registrationDTO) {
-        userService.save(registrationDTO);
-        addressService.save(registrationDTO.getAddress());
-        cityService.save(registrationDTO.getAddress().getCity());
-        countryService.save(registrationDTO.getAddress().getCity().getCountry());
-        return new ResponseEntity<>(registrationDTO, HttpStatus.CREATED);
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        userService.save(new User(user));
+        addressService.save(user.getAddress());
+        cityService.save(user.getAddress().getCity());
+        countryService.save(user.getAddress().getCity().getCountry());
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
 	/*@PutMapping(consumes = "application/json")
