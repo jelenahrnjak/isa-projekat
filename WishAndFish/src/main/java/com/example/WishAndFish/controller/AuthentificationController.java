@@ -37,19 +37,20 @@ public class AuthentificationController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserTokenState> createAuthenticationToken(
+    public ResponseEntity<String> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
+            //public ResponseEntity<UserTokenState>
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+//                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        User user = (User) authentication.getPrincipal();
+//        String jwt = tokenUtils.generateToken(user.getUsername());
+//        int expiresIn = tokenUtils.getExpiredIn();
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername());
-        int expiresIn = tokenUtils.getExpiredIn(); 
-
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        //return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        return ResponseEntity.ok("Successfully!");
     }
 
     @PostMapping("/signup")

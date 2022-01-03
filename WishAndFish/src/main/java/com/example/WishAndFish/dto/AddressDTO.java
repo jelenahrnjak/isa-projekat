@@ -14,6 +14,7 @@ public class AddressDTO {
     }
 
     public AddressDTO(String street, String streetNumber, String postalCode, double longitude, double latitude, String cityName, String countryName) {
+
         this.street = street;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
@@ -21,6 +22,7 @@ public class AddressDTO {
         this.latitude = latitude;
         this.cityName = cityName;
         this.countryName = countryName;
+
     }
 
     public String getStreet() {
