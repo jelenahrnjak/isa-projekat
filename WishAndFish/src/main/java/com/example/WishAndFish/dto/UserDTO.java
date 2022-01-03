@@ -3,7 +3,6 @@ package com.example.WishAndFish.dto;
 import com.example.WishAndFish.model.User;
 
 public class UserDTO {
-    private String username;
     private String password;
     private String email;
     private String name;
@@ -14,8 +13,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String email, String name, String surname, String phoneNumber) {
-        this.username = username;
+    public UserDTO(String password, String email, String name, String surname, String phoneNumber) {
         this.password = password;
         this.email = email;
         this.name = name;
@@ -24,16 +22,16 @@ public class UserDTO {
     }
 
     public UserDTO(User k){
-        this.username = k.getUsername();
+        this.email = k.getEmail();
         this.password = k.getPassword();
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

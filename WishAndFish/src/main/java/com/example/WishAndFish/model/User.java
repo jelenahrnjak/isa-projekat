@@ -6,12 +6,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
+    public enum LoyaltyCategories {
+        REGULAR,
+        SILVER,
+        GOLD;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
     @Column(name = "password", unique = false, nullable = false)
     private String password;
     @Column(name = "email", unique = true, nullable = false)
@@ -29,13 +33,16 @@ public class User {
     private boolean deleted;
     @Column(name = "enabled", unique = false, nullable = false)
     private boolean enabled;
+    @Column(name = "points", unique = false, nullable = false)
+    private double points;
+    @Column(name = "loyaltyCategory", unique = false, nullable = false)
+    private LoyaltyCategories loyaltyCategory;
 
     public User() {
         super();
     }
 
-    public User(String username, String password, String email, String name, String surname, String phoneNumber) {
-        this.username = username;
+    public User(String password, String email, String name, String surname, String phoneNumber) {
         this.password = password;
         this.email = email;
         this.name = name;
@@ -43,6 +50,20 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.deleted = false;
         this.enabled = false;
+        this.points = 0.0;
+        this.loyaltyCategory = LoyaltyCategories.REGULAR;
+    }
+
+    public User(User u){
+        this.password = u.password;
+        this.email = u.email;
+        this.name = u.name;
+        this.surname = u.surname;
+        this.phoneNumber = u.phoneNumber;
+        this.deleted = false;
+        this.enabled = false;
+        this.points = 0.0;
+        this.loyaltyCategory = LoyaltyCategories.REGULAR;
     }
 
     public String getPhoneNumber() {
@@ -59,14 +80,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -129,16 +142,24 @@ public class User {
         this.enabled = enabled;
     }
 
+    public double getPoints() {return points; }
+
+    public void setPoints(double points) { this.points = points; }
+
+    public LoyaltyCategories getLoyaltyCategory() { return loyaltyCategory; }
+
+    public void setLoyaltyCategory(LoyaltyCategories loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password);
+        return Objects.hash(id, email, password);
     }
 
     @Override
     public String toString() {
         return "Korisnik{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
