@@ -1,28 +1,26 @@
 package com.example.WishAndFish.dto;
 
-import com.example.WishAndFish.model.User;
-
-import javax.persistence.Column;
-
 public class AddressDTO {
 
     private String street;
     private String streetNumber;
     private String postalCode;
-    private String longitude;
-    private String latitude;
-    private CityDTO city;
+    private double longitude;
+    private double latitude;
+    private String cityName;
+    private String countryName;
 
     public AddressDTO() {
     }
 
-    public AddressDTO(String street, String streetNumber, String postalCode, String longitude, String latitude, CityDTO city) {
+    public AddressDTO(String street, String streetNumber, String postalCode, double longitude, double latitude, String cityName, String countryName) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.city = city;
+        this.cityName = cityName;
+        this.countryName = countryName;
     }
 
     public String getStreet() {
@@ -49,27 +47,35 @@ public class AddressDTO {
         this.postalCode = postalCode;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public CityDTO getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity(CityDTO city) {
-        this.city = city;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 }

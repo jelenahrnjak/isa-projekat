@@ -10,6 +10,7 @@ public class UserDTO {
     private String surname;
     private String phoneNumber;
     private AddressDTO address;
+    private String roleName;
 
     public UserDTO() {
     }
@@ -83,5 +84,13 @@ public class UserDTO {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

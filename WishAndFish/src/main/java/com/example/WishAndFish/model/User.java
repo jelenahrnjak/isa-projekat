@@ -25,7 +25,7 @@ public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "password", unique = false, nullable = false)
     private String password;
@@ -95,11 +95,11 @@ public class User implements UserDetails{
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
