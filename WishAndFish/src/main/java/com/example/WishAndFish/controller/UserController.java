@@ -31,12 +31,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> getCourses() {
 
-        List<User> korisnici = userService.findAll();
+        List<User> users = userService.findAll();
 
         // convert courses to DTOs
         List<UserDTO> korisniciDTO = new ArrayList<>();
-        for (User k : korisnici) {
-            korisniciDTO.add(new UserDTO(k));
+        for (User u : users) {
+            korisniciDTO.add(new UserDTO(u));
         }
 
         return new ResponseEntity<>(korisniciDTO, HttpStatus.OK);

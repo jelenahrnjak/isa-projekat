@@ -3,29 +3,29 @@ package com.example.WishAndFish.server;
 import java.util.List;
 
 import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.WishAndFish.repository.KorisnikRepository;
 
 @Service
 public class UserService {
 
     @Autowired
-    private KorisnikRepository examRepository;
+    private UserRepository userRepository;
 
     public User findOne(Integer id) {
-        return examRepository.findById(id).orElseGet(null);
+        return userRepository.findById(id).orElseGet(null);
     }
 
     public List<User> findAll() {
-        return examRepository.findAll();
+        return userRepository.findAll();
     }
 
     public User save(User exam) {
-        return examRepository.save(exam);
+        return userRepository.save(exam);
     }
 
     public void remove(Integer id) {
-        examRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 }
