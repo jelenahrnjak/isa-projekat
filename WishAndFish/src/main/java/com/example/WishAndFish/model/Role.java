@@ -17,7 +17,7 @@ public class Role implements GrantedAuthority{
     @Id
     @Column(name="id",unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    long id;
 
     @Column(name="name",unique = true, nullable = false)
     String name;
@@ -30,11 +30,11 @@ public class Role implements GrantedAuthority{
     }
 
     @JsonIgnore
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

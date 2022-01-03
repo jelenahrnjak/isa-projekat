@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthentificationController {
 
     @Autowired
@@ -36,22 +36,21 @@ public class AuthentificationController {
     @Autowired
     private UserService userService;
 
-    // Prvi endpoint koji pogadja korisnik kada se loguje.
-    // Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
     @PostMapping("/login")
-    public ResponseEntity<UserTokenState> createAuthenticationToken(
+    public ResponseEntity<String> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
+            //public ResponseEntity<UserTokenState>
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+//                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        User user = (User) authentication.getPrincipal();
+//        String jwt = tokenUtils.generateToken(user.getUsername());
+//        int expiresIn = tokenUtils.getExpiredIn();
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername());
-        int expiresIn = tokenUtils.getExpiredIn();
-
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        //return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        return ResponseEntity.ok("Successfully!");
     }
 
     @PostMapping("/signup")

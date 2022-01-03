@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "addresses")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,35 +17,28 @@ public class Address {
     private String streetNumber;
     @Column(name = "postalCode", unique = false, nullable = false)
     private String postalCode;
+    @Column(unique = false, nullable = false)
+    private String cityName;
+    @Column(unique = false, nullable = false)
+    private String countryName;
     @Column(name = "longitude", unique = false, nullable = true)
-    private String longitude;
+    private double longitude;
     @Column(name = "latitude", unique = false, nullable = true)
-    private String latitude;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cityId")
-    private City city;
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+    private double latitude;
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
     public Address() {
     }
 
-    public Address(String street, String streetNumber, String postalCode, String longitude, String latitude) {
+    public Address(String street, String streetNumber, String postalCode, String cityName, String countryName, double longitude, double latitude) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
+        this.cityName = cityName;
+        this.countryName = countryName;
         this.longitude = longitude;
         this.latitude = latitude;
-    }
-
-    public Address(String street, String streetNumber, String postalCode, String longitude, String latitude, City city, Set<User> users) {
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.postalCode = postalCode;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.city = city;
-        this.users = users;
     }
 
     public long getId() {
@@ -79,28 +73,36 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public City getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public Set<User> getUsers() {
