@@ -9,6 +9,7 @@ import com.example.WishAndFish.model.Address;
 import com.example.WishAndFish.model.Role;
 import com.example.WishAndFish.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +38,27 @@ public class UserService {
         User user = new User(passwordEncoder.encode(requestUser.getPassword()), requestUser.getEmail(), requestUser.getName(), requestUser.getSurname(), requestUser.getPhoneNumber());
         Address address = new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(), a.getCountryName(),a.getLongitude(),a.getLatitude());
         user.setAddress(address);
+        user.setVerificationCode(requestUser.getVerificationCode());
 
         Role role = roleService.findByName(requestUser.getRoleName());
         user.setRole(role);
 
         return this.userRepository.save(user);
+    }
+
+    public boolean verify(String verificationCode) {
+        User user = userRepository.findByVerificationCode(verificationCode);
+
+        if (user == null || user.isEnabled()) {
+            return false;
+        } else {
+            user.setVerificationCode(null);
+            user.setEnabled(true);
+            userRepository.save(user);
+
+            return true;
+        }
+
     }
 
     public void remove(Long id) {

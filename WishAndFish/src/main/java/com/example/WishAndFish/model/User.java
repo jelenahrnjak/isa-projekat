@@ -50,7 +50,8 @@ public class User implements UserDetails{
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id")
     private Role role;
-
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
     public User() {
         super();
     }
@@ -173,6 +174,14 @@ public class User implements UserDetails{
 
     public Role getRole() {
         return role;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     public Timestamp getLastPasswordResetDate() {
