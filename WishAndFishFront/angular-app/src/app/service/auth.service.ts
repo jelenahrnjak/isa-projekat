@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
+import jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthService {
@@ -36,8 +37,10 @@ export class AuthService {
       .pipe(map((res) => {
         console.log('Login success');
         this.access_token = res.accessToken;
-        localStorage.setItem("jwt", res.accessToken)
-        console.log(res.accessToken)
+        let decoded: any = jwt_decode(res.accessToken)
+        localStorage.setItem("user", decoded.sub)
+        localStorage.setItem("role", decoded.role)
+        console.log(localStorage.getItem("user") + " " + localStorage.getItem("role"))
       }));
   }
 
