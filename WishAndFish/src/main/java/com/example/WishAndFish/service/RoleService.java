@@ -1,11 +1,9 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.model.Role;
+import com.example.WishAndFish.security.auth.model.Role;
 import com.example.WishAndFish.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class RoleService {
@@ -18,9 +16,9 @@ public class RoleService {
         return auth;
     }
 
-    public List<Role> findByName(String name) {
-        List<Role> roles = this.roleRepository.findByName(name);
-        return roles;
+    public Role findByName(String name) {
+        Role role = this.roleRepository.findByName(name);
+        return role;
     }
 
 }

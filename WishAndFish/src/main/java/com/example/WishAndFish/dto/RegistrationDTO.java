@@ -1,6 +1,6 @@
 package com.example.WishAndFish.dto;
 
-import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.security.auth.model.User;
 
 public class RegistrationDTO {
     private String username;

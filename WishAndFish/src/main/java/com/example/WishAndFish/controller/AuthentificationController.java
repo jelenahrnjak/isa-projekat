@@ -6,7 +6,7 @@ import com.example.WishAndFish.dto.JwtAuthenticationRequest;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
-import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.security.auth.model.User;
 import com.example.WishAndFish.service.UserService;
 import com.example.WishAndFish.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +37,22 @@ public class AuthentificationController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> createAuthenticationToken(
+    public ResponseEntity<UserTokenState>createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
-            //public ResponseEntity<UserTokenState>
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-//                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        User user = (User) authentication.getPrincipal();
-//        String jwt = tokenUtils.generateToken(user.getUsername());
-//        int expiresIn = tokenUtils.getExpiredIn();
 
-        //return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
-        return ResponseEntity.ok("Successfully!");
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User user = (User) authentication.getPrincipal();
+        if(!user.isEnabled() || user.isDeleted()){
+            return ResponseEntity.ok(null);
+        }
+        String jwt = tokenUtils.generateToken(user.getEmail(),user.getRole().getName());
+        int expiresIn = tokenUtils.getExpiredIn();
+
+        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }
 
     @PostMapping("/signup")

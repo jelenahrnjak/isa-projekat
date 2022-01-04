@@ -1,11 +1,8 @@
-package com.example.WishAndFish.model;
+package com.example.WishAndFish.security.auth.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,14 +47,9 @@ public class User implements UserDetails{
     private LoyaltyCategories loyaltyCategory;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "role_id")
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-
-    private List<Role> roles;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public User() {
         super();
@@ -175,12 +167,12 @@ public class User implements UserDetails{
 
     public void setLoyaltyCategory(LoyaltyCategories loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
     public Timestamp getLastPasswordResetDate() {
@@ -208,7 +200,9 @@ public class User implements UserDetails{
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        List<Role> collection = new ArrayList<Role>();
+        collection.add(this.role);
+        return collection;
     }
 
     @JsonIgnore

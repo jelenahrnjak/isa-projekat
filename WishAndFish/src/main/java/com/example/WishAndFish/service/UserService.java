@@ -5,9 +5,9 @@ import java.util.List;
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.repository.UserRepository;
-import com.example.WishAndFish.model.Address;
-import com.example.WishAndFish.model.Role;
-import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.security.auth.model.Address;
+import com.example.WishAndFish.security.auth.model.Role;
+import com.example.WishAndFish.security.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +34,8 @@ public class UserService {
         Address address = new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(), a.getCountryName(),a.getLongitude(),a.getLatitude());
         user.setAddress(address);
 
-        List<Role> roles = roleService.findByName(requestUser.getRoleName());
-        user.setRoles(roles);
+        Role role = roleService.findByName(requestUser.getRoleName());
+        user.setRole(role);
 
         return this.userRepository.save(user);
     }
