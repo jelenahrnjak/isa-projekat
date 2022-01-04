@@ -29,7 +29,7 @@ export class AuthService {
     });
     // const body = `username=${user.username}&password=${user.password}`;
     const body = {
-      'username': user.username,
+      'email': user.username,
       'password': user.password
     };
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
@@ -37,6 +37,7 @@ export class AuthService {
         console.log('Login success');
         this.access_token = res.accessToken;
         localStorage.setItem("jwt", res.accessToken)
+        console.log(res.accessToken)
       }));
   }
 
