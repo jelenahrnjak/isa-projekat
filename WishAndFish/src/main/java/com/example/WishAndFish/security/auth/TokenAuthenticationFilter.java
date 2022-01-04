@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import com.example.WishAndFish.util.TokenUtils;
+import com.example.WishAndFish.security.util.TokenUtils;
 public class TokenAuthenticationFilter extends OncePerRequestFilter{
 
     private TokenUtils tokenUtils;
@@ -44,7 +44,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
             if (authToken != null) {
 
                 // 2. Citanje korisnickog imena iz tokena
-                username = tokenUtils.getUsernameFromToken(authToken);
+                username = tokenUtils.getEmailFromToken(authToken);
 
                 if (username != null) {
 

@@ -1,9 +1,9 @@
-package com.example.WishAndFish.config;
+package com.example.WishAndFish.security.config;
 
 import com.example.WishAndFish.security.auth.RestAuthenticationEntryPoint;
 import com.example.WishAndFish.security.auth.TokenAuthenticationFilter;
+import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.CustomUserDetailsService;
-import com.example.WishAndFish.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +15,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 
 @Configuration
-// Ukljucivanje podrske za anotacije "@Pre*" i "@Post*" koje ce aktivirati autorizacione provere za svaki pristup metodi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new CustomPasswordEncoder();
+    }
 
     // Servis koji se koristi za citanje podataka o korisnicima aplikacije
     @Autowired
@@ -39,14 +44,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Definisemo nacin utvrdjivanja korisnika pri autentifikaciji
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 // Definisemo uputstva AuthenticationManager-u:
 
                 // 1. koji servis da koristi da izvuce podatke o korisniku koji zeli da se autentifikuje
                 // prilikom autentifikacije, AuthenticationManager ce sam pozivati loadUserByUsername() metodu ovog servisa
-                .userDetailsService(customUserDetailsService);
+                .userDetailsService(customUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     // Injektujemo implementaciju iz TokenUtils klase kako bismo mogli da koristimo njene metode za rad sa JWT u TokenAuthenticationFilteru
