@@ -1,6 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.security.auth.model.User;
+import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

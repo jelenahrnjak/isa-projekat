@@ -6,7 +6,7 @@ import com.example.WishAndFish.dto.JwtAuthenticationRequest;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
-import com.example.WishAndFish.security.auth.model.User;
+import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.service.UserService;
 import com.example.WishAndFish.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;

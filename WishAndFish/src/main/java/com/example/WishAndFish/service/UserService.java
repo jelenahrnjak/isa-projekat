@@ -5,10 +5,11 @@ import java.util.List;
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.repository.UserRepository;
-import com.example.WishAndFish.security.auth.model.Address;
-import com.example.WishAndFish.security.auth.model.Role;
-import com.example.WishAndFish.security.auth.model.User;
+import com.example.WishAndFish.model.Address;
+import com.example.WishAndFish.model.Role;
+import com.example.WishAndFish.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +21,9 @@ public class UserService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User findOne(Long id) {
         return userRepository.findById(id).orElseGet(null);
     }
@@ -30,7 +34,7 @@ public class UserService {
 
     public User save(UserDTO requestUser) {
         AddressDTO a = requestUser.getAddress();
-        User user = new User(requestUser.getPassword(), requestUser.getEmail(), requestUser.getName(), requestUser.getSurname(), requestUser.getPhoneNumber());
+        User user = new User(passwordEncoder.encode(requestUser.getPassword()), requestUser.getEmail(), requestUser.getName(), requestUser.getSurname(), requestUser.getPhoneNumber());
         Address address = new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(), a.getCountryName(),a.getLongitude(),a.getLatitude());
         user.setAddress(address);
 

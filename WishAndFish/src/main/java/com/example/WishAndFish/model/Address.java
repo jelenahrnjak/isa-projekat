@@ -1,4 +1,4 @@
-package com.example.WishAndFish.security.auth.model;
+package com.example.WishAndFish.model;
 
 import javax.persistence.*;
 import java.util.HashSet;

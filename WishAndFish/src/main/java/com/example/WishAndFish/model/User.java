@@ -1,4 +1,4 @@
-package com.example.WishAndFish.security.auth.model;
+package com.example.WishAndFish.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -35,7 +35,7 @@ public class User implements UserDetails{
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
-    @Column(name = "phoneNumber", unique = true, nullable = false)
+    @Column(name = "phoneNumber", unique = false, nullable = false)
     private String phoneNumber;
     @Column(name = "deleted", unique = false, nullable = false)
     private boolean deleted;

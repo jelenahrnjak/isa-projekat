@@ -1,4 +1,4 @@
-package com.example.WishAndFish.security.auth.model;
+package com.example.WishAndFish.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
