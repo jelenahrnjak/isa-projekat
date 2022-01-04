@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {FooService} from '../service/foo.service';
+import { Component, OnInit } from '@angular/core'; 
 import {UserService} from '../service/user.service';
 import {ConfigService} from '../service/config.service';
 
@@ -15,8 +14,7 @@ export class HomeComponent implements OnInit {
   allUserResponse = {};
 
   constructor(
-    private config: ConfigService,
-    private fooService: FooService,
+    private config: ConfigService, 
     private userService: UserService
   ) {
   }
@@ -25,28 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   makeRequest(path) {
-    if (this.config.foo_url.endsWith(path)) {
-      this.fooService.getFoo()
-        .subscribe(res => {
-          this.forgeResonseObj(this.fooResponse, res, path);
-        }, err => {
-          this.forgeResonseObj(this.fooResponse, err, path);
-        });
-    } else if (this.config.whoami_url.endsWith(path)) {
-      this.userService.getMyInfo()
-        .subscribe(res => {
-          this.forgeResonseObj(this.whoamIResponse, res, path);
-        }, err => {
-          this.forgeResonseObj(this.whoamIResponse, err, path);
-        });
-    } else {
-      this.userService.getAll()
-        .subscribe(res => {
-          this.forgeResonseObj(this.allUserResponse, res, path);
-        }, err => {
-          this.forgeResonseObj(this.allUserResponse, err, path);
-        });
-    }
+     
   }
 
   forgeResonseObj(obj, res, path) {

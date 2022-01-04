@@ -4,8 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CardComponent } from './card/card.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
@@ -16,8 +15,7 @@ import {AngularMaterialModule} from './angular-material/angular-material.module'
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {ApiService} from './service/api.service';
-import {FooService} from './service/foo.service';
+import {ApiService} from './service/api.service'; 
 import {AuthService} from './service/auth.service';
 import {UserService} from './service/user.service';
 import {ConfigService} from './service/config.service';
@@ -27,8 +25,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CardComponent,
+    AppComponent, 
     HomeComponent,
     HeaderComponent,
     UserMenuComponent,
@@ -49,8 +46,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    },
-    FooService,
+    }, 
     AuthService,
     ApiService,
     UserService,
