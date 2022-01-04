@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import com.example.WishAndFish.util.TokenUtils;
+import com.example.WishAndFish.security.util.TokenUtils;
 public class TokenAuthenticationFilter extends OncePerRequestFilter{
 
     private TokenUtils tokenUtils;

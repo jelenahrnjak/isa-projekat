@@ -8,7 +8,7 @@ import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.service.UserService;
-import com.example.WishAndFish.util.TokenUtils;
+import com.example.WishAndFish.security.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

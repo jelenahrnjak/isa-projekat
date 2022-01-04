@@ -1,4 +1,4 @@
-package com.example.WishAndFish.util;
+package com.example.WishAndFish.security.util;
 
 import java.util.Date;
 

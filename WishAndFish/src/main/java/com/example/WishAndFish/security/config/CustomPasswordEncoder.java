@@ -1,4 +1,4 @@
-package com.example.WishAndFish.config;
+package com.example.WishAndFish.security.config;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
