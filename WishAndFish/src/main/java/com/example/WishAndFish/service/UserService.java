@@ -61,6 +61,22 @@ public class UserService {
 
     }
 
+    public void update(UserDTO user) {
+        User updated = userRepository.findByEmail(user.getEmail());
+        updated.setName(user.getName());
+        updated.setSurname(user.getSurname());
+        updated.setPhoneNumber(user.getPhoneNumber());
+        AddressDTO a = user.getAddress();
+        updated.setAddress(new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(),a.getCountryName()));
+        userRepository.save(user);
+    }
+
+    public void updatePasswod(UserDTO user) {
+        User updated=userRepository.findByEmail(user.getEmail());
+        user.setPassword(user.getPassword());
+        userRepository.save(user);
+    }
+
     public void remove(Long id) {
         userRepository.deleteById(id);
     }

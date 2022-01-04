@@ -83,12 +83,11 @@ public class AuthentificationController {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<String> verifyUser(@Param("code") String code) {
+    public String verifyUser(@Param("code") String code) {
         if (userService.verify(code)) {
-            System.out.println("USPESNO " + code);
-            return new ResponseEntity<>("Successfully verified!", HttpStatus.ACCEPTED);
+            return "success";
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return "failed";
         }
     }
 
