@@ -11,6 +11,7 @@ public class UserDTO {
     private String phoneNumber;
     private AddressDTO address;
     private String roleName;
+    private String verificationCode;
 
     public UserDTO() {
     }
@@ -92,5 +93,13 @@ public class UserDTO {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

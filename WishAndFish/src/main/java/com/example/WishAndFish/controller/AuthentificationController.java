@@ -1,5 +1,7 @@
 package com.example.WishAndFish.controller;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.WishAndFish.dto.JwtAuthenticationRequest;
@@ -7,9 +9,12 @@ import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
 import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.service.EmailService;
 import com.example.WishAndFish.service.UserService;
 import com.example.WishAndFish.security.util.TokenUtils;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +22,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,6 +39,9 @@ public class AuthentificationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/login")
     public ResponseEntity<UserTokenState>createAuthenticationToken(
@@ -56,15 +63,37 @@ public class AuthentificationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
         User existUser = this.userService.findByEmail(userRequest.getEmail());
 
         if (existUser != null) {
             throw new ResourceConflictException(userRequest.getId(), "Email already exists");
         }
 
+        String randomCode = RandomString.make(64);
+        userRequest.setVerificationCode(randomCode);
         User user = this.userService.save(userRequest);
+        try{
+            emailService.sendMailForVerfication(user, getSiteURL(request));
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            System.out.println("USPESNO " + code);
+            return new ResponseEntity<>("Successfully verified!", HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
 }
