@@ -7,12 +7,15 @@ import com.example.WishAndFish.security.util.TokenUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.WishAndFish.service.UserService;
 
 
 @RestController
 @RequestMapping(value = "api/users")
+@CrossOrigin(origins="http://localhost:8080")
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -42,11 +45,14 @@ public class UserController {
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)
-    public @ResponseBody ChangePasswordDTO changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordDTO dto) {
+    public ResponseEntity<String> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordDTO dto) {
 
         String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
         User user = userService.findByEmail(email);
-
-        return userService.updatePasswod(dto);
+        ChangePasswordDTO u = userService.updatePasswod(dto);
+        if(u == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Success",HttpStatus.ACCEPTED);
     }
 }

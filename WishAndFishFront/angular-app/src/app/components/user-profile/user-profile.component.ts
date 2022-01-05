@@ -1,0 +1,102 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, UserService } from '../../service';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+
+interface DisplayMessage {
+  msgType: string;
+  msgBody: string;
+}
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
+})
+export class UserProfileComponent implements OnInit {
+
+  title = 'Profile informations'; 
+  user: any
+  address : any
+  userInfo: any
+  editing = false;  
+
+  notification: DisplayMessage; 
+  returnUrl: string;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder) { }
+
+    form = new FormGroup({
+      name: new FormControl(''),
+      surname: new FormControl(''),  
+      email: new FormControl(''),
+      phoneNumber: new FormControl(''), 
+      street: new FormControl(''), 
+      streetNumber: new FormControl(''), 
+      postalCode: new FormControl(''), 
+      cityName: new FormControl(''), 
+      countryName: new FormControl('')
+    })
+
+  ngOnInit() {
+    this.route.params
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((params: DisplayMessage) => {
+        this.notification = params;
+    }); 
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.refreshForm();
+  }
+
+  refreshForm(){
+    this.userService.getUser().subscribe((data : any) => {
+      this.user = data
+      this.address = data.address
+      this.userInfo = JSON.parse(JSON.stringify(data)); //clones, read docs for info
+      this.form.controls['name'].setValue(this.user.name)
+      this.form.controls['surname'].setValue(this.user.surname)  
+      this.form.controls['email'].setValue(this.user.email)
+      this.form.controls['phoneNumber'].setValue(this.user.phoneNumber) 
+      this.form.controls['street'].setValue(this.address.street)
+      this.form.controls['streetNumber'].setValue(this.address.streetNumber)
+      this.form.controls['postalCode'].setValue(this.address.postalCode)
+      this.form.controls['cityName'].setValue(this.address.cityName)
+      this.form.controls['countryName'].setValue(this.address.countryName)
+    });   
+  }
+
+  changeForm() { 
+    this.notification = undefined; 
+    this.refreshForm();
+    this.editing = !this.editing;
+
+  }
+
+  onSubmit() {   
+    this.user.name = this.form.get('name').value
+    this.user.surname = this.form.get('surname').value
+    this.user.phoneNumber = this.form.get('phoneNumber').value
+    this.address.street = this.form.get('street').value
+    this.address.streetNumber = this.form.get('streetNumber').value
+    this.address.postalCode = this.form.get('postalCode').value
+    this.address.cityName = this.form.get('cityName').value
+    this.address.countryName = this.form.get('countryName').value
+    this.user.address= this.address
+
+    this.userService.update(this.user).subscribe((data) => {
+      this.user = data ;
+      this.userInfo = JSON.parse(JSON.stringify(data));
+      this.editing = false;
+    })
+  }
+
+
+}

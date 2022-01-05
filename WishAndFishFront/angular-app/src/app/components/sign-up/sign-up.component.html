@@ -9,11 +9,11 @@
         <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
             <mat-form-field>
                 <label>First Name: </label>
-                <input formControlName="firstname" matInput required>
+                <input formControlName="name" matInput required>
             </mat-form-field>
             <mat-form-field>
                 <label>Last Name: </label>
-                <input formControlName="lastname" matInput required>
+                <input formControlName="surname" matInput required>
             </mat-form-field>
             <mat-form-field>
                 <label>Email: </label>
