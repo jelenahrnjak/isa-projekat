@@ -33,7 +33,7 @@ public class Appointment {
     private Boolean reserved;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cottage_id")
+    @JoinColumn(name = "cottage_id", nullable = false)
     private Cottage cottage;
 
     @ManyToMany(mappedBy = "appointments")

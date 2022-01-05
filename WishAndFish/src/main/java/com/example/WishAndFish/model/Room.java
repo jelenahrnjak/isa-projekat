@@ -15,6 +15,6 @@ public class Room {
     private Integer bedNumber;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cottage_id")
+    @JoinColumn(name = "cottage_id", nullable = false)
     private Cottage cottage;
 }
