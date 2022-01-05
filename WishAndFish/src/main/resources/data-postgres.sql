@@ -23,6 +23,10 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 0, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
 
+
+INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 1, 'Kristina', 'Nikola1234.', '0643515864', 90, 'Stojić', 200, 3, null);
+
 INSERT INTO ROOMS(id, bed_number)
 	VALUES (124, 10);
 INSERT INTO ROOMS(id, bed_number)
@@ -34,12 +38,12 @@ INSERT INTO ROOMS(id, bed_number)
 
 
 
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
-	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
-	VALUES (111, 'Very good', 'The Overlook', 75, 500);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
-	VALUES (112, 'Good', 'The River', 75, 500);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
+	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
+	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
+	VALUES (112, 'Good', 'The River', 75, 500, 50);
 
 INSERT INTO ADDITIONAL_SERVICES(id, name, price)
 	VALUES (901, 'Parking', 0);
@@ -68,4 +72,6 @@ INSERT INTO APPOINTMENTS(
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
 	VALUES (901, 135);
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (902, 135)
+	VALUES (902, 135);
+
+

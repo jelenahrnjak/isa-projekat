@@ -37,6 +37,10 @@ public class Cottage {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cottage_owner_id")
+    private CottageOwner cottageOwner;
+
     public Cottage() {
     }
 
