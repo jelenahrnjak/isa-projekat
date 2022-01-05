@@ -12,7 +12,9 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (300, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-	VALUES (400, 'Zlatibor', 'Srbija', 35.455, 29.519380, '32000', 'Dušana Petrovića', '16');
+	VALUES (400, 'Novi Sad', 'Srbija', 35.455, 29.519380, '32000', 'Dušana Petrovića', '16');
+INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
+	VALUES (500, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
 
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 2, 'Jelena', 'flasaflasica123', '0607363683',151, 'Hrnjak', 100, 5, null);
@@ -33,4 +35,37 @@ INSERT INTO ROOMS(id, bed_number)
 
 
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
-	VALUES (110, "Good cottage on the river", "CotLux", 100, 400);
+	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
+	VALUES (111, 'Very good', 'The Overlook', 75, 500);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
+	VALUES (112, 'Good', 'The River', 75, 500);
+
+INSERT INTO ADDITIONAL_SERVICES(id, name)
+	VALUES (901, 'Parking');
+INSERT INTO public.additional_services(id, name)
+    VALUES (902, 'Wi-Fi');
+INSERT INTO public.additional_services(id, name)
+    VALUES (903, 'Air conditioning');
+INSERT INTO public.additional_services(id, name)
+    VALUES (904, 'Fruit');
+
+
+INSERT INTO public.rules(id, content, cottage_id)
+	VALUES (25, 'No smoking', 111);
+INSERT INTO public.rules(id, content, cottage_id)
+	VALUES (26, 'Forbidden food intake', 112);
+
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
+	VALUES (135, '2', '12-02-2022', 7, 130, false, '10-02-2022', 111);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
+	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111);
+
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (901, 135);
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (902, 135);
