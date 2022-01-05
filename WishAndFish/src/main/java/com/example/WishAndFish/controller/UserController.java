@@ -15,7 +15,7 @@ import com.example.WishAndFish.service.UserService;
 
 @RestController
 @RequestMapping(value = "api/users")
-@CrossOrigin(origins="http://localhost:8080")
+@CrossOrigin()
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);

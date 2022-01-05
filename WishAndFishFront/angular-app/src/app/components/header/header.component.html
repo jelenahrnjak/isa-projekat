@@ -7,13 +7,21 @@
             <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/login">
                 <span>Login</span>
             </button>
+            <button *ngIf="isAdmin()" class="greeting-button" mat-button 
+                mat-ripple>
+                <span>Register Admin</span>
+            </button>
+            <button *ngIf="isAdmin()" class="greeting-button" mat-button 
+                mat-ripple>
+                <span>Register Admin</span>
+            </button>
             <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-button" mat-button mat-ripple>
                 <span>Profile</span>
             </button>
-            <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-hamburger" mat-icon-button
+            <!-- <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-button" mat-icon-button
                 mat-ripple>
-                <mat-icon>menu</mat-icon>
-            </button>
+                <span>Menu</span>
+            </button> -->
             <mat-menu #userMenu [overlapTrigger]="false" class="app-header-userMenu" yposition="below">
                 <app-user-menu></app-user-menu>
             </mat-menu>

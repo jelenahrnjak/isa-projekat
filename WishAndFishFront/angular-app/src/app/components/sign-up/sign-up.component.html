@@ -1,12 +1,10 @@
-<mat-card elevation="5" fxFlex class="content">
-
+<mat-card elevation="5" fxFlex class="inline-block">
     <mat-card-title>
         <h2>{{title}}</h2>
     </mat-card-title>
-
-    <mat-card-content>
+    <mat-card-content class="inline-block">
         <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
-        <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+        <form (ngSubmit)="showAddressForm()" *ngIf="!submitted" [formGroup]="form">
             <mat-form-field>
                 <label>First Name: </label>
                 <input formControlName="name" matInput required>
@@ -30,30 +28,65 @@
             <mat-form-field>
                 <label>Repeat password: </label>
                 <input formControlName="passwordRepeated" matInput required type="password" required>
-            </mat-form-field>
-
-    
+            </mat-form-field>  
             <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
-            <select matNativeControl required>
+            <select formControlName="role" matNativeControl required>
                 <option value="client">Client</option>
                 <option value="cottage_owner">Cottage owner</option>
                 <option value="boat_owner">Boat owner</option>
                 <option value="instructor">Instructor</option>
             </select>
             </mat-form-field>
+            <button color="primary" mat-raised-button type="submit">Next</button>
+            <button color="primary" mat-raised-button routerLink="/login" >Have an account? Log in</button>
 
+            <!-- <button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Next</button> -->
+            <br>
+        </form>
+        <br>
 
+    </mat-card-content>
+</mat-card>
 
-
+<mat-card *ngIf="showAddress" elevation="5" fxFlex class="inline-block">
+    <mat-card-content class="inline-block">
+        <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+        <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+            <mat-form-field>
+                <label>Street: </label>
+                <input formControlName="street" matInput required>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Street number: </label>
+                <input formControlName="streetNumber" matInput required>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Postal code: </label>
+                <input formControlName="postalCode" matInput required>
+            </mat-form-field> 
+            <mat-form-field>
+                <label>Longitude: </label>
+                <input formControlName="longitude" matInput required>
+            </mat-form-field> 
+            <mat-form-field>
+                <label>Latitude: </label>
+                <input formControlName="latitude" matInput required>
+            </mat-form-field> 
+            <mat-form-field>
+                <label>City Name: </label>
+                <input formControlName="cityName" matInput required>
+            </mat-form-field>
+            <mat-form-field>
+                <label>Country Name: </label>
+                <input formControlName="countryName" matInput required>
+            </mat-form-field>
             <button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Sign up</button>
             <br>
-            <button color="primary" mat-raised-button routerLink="/login" >Have an account? Log in</button>
         </form>
         <br>
         <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
         <br>
         <hr>
-    </mat-card-content>
-    
+    </mat-card-content>       
 </mat-card>

@@ -17,6 +17,8 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 1, 'Kristina', 'Nikola1234.', '0643515864', 90, 'Stojić', 200, 3, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 0, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (40, false, 'urossisarica@gmail.com', true, null, 0, 'Uroš', 'urosuros', '0612345678', 0, 'Šišarica', 300, 2, null);
 
 
 

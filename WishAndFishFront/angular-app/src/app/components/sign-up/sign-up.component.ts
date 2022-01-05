@@ -19,6 +19,7 @@ export class SignUpComponent implements OnInit {
 
   title = 'Sign up';
   form: FormGroup;
+  formAdress : FormGroup;
 
   /**
    * Boolean used in telling the UI
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
    * and is awaiting a response
    */
   submitted = false;
+  showAddress = false;
 
   /**
    * Notification message from received
@@ -60,8 +62,16 @@ export class SignUpComponent implements OnInit {
       name: [''],
       surname: [''],
       email: [''],
-      phoneNumber: ['']
-    });
+      phoneNumber: [''],
+      role : [''],
+      street : [''],
+      streetNumber : [''],
+      postalCode : [''],
+      longitude : [''],
+      latitude : [''],
+      cityName : [''],
+      countryName : ['']
+    })
   }
 
   ngOnDestroy() {
@@ -75,8 +85,27 @@ export class SignUpComponent implements OnInit {
      */
     this.notification = undefined;
     this.submitted = true;
+    console.log(this.form.value[0]);
+    var User = { 
+      "id" : 232,
+      "password" : this.form.get('password').value,
+      "email" : this.form.get('email').value,
+      "name" : this.form.get('name').value,
+      "surname" : this.form.get('surname').value,
+      "phoneNumber" : this.form.get('phoneNumber').value,
+      "address" : {
+          "street" : this.form.get('street').value,
+          "streetNumber" : this.form.get('streetNumber').value,
+          "postalCode" : this.form.get('postalCode').value,
+          "longitude" : this.form.get('longitude').value,
+          "latitude" : this.form.get('latitude').value, 
+          "cityName" : this.form.get('cityName').value,
+          "countryName" : this.form.get('countryName').value    
+      },
+      "roleName" : this.form.get('role').value
+  }
 
-    this.authService.signup(this.form.value)
+    this.authService.signup(User)
       .subscribe(data => {
         console.log(data);
         this.authService.login(this.form.value).subscribe(() => {
@@ -90,6 +119,10 @@ export class SignUpComponent implements OnInit {
           this.notification = { msgType: 'error', msgBody: error['error'].message };
         });
 
+  }
+
+  showAddressForm() {
+    this.showAddress = true;
   }
 
 

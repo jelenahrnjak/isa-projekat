@@ -44,4 +44,8 @@
     cursor: auto;
     color: #FFFFFF;
   }
+
+  .inline-block {
+    display: inline-block;
+  }
   

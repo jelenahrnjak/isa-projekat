@@ -23,4 +23,12 @@ export class HeaderComponent implements OnInit {
     return user.name + ' ' + user.surname;
   }
 
+  isAdmin() {
+    let role = localStorage.getItem("role");
+    if (role == "ROLE_ADMIN" && this.hasSignedIn()){
+      return true;
+    }
+    return false;
+  }
+
 }
