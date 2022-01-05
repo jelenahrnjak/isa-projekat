@@ -141,6 +141,21 @@ public class TokenUtils {
         return email;
     }
 
+    public String getRoleFromToken(String token) {
+        String roleName;
+
+        try {
+            final Claims claims = this.getAllClaimsFromToken(token);
+            roleName = claims.get("role", String.class);
+        } catch (ExpiredJwtException ex) {
+            throw ex;
+        } catch (Exception e) {
+            roleName = null;
+        }
+
+        return roleName;
+    }
+
     /**
      * Funkcija za preuzimanje datuma kreiranja tokena.
      * @param token JWT token.
