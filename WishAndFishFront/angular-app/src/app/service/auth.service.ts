@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
+import jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthService {
@@ -19,6 +20,7 @@ export class AuthService {
     private router: Router
   ) {
   }
+  logged: Boolean = false;
 
   private access_token = null;
 
@@ -29,14 +31,19 @@ export class AuthService {
     });
     // const body = `username=${user.username}&password=${user.password}`;
     const body = {
-      'username': user.username,
+      'email': user.username,
       'password': user.password
     };
+
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
         console.log('Login success');
+        this.logged = true;
         this.access_token = res.accessToken;
-        localStorage.setItem("jwt", res.accessToken)
+        let decoded: any = jwt_decode(res.accessToken)
+        localStorage.setItem("user", decoded.sub)
+        localStorage.setItem("role", decoded.role)
+        console.log(localStorage.getItem("user") + " " + localStorage.getItem("role"))
       }));
   }
 
@@ -54,6 +61,8 @@ export class AuthService {
   logout() {
     this.userService.currentUser = null;
     this.access_token = null;
+    localStorage.clear();
+    this.logged = false;
     this.router.navigate(['/login']);
   }
 

@@ -69,11 +69,11 @@ export class LoginComponent implements OnInit {
      */
     this.notification = undefined;
     this.submitted = true;
-
     this.authService.login(this.form.value)
       .subscribe(data => {
-          this.userService.getMyInfo().subscribe();
+          //this.userService.getMyInfo().subscribe();
           this.router.navigate([this.returnUrl]);
+          //this.router.navigateByUrl('/')
         },
         error => {
           this.submitted = false;
