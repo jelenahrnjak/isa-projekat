@@ -41,6 +41,15 @@ public class Address {
         this.latitude = latitude;
     }
 
+    public Address(String street, String streetNumber, String postalCode, String cityName, String countryName) {
+
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.postalCode = postalCode;
+        this.cityName = cityName;
+        this.countryName = countryName;
+    }
+
     public long getId() {
         return id;
     }

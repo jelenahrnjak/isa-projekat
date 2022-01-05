@@ -26,9 +26,14 @@ public class UserDTO {
         this.address = address;
     }
 
-    public UserDTO(User k){
-        this.email = k.getEmail();
-        this.password = k.getPassword();
+    public UserDTO(User u){
+        this.email = u.getEmail();
+        this.name = u.getName();
+        this.surname = u.getSurname();
+        this.phoneNumber = u.getPhoneNumber();
+        this.address = new AddressDTO(u.getAddress());
+        this.verificationCode = u.getVerificationCode();
+        this.roleName = u.getRole().getName();
     }
 
     public Long getId() {

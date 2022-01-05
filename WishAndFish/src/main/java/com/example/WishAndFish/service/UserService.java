@@ -3,6 +3,7 @@ package com.example.WishAndFish.service;
 import java.util.List;
 
 import com.example.WishAndFish.dto.AddressDTO;
+import com.example.WishAndFish.dto.ChangePasswordDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.repository.UserRepository;
 import com.example.WishAndFish.model.Address;
@@ -61,9 +62,33 @@ public class UserService {
 
     }
 
+    public UserDTO update(UserDTO user) {
+        User updated = userRepository.findByEmail(user.getEmail());
+        updated.setName(user.getName());
+        updated.setSurname(user.getSurname());
+        updated.setPhoneNumber(user.getPhoneNumber());
+        AddressDTO a = user.getAddress();
+        updated.setAddress(new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(),a.getCountryName()));
+        userRepository.save(updated);
+        return user;
+    }
+
+    public ChangePasswordDTO updatePasswod(ChangePasswordDTO user) {
+        User updated=userRepository.findByEmail(user.getEmail());
+        if(!user.getPassword().equals(user.getPasswordRepeated())){
+            return null;
+        }
+        updated.setPassword(user.getPassword());
+        userRepository.save(updated);
+        return user;
+    }
+
     public void remove(Long id) {
         userRepository.deleteById(id);
     }
 
-    public User findByEmail(String email) { return userRepository.findByEmail(email);}
+    public User findByEmail(String email) {
+        User u = userRepository.findByEmail(email);
+        return u;
+    }
 }

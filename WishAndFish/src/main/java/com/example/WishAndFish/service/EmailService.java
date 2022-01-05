@@ -27,7 +27,6 @@ public class EmailService {
         String text = "<br>Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>";
         String verifyURL = url + "/api/auth/verify?code=" + user.getVerificationCode();
-        System.out.println("url " + verifyURL);
         text = text.replace("[[URL]]", verifyURL);
 
         MimeMessage mail = javaMailSender.createMimeMessage();

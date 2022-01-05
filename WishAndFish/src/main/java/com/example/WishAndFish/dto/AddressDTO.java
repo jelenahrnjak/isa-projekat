@@ -1,5 +1,7 @@
 package com.example.WishAndFish.dto;
 
+import com.example.WishAndFish.model.Address;
+
 public class AddressDTO {
 
     private String street;
@@ -23,6 +25,16 @@ public class AddressDTO {
         this.cityName = cityName;
         this.countryName = countryName;
 
+    }
+
+    public AddressDTO(Address a){
+        this.street = a.getStreet();
+        this.streetNumber = a.getStreetNumber();
+        this.postalCode = a.getPostalCode();
+        this.longitude = a.getLongitude();
+        this.latitude = a.getLatitude();
+        this.cityName = a.getCityName();
+        this.countryName = a.getCountryName();
     }
 
     public String getStreet() {
