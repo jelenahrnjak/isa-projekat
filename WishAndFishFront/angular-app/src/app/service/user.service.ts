@@ -10,7 +10,7 @@ import jwt_decode from "jwt-decode";
 })
 export class UserService {
 
-  currentUser;
+  currentUser: any = null;
 
   constructor(
     private apiService: ApiService,
@@ -18,13 +18,6 @@ export class UserService {
   ) {
   }
 
-  getMyInfo() {
-    return this.apiService.get(this.config.whoami_url)
-      .pipe(map(user => {
-        this.currentUser = user;
-        return user;
-      }));
-  }
 
   getAll() {
     return this.apiService.get(this.config.users_url);

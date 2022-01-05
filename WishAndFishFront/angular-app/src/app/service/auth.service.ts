@@ -37,13 +37,11 @@ export class AuthService {
 
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
-        console.log('Login success');
         this.logged = true;
         this.access_token = res.accessToken;
         let decoded: any = jwt_decode(res.accessToken)
         localStorage.setItem("user", decoded.sub)
         localStorage.setItem("role", decoded.role)
-        console.log(localStorage.getItem("user") + " " + localStorage.getItem("role"))
       }));
   }
 
