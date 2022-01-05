@@ -6,7 +6,7 @@
 
     <mat-card-content>
         <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
-        <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+        <form (ngSubmit)="onSubmit()"  [formGroup]="form">
             <div *ngIf="editing" class="col">
                 <div > 
                     <mat-form-field>
@@ -84,13 +84,11 @@
                 </div>
             </div>
             <button *ngIf="!editing" (click)="changeForm()" color="primary" mat-raised-button>Edit</button> 
-            <button *ngIf="editing" color="primary" mat-raised-button type="submit">Submit</button>
+            <button *ngIf="editing" [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Submit</button>
             <br>
-            <button *ngIf="editing" (click)="changeForm()" color="primary" mat-raised-button >Cancel</button>
-            <button  *ngIf="!editing" color="primary" mat-raised-button routerLink="/login" >Change password</button>
+            <button *ngIf="editing" (click)="changeForm()" color="primary" mat-raised-button >Cancel</button> 
+            <button *ngIf="!editing" color="primary" mat-raised-button routerLink="/" >Cancel</button> 
         </form>
-        <br>
-        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
         <br>
         <hr>
     </mat-card-content>

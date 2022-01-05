@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   user: any
   address : any
   userInfo: any
-  editing = false; 
+  editing = false;  
 
   notification: DisplayMessage; 
   returnUrl: string;
@@ -53,6 +53,10 @@ export class UserProfileComponent implements OnInit {
         this.notification = params;
     }); 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.refreshForm();
+  }
+
+  refreshForm(){
     this.userService.getUser().subscribe((data : any) => {
       this.user = data
       this.address = data.address
@@ -70,10 +74,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   changeForm() { 
-    this.notification = undefined;
-    this.user = this.user
-    this.address = this.address
-    this.user.address= this.address
+    this.notification = undefined; 
+    this.refreshForm();
     this.editing = !this.editing;
 
   }
