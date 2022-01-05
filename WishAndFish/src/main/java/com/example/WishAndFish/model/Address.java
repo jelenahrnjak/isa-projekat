@@ -28,6 +28,9 @@ public class Address {
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Cottage> cottages = new HashSet<Cottage>();
+
     public Address() {
     }
 
@@ -48,6 +51,15 @@ public class Address {
         this.postalCode = postalCode;
         this.cityName = cityName;
         this.countryName = countryName;
+    }
+
+
+    public Set<Cottage> getCottages() {
+        return cottages;
+    }
+
+    public void setCottages(Set<Cottage> cottages) {
+        this.cottages = cottages;
     }
 
     public long getId() {
