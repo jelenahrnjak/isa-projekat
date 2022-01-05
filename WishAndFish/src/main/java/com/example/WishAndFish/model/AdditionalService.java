@@ -15,6 +15,9 @@ public class AdditionalService {
     @Column(name = "name", unique = false, nullable = false)
     private String name;
 
+    @Column(name = "price", unique = false, nullable = false)
+    private String price;
+
     @ManyToMany
     @JoinTable(name = "appointment_additional_services",
             joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
@@ -25,8 +28,9 @@ public class AdditionalService {
     public AdditionalService() {
     }
 
-    public AdditionalService(String name, Set<Appointment> appointments) {
+    public AdditionalService(String name, String price, Set<Appointment> appointments) {
         this.name = name;
+        this.price = price;
         this.appointments = appointments;
     }
 
@@ -44,5 +48,13 @@ public class AdditionalService {
 
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

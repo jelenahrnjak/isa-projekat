@@ -41,14 +41,14 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id)
 	VALUES (112, 'Good', 'The River', 75, 500);
 
-INSERT INTO ADDITIONAL_SERVICES(id, name)
-	VALUES (901, 'Parking');
-INSERT INTO public.additional_services(id, name)
-    VALUES (902, 'Wi-Fi');
-INSERT INTO public.additional_services(id, name)
-    VALUES (903, 'Air conditioning');
-INSERT INTO public.additional_services(id, name)
-    VALUES (904, 'Fruit');
+INSERT INTO ADDITIONAL_SERVICES(id, name, price)
+	VALUES (901, 'Parking', 0);
+INSERT INTO public.additional_services(id, name, price)
+    VALUES (902, 'Wi-Fi', 10);
+INSERT INTO public.additional_services(id, name, price)
+    VALUES (903, 'Air conditioning', 5);
+INSERT INTO public.additional_services(id, name, price)
+    VALUES (904, 'Fruit', 2);
 
 
 INSERT INTO public.rules(id, content, cottage_id)
@@ -68,4 +68,4 @@ INSERT INTO APPOINTMENTS(
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
 	VALUES (901, 135);
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (902, 135);
+	VALUES (902, 135)
