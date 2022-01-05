@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
     returnUrl: string;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+    role:string = ""
 
   constructor(
     private userService: UserService,
@@ -71,9 +71,13 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.authService.login(this.form.value)
       .subscribe(data => {
-          //this.userService.getMyInfo().subscribe();
+          this.userService.getUser().subscribe();
           this.router.navigate([this.returnUrl]);
-          //this.router.navigateByUrl('/')
+          this.role = localStorage.getItem("role");
+          switch(this.role){
+            case "ROLE_COTTAGE_OWNER":
+              this.router.navigate(['/cottage-owner']);
+            }
         },
         error => {
           this.submitted = false;

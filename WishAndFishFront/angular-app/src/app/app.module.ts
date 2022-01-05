@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     SignUpComponent,
     UserProfileComponent,
     ChangePasswordComponent,
+    CottageOwnerHomepageComponent,
   ],
   imports: [
     BrowserModule,
