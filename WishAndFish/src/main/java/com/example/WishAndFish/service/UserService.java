@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.ChangePasswordDTO;
 import com.example.WishAndFish.dto.UserDTO;
+import com.example.WishAndFish.repository.AddressRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import com.example.WishAndFish.model.Address;
 import com.example.WishAndFish.model.Role;
@@ -19,6 +20,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Autowired
     private RoleService roleService;
@@ -68,7 +72,13 @@ public class UserService {
         updated.setSurname(user.getSurname());
         updated.setPhoneNumber(user.getPhoneNumber());
         AddressDTO a = user.getAddress();
-        updated.setAddress(new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(),a.getCountryName()));
+        Address newAddress = updated.getAddress();
+        newAddress.setStreet(a.getStreet());
+        newAddress.setStreetNumber(a.getStreetNumber());
+        newAddress.setPostalCode(a.getPostalCode());
+        newAddress.setCityName(a.getCityName());
+        newAddress.setCountryName(a.getCountryName());
+        addressRepository.save(newAddress);
         userRepository.save(updated);
         return user;
     }

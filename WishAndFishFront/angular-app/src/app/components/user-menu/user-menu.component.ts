@@ -18,9 +18,10 @@ export class UserMenuComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.currentUser;
   }
-
+ 
   logout() {
     this.authService.logout();
   }
+
 
 }

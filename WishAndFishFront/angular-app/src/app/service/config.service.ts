@@ -9,6 +9,10 @@ export class ConfigService {
   private _auth_url = 'http://localhost:8080/api/auth';
   private _user_url = this._api_url + '/users';
 
+  get user_url(): string {
+    return this._user_url;
+  }
+
   private _login_url = this._auth_url + '/login';
 
   get login_url(): string {
@@ -25,12 +29,6 @@ export class ConfigService {
 
   get users_url(): string {
     return this._users_url;
-  }
-
-  private _foo_url = this._api_url + '/foo';
-
-  get foo_url(): string {
-    return this._foo_url;
   }
 
   private _signup_url = this._auth_url + '/signup';

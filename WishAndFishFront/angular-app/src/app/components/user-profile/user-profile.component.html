@@ -1,1 +1,99 @@
-<p>user-profile works!</p>
+<mat-card elevation="5" fxFlex class="content">
+
+    <mat-card-title>
+        <h2>{{title}}</h2>
+    </mat-card-title>
+
+    <mat-card-content>
+        <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+        <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+            <div *ngIf="editing" class="col">
+                <div > 
+                    <mat-form-field>
+                        <label>First Name: </label>
+                        <input formControlName="name" matInput required>
+                    </mat-form-field> 
+                    <mat-form-field>
+                        <label>Last Name: </label>
+                        <input formControlName="surname" matInput required>
+                    </mat-form-field> 
+                    <mat-form-field>
+                        <label>Email: </label>
+                        <input formControlName="email" matInput disabled>
+                    </mat-form-field> 
+                    <mat-form-field>
+                        <label>Phone number: </label>
+                        <input formControlName="phoneNumber" matInput required>
+                    </mat-form-field>  
+                </div>
+                <div> 
+                    <mat-form-field>
+                        <label>Street: </label>
+                        <input formControlName="street" matInput required>
+                    </mat-form-field>  
+                    <mat-form-field>
+                        <label>Street number: </label>
+                        <input formControlName="streetNumber" matInput required>
+                    </mat-form-field>  
+                    <mat-form-field>
+                        <label>City: </label>
+                        <input formControlName="cityName" matInput required>
+                    </mat-form-field> 
+                    <mat-form-field>
+                        <label>Postal code: </label>
+                        <input formControlName="postalCode" matInput required>
+                    </mat-form-field> 
+                    <mat-form-field>
+                        <label>Country: </label>
+                        <input formControlName="countryName" matInput required>
+                    </mat-form-field> 
+                </div>
+             
+            </div>
+            <div *ngIf="!editing" class="col"> 
+                <div > 
+                    <mat-form-field> 
+                        <input formControlName="name" matInput disabled>
+                    </mat-form-field> 
+                    <mat-form-field> 
+                        <input formControlName="surname" matInput disabled>
+                    </mat-form-field> 
+                    <mat-form-field> 
+                        <input formControlName="email" matInput>
+                    </mat-form-field> 
+                    <mat-form-field> 
+                        <input formControlName="phoneNumber" matInput disabled>
+                    </mat-form-field>  
+                </div>
+                <div> 
+                    <mat-form-field> 
+                        <input formControlName="street" matInput disabled>
+                    </mat-form-field>  
+                    <mat-form-field> 
+                        <input formControlName="streetNumber" matInput disabled>
+                    </mat-form-field>  
+                    <mat-form-field> 
+                        <input formControlName="cityName" matInput disabled>
+                    </mat-form-field> 
+                    <mat-form-field> 
+                        <input formControlName="postalCode" matInput disabled>
+                    </mat-form-field> 
+                    <mat-form-field> 
+                        <input formControlName="countryName" matInput disabled>
+                    </mat-form-field> 
+                </div>
+            </div>
+            <button *ngIf="!editing" (click)="changeForm()" color="primary" mat-raised-button>Edit</button> 
+            <button *ngIf="editing" color="primary" mat-raised-button type="submit">Submit</button>
+            <br>
+            <button *ngIf="editing" (click)="changeForm()" color="primary" mat-raised-button >Cancel</button>
+            <button  *ngIf="!editing" color="primary" mat-raised-button routerLink="/login" >Change password</button>
+        </form>
+        <br>
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+        <br>
+        <hr>
+    </mat-card-content>
+    
+    
+</mat-card>
