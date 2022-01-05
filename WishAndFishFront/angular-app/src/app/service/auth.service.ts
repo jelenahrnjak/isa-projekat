@@ -20,6 +20,7 @@ export class AuthService {
     private router: Router
   ) {
   }
+  logged: Boolean = false;
 
   private access_token = null;
 
@@ -33,9 +34,11 @@ export class AuthService {
       'email': user.username,
       'password': user.password
     };
+
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
         console.log('Login success');
+        this.logged = true;
         this.access_token = res.accessToken;
         let decoded: any = jwt_decode(res.accessToken)
         localStorage.setItem("user", decoded.sub)
@@ -58,6 +61,8 @@ export class AuthService {
   logout() {
     this.userService.currentUser = null;
     this.access_token = null;
+    localStorage.clear();
+    this.logged = false;
     this.router.navigate(['/login']);
   }
 

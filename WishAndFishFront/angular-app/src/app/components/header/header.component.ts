@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
 
@@ -8,13 +9,13 @@ import {UserService} from '../../service/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( private userService: UserService) { }
+  constructor( private userService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   hasSignedIn() {
-    return !!this.userService.currentUser;
+    return this.authService.logged;
   }
 
   userName() {
