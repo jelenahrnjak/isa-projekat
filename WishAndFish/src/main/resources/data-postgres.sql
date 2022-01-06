@@ -25,6 +25,8 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 	VALUES (500, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (501, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
+INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
+   	VALUES (302, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
 
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 30,  'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
@@ -34,8 +36,8 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (40, false, 'urossisarica@gmail.com', true, null, 10, 'Uroš', 'urosuros', '0612345678', 0, 'Šišarica', 301, 2, null);
-INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (60, false, 'dusanfarmville@gmail.com', false, null, 0, 'Duki', 'dusandusan', '0617890213', 0, 'Suzuki', 300, 2, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (60, false, 'dusanfarmville@gmail.com', false, null, 10, 'Duki', 'dusandusan', '0617890213', 0, 'Suzuki', 302, 2, null);
 
 
 INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id,name, password, phone_number, points, surname, address_id, role_id, verification_code)
