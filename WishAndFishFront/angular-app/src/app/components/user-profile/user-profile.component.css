@@ -44,8 +44,8 @@
     cursor: auto;
     color: #FFFFFF;
   }
-  .col{display:bock;}
+  .col{display:flex;}
   .col div{flex:1}
 
-  .row{display:block;}
-  .row div{flex:0}
+  .row{display:flex;}
+  .row div{flex:2}

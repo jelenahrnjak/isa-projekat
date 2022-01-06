@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder) { }
 
-    form = new FormGroup({
+    form = new FormGroup({ 
       name: new FormControl(''),
       surname: new FormControl(''),  
       email: new FormControl(''),
@@ -45,6 +45,15 @@ export class UserProfileComponent implements OnInit {
       cityName: new FormControl(''), 
       countryName: new FormControl('')
     })
+ 
+    formBefore = new FormGroup({
+      nameSurname: new FormControl(''),  
+      email: new FormControl(''),
+      phoneNumber: new FormControl(''), 
+      address: new FormControl(''),   
+      city: new FormControl(''), 
+      country: new FormControl('')
+    })
 
   ngOnInit() {
     this.route.params
@@ -53,7 +62,7 @@ export class UserProfileComponent implements OnInit {
         this.notification = params;
     }); 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.refreshForm();
+    this.refreshFormBefore();
     console.log("Ovaj korisnik je ulogovan: " + this.userService.currentUser.email)
   }
 
@@ -61,7 +70,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUser().subscribe((data : any) => {
       this.user = data
       this.address = data.address
-      this.userInfo = JSON.parse(JSON.stringify(data)); //clones, read docs for info
+      this.userInfo = JSON.parse(JSON.stringify(data));  
       this.form.controls['name'].setValue(this.user.name)
       this.form.controls['surname'].setValue(this.user.surname)  
       this.form.controls['email'].setValue(this.user.email)
@@ -74,9 +83,24 @@ export class UserProfileComponent implements OnInit {
     });   
   }
 
+  refreshFormBefore(){
+    this.userService.getUser().subscribe((data : any) => {
+      this.user = data
+      this.address = data.address
+      this.userInfo = JSON.parse(JSON.stringify(data));  
+      this.formBefore.controls['nameSurname'].setValue(this.user.name + " " + this.user.surname)  
+      this.formBefore.controls['email'].setValue(this.user.email)
+      this.formBefore.controls['phoneNumber'].setValue(this.user.phoneNumber) 
+      this.formBefore.controls['address'].setValue(this.address.street + " " + this.address.streetNumber) 
+      this.formBefore.controls['city'].setValue(this.address.cityName + " " + this.address.postalCode)
+      this.formBefore.controls['country'].setValue(this.address.countryName)
+    });   
+  }
+
   changeForm() { 
     this.notification = undefined; 
     this.refreshForm();
+    this.refreshFormBefore();
     this.editing = !this.editing;
 
   }
@@ -90,7 +114,7 @@ export class UserProfileComponent implements OnInit {
     this.address.postalCode = this.form.get('postalCode').value
     this.address.cityName = this.form.get('cityName').value
     this.address.countryName = this.form.get('countryName').value
-    this.user.address= this.address
+    this.user.address= this.address 
 
     this.userService.update(this.user).subscribe((data) => {
       this.user = data ;
