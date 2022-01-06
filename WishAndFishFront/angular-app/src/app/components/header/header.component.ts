@@ -21,11 +21,7 @@ export class HeaderComponent implements OnInit {
       return true;
     }
   }
-
-  userName() {
-    const user = this.userService.currentUser;
-    return user.name + ' ' + user.surname;
-  }
+ 
   
   isAdmin() {
     let role = localStorage.getItem("role");

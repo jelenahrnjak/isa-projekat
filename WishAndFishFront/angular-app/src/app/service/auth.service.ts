@@ -56,8 +56,7 @@ export class AuthService {
     }));
   }
 
-  logout() {
-    this.userService.currentUser = null;
+  logout() { 
     this.access_token = null;
     localStorage.clear();
     this.logged = false;

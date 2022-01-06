@@ -4,6 +4,7 @@ import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class CottageService {
     private CottageRepository cottageRepository;
 
     public List<Cottage> findAll() {
-        return cottageRepository.findAll();
+        return cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")));
     }
 }
