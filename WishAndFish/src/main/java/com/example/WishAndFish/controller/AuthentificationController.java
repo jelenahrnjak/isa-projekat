@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 @RestController
 @CrossOrigin()
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin()
 public class AuthentificationController {
 
     @Autowired
@@ -66,7 +67,6 @@ public class AuthentificationController {
     @PostMapping("/signup")
     public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
         User existUser = this.userService.findByEmail(userRequest.getEmail());
-
         if (existUser != null) {
             throw new ResourceConflictException(userRequest.getId(), "Email already exists");
         }
