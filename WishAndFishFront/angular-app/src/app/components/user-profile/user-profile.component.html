@@ -80,9 +80,9 @@
                 <div class="col-6 col-md-3">  
                         <br><br><br><br><br>
                         <p>You are currently a {{program}} member. <br></p>
-                        <p>Discount you get: {{discount}}<br></p>
+                        <p>Discount you get: {{discount}}%<br></p>
                         <p>Points: {{points}}<br></p>
-                        <p>Missing points to the next level: {{pointsNeeded}} </p> 
+                        <p *ngIf="pointsNeeded>0">Missing points to the next level: {{pointsNeeded}} </p> 
                 </div>
             </div>
             <button (click)="changeForm()" color="primary" mat-raised-button>Edit</button>  
