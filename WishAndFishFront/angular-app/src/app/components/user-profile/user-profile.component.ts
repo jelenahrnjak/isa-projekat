@@ -18,6 +18,10 @@ interface DisplayMessage {
 export class UserProfileComponent implements OnInit {
 
   title = 'Profile informations'; 
+  points = 0
+  pointsNeeded = 0
+  discount = 0
+  program = 'REGULAR'
   user: any
   address : any
   userInfo: any
@@ -86,7 +90,12 @@ export class UserProfileComponent implements OnInit {
   refreshFormBefore(){
     this.userService.getUser().subscribe((data : any) => {
       this.user = data
+      console.log(data)
+      this.points = data.points
+      this.discount = data.discount
+      this.program = data.loyalityProgram
       this.address = data.address
+      this.pointsNeeded = data.neededPoints
       this.userInfo = JSON.parse(JSON.stringify(data));  
       this.formBefore.controls['nameSurname'].setValue(this.user.name + " " + this.user.surname)  
       this.formBefore.controls['email'].setValue(this.user.email)
@@ -120,6 +129,8 @@ export class UserProfileComponent implements OnInit {
       this.user = data ;
       this.userInfo = JSON.parse(JSON.stringify(data));
       this.editing = false;
+      this.refreshFormBefore()
+      
     })
   }
 

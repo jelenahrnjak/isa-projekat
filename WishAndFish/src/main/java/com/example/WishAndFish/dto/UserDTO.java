@@ -1,5 +1,6 @@
 package com.example.WishAndFish.dto;
 
+import com.example.WishAndFish.model.LoyaltyCategory;
 import com.example.WishAndFish.model.User;
 
 public class UserDTO {
@@ -12,6 +13,10 @@ public class UserDTO {
     private AddressDTO address;
     private String roleName;
     private String verificationCode;
+    private String loyalityProgram;
+    private double points;
+    private int discount;
+    private double neededPoints;
 
     public UserDTO() {
     }
@@ -34,6 +39,10 @@ public class UserDTO {
         this.address = new AddressDTO(u.getAddress());
         this.verificationCode = u.getVerificationCode();
         this.roleName = u.getRole().getName();
+        this.loyalityProgram = u.getLoyaltyCategory().getName();
+        this.discount = u.getLoyaltyCategory().getDiscount();
+        this.points = u.getPoints();
+        this.neededPoints = u.getLoyaltyCategory().getNeededPointsToNextLevel() - u.getPoints();
     }
 
     public Long getId() {
@@ -106,5 +115,37 @@ public class UserDTO {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public String getLoyalityProgram() {
+        return loyalityProgram;
+    }
+
+    public void setLoyalityProgram(String loyalityProgram) {
+        this.loyalityProgram = loyalityProgram;
+    }
+
+    public double getPoints() {
+        return points;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public double getNeededPoints() {
+        return neededPoints;
+    }
+
+    public void setNeededPoints(double neededPoints) {
+        this.neededPoints = neededPoints;
     }
 }

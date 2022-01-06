@@ -4,6 +4,12 @@ INSERT INTO ROLES (name) VALUES ('ROLE_COTTAGE_OWNER');
 INSERT INTO ROLES (name) VALUES ('ROLE_BOAT_OWNER');
 INSERT INTO ROLES (name) VALUES ('ROLE_FISHING_INSTRUCTOR');
 
+INSERT INTO loyalty_categories(id, discount, level, name, needed_points, needed_points_to_next_level)
+	VALUES (10, 0, 1, 'REGULAR', 0, 500);
+INSERT INTO loyalty_categories(id, discount, level, name, needed_points, needed_points_to_next_level)
+	VALUES (20, 5, 2, 'SILVER', 500, 1500);
+INSERT INTO loyalty_categories(id, discount, level, name, needed_points, needed_points_to_next_level)
+	VALUES (30, 15, 3, 'GOLD', 1500, 0);
 
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (100, 'Bačka Topola', 'Srbija', 45.806240, 19.624690, '24300' , 'Zagrebačka' , '9');
@@ -20,18 +26,18 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (501, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
 
-INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, discount, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 2, 15, 'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
-INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category,discount, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 1,5, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
-INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category,discount, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 0,0, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
-INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category,discount, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (40, false, 'urossisarica@gmail.com', true, null, 0,0, 'Uroš', 'urosuros', '0612345678', 0, 'Šišarica', 301, 2, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 30,  'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (40, false, 'urossisarica@gmail.com', true, null, 10, 'Uroš', 'urosuros', '0612345678', 0, 'Šišarica', 301, 2, null);
 
 
-INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date, loyalty_category, discount,name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 1, 5, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id,name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
 
 
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)

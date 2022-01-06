@@ -19,7 +19,8 @@
   mat-input-container {
     display: block;
   }
-  
+   
+
   mat-spinner {
     width: 25px;
     height: 25px;
@@ -48,4 +49,4 @@
   .col div{flex:1}
 
   .row{display:flex;}
-  .row div{flex:2}
+  .row div{flex:1}
