@@ -15,8 +15,8 @@
                 <span>Register Admin</span>
             </button>
             <button *ngIf="isAdmin()" class="greeting-button" mat-button 
-                mat-ripple>
-                <span>Register Admin</span>
+                mat-ripple routerLink="/accept-registration">
+                <span>Accept Registration</span>
             </button>
             <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-button" mat-button mat-ripple>
                 <span>Profile</span>

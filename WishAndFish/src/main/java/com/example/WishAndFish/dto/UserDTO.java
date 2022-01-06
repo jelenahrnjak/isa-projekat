@@ -13,6 +13,7 @@ public class UserDTO {
     private AddressDTO address;
     private String roleName;
     private String verificationCode;
+    private String reasonForRegistration;
     private String loyalityProgram;
     private double points;
     private int discount;
@@ -39,6 +40,7 @@ public class UserDTO {
         this.address = new AddressDTO(u.getAddress());
         this.verificationCode = u.getVerificationCode();
         this.roleName = u.getRole().getName();
+        this.reasonForRegistration = u.getReasonForRegistration();
         this.loyalityProgram = u.getLoyaltyCategory().getName();
         this.discount = u.getLoyaltyCategory().getDiscount();
         this.points = u.getPoints();
@@ -116,6 +118,10 @@ public class UserDTO {
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
+
+    public String getReasonForRegistration() { return reasonForRegistration; }
+
+    public void setReasonForRegistration(String reasonForRegistration) { this.reasonForRegistration = reasonForRegistration; }
 
     public String getLoyalityProgram() {
         return loyalityProgram;
