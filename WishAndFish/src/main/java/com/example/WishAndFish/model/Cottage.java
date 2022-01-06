@@ -21,7 +21,7 @@ public class Cottage {
     @Column(name = "price_per_day", unique = false, nullable = false)
     private Double pricePerDay;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
