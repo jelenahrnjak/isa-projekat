@@ -12,6 +12,7 @@ public class UserDTO {
     private AddressDTO address;
     private String roleName;
     private String verificationCode;
+    private String reasonForRegistration;
 
     public UserDTO() {
     }
@@ -34,6 +35,7 @@ public class UserDTO {
         this.address = new AddressDTO(u.getAddress());
         this.verificationCode = u.getVerificationCode();
         this.roleName = u.getRole().getName();
+        this.reasonForRegistration = u.getReasonForRegistration();
     }
 
     public Long getId() {
@@ -107,4 +109,8 @@ public class UserDTO {
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
+
+    public String getReasonForRegistration() { return reasonForRegistration; }
+
+    public void setReasonForRegistration(String reasonForRegistration) { this.reasonForRegistration = reasonForRegistration; }
 }

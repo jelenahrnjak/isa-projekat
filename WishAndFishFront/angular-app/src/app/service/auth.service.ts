@@ -50,11 +50,10 @@ export class AuthService {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    console.log(user);
     return this.apiService.post(this.config.signup_url, user, signupHeaders)
-      .pipe(map(() => {
-        console.log('Sign up success');
-      }));
+    .pipe(map(() => {
+      console.log('Sign up success');
+    }));
   }
 
   logout() {

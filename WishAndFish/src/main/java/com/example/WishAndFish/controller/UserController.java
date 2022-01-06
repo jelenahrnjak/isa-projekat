@@ -4,6 +4,7 @@ import com.example.WishAndFish.dto.ChangePasswordDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
+import com.example.WishAndFish.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.WishAndFish.service.UserService;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -25,6 +31,19 @@ public class UserController {
 
     @Autowired
     private TokenUtils tokenUtils;
+
+
+    @RequestMapping(value="/getAll", method = RequestMethod.GET)
+    public @ResponseBody
+    List<UserDTO> getUsers(@RequestHeader("Authorization") String token){
+        return userService.getAllUsers();
+    }
+
+    @RequestMapping(value="/getUnenabledUsers", method = RequestMethod.GET)
+    public @ResponseBody
+    List<UserDTO> getUnenabledUsers(@RequestHeader("Authorization") String token){
+        return userService.getUnenabledUsers();
+    }
 
     @RequestMapping(value="getOne", method = RequestMethod.GET)
     public @ResponseBody UserDTO getUser(@RequestHeader("Authorization") String token){
@@ -42,6 +61,13 @@ public class UserController {
     public @ResponseBody UserDTO update(@RequestBody UserDTO u) {
 
         return userService.update(u);
+    }
+
+    @RequestMapping(value="enableUser", method = RequestMethod.PUT)
+    public ResponseEntity<String> enableUser(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
+        userService.enableUser(email);
+        userService.sendMailForAcceptedRegistration(email);
+        return new ResponseEntity<>("Success",HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)

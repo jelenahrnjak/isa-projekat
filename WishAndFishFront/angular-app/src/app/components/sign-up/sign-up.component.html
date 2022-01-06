@@ -31,12 +31,16 @@
             </mat-form-field>  
             <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
-            <select formControlName="role" matNativeControl required>
-                <option value="client">Client</option>
-                <option value="cottage_owner">Cottage owner</option>
-                <option value="boat_owner">Boat owner</option>
-                <option value="instructor">Instructor</option>
+            <select (change)="changeRole(t.value)" #t formControlName="role" matNativeControl required>
+                <option value="ROLE_CLIENT">Client</option>
+                <option value="ROLE_COTTAGE_OWNER">Cottage owner</option>
+                <option value="ROLE_BOAT_OWNER">Boat owner</option>
+                <option value="ROLE_FISHING_INSTRUCTOR">Fishing instructor</option>
             </select>
+            </mat-form-field>
+            <mat-form-field *ngIf="showReasonForRegistry">
+                <label>Reason for registration: </label>
+                <input formControlName="reasonForRegistration" matInput>
             </mat-form-field>
             <button color="primary" mat-raised-button type="submit">Next</button>
             <button color="primary" mat-raised-button routerLink="/login" >Have an account? Log in</button>

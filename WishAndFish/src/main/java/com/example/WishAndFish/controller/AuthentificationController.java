@@ -72,12 +72,13 @@ public class AuthentificationController {
         String randomCode = RandomString.make(64);
         userRequest.setVerificationCode(randomCode);
         User user = this.userService.save(userRequest);
-        try{
-            emailService.sendMailForVerfication(user, getSiteURL(request));
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (userRequest.getRoleName().equals("ROLE_CLIENT")){
+            try{
+                emailService.sendMailForVerfication(user, getSiteURL(request));
+            } catch (Exception e){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
-
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 

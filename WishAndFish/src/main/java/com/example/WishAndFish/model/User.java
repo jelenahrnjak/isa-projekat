@@ -52,6 +52,8 @@ public class User implements UserDetails{
     private Role role;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
+    @Column(name = "reason_for_registration")
+    private String reasonForRegistration;
     public User() {
         super();
     }
@@ -190,6 +192,14 @@ public class User implements UserDetails{
 
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public String getReasonForRegistration() {
+        return reasonForRegistration;
+    }
+
+    public void setReasonForRegistration(String reasonForRegistration) {
+        this.reasonForRegistration = reasonForRegistration;
     }
 
     @Override

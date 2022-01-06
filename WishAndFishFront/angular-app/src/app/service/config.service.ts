@@ -25,7 +25,7 @@ export class ConfigService {
     return this._whoami_url;
   }
 
-  private _users_url = this._user_url + '/all';
+  private _users_url = this._user_url;
 
   get users_url(): string {
     return this._users_url;

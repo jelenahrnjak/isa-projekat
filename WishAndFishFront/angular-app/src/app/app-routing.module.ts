@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
     path: 'cottage-owner',
     component: CottageOwnerHomepageComponent,
   },
+  {
+    path: 'accept-registration',
+    component: AcceptRegistrationComponent,
+  }
 
 ];
 
