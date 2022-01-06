@@ -10,7 +10,10 @@ import jwt_decode from "jwt-decode";
 })
 export class UserService {
 
-  currentUser: any = this.getUser(); 
+  currentUser: any = this.getUser();  
+  allUsers : any[] = null;
+  unenabledUsers : any[] = null;
+  
   constructor(
     private apiService: ApiService,
     private config: ConfigService
@@ -19,7 +22,19 @@ export class UserService {
 
 
   getAll() {
-    return this.apiService.get(this.config.users_url);
+    return this.apiService.get(this.config.users_url + `/getAll`)
+    .pipe(map(users => {
+      this.allUsers = users;
+      return this.allUsers;
+    }));
+  }
+
+  getUnenabledUsers(){
+    return this.apiService.get(this.config.users_url + `/getUnenabledUsers`)
+    .pipe(map(users => {
+      this.unenabledUsers = users;
+      return this.unenabledUsers;
+    }));
   }
 
   getUser() {
@@ -38,6 +53,8 @@ export class UserService {
     return this.apiService.put(this.config.user_url + `/changePassword`, data)
   }
 
-  
+  acceptUser(data : any) : Observable<any> {
+    return this.apiService.put(this.config.user_url + `/enableUser`, data)
+  }
  
 }

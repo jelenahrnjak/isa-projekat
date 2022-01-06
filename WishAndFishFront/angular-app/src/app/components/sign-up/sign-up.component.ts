@@ -28,6 +28,7 @@ export class SignUpComponent implements OnInit {
    */
   submitted = false;
   showAddress = false;
+  showReasonForRegistry = false;
 
   /**
    * Notification message from received
@@ -70,7 +71,8 @@ export class SignUpComponent implements OnInit {
       longitude : [''],
       latitude : [''],
       cityName : [''],
-      countryName : ['']
+      countryName : [''],
+      reasonForRegistration : [''],
     })
   }
 
@@ -102,15 +104,12 @@ export class SignUpComponent implements OnInit {
           "cityName" : this.form.get('cityName').value,
           "countryName" : this.form.get('countryName').value    
       },
-      "roleName" : this.form.get('role').value
+      "roleName" : this.form.get('role').value,
+      "reasonForRegistration" : this.form.get('reasonForRegistration').value
   }
 
     this.authService.signup(User)
       .subscribe(data => {
-        console.log(data);
-        this.authService.login(this.form.value).subscribe(() => {
-         // this.userService.getMyInfo().subscribe();
-        });
         this.router.navigate([this.returnUrl]);
       },
         error => {
@@ -125,5 +124,13 @@ export class SignUpComponent implements OnInit {
     this.showAddress = true;
   }
 
+  changeRole(value){
+    if(value != "ROLE_CLIENT"){
+      this.showReasonForRegistry = true;
+    }
+    else{
+      this.showReasonForRegistry = false;
+    }
+  }
 
 }

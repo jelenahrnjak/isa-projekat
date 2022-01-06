@@ -1,5 +1,7 @@
 package com.example.WishAndFish.service;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.WishAndFish.dto.AddressDTO;
@@ -18,6 +20,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+
 @Service
 public class UserService {
 
@@ -35,6 +39,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService emailService;
+
     public User findOne(Long id) {
         return userRepository.findById(id).orElseGet(null);
     }
@@ -50,6 +57,7 @@ public class UserService {
         user.setAddress(address);
         user.setLoyaltyCategory(loyaltyCategoryRepository.findByLevel(1));
         user.setVerificationCode(requestUser.getVerificationCode());
+        user.setReasonForRegistration(requestUser.getReasonForRegistration());
 
         Role role = roleRepository.findByName(requestUser.getRoleName());
         user.setRole(role);
@@ -106,5 +114,34 @@ public class UserService {
     public User findByEmail(String email) {
         User u = userRepository.findByEmail(email);
         return u;
+    }
+
+    public List<UserDTO> getAllUsers(){
+        List<UserDTO> users = new ArrayList<>();
+        for(User u : findAll()){
+            users.add(new UserDTO((u)));
+        }
+        return users;
+    }
+
+    public List<UserDTO> getUnenabledUsers(){
+        List<UserDTO> unenabledUsers = new ArrayList<>();
+        for (User u : findAll()){
+            if (!u.isEnabled() && !u.getRole().getName().equals("ROLE_CLIENT")){
+                unenabledUsers.add(new UserDTO(u));
+            }
+        }
+        return unenabledUsers;
+    }
+
+    public void enableUser(String email){
+        User u = findByEmail(email);
+        u.setEnabled(true);
+        userRepository.save(u);
+    }
+
+    public void sendMailForAcceptedRegistration(String email) throws MessagingException, UnsupportedEncodingException {
+        User u = findByEmail(email);
+        emailService.sendMailForAcceptedRegistration(u);
     }
 }

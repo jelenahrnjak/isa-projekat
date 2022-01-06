@@ -38,4 +38,17 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
+    public void sendMailForAcceptedRegistration(User user) throws MessagingException, UnsupportedEncodingException {
+
+        String text = "<br>Your registration has been accepted! You can now log into your account!<br>";
+
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail);
+        helper.setTo(user.getEmail());
+        helper.setFrom(env.getProperty("spring.mail.username"));
+        helper.setSubject("Welcome to Wish&Fish community!");
+        helper.setText("Hello " + user.getName() + " " + user.getSurname() + text, true);
+        javaMailSender.send(mail);
+    }
+
 }

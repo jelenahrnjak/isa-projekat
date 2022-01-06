@@ -25,6 +25,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
+import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
 import { CottageComponent } from './components/cottage-owner/cottages/cottage.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CottageComponent } from './components/cottage-owner/cottages/cottage.co
     UserProfileComponent,
     ChangePasswordComponent,
     CottageOwnerHomepageComponent,
+    AcceptRegistrationComponent,
     CottageComponent,
   ],
   imports: [
