@@ -8,8 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = TABLE_PER_CLASS)
 public class User implements UserDetails{
 
     private static final long serialVersionUID = 1L;
@@ -21,7 +24,7 @@ public class User implements UserDetails{
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "password", unique = false, nullable = false)
