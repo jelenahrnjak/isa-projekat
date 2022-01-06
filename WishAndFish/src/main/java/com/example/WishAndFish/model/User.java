@@ -48,6 +48,8 @@ public class User implements UserDetails{
     private double points;
     @Column(name = "loyaltyCategory", unique = false, nullable = false)
     private LoyaltyCategories loyaltyCategory;
+    @Column(name = "discount", unique = false, nullable = false)
+    private int discount;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -69,18 +71,20 @@ public class User implements UserDetails{
         this.enabled = false;
         this.points = 0.0;
         this.loyaltyCategory = LoyaltyCategories.REGULAR;
+        this.discount = 0;
     }
 
     public User(User u){
-        this.password = u.password;
-        this.email = u.email;
-        this.name = u.name;
-        this.surname = u.surname;
-        this.phoneNumber = u.phoneNumber;
-        this.deleted = false;
-        this.enabled = false;
-        this.points = 0.0;
-        this.loyaltyCategory = LoyaltyCategories.REGULAR;
+        this.password = u.getPassword();
+        this.email = u.getEmail();
+        this.name = u.getName();
+        this.surname = u.getSurname();
+        this.phoneNumber = u.getPhoneNumber();
+        this.deleted = u.isDeleted();
+        this.enabled = u.isEnabled();
+        this.points = u.getPoints();
+        this.loyaltyCategory = u.getLoyaltyCategory();
+        this.discount = u.getDiscount();
     }
 
     public String getPhoneNumber() {
@@ -165,7 +169,17 @@ public class User implements UserDetails{
 
     public double getPoints() {return points; }
 
-    public void setPoints(double points) { this.points = points; }
+    public void setPoints(double points) {
+        this.points = points;
+        if(points > 500) {
+            this.loyaltyCategory = LoyaltyCategories.SILVER;
+            this.discount = 5;
+        }
+        if(points > 1500) {
+            this.discount = 15;
+            this.loyaltyCategory = LoyaltyCategories.GOLD;
+        }
+    }
 
     public LoyaltyCategories getLoyaltyCategory() { return loyaltyCategory; }
 
@@ -193,6 +207,14 @@ public class User implements UserDetails{
 
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     @Override
