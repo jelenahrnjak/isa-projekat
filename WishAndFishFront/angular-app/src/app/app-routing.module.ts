@@ -39,10 +39,11 @@ const routes: Routes = [
   {
     path: 'accept-registration',
     component: AcceptRegistrationComponent,
-  }
+  },
+  {
     path: 'cottages',
     component: CottageComponent,
-  },
+  }
 
 ];
 
