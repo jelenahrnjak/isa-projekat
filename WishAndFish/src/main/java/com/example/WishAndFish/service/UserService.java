@@ -5,7 +5,10 @@ import java.util.List;
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.ChangePasswordDTO;
 import com.example.WishAndFish.dto.UserDTO;
+import com.example.WishAndFish.model.LoyaltyCategory;
 import com.example.WishAndFish.repository.AddressRepository;
+import com.example.WishAndFish.repository.LoyaltyCategoryRepository;
+import com.example.WishAndFish.repository.RoleRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import com.example.WishAndFish.model.Address;
 import com.example.WishAndFish.model.Role;
@@ -25,7 +28,9 @@ public class UserService {
     private AddressRepository addressRepository;
 
     @Autowired
-    private RoleService roleService;
+    private RoleRepository roleRepository;
+
+    @Autowired LoyaltyCategoryRepository loyaltyCategoryRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,9 +48,10 @@ public class UserService {
         User user = new User(passwordEncoder.encode(requestUser.getPassword()), requestUser.getEmail(), requestUser.getName(), requestUser.getSurname(), requestUser.getPhoneNumber());
         Address address = new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(), a.getCountryName(),a.getLongitude(),a.getLatitude());
         user.setAddress(address);
+        user.setLoyaltyCategory(loyaltyCategoryRepository.findByLevel(1));
         user.setVerificationCode(requestUser.getVerificationCode());
 
-        Role role = roleService.findByName(requestUser.getRoleName());
+        Role role = roleRepository.findByName(requestUser.getRoleName());
         user.setRole(role);
 
         return this.userRepository.save(user);

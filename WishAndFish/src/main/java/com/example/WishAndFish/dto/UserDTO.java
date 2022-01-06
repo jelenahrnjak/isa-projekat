@@ -1,5 +1,6 @@
 package com.example.WishAndFish.dto;
 
+import com.example.WishAndFish.model.LoyaltyCategory;
 import com.example.WishAndFish.model.User;
 
 public class UserDTO {
@@ -38,16 +39,10 @@ public class UserDTO {
         this.address = new AddressDTO(u.getAddress());
         this.verificationCode = u.getVerificationCode();
         this.roleName = u.getRole().getName();
-        this.loyalityProgram = u.getLoyaltyCategory().toString();
-        this.discount = u.getDiscount();
+        this.loyalityProgram = u.getLoyaltyCategory().getName();
+        this.discount = u.getLoyaltyCategory().getDiscount();
         this.points = u.getPoints();
-        if(this.points <500 ){
-            this.neededPoints = 500 - u.getPoints();
-        }else if(this.points <1500){
-            this.neededPoints= 1500 - u.getPoints();
-        }else{
-            this.neededPoints = 0;
-        }
+        this.neededPoints = u.getLoyaltyCategory().getNeededPointsToNextLevel() - u.getPoints();
     }
 
     public Long getId() {

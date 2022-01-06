@@ -17,12 +17,6 @@ public class User implements UserDetails{
 
     private static final long serialVersionUID = 1L;
 
-    public enum LoyaltyCategories {
-        REGULAR,
-        SILVER,
-        GOLD;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -46,10 +40,9 @@ public class User implements UserDetails{
     private boolean enabled;
     @Column(name = "points", unique = false, nullable = false)
     private double points;
-    @Column(name = "loyaltyCategory", unique = false, nullable = false)
-    private LoyaltyCategories loyaltyCategory;
-    @Column(name = "discount", unique = false, nullable = false)
-    private int discount;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "loyalty_category_id", nullable = false)
+    private LoyaltyCategory loyaltyCategory;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -70,8 +63,6 @@ public class User implements UserDetails{
         this.deleted = false;
         this.enabled = false;
         this.points = 0.0;
-        this.loyaltyCategory = LoyaltyCategories.REGULAR;
-        this.discount = 0;
     }
 
     public User(User u){
@@ -84,7 +75,6 @@ public class User implements UserDetails{
         this.enabled = u.isEnabled();
         this.points = u.getPoints();
         this.loyaltyCategory = u.getLoyaltyCategory();
-        this.discount = u.getDiscount();
     }
 
     public String getPhoneNumber() {
@@ -171,19 +161,19 @@ public class User implements UserDetails{
 
     public void setPoints(double points) {
         this.points = points;
-        if(points > 500) {
-            this.loyaltyCategory = LoyaltyCategories.SILVER;
-            this.discount = 5;
-        }
-        if(points > 1500) {
-            this.discount = 15;
-            this.loyaltyCategory = LoyaltyCategories.GOLD;
-        }
+//        if(points > 500) {
+//            this.loyaltyCategory = LoyaltyCategories.SILVER;
+//            this.discount = 5;
+//        }
+//        if(points > 1500) {
+//            this.discount = 15;
+//            this.loyaltyCategory = LoyaltyCategories.GOLD;
+//        }
     }
 
-    public LoyaltyCategories getLoyaltyCategory() { return loyaltyCategory; }
+    public LoyaltyCategory getLoyaltyCategory() { return loyaltyCategory; }
 
-    public void setLoyaltyCategory(LoyaltyCategories loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
+    public void setLoyaltyCategory(LoyaltyCategory loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
 
     public void setRole(Role role) {
         this.role = role;
@@ -207,14 +197,6 @@ public class User implements UserDetails{
 
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
     }
 
     @Override
