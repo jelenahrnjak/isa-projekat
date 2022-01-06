@@ -66,8 +66,7 @@ export class UserProfileComponent implements OnInit {
         this.notification = params;
     }); 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.refreshFormBefore();
-    console.log("Ovaj korisnik je ulogovan: " + this.userService.currentUser.email)
+    this.refreshFormBefore(); 
   }
 
   refreshForm(){

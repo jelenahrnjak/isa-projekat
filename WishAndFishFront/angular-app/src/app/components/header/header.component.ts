@@ -15,7 +15,11 @@ export class HeaderComponent implements OnInit {
   }
 
   hasSignedIn() {
-    return this.authService.logged;
+    if(localStorage.getItem('user') === null){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   userName() {
