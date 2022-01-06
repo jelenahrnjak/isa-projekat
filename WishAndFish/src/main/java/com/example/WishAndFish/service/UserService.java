@@ -85,7 +85,7 @@ public class UserService {
 
     public ChangePasswordDTO updatePasswod(ChangePasswordDTO user) {
         User updated=userRepository.findByEmail(user.getEmail());
-        if(!user.getPassword().equals(user.getPasswordRepeated())){
+        if(!user.getPassword().equals(user.getPasswordRepeated()) || !user.getOldPassword().equals(updated.getPassword())){
             return null;
         }
         updated.setPassword(user.getPassword());

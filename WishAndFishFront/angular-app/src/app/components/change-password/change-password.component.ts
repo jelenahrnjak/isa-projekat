@@ -20,6 +20,7 @@ export class ChangePasswordComponent implements OnInit {
   title = 'Change password';
   user = {
     "email": localStorage.getItem('user'),
+    "oldPassword": "",
     "password" : "",
     "passwordRepeated"  : ""
   };
@@ -31,6 +32,7 @@ export class ChangePasswordComponent implements OnInit {
 
   form = new FormGroup({  
     email: new FormControl(''),
+    oldPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])), 
     password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])), 
     passwordRepeated: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])),  
   })
@@ -53,20 +55,25 @@ export class ChangePasswordComponent implements OnInit {
   this.user.email = localStorage.getItem("user")
   }
 
-  onSubmit() {
-    
+  onSubmit() { 
+
     this.notification = undefined;
-    this.submitted = true;
+    this.submitted = true; 
     this.user.password = this.form.get('password').value
+    this.user.oldPassword = this.form.get('oldPassword').value
     this.user.passwordRepeated = this.form.get('passwordRepeated').value
-    this.userService.changePassword(this.user)
-    .subscribe(data => { 
-      this.router.navigate([this.returnUrl]);
-    },
-      error => {
+    console.log(this.user)
+    this.userService.changePassword(this.user).subscribe(
+      (data) => { 
+        this.router.navigate([this.returnUrl]); 
+      },
+      (err) => {  
         this.submitted = false; 
-        this.notification = {msgType: 'error', msgBody: 'Passwords are not equal.'};
-      });
+        this.form.reset
+        this.notification = {msgType: 'error', msgBody: 'Passwords are not equal or wrong old password.'};
+      } 
+    ) 
+      
    }
 
 }
