@@ -3,6 +3,7 @@ package com.example.WishAndFish.dto;
 public class ChangePasswordDTO {
 
     private String email;
+    private String oldPassword;
     private String password;
     private String passwordRepeated;
 
@@ -37,5 +38,13 @@ public class ChangePasswordDTO {
 
     public void setPasswordRepeated(String passwordRepeated) {
         this.passwordRepeated = passwordRepeated;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 }

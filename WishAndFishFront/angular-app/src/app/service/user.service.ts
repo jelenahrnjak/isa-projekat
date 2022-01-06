@@ -35,7 +35,7 @@ export class UserService {
     return this.apiService.put(this.config.user_url + `/update`, data)
   }
 
-  changePassword(data : any) : Observable<any> {
+  changePassword(data : any,) : Observable<any> {
     return this.apiService.put(this.config.user_url + `/changePassword`, data)
   }
  
