@@ -11,7 +11,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
-import {AngularMaterialModule} from './angular-material/angular-material.module';
+import {AngularMaterialModule} from './angular-material/angular-material.module'; 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
