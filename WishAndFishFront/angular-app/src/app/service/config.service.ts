@@ -8,9 +8,14 @@ export class ConfigService {
   private _api_url = 'http://localhost:8080/api';
   private _auth_url = 'http://localhost:8080/api/auth';
   private _user_url = this._api_url + '/users';
+  private _cottage_url = this._api_url + '/cottages';
 
   get user_url(): string {
     return this._user_url;
+  }
+
+  get cottage_url(): string {
+    return this._cottage_url;
   }
 
   private _login_url = this._auth_url + '/login';

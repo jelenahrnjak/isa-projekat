@@ -23,4 +23,6 @@ export class HeaderComponent implements OnInit {
     return user.name + ' ' + user.surname;
   }
 
+  
+
 }

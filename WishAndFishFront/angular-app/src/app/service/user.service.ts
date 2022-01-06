@@ -38,5 +38,7 @@ export class UserService {
   changePassword(data : any) : Observable<any> {
     return this.apiService.put(this.config.user_url + `/changePassword`, data)
   }
+
+  
  
 }

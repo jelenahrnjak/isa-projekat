@@ -26,6 +26,7 @@ public class UserController {
     @Autowired
     private TokenUtils tokenUtils;
 
+
     @RequestMapping(value="getOne", method = RequestMethod.GET)
     public @ResponseBody UserDTO getUser(@RequestHeader("Authorization") String token){
         String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
