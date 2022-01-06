@@ -11,7 +11,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
-import {AngularMaterialModule} from './angular-material/angular-material.module';
+import {AngularMaterialModule} from './angular-material/angular-material.module'; 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -26,6 +26,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
+import { CottageComponent } from './components/cottage-owner/cottages/cottage.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AcceptRegistrationComponent } from './components/accept-registration/ac
     ChangePasswordComponent,
     CottageOwnerHomepageComponent,
     AcceptRegistrationComponent,
+    CottageComponent,
   ],
   imports: [
     BrowserModule,

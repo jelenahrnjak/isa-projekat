@@ -25,8 +25,6 @@ public class Address {
     private double longitude;
     @Column(name = "latitude", unique = false, nullable = true)
     private double latitude;
-    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<User> users = new HashSet<User>();
 
     public Address() {
     }
@@ -114,11 +112,4 @@ public class Address {
         this.countryName = countryName;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

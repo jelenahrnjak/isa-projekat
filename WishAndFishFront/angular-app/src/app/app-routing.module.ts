@@ -1,3 +1,4 @@
+import { CottageComponent } from './components/cottage-owner/cottages/cottage.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -39,6 +40,9 @@ const routes: Routes = [
     path: 'accept-registration',
     component: AcceptRegistrationComponent,
   }
+    path: 'cottages',
+    component: CottageComponent,
+  },
 
 ];
 

@@ -8,20 +8,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = TABLE_PER_CLASS)
 public class User implements UserDetails{
 
     private static final long serialVersionUID = 1L;
 
-    public enum LoyaltyCategories {
-        REGULAR,
-        SILVER,
-        GOLD;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "password", unique = false, nullable = false)
@@ -31,8 +28,8 @@ public class User implements UserDetails{
     @Column(name = "name", unique = false, nullable = false)
     private String name;
     @Column(name = "surname", unique = false, nullable = false)
-    private String surname;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private String surname; 
+    @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
     @Column(name = "phoneNumber", unique = false, nullable = false)
@@ -43,8 +40,9 @@ public class User implements UserDetails{
     private boolean enabled;
     @Column(name = "points", unique = false, nullable = false)
     private double points;
-    @Column(name = "loyaltyCategory", unique = false, nullable = false)
-    private LoyaltyCategories loyaltyCategory;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "loyalty_category_id", nullable = false)
+    private LoyaltyCategory loyaltyCategory;
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -67,19 +65,18 @@ public class User implements UserDetails{
         this.deleted = false;
         this.enabled = false;
         this.points = 0.0;
-        this.loyaltyCategory = LoyaltyCategories.REGULAR;
     }
 
     public User(User u){
-        this.password = u.password;
-        this.email = u.email;
-        this.name = u.name;
-        this.surname = u.surname;
-        this.phoneNumber = u.phoneNumber;
-        this.deleted = false;
-        this.enabled = false;
-        this.points = 0.0;
-        this.loyaltyCategory = LoyaltyCategories.REGULAR;
+        this.password = u.getPassword();
+        this.email = u.getEmail();
+        this.name = u.getName();
+        this.surname = u.getSurname();
+        this.phoneNumber = u.getPhoneNumber();
+        this.deleted = u.isDeleted();
+        this.enabled = u.isEnabled();
+        this.points = u.getPoints();
+        this.loyaltyCategory = u.getLoyaltyCategory();
     }
 
     public String getPhoneNumber() {
@@ -164,11 +161,21 @@ public class User implements UserDetails{
 
     public double getPoints() {return points; }
 
-    public void setPoints(double points) { this.points = points; }
+    public void setPoints(double points) {
+        this.points = points;
+//        if(points > 500) {
+//            this.loyaltyCategory = LoyaltyCategories.SILVER;
+//            this.discount = 5;
+//        }
+//        if(points > 1500) {
+//            this.discount = 15;
+//            this.loyaltyCategory = LoyaltyCategories.GOLD;
+//        }
+    }
 
-    public LoyaltyCategories getLoyaltyCategory() { return loyaltyCategory; }
+    public LoyaltyCategory getLoyaltyCategory() { return loyaltyCategory; }
 
-    public void setLoyaltyCategory(LoyaltyCategories loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
+    public void setLoyaltyCategory(LoyaltyCategory loyaltyCategory) { this.loyaltyCategory = loyaltyCategory; }
 
     public void setRole(Role role) {
         this.role = role;

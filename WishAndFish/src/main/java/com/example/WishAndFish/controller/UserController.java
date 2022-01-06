@@ -32,7 +32,6 @@ public class UserController {
     @Autowired
     private TokenUtils tokenUtils;
 
-
     @RequestMapping(value="/getAll", method = RequestMethod.GET)
     public @ResponseBody
     List<UserDTO> getUsers(@RequestHeader("Authorization") String token){
@@ -71,7 +70,7 @@ public class UserController {
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)
-    public ResponseEntity<String> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordDTO dto) {
+    public ResponseEntity<ChangePasswordDTO> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordDTO dto) {
 
         String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
         User user = userService.findByEmail(email);
@@ -79,6 +78,6 @@ public class UserController {
         if(u == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Success",HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(u,HttpStatus.OK);
     }
 }
