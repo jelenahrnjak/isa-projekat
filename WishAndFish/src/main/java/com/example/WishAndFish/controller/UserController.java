@@ -28,10 +28,10 @@ public class UserController {
 
 
     @RequestMapping(value="getOne", method = RequestMethod.GET)
-    public @ResponseBody UserDTO getUser(@RequestHeader("Authorization") String token){
+    public ResponseEntity<UserDTO> getUser(@RequestHeader("Authorization") String token){
         String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
         User u = userService.findByEmail(email);
-        return new UserDTO(u);
+        return ResponseEntity.ok(new UserDTO(u));
     }
 
     @RequestMapping(value="role", method = RequestMethod.GET)

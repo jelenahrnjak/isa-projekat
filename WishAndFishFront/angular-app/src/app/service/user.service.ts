@@ -10,8 +10,7 @@ import jwt_decode from "jwt-decode";
 })
 export class UserService {
 
-  currentUser: any = null;
-
+  currentUser: any = this.getUser(); 
   constructor(
     private apiService: ApiService,
     private config: ConfigService
