@@ -17,6 +17,8 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 	VALUES (400, 'Novi Sad', 'Srbija', 35.455, 29.519380, '32000', 'Dušana Petrovića', '16');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (500, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
+INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
+	VALUES (501, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
 
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category, discount, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 2, 15, 'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
@@ -37,7 +39,7 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_o
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
 	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
-	VALUES (112, 'Good', 'The River', 75, 500, 50);
+	VALUES (112, 'Good', 'The River', 75, 501, 50);
 
 INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (124, 10, 111);

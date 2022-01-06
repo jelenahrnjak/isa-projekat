@@ -34,8 +34,8 @@ public class User implements UserDetails{
     @Column(name = "name", unique = false, nullable = false)
     private String name;
     @Column(name = "surname", unique = false, nullable = false)
-    private String surname;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private String surname; 
+    @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
     @Column(name = "phoneNumber", unique = false, nullable = false)
