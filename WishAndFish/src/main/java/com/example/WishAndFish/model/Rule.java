@@ -16,4 +16,8 @@ public class Rule {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id")
     private Cottage cottage;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "boat_id")
+    private Boat boat;
 }

@@ -33,8 +33,12 @@ public class Appointment {
     private Boolean reserved;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cottage_id", nullable = false)
+    @JoinColumn(name = "cottage_id", nullable = true)
     private Cottage cottage;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "boat_id", nullable = true)
+    private Boat boat;
 
     @ManyToMany(mappedBy = "appointments")
     private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
