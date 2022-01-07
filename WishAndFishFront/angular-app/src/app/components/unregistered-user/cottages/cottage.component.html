@@ -8,8 +8,9 @@
             <b>{{c.name}}</b>
             </li>
             <li class="list-group-item">{{c.address}}</li>  
-            <li *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
-            <li *ngIf="c.rating == '0.0'" class="list-group-item">The restaurant does not currently have any ratings.</li> 
+            <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
+            <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The restaurant currently does not have any ratings.</li> 
+            <li class="list-group-item">{{c.description}}</li> 
             </ul>
         </div>
     </div>

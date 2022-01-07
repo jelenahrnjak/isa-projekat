@@ -19,13 +19,14 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    min-width: 0;
+
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
     border: 3px outset rgba(0, 0, 0, 0.125);
     border-radius: 10px;
-    width : 270px;
+    width : 265px;
+    max-width: 295px;
     text-align: center;
 }
 
@@ -35,12 +36,9 @@
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
 }
+
   
-.row div{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex; 
-    flex:1;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+.row div{  
+    display: flex;  
+    flex:1 ;  
 }
