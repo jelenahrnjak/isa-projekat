@@ -21,9 +21,8 @@ public class CottageController {
 
     private Logger logger = LoggerFactory.getLogger(CottageController.class);
 
-    @RequestMapping(value="getAll", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:8080")
-    public List<Cottage> loadAll() {
+    @RequestMapping(value="", method = RequestMethod.GET)
+    public List<CottageDTO> getAll() {
         return this.cottageService.findAll();
     }
 }

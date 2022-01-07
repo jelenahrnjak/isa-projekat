@@ -9,8 +9,7 @@ import jwt_decode from "jwt-decode";
   providedIn: 'root'
 })
 export class UserService {
-
-  currentUser: any = this.getUser();  
+   
   allUsers : any[] = null;
   unenabledUsers : any[] = null;
   
@@ -37,10 +36,9 @@ export class UserService {
     }));
   }
 
-  getUser() {
-    return this.apiService.get(this.config.user_url + `/getOne`)
+  getUser() : Observable<any> {
+    return this.apiService.get(this.config.user_url + `/${localStorage.getItem('user')}`)
       .pipe(map(user => {
-        this.currentUser = user;
         return user;
       }));
   } 

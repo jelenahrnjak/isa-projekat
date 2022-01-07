@@ -21,15 +21,18 @@ export class HeaderComponent implements OnInit {
       return true;
     }
   }
-
-  userName() {
-    const user = this.userService.currentUser;
-    return user.name + ' ' + user.surname;
+ 
+  clientOrUnregistered(){
+    if(localStorage.getItem('role') === 'CLIENT' || !this.hasSignedIn()){
+      return true;
+    }else{
+      return false;
+    }
   }
   
   isAdmin() {
     let role = localStorage.getItem("role");
-    if (role == "ROLE_ADMIN" && this.hasSignedIn()){
+    if (role == "ADMIN" && this.hasSignedIn()){
       return true;
     }
     return false;

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.WishAndFish.service.UserService;
 
@@ -44,12 +45,12 @@ public class UserController {
         return userService.getUnenabledUsers();
     }
 
-    @RequestMapping(value="getOne", method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> getUser(@RequestHeader("Authorization") String token){
-        String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+    @RequestMapping(value="/{email}", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
-        return ResponseEntity.ok(new UserDTO(u));
+        return new ResponseEntity<>(new UserDTO(u), HttpStatus.OK);
     }
+
 
     @RequestMapping(value="role", method = RequestMethod.GET)
     public @ResponseBody String getRole(@RequestHeader("Authorization") String token){

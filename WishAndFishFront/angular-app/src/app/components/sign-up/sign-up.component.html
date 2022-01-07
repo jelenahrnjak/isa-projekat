@@ -32,10 +32,10 @@
             <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
             <select (change)="changeRole(t.value)" #t formControlName="role" matNativeControl required>
-                <option value="ROLE_CLIENT">Client</option>
-                <option value="ROLE_COTTAGE_OWNER">Cottage owner</option>
-                <option value="ROLE_BOAT_OWNER">Boat owner</option>
-                <option value="ROLE_FISHING_INSTRUCTOR">Fishing instructor</option>
+                <option value="CLIENT">Client</option>
+                <option value="COTTAGE_OWNER">Cottage owner</option>
+                <option value="BOAT_OWNER">Boat owner</option>
+                <option value="FISHING_INSTRUCTOR">Fishing instructor</option>
             </select>
             </mat-form-field>
             <mat-form-field *ngIf="showReasonForRegistry">

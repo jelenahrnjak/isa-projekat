@@ -15,9 +15,32 @@ public class Image {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
     private Cottage cottage;
-
+  
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id", nullable = true)
     private Boat boat;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Cottage getCottage() {
+        return cottage;
+    }
+
+    public void setCottage(Cottage cottage) {
+        this.cottage = cottage;
+    } 
 }

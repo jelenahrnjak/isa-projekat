@@ -24,17 +24,22 @@ public class Cottage {
     @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
-
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @Column(name = "numberOfRatings")
+    private int numberOfRatings;
+    @Column(name="rating")
+    private double rating;
+    @Column(name="coverImage")
+    private String coverImage;
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Room> rooms = new HashSet<Room>();
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Image> images = new HashSet<Image>();
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -90,5 +95,69 @@ public class Cottage {
 
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public CottageOwner getCottageOwner() {
+        return cottageOwner;
+    }
+
+    public void setCottageOwner(CottageOwner cottageOwner) {
+        this.cottageOwner = cottageOwner;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 }

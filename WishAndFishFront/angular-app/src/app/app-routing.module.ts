@@ -1,4 +1,4 @@
-import { CottageComponent } from './components/cottage-owner/cottages/cottage.component';
+import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';

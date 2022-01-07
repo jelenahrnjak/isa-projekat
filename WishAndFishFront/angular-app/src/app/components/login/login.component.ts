@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
           this.role = localStorage.getItem("role");
           switch(this.role){
-            case "ROLE_COTTAGE_OWNER":
+            case "COTTAGE_OWNER":
               this.router.navigate(['/cottage-owner']);
             }
         },
