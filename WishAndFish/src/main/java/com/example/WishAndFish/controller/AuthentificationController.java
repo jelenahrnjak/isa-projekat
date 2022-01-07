@@ -9,8 +9,7 @@ import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
 import com.example.WishAndFish.model.User;
-import com.example.WishAndFish.service.EmailService;
-import com.example.WishAndFish.service.UserService;
+import com.example.WishAndFish.service.*;
 import com.example.WishAndFish.security.util.TokenUtils;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,18 @@ public class AuthentificationController {
     private UserService userService;
 
     @Autowired
+    private CottageOwnerService cottageOwnerService;
+
+    @Autowired
+    private BoatOwnerService boatOwnerService;
+
+    @Autowired
+    private FishingInstructorService fishingInstructorService;
+
+    @Autowired
+    private AdminService adminService;
+
+    @Autowired
     private EmailService emailService;
 
     @PostMapping("/login")
@@ -70,17 +81,37 @@ public class AuthentificationController {
             throw new ResourceConflictException(userRequest.getId(), "Email already exists");
         }
 
-        String randomCode = RandomString.make(64);
-        userRequest.setVerificationCode(randomCode);
-        User user = this.userService.save(userRequest);
-        if (userRequest.getRoleName().equals("ROLE_CLIENT")){
+        if (userRequest.getRoleName().equals("COTTAGE_OWNER")){
+            User user = this.cottageOwnerService.save(userRequest);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+        else if(userRequest.getRoleName().equals("CLIENT")){
             try{
+                String randomCode = RandomString.make(64);
+                userRequest.setVerificationCode(randomCode);
+                User user = this.userService.save(userRequest);
                 emailService.sendMailForVerfication(user, getSiteURL(request));
+                return new ResponseEntity<>(user, HttpStatus.CREATED);
+
             } catch (Exception e){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        else if(userRequest.getRoleName().equals("BOAT_OWNER")){
+            User user = this.boatOwnerService.save(userRequest);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+        else if(userRequest.getRoleName().equals("FISHING_INSTRUCTOR")){
+            User user = this.fishingInstructorService.save(userRequest);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+        else if(userRequest.getRoleName().equals("ADMIN")){
+            User user = this.adminService.save(userRequest);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/verify")

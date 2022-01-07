@@ -12,7 +12,7 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails{
 
     private static final long serialVersionUID = 1L;
