@@ -48,6 +48,11 @@ public class Address {
         this.countryName = countryName;
     }
 
+    @Override
+    public String toString(){
+        return this.street + " " + this.streetNumber + ", " + this.cityName + ", " + this.countryName;
+    }
+
     public long getId() {
         return id;
     }

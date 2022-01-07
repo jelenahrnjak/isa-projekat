@@ -44,12 +44,12 @@ INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date,
 	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
 
 
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
-	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
-	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id)
-	VALUES (112, 'Good', 'The River', 75, 501, 50);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image)
+	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg');
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image)
+	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50,3.5,4,'cottage2.jpg');
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image)
+	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg');
 
 INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (124, 10, 111);

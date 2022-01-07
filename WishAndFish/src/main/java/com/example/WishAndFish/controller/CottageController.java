@@ -22,7 +22,7 @@ public class CottageController {
     private Logger logger = LoggerFactory.getLogger(CottageController.class);
 
     @RequestMapping(value="", method = RequestMethod.GET)
-    public List<Cottage> loadAll() {
+    public List<CottageDTO> getAll() {
         return this.cottageService.findAll();
     }
 }

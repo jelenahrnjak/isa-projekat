@@ -36,8 +36,8 @@ export class UserService {
     }));
   }
 
-  getUser() {
-    return this.apiService.get(this.config.user_url + `/getOne`)
+  getUser() : Observable<any> {
+    return this.apiService.get(this.config.user_url + `/${localStorage.getItem('user')}`)
       .pipe(map(user => {
         return user;
       }));

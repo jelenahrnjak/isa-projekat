@@ -3,34 +3,29 @@ package com.example.WishAndFish.dto;
 import com.example.WishAndFish.model.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CottageDTO {
 
     private String name;
     private String description;
-    private Double pricePerDay;
-    private Address address;
-    private Set<Room> rooms = new HashSet<Room>();
-    private Set<Appointment> appointments = new HashSet<Appointment>();
-    private Set<Image> images = new HashSet<Image>();
-    private Set<Rule> rules = new HashSet<Rule>();
+    private String address;
+    private String rating;
+    private String coverImage;
 
     public CottageDTO() {
     }
 
-    public CottageDTO(String name, String description, Double pricePerDay, Address address, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules) {
-        this.name = name;
-        this.description = description;
-        this.pricePerDay = pricePerDay;
-        this.address = address;
-        this.rooms = rooms;
-        this.appointments = appointments;
-        this.images = images;
-        this.rules = rules;
+    public  CottageDTO(Cottage c){
+        this.name = c.getName();
+        this.description = c.getDescription();
+        this.address= c.getAddress().toString();
+        this.rating = Double.toString(c.getRating());
+        this.coverImage = c.getCoverImage();
     }
-
     public String getName() {
         return name;
     }
@@ -47,51 +42,27 @@ public class CottageDTO {
         this.description = description;
     }
 
-    public Double getPricePerDay() {
-        return pricePerDay;
-    }
-
-    public void setPricePerDay(Double pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public Set<Room> getRooms() {
-        return rooms;
+    public String getCoverImage() {
+        return coverImage;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 
-    public Set<Appointment> getAppointments() {
-        return appointments;
+    public String getRating() {
+        return rating;
     }
 
-    public void setAppointments(Set<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
-
-    public Set<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(Set<Rule> rules) {
-        this.rules = rules;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }
