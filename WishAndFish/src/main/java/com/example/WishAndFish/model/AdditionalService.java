@@ -25,6 +25,7 @@ public class AdditionalService {
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
 
+
     public AdditionalService() {
     }
 

@@ -13,6 +13,11 @@ public class Image {
     private String path;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cottage_id")
+    @JoinColumn(name = "cottage_id", nullable = true)
     private Cottage cottage;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "boat_id", nullable = true)
+    private Boat boat;
+
 }
