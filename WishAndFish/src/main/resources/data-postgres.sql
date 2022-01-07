@@ -42,8 +42,8 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (60, false, 'dusanfarmville@gmail.com', false, null, 10, 'Duki', 'dusandusan', '0617890213', 0, 'Suzuki', 302, 2, null);
 
 
-INSERT INTO COTTAGE_OWNER(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id,name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+INSERT INTO COTTAGE_OWNER(id)
+	VALUES (50);
 
 
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image)
