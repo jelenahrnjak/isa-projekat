@@ -40,6 +40,9 @@ public class Boat {
     @Column(name = "capacity", unique = false, nullable = false)
     private Integer capacity;
 
+    @Column(name = "average_grade", unique = false, nullable = true)
+    private Double averageGrade;
+
     @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Image> images = new HashSet<Image>();
 
