@@ -6,8 +6,7 @@
     right: 0;
     height: 92%;
     bottom: 0;
-    overflow:scroll;
-    overfrow-x:hidden;
+    overflow:scroll; 
 }
 
 .card{
@@ -25,12 +24,14 @@
     background-clip: border-box;
     border: 3px outset rgba(0, 0, 0, 0.125);
     border-radius: 10px;
-    width : 265px;
-    max-width: 295px;
+    width : 300px;
+    max-width: 300px;
+    min-width: 300px;
     text-align: center;
 }
 
 .card-img-top{
+    margin-top: 10px;
     height: 190px;
     width: 100%;
     border-top-left-radius: calc(0.25rem - 1px);
