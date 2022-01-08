@@ -35,6 +35,7 @@ public class CottageController {
     @PostMapping(value="/addCottage")
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public Cottage addCottage(@RequestBody AddCottageDTO newCottage) {
+        System.out.println("Nova vikendica kontroler" + newCottage.getDescription());
         return this.cottageService.addCottage(newCottage);
     }
 }

@@ -12,13 +12,13 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", unique = false, nullable = false)
+    @Column(name = "name", unique = false, nullable = true)
     private String name;
 
-    @Column(name = "description", unique = false, nullable = false)
+    @Column(name = "description", unique = false, nullable = true)
     private String description;
 
-    @Column(name = "price_per_day", unique = false, nullable = false)
+    @Column(name = "price_per_day", unique = false, nullable = true)
     private Double pricePerDay;
 
     @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
@@ -42,9 +42,11 @@ public class Cottage {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cottage_owner_id")
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private CottageOwner cottageOwner;
+
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
 
     public Cottage() {
     }
@@ -55,21 +57,6 @@ public class Cottage {
         this.description = description;
         this.pricePerDay = pricePerDay;
         this.address = address;
-    }
-
-    public Cottage(String name, String description, Double pricePerDay, Address address, int numberOfRatings, double rating, String coverImage, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules, CottageOwner cottageOwner) {
-        this.name = name;
-        this.description = description;
-        this.pricePerDay = pricePerDay;
-        this.address = address;
-        this.numberOfRatings = numberOfRatings;
-        this.rating = rating;
-        this.coverImage = coverImage;
-        this.rooms = rooms;
-        this.appointments = appointments;
-        this.images = images;
-        this.rules = rules;
-        this.cottageOwner = cottageOwner;
     }
 
     public String getName() {
@@ -174,5 +161,29 @@ public class Cottage {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Cottage(String name, String description, Double pricePerDay, Address address, int numberOfRatings, double rating, String coverImage, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules, CottageOwner cottageOwner, boolean deleted) {
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.numberOfRatings = numberOfRatings;
+        this.rating = rating;
+        this.coverImage = coverImage;
+        this.rooms = rooms;
+        this.appointments = appointments;
+        this.images = images;
+        this.rules = rules;
+        this.cottageOwner = cottageOwner;
+        this.deleted = deleted;
     }
 }

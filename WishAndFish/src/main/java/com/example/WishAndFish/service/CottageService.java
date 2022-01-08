@@ -74,6 +74,7 @@ public class CottageService {
     }
 
     public Cottage addCottage(AddCottageDTO newCottage){
+        System.out.println("Nova vikendica" + newCottage.getDescription());
         Address address = new Address(newCottage.getAddress().getStreet(),newCottage.getAddress().getStreetNumber(),
                 newCottage.getAddress().getPostalCode(),newCottage.getAddress().getCityName(),newCottage.getAddress().getCountryName(),
                 newCottage.getAddress().getLongitude(),newCottage.getAddress().getLatitude());
@@ -81,20 +82,11 @@ public class CottageService {
         User user = this.userRepository.findByEmail(newCottage.getOwnerEmail());
         CottageOwner cottageOwner = new CottageOwner(user);
 
-        Set<Room> rooms = new HashSet<Room>();
-        for(RoomDTO r: newCottage.getRooms()) {
-            rooms.add(new Room(r));
-        }
-
-        Set<Rule> rules = new HashSet<Rule>();
-        for(RuleDTO r: newCottage.getRules()) {
-            rules.add(new Rule(r));
-        }
-
         Cottage cottage = new Cottage(newCottage.getName(),newCottage.getDescription(),newCottage.getPrice(),address,
-                0,0.0, newCottage.getCoverImage(),
-                rooms,null,null,rules, cottageOwner
+                0,0.0, null,
+                null,null,null,null, null, false
                 );
-        return this.cottageRepository.save(new Cottage());
+        cottage.setCottageOwner(cottageOwner);
+        return this.cottageRepository.save(cottage);
     }
 }
