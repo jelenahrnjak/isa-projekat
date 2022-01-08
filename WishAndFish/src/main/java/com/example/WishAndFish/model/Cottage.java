@@ -57,6 +57,21 @@ public class Cottage {
         this.address = address;
     }
 
+    public Cottage(String name, String description, Double pricePerDay, Address address, int numberOfRatings, double rating, String coverImage, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules, CottageOwner cottageOwner) {
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.numberOfRatings = numberOfRatings;
+        this.rating = rating;
+        this.coverImage = coverImage;
+        this.rooms = rooms;
+        this.appointments = appointments;
+        this.images = images;
+        this.rules = rules;
+        this.cottageOwner = cottageOwner;
+    }
+
     public String getName() {
         return name;
     }
