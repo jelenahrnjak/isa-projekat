@@ -48,6 +48,9 @@ public class UserController {
     @RequestMapping(value="/{email}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
+        if(u==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new UserDTO(u), HttpStatus.OK);
     }
 
@@ -71,10 +74,9 @@ public class UserController {
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)
-    public ResponseEntity<ChangePasswordDTO> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordDTO dto) {
+    public ResponseEntity<ChangePasswordDTO> changePassword(@RequestBody ChangePasswordDTO dto) {
 
-        String email = tokenUtils.getEmailFromToken(token.split(" ")[1]);
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(dto.getEmail());
         ChangePasswordDTO u = userService.updatePasswod(dto);
         if(u == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
