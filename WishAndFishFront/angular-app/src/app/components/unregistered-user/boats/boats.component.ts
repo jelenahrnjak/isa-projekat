@@ -19,7 +19,7 @@ export class BoatsComponent implements OnInit {
     "name" : "",
     "address" : "",
     "rating" : "",
-   // "price" : "",
+    "price" : "",
     "description" : ""
   }
 
@@ -34,7 +34,9 @@ export class BoatsComponent implements OnInit {
       name: [''],
       address: [''], 
       description: [''],  
-      rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
+      rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
+      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
+       
     })  
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
@@ -46,7 +48,7 @@ export class BoatsComponent implements OnInit {
     this.searchDTO.name = this.form.get('name').value
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
-    //this.searchDTO.price = this.form.get('price').value
+    this.searchDTO.price = this.form.get('price').value
     this.searchDTO.description = this.form.get('description').value 
     this.boatService.search(this.searchDTO).subscribe((data : any) => { 
       this.boats = data; 
@@ -54,7 +56,7 @@ export class BoatsComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "","price": ""})
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
