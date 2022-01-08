@@ -64,7 +64,12 @@ public class Boat {
     @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<CancellationConditions> cancellationConditions = new HashSet<CancellationConditions>();
 
+    @Column(name="coverImage")
+    private String coverImage;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "boat_owner_id")
+    private BoatOwner boatOwner;
     public Boat() {
     }
 
