@@ -9,6 +9,7 @@ export class ConfigService {
   private _auth_url = 'http://localhost:8080/api/auth';
   private _user_url = this._api_url + '/users';
   private _cottage_url = this._api_url + '/cottages';
+  private _cottage_owner_url = this._api_url + '/cottageOwner';
 
   get user_url(): string {
     return this._user_url;
@@ -16,6 +17,10 @@ export class ConfigService {
 
   get cottage_url(): string {
     return this._cottage_url;
+  }
+
+  get cottage_owner_url(): string {
+    return this._cottage_owner_url;
   }
 
   private _login_url = this._auth_url + '/login';

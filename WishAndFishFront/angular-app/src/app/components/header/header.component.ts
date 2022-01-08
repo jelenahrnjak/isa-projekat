@@ -38,4 +38,12 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  isCottageOwner() {
+    let role = localStorage.getItem("role");
+    if (role == "COTTAGE_OWNER" && this.hasSignedIn()){
+      return true;
+    }
+    return false;
+  }
+
 }

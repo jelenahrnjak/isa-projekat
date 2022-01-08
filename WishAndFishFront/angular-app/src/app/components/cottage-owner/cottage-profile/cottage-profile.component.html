@@ -1,0 +1,19 @@
+<div class="card-holder" style="margin-left: 10px;">
+    <div class="row" style="margin: 20px; "> 
+            <div class="card" style="margin: 30px; " *ngFor="let c of cottages">
+                <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
+                <ul class="list-group list-group-flush">
+                <li class = "list-group-item">
+                <b>{{c.name}}</b>
+                </li>
+                <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
+                <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
+                <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The restaurant currently does not have any ratings.</li> 
+                <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
+                <li class="list-group-item">
+                    <a href="#" class="btn btn-primary">Details</a>
+                </li>
+                </ul> 
+               
+        </div>
+    </div>

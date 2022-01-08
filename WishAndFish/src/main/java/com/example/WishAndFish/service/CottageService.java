@@ -3,7 +3,9 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.CottagesSearchDTO;
 import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.repository.CottageRepository;
+import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class CottageService {
 
     @Autowired
     private CottageRepository cottageRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<CottageDTO> findAll() {
 
