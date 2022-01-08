@@ -17,7 +17,8 @@ interface DisplayMessage {
 })
 export class UserProfileComponent implements OnInit {
 
-  title = 'Profile informations'; 
+  title1 = 'Profile informations'; 
+  title2 = 'Edit profile'; 
   points = 0
   pointsNeeded = 0
   discount = 0
@@ -131,6 +132,10 @@ export class UserProfileComponent implements OnInit {
       this.refreshFormBefore()
       
     })
+  }
+
+  requestDeletion(){
+    
   }
 
 

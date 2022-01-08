@@ -75,6 +75,8 @@ public class Boat {
     private int numberOfRatings;
     @Column(name="rating")
     private double rating;
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
 
     public Boat() {
     }
@@ -253,5 +255,13 @@ public class Boat {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

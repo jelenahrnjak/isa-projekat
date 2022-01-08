@@ -24,7 +24,8 @@ public class BoatService {
 
         List<BoatDTO> ret = new ArrayList<BoatDTO>();
         for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            ret.add(new BoatDTO(b));
+            if(!b.isDeleted()){
+            ret.add(new BoatDTO(b));}
         };
 
         return ret;
@@ -39,7 +40,7 @@ public class BoatService {
             System.out.println("Error with parsing rating");
         }
         for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            if(checkBoatForSearch(b,dto,rating)){
+            if(checkBoatForSearch(b,dto,rating) && !b.isDeleted()){
                 ret.add(new BoatDTO(b));}
         }
 
