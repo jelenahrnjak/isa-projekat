@@ -4,25 +4,17 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthService, UserService } from '../../../service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
-import { CottageService } from 'src/app/service/cottage.service';
-
-interface DisplayMessage {
-  msgType: string;
-  msgBody: string;
-}
+import { BoatService } from 'src/app/service/boat.service';
 
 @Component({
-  selector: 'app-cottage',
-  templateUrl: './cottage.component.html',
-  styleUrls: ['./cottage.component.css']
+  selector: 'app-boats',
+  templateUrl: './boats.component.html',
+  styleUrls: ['./boats.component.css']
 })
-export class CottageComponent implements OnInit {
-  returnUrl: string;
-  notification: DisplayMessage; 
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-  cottages: any  
-  form: FormGroup;
+export class BoatsComponent implements OnInit {
   
+  boats: any  
+  form: FormGroup;
   searchDTO = {
     "name" : "",
     "address" : "",
@@ -31,28 +23,22 @@ export class CottageComponent implements OnInit {
     "description" : ""
   }
 
-  constructor(  
+  constructor(
     private route: ActivatedRoute,
-    private cottageService: CottageService,   
-    private formBuilder: FormBuilder) { }
+    private boatService: BoatService,   
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
-    
     this.form = this.formBuilder.group({  
       name: [''],
       address: [''], 
       description: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
-    })
-     this.route.params
-     .pipe(takeUntil(this.ngUnsubscribe))
-     .subscribe((params: DisplayMessage) => {
-       this.notification = params;
-   }); 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.cottageService.getAll().subscribe((data : any) => {
-      this.cottages = data;
-  }); 
+    })  
+    this.boatService.getAll().subscribe((data : any) => {
+      this.boats = data;
+    }); 
  
   }
 
@@ -62,15 +48,16 @@ export class CottageComponent implements OnInit {
     this.searchDTO.rating = this.form.get('rating').value
     //this.searchDTO.price = this.form.get('price').value
     this.searchDTO.description = this.form.get('description').value 
-    this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
-      this.cottages = data; 
+    this.boatService.search(this.searchDTO).subscribe((data : any) => { 
+      this.boats = data; 
     }); 
   }
 
   clear(){
     this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
-    this.cottageService.getAll().subscribe((data : any) => {
-      this.cottages = data;
+    this.boatService.getAll().subscribe((data : any) => {
+      this.boats = data;
     }); 
   }
+
 }

@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/unregistered-user/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { LoginComponent } from './components/login/login.component';
@@ -27,7 +27,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
 import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
-import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component'; 
+import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
+import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
+import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component'; 
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { CottageProfileComponent } from './components/cottage-owner/cottage-prof
     CottageOwnerHomepageComponent,
     AcceptRegistrationComponent,
     CottageComponent,
-    CottageProfileComponent, 
+    CottageProfileComponent,
+    BoatsComponent,
+    InstructorsComponent, 
   ],
   imports: [
     BrowserModule,
