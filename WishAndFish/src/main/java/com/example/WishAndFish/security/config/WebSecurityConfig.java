@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/boats").permitAll()
                 .antMatchers("/api/boats/search").permitAll()
                 .antMatchers("/api/users/{email}").permitAll()
+                .antMatchers("/api/users/requestDeleting").permitAll()
                 .antMatchers("/api/cottageOwner/**").permitAll()
 
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici

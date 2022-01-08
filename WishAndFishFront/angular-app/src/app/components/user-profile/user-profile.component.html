@@ -53,7 +53,7 @@
             <br>
             <button (click)="changeForm()" color="primary" mat-raised-button >Cancel</button> 
         </form>
-        <form *ngIf="!editing" (ngSubmit)="onSubmit()"  [formGroup]="formBefore" > 
+        <form *ngIf="!editing" [formGroup]="formBefore" > 
             <div class="row"> 
                     <div class="col-6 col-md-3"> 
                         <div > 
@@ -79,22 +79,31 @@
                             </mat-form-field> 
                         </div> 
                 </div>
-                <div class="col-6 col-md-3">  
-                        <br><br><br><br><br>
-                        <p>You are currently a {{program}} member. <br></p>
-                        <p>Discount you get: {{discount}}%<br></p>
-                        <p>Points: {{points}}<br></p>
-                        <p *ngIf="pointsNeeded>0">Missing points to the next level: {{pointsNeeded}} </p> 
-                </div>
+                <div class="col-6 col-md-3" *ngIf="!deleting">  
+                    <br><br><br><br><br>
+                    <p>You are currently a {{program}} member. <br></p>
+                    <p>Discount you get: {{discount}}%<br></p>
+                    <p>Points: {{points}}<br></p>
+                    <p *ngIf="pointsNeeded>0">Missing points to the next level: {{pointsNeeded}} </p> 
+                
+            </div>
+            <div class="col-6 col-md-3" *ngIf="deleting">  
+                <br><br><br><br><br>  
+                    <label>Reason for deleting account: </label>
+                    <input formControlName="reason" style="margin: 10px; width: 90%; height: 50px;" required> 
+                
+                 <button color="primary" mat-raised-button (click)="requestDeletion()" >Send</button><br>
+                <button color="primary" mat-raised-button (click)="deletingChange()" >Cancel</button>
+        </div>
             </div>
             <br><br>
             <button (click)="changeForm()" color="primary" mat-raised-button>Edit</button>  
             <br> 
-            <button color="primary" mat-raised-button (click)="requestDeletion()" >Request account deletion</button> 
+            <label *ngIf="existRequest">Request for deleting account sent! Answer will be sent to your email.</label>
+            <button *ngIf="!deleting && !existRequest" color="primary" mat-raised-button (click)="deletingChange()" >Request account deletion</button> 
         </form>
         <br>
         <hr>
     </mat-card-content>
-    
-    
-</mat-card> 
+      
+</mat-card>   
