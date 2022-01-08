@@ -31,9 +31,7 @@ export class CottageComponent implements OnInit {
     "description" : ""
   }
 
-  constructor( private userService: UserService,
-    private authService: AuthService,
-    private router: Router,
+  constructor(  
     private route: ActivatedRoute,
     private cottageService: CottageService,   
     private formBuilder: FormBuilder) { }

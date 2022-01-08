@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstructorsComponent implements OnInit {
 
+  instructors:any= []
   constructor() { }
 
   ngOnInit() {
   }
 
+  search(){
+
+  }
+
+  cleear(){
+
+  }
 }

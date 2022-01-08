@@ -17,5 +17,13 @@ export class BoatService {
         .pipe(map(boats => { 
           return boats;
         }));
-    }   
+    } 
+    
+    search(data:any){
+    
+      return this.apiService.get(this.config.boat_url + `/search`,data)
+        .pipe(map(boats => {   
+          return boats;
+        }));
+    }
 }

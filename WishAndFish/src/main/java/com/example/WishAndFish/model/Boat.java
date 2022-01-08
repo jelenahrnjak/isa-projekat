@@ -70,9 +70,188 @@ public class Boat {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_owner_id")
     private BoatOwner boatOwner;
+
+    @Column(name = "numberOfRatings")
+    private int numberOfRatings;
+    @Column(name="rating")
+    private double rating;
+
     public Boat() {
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Double getLength() {
+        return length;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
+    }
+
+    public Integer getEngineNumber() {
+        return engineNumber;
+    }
+
+    public void setEngineNumber(Integer engineNumber) {
+        this.engineNumber = engineNumber;
+    }
+
+    public String getEnginePower() {
+        return enginePower;
+    }
+
+    public void setEnginePower(String enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    public Double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(Double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Double getAverageGrade() {
+        return averageGrade;
+    }
+
+    public void setAverageGrade(Double averageGrade) {
+        this.averageGrade = averageGrade;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public Double getPricePerHour() {
+        return pricePerHour;
+    }
+
+    public void setPricePerHour(Double pricePerHour) {
+        this.pricePerHour = pricePerHour;
+    }
+
+    public Set<NavigationEquipment> getNavigationEquipments() {
+        return navigationEquipments;
+    }
+
+    public void setNavigationEquipments(Set<NavigationEquipment> navigationEquipments) {
+        this.navigationEquipments = navigationEquipments;
+    }
+
+    public Set<FishingEquipment> getFishingEquipments() {
+        return fishingEquipments;
+    }
+
+    public void setFishingEquipments(Set<FishingEquipment> fishingEquipments) {
+        this.fishingEquipments = fishingEquipments;
+    }
+
+    public Set<CancellationConditions> getCancellationConditions() {
+        return cancellationConditions;
+    }
+
+    public void setCancellationConditions(Set<CancellationConditions> cancellationConditions) {
+        this.cancellationConditions = cancellationConditions;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public BoatOwner getBoatOwner() {
+        return boatOwner;
+    }
+
+    public void setBoatOwner(BoatOwner boatOwner) {
+        this.boatOwner = boatOwner;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 }
