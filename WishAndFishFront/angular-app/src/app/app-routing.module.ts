@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
+import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
+import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 
 
 const routes: Routes = [
@@ -49,6 +51,14 @@ const routes: Routes = [
   {
     path: 'cottage-profile',
     component: CottageProfileComponent,
+  },
+  {
+    path: 'boats',
+    component: BoatsComponent,
+  },
+  {
+    path: 'instructors',
+    component: InstructorsComponent,
   }
 
 ];
