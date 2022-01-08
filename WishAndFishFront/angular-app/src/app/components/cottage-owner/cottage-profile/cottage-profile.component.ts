@@ -1,3 +1,4 @@
+import { CottageOwnerService } from './../../../service/cottage-owner.service';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { AuthService, UserService } from '../../../service';
@@ -25,7 +26,8 @@ export class CottageProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private cottageService: CottageService) { }
+    private cottageService: CottageService,
+    private cottageOwnerService: CottageOwnerService) { }
 
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class CottageProfileComponent implements OnInit {
    }); 
 
    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-   this.cottageService.getCottagesFromOwner().subscribe((data : any) => {
+   this.cottageOwnerService.getCottagesFromOwner().subscribe((data : any) => {
      this.cottages = data;
    });
  

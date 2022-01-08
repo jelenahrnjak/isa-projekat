@@ -6,22 +6,16 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CottageService {
+export class CottageOwnerService {
 
-  cottages: any = [];
-  logo:string="./assets/cottage1.jpg"
-
-  constructor( private apiService: ApiService,
+  constructor(private apiService: ApiService,
     private config: ConfigService) { }
 
-  getAll() {
-    return this.apiService.get(this.config.cottage_url)
+
+  getCottagesFromOwner() {
+    return this.apiService.get(this.config.cottage_owner_url + `/getCottagesFromOwner/${localStorage.getItem('user')}`)
       .pipe(map(cottages => {
-        this.cottages = cottages;
-        return this.cottages;
+        return cottages;
       }));
   } 
-
-  
- 
 }
