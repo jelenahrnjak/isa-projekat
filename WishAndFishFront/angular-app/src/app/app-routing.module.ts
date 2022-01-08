@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
+import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'cottages',
     component: CottageComponent,
+  },
+  {
+    path: 'admin-signup',
+    component : AdminSignUpComponent,
   }
 
 ];

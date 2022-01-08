@@ -26,7 +26,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
-import { CottageComponent } from './components/unregistered-user/cottages/cottage.component'; 
+import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
+import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component'; 
+import { DialogContentExampleDialog } from './components/accept-registration/accept-registration.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { CottageComponent } from './components/unregistered-user/cottages/cottag
     ChangePasswordComponent,
     CottageOwnerHomepageComponent,
     AcceptRegistrationComponent,
-    CottageComponent, 
+    CottageComponent,
+    AdminSignUpComponent, 
+    DialogContentExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,10 @@ import { CottageComponent } from './components/unregistered-user/cottages/cottag
     ApiService,
     UserService,
     ConfigService,
+    AcceptRegistrationComponent,
+    DialogContentExampleDialog
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogContentExampleDialog]
 })
 export class AppModule { }
