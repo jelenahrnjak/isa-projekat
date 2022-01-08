@@ -10,6 +10,7 @@ export class ConfigService {
   private _user_url = this._api_url + '/users';
   private _cottage_url = this._api_url + '/cottages';
   private _cottage_owner_url = this._api_url + '/cottageOwner';
+  private _boat_url = this._api_url + '/boats';
 
   get user_url(): string {
     return this._user_url;
@@ -17,6 +18,10 @@ export class ConfigService {
 
   get cottage_url(): string {
     return this._cottage_url;
+  }
+
+  get boat_url(): string {
+    return this._boat_url;
   }
 
   get cottage_owner_url(): string {
