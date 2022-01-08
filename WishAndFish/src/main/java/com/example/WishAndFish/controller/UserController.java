@@ -1,6 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.ChangePasswordDTO;
+import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
 import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
@@ -71,10 +72,16 @@ public class UserController {
     }
 
     @RequestMapping(value="enableUser", method = RequestMethod.PUT)
-    public ResponseEntity<String> enableUser(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<String> acceptUser(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
         userService.enableUser(email);
         userService.sendMailForAcceptedRegistration(email);
         return new ResponseEntity<>("Success",HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value="declineUser", method = RequestMethod.DELETE)
+    public ResponseEntity<String> declineUser(@RequestBody DeclinedRegistrationDTO declinedRegistration) throws MessagingException, UnsupportedEncodingException {
+        userService.declineUser(declinedRegistration);
+        return new ResponseEntity<>("User declined",HttpStatus.OK);
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)

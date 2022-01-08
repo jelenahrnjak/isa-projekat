@@ -1,0 +1,9 @@
+<mat-dialog-content >
+    <p>What is the reason for declining?</p>
+    <input [(ngModel)]="message">
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="declineUser()">Decline User</button>
+  </mat-dialog-actions>
+  

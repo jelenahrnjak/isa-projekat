@@ -36,7 +36,7 @@ public class AdminService {
         user.setLoyaltyCategory(loyaltyCategoryRepository.findByLevel(1));
         user.setVerificationCode(requestUser.getVerificationCode());
         user.setReasonForRegistration(requestUser.getReasonForRegistration());
-
+        user.setHasChangedPassword(false);
         Role role = roleRepository.findByName(requestUser.getRoleName());
         user.setRole(role);
 

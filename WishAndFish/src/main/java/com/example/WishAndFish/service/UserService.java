@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.ChangePasswordDTO;
+import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
 import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.*;
@@ -144,6 +145,12 @@ public class UserService {
         emailService.sendMailForAcceptedRegistration(u);
     }
 
+    public void declineUser(DeclinedRegistrationDTO declinedRegistration) throws MessagingException {
+        User u = findByEmail(declinedRegistration.getUserEmail());
+        emailService.sendMailForDeclinedRegistration(declinedRegistration);
+        userRepository.deleteById(u.getId());
+    }
+  
     public RequestDTO requestDeleting(String email, String reason) {
         User u = findByEmail(email);
         if(isRequestedDeletion(u)){

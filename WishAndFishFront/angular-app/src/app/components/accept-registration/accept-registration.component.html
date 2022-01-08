@@ -5,6 +5,8 @@
     <mat-card-content class="inline-block">
         <p>Role: {{user.roleName}}</p>
         <p>Reason: {{user.reasonForRegistration}}</p>
-        <button id="user.email" color="primary" mat-raised-button type="submit" (click)="acceptUser(user.email)">Odobri</button>
+        <button id="user.email" color="primary" mat-raised-button type="submit" (click)="acceptUser(user.email)">Accept</button>
+        <button id="user.email" color="primary" mat-raised-button type="submit" (click)="openDialog(user.email)">Decline</button>  
     </mat-card-content>
-</mat-card>
+    
+
