@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-instructors',
@@ -9,6 +10,7 @@ export class InstructorsComponent implements OnInit {
 
   instructors:any= []
   constructor() { }
+  form: FormGroup;
 
   ngOnInit() {
   }
@@ -17,7 +19,7 @@ export class InstructorsComponent implements OnInit {
 
   }
 
-  cleear(){
+  clear(){
 
   }
 }

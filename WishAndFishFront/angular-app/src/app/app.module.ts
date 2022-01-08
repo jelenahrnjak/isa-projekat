@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/unregistered-user/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { LoginComponent } from './components/login/login.component';
