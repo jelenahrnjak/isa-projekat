@@ -17,7 +17,8 @@ interface DisplayMessage {
 })
 export class UserProfileComponent implements OnInit {
 
-  title = 'Profile informations'; 
+  title1 = 'Profile informations'; 
+  title2 = 'Edit profile'; 
   points = 0
   pointsNeeded = 0
   discount = 0
@@ -26,7 +27,9 @@ export class UserProfileComponent implements OnInit {
   address : any
   userInfo: any
   editing = false;  
-
+  deleting = false
+  reason : ""
+  existRequest : any
   notification: DisplayMessage; 
   returnUrl: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -56,9 +59,10 @@ export class UserProfileComponent implements OnInit {
       phoneNumber: new FormControl(''), 
       address: new FormControl(''),   
       city: new FormControl(''), 
-      country: new FormControl('')
+      country: new FormControl(''),
+      reason : new FormControl('',Validators.compose([Validators.minLength(5)]))
     })
-
+ 
   ngOnInit() {
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -89,6 +93,7 @@ export class UserProfileComponent implements OnInit {
   refreshFormBefore(){
     this.userService.getUser().subscribe((data : any) => {
       this.user = data
+      this.existRequest = data.requestedDeletion
       console.log(data)
       this.points = data.points
       this.discount = data.discount
@@ -102,6 +107,8 @@ export class UserProfileComponent implements OnInit {
       this.formBefore.controls['address'].setValue(this.address.street + " " + this.address.streetNumber) 
       this.formBefore.controls['city'].setValue(this.address.cityName + " " + this.address.postalCode)
       this.formBefore.controls['country'].setValue(this.address.countryName)
+      
+      this.formBefore.controls['reason'].setValue("")  
     });   
   }
 
@@ -132,6 +139,29 @@ export class UserProfileComponent implements OnInit {
       
     })
   }
-
-
+  
+  requestDeletion(){   
+    this.reason = this.formBefore.get('reason').value
+    if(this.reason.trim() === "" ||  this.reason.trim().length < 20){ 
+      this.notification = {msgType: 'error', msgBody: 'Reason must have more than 20 characters.'};
+      this.refreshFormBefore()
+    }else{ 
+    this.notification = undefined; 
+      this.userService.requestDeleting(this.reason).subscribe((data) => { 
+        this.deleting = false;
+        this.existRequest = true; 
+        this.refreshFormBefore()
+        
+      }),
+      (err) => {    
+        this.refreshFormBefore() 
+        this.deleting = false;
+        this.notification = {msgType: 'error', msgBody: 'Request already exists. Your answer will be sent to your email.'};
+      } 
+    }
+  }
+ 
+  deletingChange(){
+    this.deleting = !this.deleting
+  }
 }

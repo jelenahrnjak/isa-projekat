@@ -24,7 +24,8 @@ public class CottageService {
 
         List<CottageDTO> ret = new ArrayList<CottageDTO>();
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            ret.add(new CottageDTO(c));
+            if(!c.isDeleted()){
+            ret.add(new CottageDTO(c));}
         };
 
         return ret;
@@ -39,7 +40,7 @@ public class CottageService {
             System.out.println("Error with parsing rating");
         }
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            if(checkCottageForSearch(c,dto,rating)){
+            if(checkCottageForSearch(c,dto,rating) && !c.isDeleted()){
             ret.add(new CottageDTO(c));}
         }
 

@@ -46,6 +46,9 @@ public class Cottage {
     @JoinColumn(name = "cottage_owner_id")
     private CottageOwner cottageOwner;
 
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
+
     public Cottage() {
     }
 
@@ -159,5 +162,13 @@ public class Cottage {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.ChangePasswordDTO;
+import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
@@ -48,10 +49,13 @@ public class UserController {
     @RequestMapping(value="/{email}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
-        if(u==null){
+
+        if(u==null || u.isDeleted()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new UserDTO(u), HttpStatus.OK);
+        UserDTO dto = new UserDTO(u);
+        dto.setRequestedDeletion(userService.isRequestedDeletion(u));
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 
@@ -82,5 +86,15 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(u,HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/requestDeleting", method = RequestMethod.PUT)
+    public ResponseEntity<RequestDTO> requestDeleting(@RequestBody RequestDTO rq) {
+
+        RequestDTO r = userService.requestDeleting(rq.getEmail(),rq.getReason());
+        if(r == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(r,HttpStatus.OK);
     }
 }
