@@ -21,4 +21,12 @@ export class CottageService {
         return this.cottages;
       }));
   } 
+
+  
+  getCottagesFromOwner() {
+    return this.apiService.get(this.config.cottage_owner_url + `/getCottagesFromOwner/${localStorage.getItem('user')}`)
+      .pipe(map(cottages => {
+        return cottages;
+      }));
+  } 
 }

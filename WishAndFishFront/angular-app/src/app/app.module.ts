@@ -26,7 +26,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
-import { CottageComponent } from './components/unregistered-user/cottages/cottage.component'; 
+import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
+import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component'; 
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CottageComponent } from './components/unregistered-user/cottages/cottag
     ChangePasswordComponent,
     CottageOwnerHomepageComponent,
     AcceptRegistrationComponent,
-    CottageComponent, 
+    CottageComponent,
+    CottageProfileComponent, 
   ],
   imports: [
     BrowserModule,
