@@ -1,9 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CottageService;
-import com.example.WishAndFish.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +23,10 @@ public class CottageController {
     public List<CottageDTO> getAll() {
         return this.cottageService.findAll();
     }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public List<CottageDTO> search(CottageDTO dto) {
+        return this.cottageService.search(dto);
+    }
+
 }

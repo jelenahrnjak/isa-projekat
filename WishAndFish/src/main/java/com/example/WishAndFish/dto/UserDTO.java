@@ -18,6 +18,7 @@ public class UserDTO {
     private double points;
     private int discount;
     private double neededPoints;
+    private boolean requestedDeletion;
 
     public UserDTO() {
     }
@@ -153,5 +154,13 @@ public class UserDTO {
 
     public void setNeededPoints(double neededPoints) {
         this.neededPoints = neededPoints;
+    }
+
+    public boolean isRequestedDeletion() {
+        return requestedDeletion;
+    }
+
+    public void setRequestedDeletion(boolean requestedDeletion) {
+        this.requestedDeletion = requestedDeletion;
     }
 }

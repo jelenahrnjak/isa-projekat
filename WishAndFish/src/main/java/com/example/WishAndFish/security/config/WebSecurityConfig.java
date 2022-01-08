@@ -76,11 +76,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()	// /h2-console/** ako se koristi H2 baza)
                 .antMatchers("/api/foo").permitAll()		// /api/foo
                 .antMatchers("/api/cottages").permitAll()
+                .antMatchers("/api/cottages/search").permitAll()
+                .antMatchers("/api/boats").permitAll()
+                .antMatchers("/api/boats/search").permitAll()
                 .antMatchers("/api/users/{email}").permitAll()
+                .antMatchers("/api/users/requestDeleting").permitAll()
+                .antMatchers("/api/cottageOwner/**").permitAll()
+
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
                 // koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
                 // samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin:
-                // .antMatchers("/admin").hasRole("ADMIN") ili .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                //.antMatchers("/admin").hasRole("ADMIN") ili .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                //.antMatchers("/api/cottages/getCottagesFromOwner/{email}").hasRole("COTTAGE_OWNER")
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
