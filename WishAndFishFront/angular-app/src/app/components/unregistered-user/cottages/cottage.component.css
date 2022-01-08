@@ -1,12 +1,13 @@
 
-.card-holder {
+.bottom {
 	z-index: 1;
     position: fixed;
     left: 0;
-    right: 0;
-    height: 92%;
+    right: 0; 
+    height: 91%;
     bottom: 0;
-    overflow:scroll; 
+    overflow: scroll;  
+    overflow-x: hidden;
 }
 
 .card{
@@ -17,18 +18,37 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: column;
-
+    flex-direction: column; 
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
     border: 3px outset rgba(0, 0, 0, 0.125);
     border-radius: 10px;
-    width : 300px;
-    max-width: 300px;
-    min-width: 300px;
+    width : 310px;
+    max-width: 310px;
+    min-width: 310px;
     text-align: center;
 }
+
+.input-border{
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; 
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 3px outset rgba(0, 0, 0, 0.125);
+    border-radius: 10px;
+    width : 323px;
+    max-width: 323px;
+    min-width: 323px;
+    text-align: center;
+} 
 
 .card-img-top{
     margin-top: 10px;
@@ -37,9 +57,32 @@
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
 }
-
   
 .row div{  
     display: flex;  
     flex:1 ;  
+}
+
+.btn {
+    background-color: gainsboro;  
+    border: none;  
+    color: white;  
+    padding: 8px 12px;  
+    font-size: 16px;  
+    cursor: pointer;  
+  }
+   
+  .btn:hover {
+    background-color: gray;
+  }
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

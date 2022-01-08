@@ -1,6 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.dto.CottagesSearchDTO;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CottageService;
 import com.example.WishAndFish.service.UserService;
@@ -24,5 +25,10 @@ public class CottageController {
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<CottageDTO> getAll() {
         return this.cottageService.findAll();
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public List<CottageDTO> search(CottagesSearchDTO dto) {
+        return this.cottageService.search(dto);
     }
 }
