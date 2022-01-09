@@ -20,6 +20,9 @@
             <button *ngIf="isCottageOwner()" mat-button mat-ripple routerLink="/cottage-profile">
                 <span>My cottages</span>
             </button>
+            <button *ngIf="isCottageOwner()" mat-button mat-ripple routerLink="/add-cottage">
+                <span>Add cottage</span>
+            </button>
             <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/signup">
                 <span>Sign up</span>
             </button>

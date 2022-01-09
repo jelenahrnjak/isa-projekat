@@ -1,3 +1,4 @@
+import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-cottage.component';
 import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
 import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'cottage-profile',
     component: CottageProfileComponent,
+  },
+  {
+    path: 'add-cottage',
+    component: AddCottageComponent,
   },
   {
     path: 'boats',

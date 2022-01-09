@@ -44,10 +44,14 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (60, false, 'dusanfarmville@gmail.com', false, null, 10, 'Duki', 'dusandusan', '0617890213', 0, 'Suzuki', 302, 2, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (75, false, 'markomarko@gmail.com', true, null, 20, 'Marko', 'marko', '0643515864', 900, 'Markovic', 200, 4, null);
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (95, false, 'jovana@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
 
 
 INSERT INTO COTTAGE_OWNER(id)
 	VALUES (50);
+INSERT INTO COTTAGE_OWNER(id)
+    VALUES (95);
 INSERT INTO BOAT_OWNER(id)
 	VALUES (75);
 

@@ -1,5 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.model.*;
+import com.example.WishAndFish.repository.CottageOwnerRepository;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.repository.CottageRepository;
@@ -9,13 +12,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CottageService {
 
     @Autowired
     private CottageRepository cottageRepository;
+
+    @Autowired
+    private CottageOwnerRepository cottageOwnerRepository;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -70,5 +79,21 @@ public class CottageService {
             return true;
         }
         return false;
+    }
+
+    public Cottage addCottage(AddCottageDTO newCottage){
+        Address address = new Address(newCottage.getAddress().getStreet(),newCottage.getAddress().getStreetNumber(),
+                newCottage.getAddress().getPostalCode(),newCottage.getAddress().getCityName(),newCottage.getAddress().getCountryName(),
+                newCottage.getAddress().getLongitude(),newCottage.getAddress().getLatitude());
+
+        Cottage cottage = new Cottage(newCottage.getName(),newCottage.getDescription(),newCottage.getPrice(),address, null);
+        User user = this.userRepository.findByEmail(newCottage.getOwnerEmail());
+
+        for(CottageOwner c: this.cottageOwnerRepository.findAll()){
+            if(c.getEmail().equals(user.getEmail())){
+                cottage.setCottageOwner(c);
+            }
+        }
+        return this.cottageRepository.save(cottage);
     }
 }

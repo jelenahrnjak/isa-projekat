@@ -12,13 +12,13 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", unique = false, nullable = false)
+    @Column(name = "name", unique = false, nullable = true)
     private String name;
 
-    @Column(name = "description", unique = false, nullable = false)
+    @Column(name = "description", unique = false, nullable = true)
     private String description;
 
-    @Column(name = "price_per_day", unique = false, nullable = false)
+    @Column(name = "price_per_day", unique = false, nullable = true)
     private Double pricePerDay;
 
     @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
@@ -42,7 +42,7 @@ public class Cottage {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_owner_id")
     private CottageOwner cottageOwner;
 
@@ -171,4 +171,39 @@ public class Cottage {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+
+
+    public Cottage(String name, String description, Double pricePerDay, Address address, int numberOfRatings, double rating, String coverImage, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules, CottageOwner cottageOwner, boolean deleted) {
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.numberOfRatings = numberOfRatings;
+        this.rating = rating;
+        this.coverImage = coverImage;
+        this.rooms = rooms;
+        this.appointments = appointments;
+        this.images = images;
+        this.rules = rules;
+        this.cottageOwner = cottageOwner;
+        this.deleted = deleted;
+    }
+
+
+    public Cottage(String name, String description, Double pricePerDay, Address address, CottageOwner cottageOwner) {
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.cottageOwner = cottageOwner;
+        this.numberOfRatings = 0;
+        this.rating = 0;
+        this.coverImage = null;
+        this.rooms = null;
+        this.appointments = null;
+        this.images = null;
+        this.rules = null;
+        this.deleted = false;
+    }
+
 }
