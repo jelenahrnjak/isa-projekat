@@ -53,6 +53,8 @@ export class CottageComponent implements OnInit {
      .subscribe((params: DisplayMessage) => {
        this.notification = params;
    }); 
+   this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
+    
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
@@ -72,7 +74,7 @@ export class CottageComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : ""})
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
     }); 

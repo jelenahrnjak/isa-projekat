@@ -65,7 +65,7 @@
 }
 
 .btn {
-    background-color: gainsboro;  
+    background-color:  #3F51B5;
     border: none;  
     color: white;  
     padding: 8px 12px;  
@@ -78,7 +78,7 @@
   }
    
   .btn:hover {
-    background-color: gray;
+    background-color: #283593;
   }
 
   input::-webkit-outer-spin-button,

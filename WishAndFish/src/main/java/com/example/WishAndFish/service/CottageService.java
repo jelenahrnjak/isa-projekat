@@ -32,7 +32,7 @@ public class CottageService {
     public List<CottageDTO> findAll() {
 
         List<CottageDTO> ret = new ArrayList<CottageDTO>();
-        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
+        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(!c.isDeleted()){
             ret.add(new CottageDTO(c));}
         };
@@ -43,22 +43,28 @@ public class CottageService {
     public List<CottageDTO> search(CottageDTO dto) {
         List<CottageDTO> ret = new ArrayList<CottageDTO>();
         double rating = 0;
+        double price = 0;
         try{
             rating = Double.parseDouble(dto.getRating());
         }catch (Exception e){
             System.out.println("Error with parsing rating");
         }
-        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            if(checkCottageForSearch(c,dto,rating) && !c.isDeleted()){
+        try{
+            price = Double.parseDouble(dto.getPrice());
+        }catch (Exception e){
+            System.out.println("Error with parsing price");
+        }
+        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
+            if(checkCottageForSearch(c,dto,rating, price) && !c.isDeleted()){
             ret.add(new CottageDTO(c));}
         }
 
         return ret;
     }
 
-    private boolean checkCottageForSearch(Cottage c, CottageDTO dto,double rating){
+    private boolean checkCottageForSearch(Cottage c, CottageDTO dto,double rating, double price){
 
-        if(checkStrings(c.getName(),dto.getName()) && checkStrings(c.getDescription(),dto.getDescription()) && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating)){
+        if(checkStrings(c.getName(),dto.getName()) && checkStrings(c.getDescription(),dto.getDescription()) && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating) && checkPrice(c.getPricePerDay(), price)){
             return true;
         }
         return false;
@@ -75,7 +81,14 @@ public class CottageService {
     }
 
     private boolean checkRating(Double cottage, Double search){
-        if(cottage >= search || cottage==0 || search > 5){
+        if(cottage >= search || search > 5){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkPrice(Double cottage, Double search){
+        if(cottage <= search || cottage<=0 || search == 0){
             return true;
         }
         return false;

@@ -35,9 +35,14 @@ export class BoatsComponent implements OnInit {
       address: [''], 
       description: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
-      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
+      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+      startDate : [''],
+      endDate : [''],
+      guests : [''] 
        
     })  
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
+    
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
@@ -56,7 +61,7 @@ export class BoatsComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "","price": ""})
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
