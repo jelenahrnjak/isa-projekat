@@ -45,7 +45,7 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (75, false, 'markomarko@gmail.com', true, null, 20, 'Marko', 'marko', '0643515864', 900, 'Markovic', 200, 4, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (95, false, 'stojickris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+	VALUES (95, false, 'jovana@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
 
 
 INSERT INTO COTTAGE_OWNER(id)
