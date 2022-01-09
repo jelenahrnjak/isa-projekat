@@ -33,7 +33,8 @@ import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.c
 import { DialogContentExampleDialog } from './components/accept-registration/accept-registration.component';
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
-import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component'; 
+import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
+import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component'; 
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.comp
     DialogContentExampleDialog,
     BoatsComponent,
     InstructorsComponent,
-    MyBoatsComponent, 
+    MyBoatsComponent,
+    AddBoatComponent, 
   ],
   imports: [
     BrowserModule,
