@@ -8,6 +8,9 @@ import java.util.Set;
 public class CottageOwner extends User{
 
 
+    @OneToMany(mappedBy = "cottageOwner", fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    private Set<Cottage> cottages = new HashSet<Cottage>();
+
     public CottageOwner() {
     }
 
@@ -15,11 +18,16 @@ public class CottageOwner extends User{
         super(password, email, name, surname, phoneNumber);
     }
 
-
-
     public CottageOwner(User u) {
         super(u);
     }
 
+    public Set<Cottage> getCottages() {
+        return cottages;
+    }
+
+    public void setCottages(Set<Cottage> cottages) {
+        this.cottages = cottages;
+    }
 
 }

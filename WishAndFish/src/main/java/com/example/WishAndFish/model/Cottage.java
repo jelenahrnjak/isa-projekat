@@ -42,7 +42,8 @@ public class Cottage {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cottage_owner_id")
     private CottageOwner cottageOwner;
 
     @Column(name = "deleted", unique = false, nullable = false)
@@ -185,5 +186,22 @@ public class Cottage {
         this.rules = rules;
         this.cottageOwner = cottageOwner;
         this.deleted = deleted;
+    }
+
+
+    public Cottage(String name, String description, Double pricePerDay, Address address, CottageOwner cottageOwner) {
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.cottageOwner = cottageOwner;
+        this.numberOfRatings = 0;
+        this.rating = 0;
+        this.coverImage = "";
+        this.rooms = null;
+        this.appointments = null;
+        this.images = null;
+        this.rules = null;
+        this.deleted = false;
     }
 }

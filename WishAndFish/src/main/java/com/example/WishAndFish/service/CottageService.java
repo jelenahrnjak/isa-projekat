@@ -82,10 +82,8 @@ public class CottageService {
         User user = this.userRepository.findByEmail(newCottage.getOwnerEmail());
         CottageOwner cottageOwner = new CottageOwner(user);
 
-        Cottage cottage = new Cottage(newCottage.getName(),newCottage.getDescription(),newCottage.getPrice(),address,
-                0,0.0, null,
-                null,null,null,null, null, false
-                );
+        Cottage cottage = new Cottage(newCottage.getName(),newCottage.getDescription(),newCottage.getPrice(),address, null);
+
         cottage.setCottageOwner(cottageOwner);
         return this.cottageRepository.save(cottage);
     }
