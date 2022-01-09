@@ -1,6 +1,8 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.ChangePasswordDTO;
+import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
+import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
@@ -48,10 +50,13 @@ public class UserController {
     @RequestMapping(value="/{email}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
-        if(u==null){
+
+        if(u==null || u.isDeleted()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new UserDTO(u), HttpStatus.OK);
+        UserDTO dto = new UserDTO(u);
+        dto.setRequestedDeletion(userService.isRequestedDeletion(u));
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 
@@ -67,10 +72,16 @@ public class UserController {
     }
 
     @RequestMapping(value="enableUser", method = RequestMethod.PUT)
-    public ResponseEntity<String> enableUser(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<String> acceptUser(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
         userService.enableUser(email);
         userService.sendMailForAcceptedRegistration(email);
         return new ResponseEntity<>("Success",HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value="declineUser", method = RequestMethod.DELETE)
+    public ResponseEntity<String> declineUser(@RequestBody DeclinedRegistrationDTO declinedRegistration) throws MessagingException, UnsupportedEncodingException {
+        userService.declineUser(declinedRegistration);
+        return new ResponseEntity<>("User declined",HttpStatus.OK);
     }
 
     @RequestMapping(value="changePassword", method = RequestMethod.PUT)
@@ -82,5 +93,15 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(u,HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/requestDeleting", method = RequestMethod.PUT)
+    public ResponseEntity<RequestDTO> requestDeleting(@RequestBody RequestDTO rq) {
+
+        RequestDTO r = userService.requestDeleting(rq.getEmail(),rq.getReason());
+        if(r == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(r,HttpStatus.OK);
     }
 }

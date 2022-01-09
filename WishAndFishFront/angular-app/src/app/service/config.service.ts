@@ -5,11 +5,13 @@ import {Injectable} from '@angular/core';
 })
 export class ConfigService {
 
-  private _api_url = 'http://localhost:8080/api';
+  private _api_url =  'http://localhost:8080/api';
   private _auth_url = 'http://localhost:8080/api/auth';
   private _user_url = this._api_url + '/users';
   private _cottage_url = this._api_url + '/cottages';
   private _cottage_owner_url = this._api_url + '/cottageOwner';
+  private _boat_url = this._api_url + '/boats';
+  private _instructor_url = this._api_url + '/instructors';
 
   get user_url(): string {
     return this._user_url;
@@ -17,6 +19,14 @@ export class ConfigService {
 
   get cottage_url(): string {
     return this._cottage_url;
+  }
+
+  get instructor_url(): string {
+    return this._instructor_url;
+  }
+
+  get boat_url(): string {
+    return this._boat_url;
   }
 
   get cottage_owner_url(): string {

@@ -3,6 +3,8 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.CottageOwnerRepository;
+import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +33,14 @@ public class CottageService {
 
         List<CottageDTO> ret = new ArrayList<CottageDTO>();
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            ret.add(new CottageDTO(c));
+            if(!c.isDeleted()){
+            ret.add(new CottageDTO(c));}
         };
 
         return ret;
     }
 
-    public List<CottageDTO> search(CottagesSearchDTO dto) {
+    public List<CottageDTO> search(CottageDTO dto) {
         List<CottageDTO> ret = new ArrayList<CottageDTO>();
         double rating = 0;
         try{
@@ -46,14 +49,14 @@ public class CottageService {
             System.out.println("Error with parsing rating");
         }
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            if(checkCottageForSearch(c,dto,rating)){
+            if(checkCottageForSearch(c,dto,rating) && !c.isDeleted()){
             ret.add(new CottageDTO(c));}
         }
 
         return ret;
     }
 
-    private boolean checkCottageForSearch(Cottage c, CottagesSearchDTO dto,double rating){
+    private boolean checkCottageForSearch(Cottage c, CottageDTO dto,double rating){
 
         if(checkStrings(c.getName(),dto.getName()) && checkStrings(c.getDescription(),dto.getDescription()) && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating)){
             return true;

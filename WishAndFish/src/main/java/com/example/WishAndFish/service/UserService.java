@@ -6,15 +6,11 @@ import java.util.List;
 
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.ChangePasswordDTO;
+import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
+import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
-import com.example.WishAndFish.model.LoyaltyCategory;
-import com.example.WishAndFish.repository.AddressRepository;
-import com.example.WishAndFish.repository.LoyaltyCategoryRepository;
-import com.example.WishAndFish.repository.RoleRepository;
-import com.example.WishAndFish.repository.UserRepository;
-import com.example.WishAndFish.model.Address;
-import com.example.WishAndFish.model.Role;
-import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.model.*;
+import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +30,11 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired LoyaltyCategoryRepository loyaltyCategoryRepository;
+    @Autowired
+    LoyaltyCategoryRepository loyaltyCategoryRepository;
+
+    @Autowired
+    RequestForDeletingRepository requestForDeletingRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -143,5 +143,31 @@ public class UserService {
     public void sendMailForAcceptedRegistration(String email) throws MessagingException, UnsupportedEncodingException {
         User u = findByEmail(email);
         emailService.sendMailForAcceptedRegistration(u);
+    }
+
+    public void declineUser(DeclinedRegistrationDTO declinedRegistration) throws MessagingException {
+        User u = findByEmail(declinedRegistration.getUserEmail());
+        emailService.sendMailForDeclinedRegistration(declinedRegistration);
+        userRepository.deleteById(u.getId());
+    }
+  
+    public RequestDTO requestDeleting(String email, String reason) {
+        User u = findByEmail(email);
+        if(isRequestedDeletion(u)){
+            return null;
+        }
+        RequestForDeleting newRequest = new RequestForDeleting(reason,false,u);
+        requestForDeletingRepository.save(newRequest);
+        return new RequestDTO(email,reason);
+    }
+
+    public boolean isRequestedDeletion(User u){
+        RequestForDeleting rq = requestForDeletingRepository.findByUser(u);
+        if(rq == null){
+            return false;
+        } else if(rq.isApproved() || (!rq.isApproved() && rq.isProcessed()) || !rq.isProcessed()){
+            return true;
+        }
+        return false;
     }
 }

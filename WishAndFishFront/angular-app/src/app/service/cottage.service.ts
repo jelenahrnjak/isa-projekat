@@ -8,26 +8,24 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CottageService {
-
-  cottages: any = []; 
+ 
    
-  constructor( private apiService: ApiService,
+  constructor( 
+    private apiService: ApiService,
     private config: ConfigService) { }
  
   getAll() {
     return this.apiService.get(this.config.cottage_url)
-      .pipe(map(cottages => {
-        this.cottages = cottages;
-        return this.cottages;
+      .pipe(map(cottages => { 
+        return cottages;
       }));
   } 
 
   search(data:any){
     
     return this.apiService.get(this.config.cottage_url + `/search`,data)
-      .pipe(map(cottages => {  
-        this.cottages = cottages;
-        return this.cottages;
+      .pipe(map(cottages => {   
+        return cottages;
       }));
   }
 

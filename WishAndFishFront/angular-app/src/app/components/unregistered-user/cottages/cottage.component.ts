@@ -31,9 +31,7 @@ export class CottageComponent implements OnInit {
     "description" : ""
   }
 
-  constructor( private userService: UserService,
-    private authService: AuthService,
-    private router: Router,
+  constructor(  
     private route: ActivatedRoute,
     private cottageService: CottageService,   
     private formBuilder: FormBuilder) { }
@@ -51,9 +49,9 @@ export class CottageComponent implements OnInit {
      .subscribe((params: DisplayMessage) => {
        this.notification = params;
    }); 
-  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  this.cottageService.getAll().subscribe((data : any) => {
-    this.cottages = data;
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.cottageService.getAll().subscribe((data : any) => {
+      this.cottages = data;
   }); 
  
   }

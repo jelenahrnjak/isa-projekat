@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 
 @Entity
 public class Admin extends User{
+
+    private boolean hasChangedPassword;
+
     public Admin() {
     }
 
@@ -13,5 +16,13 @@ public class Admin extends User{
 
     public Admin(User u) {
         super(u);
+    }
+
+    public boolean isHasChangedPassword() {
+        return hasChangedPassword;
+    }
+
+    public void setHasChangedPassword(boolean hasChangedPassword) {
+        this.hasChangedPassword = hasChangedPassword;
     }
 }

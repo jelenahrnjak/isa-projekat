@@ -19,7 +19,7 @@ export class ChangePasswordComponent implements OnInit {
 
   title = 'Change password';
   user = {
-    "email": localStorage.getItem('user'),
+    "email": "",
     "oldPassword": "",
     "password" : "",
     "passwordRepeated"  : ""
@@ -30,8 +30,7 @@ export class ChangePasswordComponent implements OnInit {
   submitted=false
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  form = new FormGroup({  
-    email: new FormControl(''),
+  form = new FormGroup({   
     oldPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])), 
     password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])), 
     passwordRepeated: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])),  
@@ -62,6 +61,7 @@ export class ChangePasswordComponent implements OnInit {
     this.user.password = this.form.get('password').value
     this.user.oldPassword = this.form.get('oldPassword').value
     this.user.passwordRepeated = this.form.get('passwordRepeated').value
+    this.user.email = localStorage.getItem('user')
     console.log(this.user)
     this.userService.changePassword(this.user).subscribe(
       (data) => { 

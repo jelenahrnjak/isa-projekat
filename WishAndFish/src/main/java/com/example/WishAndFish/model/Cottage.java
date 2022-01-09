@@ -172,6 +172,7 @@ public class Cottage {
         this.deleted = deleted;
     }
 
+
     public Cottage(String name, String description, Double pricePerDay, Address address, int numberOfRatings, double rating, String coverImage, Set<Room> rooms, Set<Appointment> appointments, Set<Image> images, Set<Rule> rules, CottageOwner cottageOwner, boolean deleted) {
         this.name = name;
         this.description = description;
@@ -204,4 +205,5 @@ public class Cottage {
         this.rules = null;
         this.deleted = false;
     }
+
 }

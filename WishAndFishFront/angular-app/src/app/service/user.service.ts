@@ -54,5 +54,13 @@ export class UserService {
   acceptUser(data : any) : Observable<any> {
     return this.apiService.put(this.config.user_url + `/enableUser`, data)
   }
+
+  declineUser(data : any) : Observable<any> {
+    return this.apiService.delete(this.config.user_url + `/declineUser`, data)
+  }
+
+  requestDeleting(reason : any) : Observable<any> {
+    return this.apiService.put(this.config.user_url + `/requestDeleting`, {'email': localStorage.getItem('user'), 'reason':  reason})
+  }
  
 }

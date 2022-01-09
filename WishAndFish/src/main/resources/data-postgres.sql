@@ -104,10 +104,12 @@ INSERT INTO public.appointment_additional_services(additional_service_id, appoin
 	VALUES (902, 135);
 
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id)
-	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75);
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings, deleted)
+	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75, 4.3, 123, false);
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id)
-	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75);
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
+	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
 
+INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
+	VALUES (100, false, false, 'I do not use this site anymore', 35);
 
