@@ -1,3 +1,4 @@
+import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
 import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-cottage.component';
 import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
 import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
@@ -68,6 +69,10 @@ const routes: Routes = [
   {
     path: 'instructors',
     component: InstructorsComponent,
+  },
+  {
+    path: 'my-boats',
+    component: MyBoatsComponent,
   }
 ];
 

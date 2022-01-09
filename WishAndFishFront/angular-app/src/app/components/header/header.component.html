@@ -1,6 +1,6 @@
 <mat-toolbar class="app-navbar" color="primary">
     <div class="left">
-        <button mat-button mat-ripple routerLink="/">
+        <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/">
             <span>Home</span>
         </button>
     </div>
@@ -22,6 +22,9 @@
             </button>
             <button *ngIf="isCottageOwner()" mat-button mat-ripple routerLink="/add-cottage">
                 <span>Add cottage</span>
+            </button>
+            <button *ngIf="isBoatOwner()" mat-button mat-ripple routerLink="/my-boats">
+                <span>My boats</span>
             </button>
             <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/signup">
                 <span>Sign up</span>

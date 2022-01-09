@@ -32,7 +32,8 @@ import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-
 import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component'; 
 import { DialogContentExampleDialog } from './components/accept-registration/accept-registration.component';
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
-import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component'; 
+import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
+import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component'; 
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { InstructorsComponent } from './components/unregistered-user/instructors
     AdminSignUpComponent, 
     DialogContentExampleDialog,
     BoatsComponent,
-    InstructorsComponent, 
+    InstructorsComponent,
+    MyBoatsComponent, 
   ],
   imports: [
     BrowserModule,
