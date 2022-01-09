@@ -46,4 +46,12 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  isBoatOwner() {
+    let role = localStorage.getItem("role");
+    if (role == "BOAT_OWNER" && this.hasSignedIn()){
+      return true;
+    }
+    return false;
+  }
+
 }

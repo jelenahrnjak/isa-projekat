@@ -41,7 +41,7 @@ export class AddCottageComponent implements OnInit {
         this.notification = params;
       });
 
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/cottage-profile';
 
 
       this.form = this.formBuilder.group({ 
