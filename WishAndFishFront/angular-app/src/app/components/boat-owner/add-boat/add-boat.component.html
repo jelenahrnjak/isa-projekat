@@ -1,1 +1,105 @@
-<p>add-boat works!</p>
+<div class="add-boat-picture" bottom>
+    <div class="inner">
+      <div class="image-holder">
+          <div class="boat"></div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h3>Add boat</h3>
+        <div *ngIf="!showAddress">
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+          </div>
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="type" placeholder="Type">
+          </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="description" placeholder="Description">
+        </div>
+
+        <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="price" placeholder="Price per day">
+        </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="length" placeholder="Length">
+        </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="engineNumber" placeholder="Engine number">
+        </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="enginePower" placeholder="Engine power">
+        </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="maxSpeed" placeholder="Max speed">
+        </div>
+
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="capacity" placeholder="Capacity">
+        </div>
+
+        <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="street" placeholder="Street">
+        </div>
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="streetNumber" placeholder="Street number">
+      </div>
+      <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="postalCode" placeholder="Postal code">
+      </div>
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="longitude" placeholder="Longitude">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="latitude" placeholder="Latitude">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="cityName" placeholder="City Name">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="countryName" placeholder="Country Name">
+      </div>
+          </div>
+
+        <!-- Add address -->
+        <div *ngIf="showAddress">
+         
+          <div class="form-group" class="center">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Street">
+            </div>
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Street number">
+          </div>
+          <div class="form-group" class="center">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Postal code">
+          </div>
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Longitude">
+          </div>
+  
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Latitude">
+          </div>
+
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="City Name">
+          </div>
+
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Country Name">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm</button>
+       
+      </form>
+     
+      </div>
+      </div>
+   

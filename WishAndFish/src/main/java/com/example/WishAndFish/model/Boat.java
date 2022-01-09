@@ -52,7 +52,7 @@ public class Boat {
     @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
-    @Column(name = "price_per_hour", unique = false, nullable = false)
+    @Column(name = "price_per_hour", unique = false)
     private Double pricePerHour;
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -67,7 +67,7 @@ public class Boat {
     @Column(name="coverImage")
     private String coverImage;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "boat_owner_id")
     private BoatOwner boatOwner;
 

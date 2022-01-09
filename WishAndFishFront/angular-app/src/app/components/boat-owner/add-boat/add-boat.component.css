@@ -1,0 +1,672 @@
+.add-boat-picture{
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center; 
+    background-image: url('../../../../assets/Images/boat-background.jpg');
+    }
+
+.boat{
+	width: 100%;
+	height: 100%;
+	content:url('../../../../assets/Images/boat-adding.jpg');
+}
+
+
+
+.snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 200px;
+    font-size: 17px;
+  }
+  
+  .snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 200; opacity: 0;} 
+    to {bottom: 200px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 200; opacity: 0;}
+    to {bottom: 200px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 200px; opacity: 1;} 
+    to {bottom: 200; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 200px; opacity: 1;}
+    to {bottom: 200; opacity: 0;}
+  }
+  
+  @font-face {
+    font-family: "Poppins-Regular";
+    src: url("../../../../assets/fonts/poppins/Poppins-Regular.ttf"); }
+  @font-face {
+    font-family: "Poppins-SemiBold";
+    src: url("../../../../assets/fonts/poppins/Poppins-SemiBold.ttf"); }
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    
+  .invalid {
+      border-bottom-color: red;
+  }
+  
+  body {
+    font-family: "Poppins-Regular";
+    color: #333;
+    font-size: 13px;
+    margin: 0; }
+  
+  input, textarea, select, button {
+    font-family: "Poppins-Regular";
+    color: #333;
+    font-size: 13px; }
+  
+  p, h1, h2, h3, h4, h5, h6, ul {
+    margin: 0; }
+  
+  img {
+    max-width: 100%; }
+  
+  ul {
+    padding-left: 0;
+    margin-bottom: 0; }
+  
+  a:hover {
+    text-decoration: none; }
+  
+  :focus {
+    outline: none; }
+  
+ 
+  
+  
+  .top{
+      z-index: 2;
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 8%;
+      top: 0;
+  }
+  
+  .bottom {
+      z-index: 1;
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 92%;
+      bottom: 0;
+      overflow:scroll;
+       
+  }
+  
+  
+    
+  
+  
+  .inner {
+    padding: 20px;
+    background: #fff;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    margin-bottom: auto;
+    display: flex;
+     }
+    .inner .image-holder {
+      width: 50%;
+       }
+    .inner form {
+      width: 50%;
+      padding-top: 36px;
+      padding-left: 100px;
+      padding-right: 50px; }
+    .inner h3 {
+      text-transform: uppercase;
+      font-size: 25px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 28px; }
+  
+  .navigacija {
+    padding: 10px;
+    background: #fff;
+    max-width: 100%;
+    margin: auto;
+    display: flex; }
+    .navigacija .image-holder {
+      width: 50%;
+       }
+    .navigacija form {
+      width: 75%;
+      padding-top: 70px;
+      padding-left: 45px;
+      padding-right: 45px; }
+    .navigacija h3 {
+      text-transform: uppercase;
+      font-size: 25px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 28px; }
+  
+  
+  .form-group {
+    display: flex; }
+    .form-group input {
+      width: 50%; }
+      .form-group input:first-child {
+        margin-right: 25px; }
+  
+  .form-wrapper {
+    position: relative; }
+    .form-wrapper i {
+      position: absolute;
+      bottom: 9px;
+      right: 0; }
+  
+  .invalid {
+    border: 1px solid red;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 25px; }
+    .form-control::-webkit-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control::-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-ms-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; 
+  }
+  
+  .form-control {
+    border: 1px solid #333;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 25px; }
+    .form-control::-webkit-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control::-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-ms-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+  
+
+
+
+      
+  select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-left: 20px; }
+    select option[value=""][disabled] {
+      display: none; }
+  
+  .button1 {
+    border: none;
+    width: 164px;
+    height: 51px;
+    margin: auto;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: #333;
+    font-size: 15px;
+    color: #fff;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s; }
+    button i {
+      margin-left: 10px;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0); }
+    button:hover i, button:focus i, button:active i {
+      -webkit-animation-name: hvr-icon-wobble-horizontal;
+      animation-name: hvr-icon-wobble-horizontal;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-timing-function: ease-in-out;
+      animation-timing-function: ease-in-out;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1; }
+  
+  @-webkit-keyframes hvr-icon-wobble-horizontal {
+    16.65% {
+      -webkit-transform: translateX(6px);
+      transform: translateX(6px); }
+    33.3% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px); }
+    49.95% {
+      -webkit-transform: translateX(4px);
+      transform: translateX(4px); }
+    66.6% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px); }
+    83.25% {
+      -webkit-transform: translateX(1px);
+      transform: translateX(1px); }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0); } }
+  @keyframes hvr-icon-wobble-horizontal {
+    16.65% {
+      -webkit-transform: translateX(6px);
+      transform: translateX(6px); }
+    33.3% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px); }
+    49.95% {
+      -webkit-transform: translateX(4px);
+      transform: translateX(4px); }
+    66.6% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px); }
+    83.25% {
+      -webkit-transform: translateX(1px);
+      transform: translateX(1px); }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0); } }
+  @media (max-width: 1199px) {
+    .wrapper {
+      background-position: right center; } }
+  @media (max-width: 991px) {
+    .inner form {
+      padding-top: 10px;
+      padding-left: 30px;
+      padding-right: 30px; } }
+  @media (max-width: 767px) {
+    .inner {
+      display: block; }
+      .inner .image-holder {
+        width: 100%; }
+      .inner form {
+        width: 100%;
+        padding: 40px 0 30px; }
+  
+    button {
+      margin-top: 60px; } }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .invalid1 {
+    border: 1px solid red;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 15px; }
+    .form-control::-webkit-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control::-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-ms-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; 
+  }
+  .form-control1 {
+    border: 1px solid #333;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 15px; }
+    .form-control::-webkit-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control::-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-ms-input-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+    .form-control:-moz-placeholder {
+      font-size: 13px;
+      color: #333;
+      font-family: "Poppins-Regular"; }
+  .dugme1 {
+    border: 1px solid #333;
+    background: white;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    color: black;
+    margin-bottom: 10px;}
+      
+  .dugme {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .dugmeBrisi {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  
+  
+  .dugmeTab {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+  }
+  /*# sourceMappingURL=style.css.map */
+  
+  
+  .top1{
+      z-index:1;
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 40%;
+      top: 8%;
+  }
+  
+  .bottom1{
+      z-index:1;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top:48%;
+      
+  }
+  
+  .desno{
+      z-index:1;
+      float:left;
+      width: 65%;
+  }
+  
+  .levo{
+      z-index:1;
+      float:right;
+      width:45%;
+  }
+  
+ 
+  
+  .inner1 {
+      z-index:1;
+    padding: 10px;
+    background: #fff;
+    max-width: 550px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 150px;
+    display: flex;
+     }
+  .inner1 form {
+      padding-top: 10x;
+      padding-left: 10px;
+      padding-right: 10px; }
+   .inner1 h3 {
+      text-transform: uppercase;
+      font-size: 25px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 28px; }
+  
+  .dot {
+      z-index:1;
+    height: 10px;
+    width: 10px;
+    
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .dugme2 {
+      z-index:1;
+    border: 1px solid #333;
+    background: white;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    color: black;
+    width:200px;
+    margin:20px;
+    margin-right:40px; 
+    right:10;
+    float:right;
+   }
+  
+  .dugme3 {
+    border: 1px solid #333;
+    background: white;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    color: black;
+    width:200px;
+    margin:10px;
+   }
+  
+  .bottomRestorani {
+      z-index:0;
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 92%;
+      bottom: 0;
+      overflow:scroll;
+  }
+  
+  
+  .slikaKartice {
+    height: 190px;
+    width: 280px;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+  }
+  
+  .kartica {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 3px outset rgba(0, 0, 0, 0.125);
+    border-radius: 15px;
+    width : 280px;
+    
+  }
+  
+  .red {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-left:10px;
+  }
+  
+  .izmena {
+    padding: 20px;
+    background: #fff;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    display: flex;
+     }
+    .izmena .tabela {
+      padding-top: 20px;
+      padding-left: 45px;
+      padding-right: 45px; }
+    .izmena h3 {
+      text-transform: uppercase;
+      font-size: 25px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 20px; }
+  
+  .korpa {
+    padding: 20px;
+    background: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    display: flex;
+     }
+  .korpa .zaglavlje {
+      height: 20%;
+       }
+    .korpa .tabela {
+        height: 80%;
+      padding-top: 20px;
+      padding-left: 45px;
+      padding-right: 45px; }
+    .korpa h3 {
+      text-transform: uppercase;
+      font-size: 25px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 20px; }
+      .korpa h4 {
+      font-size: 20px;
+      font-family: "Poppins-SemiBold";
+      text-align: center;
+      margin-bottom: 20px; }
+      
+  
+  .slikaArtikal{
+      margin-top:25%;
+      padding:20px;
+      object-fit: cover; 
+      border-radius: 50%; 
+      width: 300px; 
+      height: 300px; 
+  }
+  
+  .okruglo{
+    border-radius: 50%;
+    padding: 0.25em 0.8em;
+    color:red;
+  }
+  
+  .manje{
+      width: 50px;
+  }
+  
+  .form-control2 {
+    border: 1px solid #333;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    margin-bottom: 15px; }
+    
+    
+    
+  
