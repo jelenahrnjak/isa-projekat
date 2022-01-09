@@ -1,3 +1,4 @@
+import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-cottage.component';
 import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
 import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
 import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottage-owner-homepage/cottage-owner-homepage.component';
@@ -10,9 +11,9 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
+import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component';
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
-
 
 const routes: Routes = [
   {
@@ -49,8 +50,16 @@ const routes: Routes = [
     component: CottageComponent,
   },
   {
+    path: 'admin-signup',
+    component : AdminSignUpComponent,
+  },
+  {
     path: 'cottage-profile',
     component: CottageProfileComponent,
+  },
+  {
+    path: 'add-cottage',
+    component: AddCottageComponent,
   },
   {
     path: 'boats',
@@ -60,7 +69,6 @@ const routes: Routes = [
     path: 'instructors',
     component: InstructorsComponent,
   }
-
 ];
 
 @NgModule({

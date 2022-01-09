@@ -28,6 +28,9 @@ import { CottageOwnerHomepageComponent } from './components/cottage-owner/cottag
 import { AcceptRegistrationComponent } from './components/accept-registration/accept-registration.component';
 import { CottageComponent } from './components/unregistered-user/cottages/cottage.component';
 import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
+import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-cottage.component'; 
+import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component'; 
+import { DialogContentExampleDialog } from './components/accept-registration/accept-registration.component';
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component'; 
 
@@ -45,6 +48,9 @@ import { InstructorsComponent } from './components/unregistered-user/instructors
     AcceptRegistrationComponent,
     CottageComponent,
     CottageProfileComponent,
+    AddCottageComponent, 
+    AdminSignUpComponent, 
+    DialogContentExampleDialog,
     BoatsComponent,
     InstructorsComponent, 
   ],
@@ -67,7 +73,10 @@ import { InstructorsComponent } from './components/unregistered-user/instructors
     ApiService,
     UserService,
     ConfigService,
+    AcceptRegistrationComponent,
+    DialogContentExampleDialog
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogContentExampleDialog]
 })
 export class AppModule { }

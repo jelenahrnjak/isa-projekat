@@ -1,6 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
 import com.example.WishAndFish.model.User;
+import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
@@ -21,6 +23,9 @@ public class EmailService {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public void sendMailForVerfication(User user, String url) throws MessagingException, UnsupportedEncodingException {
 
@@ -51,4 +56,15 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
+    public void sendMailForDeclinedRegistration(DeclinedRegistrationDTO declinedRegistration) throws MessagingException {
+        String text = "<br>Your registration has been declined! :(<br> Reason: ";
+        User user = userRepository.findByEmail(declinedRegistration.getUserEmail());
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail);
+        helper.setTo(declinedRegistration.getUserEmail());
+        helper.setFrom(env.getProperty("spring.mail.username"));
+        helper.setSubject("Declined registration");
+        helper.setText("Hello " + user.getName() + " " + user.getSurname() + text + declinedRegistration.getMessage(), true);
+        javaMailSender.send(mail);
+    }
 }

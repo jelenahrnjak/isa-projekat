@@ -1,0 +1,94 @@
+<div class="add-cottage-picture" bottom>
+    <div class="inner">
+      <div class="image-holder">
+          <div class="cottage"></div>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div *ngIf="!showAddress">
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+          </div>
+        <div class="form-group" class="center">
+            <input type="text" class="form-control" formControlName="description" placeholder="Description">
+          </div>
+        <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="price" placeholder="Price per day">
+        </div>
+
+        <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="street" placeholder="Street">
+        </div>
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="streetNumber" placeholder="Street number">
+      </div>
+      <div class="form-group" class="center">
+          <input type="text" class="form-control" formControlName="postalCode" placeholder="Postal code">
+      </div>
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="longitude" placeholder="Longitude">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="latitude" placeholder="Latitude">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="cityName" placeholder="City Name">
+      </div>
+
+      <div class="form-group" class="center">
+        <input type="text" class="form-control" formControlName="countryName" placeholder="Country Name">
+      </div>
+            <!-- <div class="form-group" class="center">
+                <input (click)="showAddressForm()" type="submit" class="btn btn-primary form-control" id="inputAddress2" value="Address">
+              </div> -->
+              <!-- <div class="form-group" class="center">
+                <input (click)="showRulesForm()" type="submit" class="btn btn-primary form-control" id="inputAddress2" value="Rules">
+              </div>
+
+              <div class="form-group" class="center">
+                <input type="submit" class="btn btn-primary form-control" id="inputAddress2" value="Rooms">
+              </div> -->
+          </div>
+
+        <!-- Add address -->
+        <div *ngIf="showAddress">
+         
+          <div class="form-group" class="center">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Street">
+            </div>
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Street number">
+          </div>
+          <div class="form-group" class="center">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Postal code">
+          </div>
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Longitude">
+          </div>
+  
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Latitude">
+          </div>
+
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="City Name">
+          </div>
+
+          <div class="form-group" class="center">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Country Name">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="showMainForm()" *ngIf="showAddress" type="submit" class="btn btn-primary">Back</button>
+
+      </form>
+     
+      </div>
+      </div>
+   
