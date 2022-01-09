@@ -55,6 +55,9 @@ INSERT INTO COTTAGE_OWNER(id)
 INSERT INTO BOAT_OWNER(id)
 	VALUES (75);
 
+INSERT INTO FISHING_INSTRUCTORS(id,cover_image)
+    VALUES(55, 'instructor.jpg');
+
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image,deleted)
 	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg',false);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)

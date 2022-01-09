@@ -14,6 +14,7 @@ public class CottageDTO {
     private String description;
     private String address;
     private String rating;
+    private String price;
     private String coverImage;
 
     public CottageDTO() {
@@ -24,6 +25,7 @@ public class CottageDTO {
         this.description = c.getDescription();
         this.address= c.getAddress().toString();
         this.rating = Double.toString(c.getRating());
+        this.price = Double.toString(c.getPricePerDay());
         this.coverImage = c.getCoverImage();
     }
     public String getName() {
@@ -64,5 +66,13 @@ public class CottageDTO {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

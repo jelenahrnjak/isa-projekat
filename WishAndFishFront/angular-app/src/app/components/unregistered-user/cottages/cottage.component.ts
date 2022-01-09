@@ -27,7 +27,7 @@ export class CottageComponent implements OnInit {
     "name" : "",
     "address" : "",
     "rating" : "",
-   // "price" : "",
+    "price" : "",
     "description" : ""
   }
 
@@ -42,13 +42,19 @@ export class CottageComponent implements OnInit {
       name: [''],
       address: [''], 
       description: [''],  
-      rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
+      rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
+      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
+      startDate : [''],
+      endDate : [''],
+      guests : ['']
     })
      this.route.params
      .pipe(takeUntil(this.ngUnsubscribe))
      .subscribe((params: DisplayMessage) => {
        this.notification = params;
    }); 
+   this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
+    
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
@@ -60,7 +66,7 @@ export class CottageComponent implements OnInit {
     this.searchDTO.name = this.form.get('name').value
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
-    //this.searchDTO.price = this.form.get('price').value
+    this.searchDTO.price = this.form.get('price').value
     this.searchDTO.description = this.form.get('description').value 
     this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
       this.cottages = data; 
@@ -68,7 +74,7 @@ export class CottageComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : "", "price" : "","startDate":"","endDate":"","guests":""})
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
     }); 

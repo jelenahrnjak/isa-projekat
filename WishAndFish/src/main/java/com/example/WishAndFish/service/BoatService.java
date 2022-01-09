@@ -23,7 +23,7 @@ public class BoatService {
     public List<BoatDTO> findAll() {
 
         List<BoatDTO> ret = new ArrayList<BoatDTO>();
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(!b.isDeleted()){
             ret.add(new BoatDTO(b));}
         };
@@ -34,22 +34,28 @@ public class BoatService {
     public List<BoatDTO> search(BoatDTO dto) {
         List<BoatDTO> ret = new ArrayList<BoatDTO>();
         double rating = 0;
+        double price = 0;
         try{
             rating = Double.parseDouble(dto.getRating());
         }catch (Exception e){
             System.out.println("Error with parsing rating");
         }
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "name")))){
-            if(checkBoatForSearch(b,dto,rating) && !b.isDeleted()){
+        try{
+            price = Double.parseDouble(dto.getPrice());
+        }catch (Exception e){
+            System.out.println("Error with parsing price");
+        }
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+            if(checkBoatForSearch(b,dto,rating, price) && !b.isDeleted()){
                 ret.add(new BoatDTO(b));}
         }
 
         return ret;
     }
 
-    private boolean checkBoatForSearch(Boat b, BoatDTO dto,double rating){
+    private boolean checkBoatForSearch(Boat b, BoatDTO dto,double rating, double price){
 
-        if(checkStrings(b.getName(),dto.getName()) && checkStrings(b.getDescription(),dto.getDescription()) && checkStrings(b.getAddress().toString(),dto.getAddress()) && checkRating(b.getRating(),rating)){
+        if(checkStrings(b.getName(),dto.getName()) && checkStrings(b.getDescription(),dto.getDescription()) && checkStrings(b.getAddress().toString(),dto.getAddress()) && checkRating(b.getRating(),rating) && checkPrice(b.getPricePerHour(),price)){
             return true;
         }
         return false;
@@ -65,8 +71,15 @@ public class BoatService {
         return false;
     }
 
+    private boolean checkPrice(Double cottage, Double search){
+        if(cottage <= search || cottage<=0 || search == 0){
+            return true;
+        }
+        return false;
+    }
+
     private boolean checkRating(Double boat, Double search){
-        if(boat >= search || boat==0 || search > 5){
+        if(boat >= search || search > 5){
             return true;
         }
         return false;

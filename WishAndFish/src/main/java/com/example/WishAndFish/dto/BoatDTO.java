@@ -8,6 +8,7 @@ public class BoatDTO {
     private String description;
     private String address;
     private String rating;
+    private String price;
     private String coverImage;
 
     public BoatDTO() {
@@ -18,6 +19,7 @@ public class BoatDTO {
         this.description = b.getDescription();
         this.address= b.getAddress().toString();
         this.rating = Double.toString(b.getRating());
+        this.price = Double.toString(b.getPricePerHour());
         this.coverImage = b.getCoverImage();
     }
 
@@ -59,5 +61,12 @@ public class BoatDTO {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }
