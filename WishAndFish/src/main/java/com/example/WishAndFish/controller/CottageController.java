@@ -2,6 +2,7 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CottageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
