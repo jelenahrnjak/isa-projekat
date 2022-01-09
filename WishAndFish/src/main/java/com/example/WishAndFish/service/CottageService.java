@@ -2,6 +2,7 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
+import com.example.WishAndFish.repository.CottageOwnerRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class CottageService {
 
     @Autowired
     private CottageRepository cottageRepository;
+
+    @Autowired
+    private CottageOwnerRepository cottageOwnerRepository;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -84,7 +89,11 @@ public class CottageService {
 
         Cottage cottage = new Cottage(newCottage.getName(),newCottage.getDescription(),newCottage.getPrice(),address, null);
 
-        cottage.setCottageOwner(cottageOwner);
+        for(CottageOwner c: this.cottageOwnerRepository.findAll()){
+            if(c.getEmail().equals(user.getEmail())){
+                cottage.setCottageOwner(c);
+            }
+        }
         return this.cottageRepository.save(cottage);
     }
 }

@@ -197,7 +197,7 @@ public class Cottage {
         this.cottageOwner = cottageOwner;
         this.numberOfRatings = 0;
         this.rating = 0;
-        this.coverImage = "";
+        this.coverImage = null;
         this.rooms = null;
         this.appointments = null;
         this.images = null;
