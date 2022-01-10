@@ -1,22 +1,42 @@
 <mat-toolbar class="app-navbar" color="primary">
     <div class="left">
-        <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/">
+        <button mat-button mat-ripple (click)="home()">
             <span>Home</span>
         </button>
-    </div>
+    </div> 
     <div class="right">
         <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end center">
-            
-            <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/cottages">
+            <!--CLIENT AND UNREGISTERED-->
+            <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/cottages">
                 <span>Cottages</span>
             </button>
-            <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/boats">
+            <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/boats">
                 <span>Boats</span>
             </button>
-            
-            <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/instructors">
-                <span>Fishing instructors</span>
+            <button *ngIf="!hasSignedIn()" mat-button mat-ripple routerLink="/fishing">
+                <span>Fishing</span>
             </button>
+
+            <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="#!">
+                <span>My reservations</span>
+            </button>
+            <button *ngIf="isClient()" [matMenuTriggerFor]="offer" class="greeting-button" mat-icon-button
+            mat-ripple style="margin-right: 30px;">
+            <span>Offer</span>
+            </button> 
+            <mat-menu #offer [overlapTrigger]="false" class="app-header-userMenu" yposition="below">
+                <app-offer-menu></app-offer-menu>
+            </mat-menu>
+
+            <button *ngIf="isClient()" [matMenuTriggerFor]="history" class="greeting-button" mat-icon-button
+                mat-ripple style="margin-right: 90px;">
+                <span>Booking history</span>
+            </button> 
+            <mat-menu #history [overlapTrigger]="false" class="app-header-userMenu" yposition="below">
+                <app-history-menu></app-history-menu>
+            </mat-menu>
+            <!---->
+
             <button *ngIf="isCottageOwner()" mat-button mat-ripple routerLink="/cottage-profile">
                 <span>My cottages</span>
             </button>
@@ -43,16 +63,15 @@
                 mat-ripple routerLink="/accept-registration">
                 <span>Accept Registration</span>
             </button>
+ 
             <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-button" mat-button mat-ripple>
                 <span>Profile</span>
             </button>
-            <!-- <button *ngIf="hasSignedIn()" [matMenuTriggerFor]="userMenu" class="greeting-button" mat-icon-button
-                mat-ripple>
-                <span>Menu</span>
-            </button> -->
+
             <mat-menu #userMenu [overlapTrigger]="false" class="app-header-userMenu" yposition="below">
                 <app-user-menu></app-user-menu>
             </mat-menu>
+            
         </div>
     </div>
 </mat-toolbar>
