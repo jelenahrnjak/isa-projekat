@@ -35,4 +35,11 @@ export class CottageService {
       console.log('Adding cottage success');
     }));
   }
+
+  deleteCottage(id) {
+    return this.apiService.delete(this.config.cottage_url + `/deleteCottage/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting cottage success');
+    }));   
+  }
 }

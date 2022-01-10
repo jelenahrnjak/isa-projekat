@@ -2,6 +2,7 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.AddressDTO;
 import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.dto.CottageDisplayDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
@@ -51,12 +52,12 @@ public class CottageOwnerService {
         return this.cottageOwnerRepository.save(user);
     }
 
-    public List<CottageDTO> getCottagesFromOwner(String email){
-        List<CottageDTO> ret = new ArrayList<CottageDTO>();
+    public List<CottageDisplayDTO> getCottagesFromOwner(String email){
+        List<CottageDisplayDTO> ret = new ArrayList<CottageDisplayDTO>();
         for(Cottage c: cottageRepository.findAll()){
             User u = userRepository.findByEmail(c.getCottageOwner().getEmail());
-            if(u.getEmail().equals(email)){
-                ret.add(new CottageDTO(c));
+            if(u.getEmail().equals(email) && !c.isDeleted()){
+                ret.add(new CottageDisplayDTO(c));
             }
         }
         return  ret;

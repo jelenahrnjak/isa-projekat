@@ -9,6 +9,8 @@ import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -108,5 +110,22 @@ public class CottageService {
             }
         }
         return this.cottageRepository.save(cottage);
+    }
+
+    public ResponseEntity<Long> deleteCottage(Long id){
+        for(Cottage c: this.cottageRepository.findAll()){
+            if(c.getId() == id) {
+                for(Appointment a:c.getAppointments()){
+                    if(a.getReserved()){
+                        System.out.println("Rezervisano");
+                        return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+                    }
+                }
+                c.setDeleted(true);
+                this.cottageRepository.save(c);
+            }
+        }
+        return new ResponseEntity<>(id, HttpStatus.OK);
+
     }
 }
