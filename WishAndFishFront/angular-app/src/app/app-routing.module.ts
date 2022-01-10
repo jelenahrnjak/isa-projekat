@@ -69,7 +69,7 @@ const routes: Routes = [
     component: BoatsComponent,
   },
   {
-    path: 'instructors',
+    path: 'fishing',
     component: InstructorsComponent,
   },
   {

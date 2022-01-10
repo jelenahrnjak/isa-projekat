@@ -35,7 +35,9 @@ import { BoatsComponent } from './components/unregistered-user/boats/boats.compo
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
 import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
-import { ClientHomeComponent } from './components/client/client-home/client-home.component'; 
+import { ClientHomeComponent } from './components/client/client-home/client-home.component';
+import { HistoryMenuComponent } from './components/client/history-menu/history-menu.component';
+import { OfferMenuComponent } from './components/client/offer-menu/offer-menu.component'; 
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ClientHomeComponent } from './components/client/client-home/client-home
     InstructorsComponent,
     MyBoatsComponent,
     AddBoatComponent,
-    ClientHomeComponent, 
+    ClientHomeComponent,
+    HistoryMenuComponent,
+    OfferMenuComponent, 
   ],
   imports: [
     BrowserModule,

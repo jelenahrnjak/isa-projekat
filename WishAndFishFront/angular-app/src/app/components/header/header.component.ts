@@ -30,7 +30,15 @@ export class HeaderComponent implements OnInit {
       return false;
     }
   }
-  
+    
+  isClient() {
+    let role = localStorage.getItem("role");
+    if (role == "CLIENT" && this.hasSignedIn()){
+      return true;
+    }
+    return false;
+  }
+
   isAdmin() {
     let role = localStorage.getItem("role");
     if (role == "ADMIN" && this.hasSignedIn()){
