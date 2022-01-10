@@ -21,8 +21,8 @@ export class CottageProfileComponent implements OnInit {
   returnUrl: string;
   notification: DisplayMessage; 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  cottages: any 
-
+  cottages: any;
+  reserved : boolean = false;
   form: FormGroup;
   searchDTO = {
     "name" : "",
@@ -84,10 +84,17 @@ export class CottageProfileComponent implements OnInit {
       window.location.reload();
     },
       error => {
-        console.log('Delete cottage error');
-       
+        this.reserved = true;
+        window.alert('The cottage is reserved!');
       });
     }
-  
+
+  isReserved(){
+      return this.reserved;
+  }
+
+  closeModal(){
+    this.reserved = false;
+  }
 
 }
