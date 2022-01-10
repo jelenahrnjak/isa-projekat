@@ -29,12 +29,12 @@ public class FishingAdventureDTO {
 
     public FishingAdventureDTO(FishingAdventure f) {
         this.name = f.getName();
-        this.description = f.getName();
+        this.description = f.getDescription();
         this.address = f.getAddress().toString();
         this.rating = Double.toString(f.getRating());
         this.price = Double.toString(f.getPricePerHour());
         this.coverImage = f.getCoverImage();
-        this.instructor = f.getFishingInstructor().getName() + " " + f.getFishingInstructor().getName();
+        this.instructor = f.getFishingInstructor().getName() + " " + f.getFishingInstructor().getSurname();
         this.instructorEmail = f.getFishingInstructor().getEmail();
     }
 

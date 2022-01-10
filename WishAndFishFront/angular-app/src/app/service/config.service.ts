@@ -12,7 +12,8 @@ export class ConfigService {
   private _cottage_owner_url = this._api_url + '/cottageOwner';
   private _boat_owner_url = this._api_url + '/boatOwner';
   private _boat_url = this._api_url + '/boats';
-  private _instructor_url = this._api_url + '/instructors';
+  private _instructor_url = this._api_url + '/instructors'; 
+  private _adventure_url = this._api_url + '/adventures';
 
   get user_url(): string {
     return this._user_url;
@@ -24,6 +25,10 @@ export class ConfigService {
 
   get instructor_url(): string {
     return this._instructor_url;
+  }
+
+  get adventure_url(): string {
+    return this._adventure_url;
   }
 
   get boat_url(): string {

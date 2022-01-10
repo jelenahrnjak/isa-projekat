@@ -112,10 +112,10 @@ INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
 
-INSERT INTO  fishing_adventures(id, cover_image, declaration, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
 	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55);
 
-INSERT INTO  fishing_adventures(id, cover_image, declaration, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
 	VALUES (101, 'adventure2.jpg', 'Go with me and find pink fish!', false, 'Pink fishing', 0, 10, 0, 500, 55);
 
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)

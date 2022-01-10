@@ -12,17 +12,21 @@
     
     <div   style="margin-left: 30px; ">
     <div class="row" > 
-            <div class="card" style="margin: 30px; " *ngFor="let c of instructors">
+            <div class="card" style="margin: 30px; " *ngFor="let c of adventures">
                 <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
                 <ul class="list-group list-group-flush">
-                <li class = "list-group-item">
-                <b>{{c.name}}</b>
-                </li>
-                <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
-                <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
-                <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The restaurant currently does not have any ratings.</li> 
-                <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
-                </ul> 
+                  <li class = "list-group-item">
+                  <b>{{c.name}}</b>
+                  </li>
+                  <li   class="list-group-item">Instructor: {{c.instructor}}</li>  
+                  <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
+                  <li    class="list-group-item">Price per hour: {{c.price}}€</li>  
+                  <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
+                  <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The adventure currently does not have any ratings.</li> 
+                  <li  *ngIf="c.description == null" style="height: 70px;" class="list-group-item">The adventure currently does not have decription.</li> 
+                  <li  *ngIf="c.description!== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
+                  <li style="height: 70px;" class="list-group-item">Contact instrustoron:<br> {{c.instructorEmail}}</li>  
+                </ul>  
         </div>
     </div>
     

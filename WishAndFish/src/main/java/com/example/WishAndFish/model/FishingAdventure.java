@@ -28,8 +28,8 @@ public class FishingAdventure {
     @Column(name = "price_per_hour", unique = false, nullable = false)
     private Double pricePerHour;
 
-    @Column(name = "declaration", unique = false, nullable = true)
-    private String declaration;
+    @Column(name = "description", unique = false, nullable = true)
+    private String description;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fishing_instructor_id")
@@ -49,7 +49,7 @@ public class FishingAdventure {
         this.rating = rating;
         this.coverImage = coverImage;
         this.pricePerHour = pricePerHour;
-        this.declaration = declaration;
+        this.description = declaration;
         this.fishingInstructor = fishingInstructor;
         this.address = address;
     }
@@ -110,12 +110,12 @@ public class FishingAdventure {
         this.pricePerHour = pricePerHour;
     }
 
-    public String getDeclaration() {
-        return declaration;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDeclaration(String declaration) {
-        this.declaration = declaration;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public FishingInstructor getFishingInstructor() {
