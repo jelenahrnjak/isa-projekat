@@ -1,12 +1,12 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.AddBoatDTO;
+import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,12 @@ public class BoatController {
     @RequestMapping(value="/search", method = RequestMethod.GET)
     public List<BoatDTO> search(BoatDTO dto) {
         return this.boatService.search(dto);
+    }
+
+    @PostMapping(value="/addBoat")
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public AddBoatDTO addBoat(@RequestBody AddBoatDTO newBoat) {
+        return this.boatService.addBoat(newBoat);
     }
 
 }

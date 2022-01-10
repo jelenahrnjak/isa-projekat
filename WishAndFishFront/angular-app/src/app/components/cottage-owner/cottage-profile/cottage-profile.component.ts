@@ -5,6 +5,7 @@ import { AuthService, UserService } from '../../../service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CottageService } from 'src/app/service/cottage.service';
 import { takeUntil } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface DisplayMessage {
   msgType: string;
@@ -21,16 +22,32 @@ export class CottageProfileComponent implements OnInit {
   notification: DisplayMessage; 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   cottages: any 
-  
+
+  form: FormGroup;
+  searchDTO = {
+    "name" : "",
+    "address" : "",
+    "rating" : "",
+   // "price" : "",
+    "description" : ""
+  }
   constructor(private userService: UserService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private cottageService: CottageService,
-    private cottageOwnerService: CottageOwnerService) { }
+    private cottageOwnerService: CottageOwnerService,
+    private formBuilder: FormBuilder) { }
 
 
   ngOnInit() {
+    this.form = this.formBuilder.group({  
+      name: [''],
+      address: [''], 
+      description: [''],  
+      rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
+    })
+    
     this.route.params
      .pipe(takeUntil(this.ngUnsubscribe))
      .subscribe((params: DisplayMessage) => {
@@ -43,6 +60,24 @@ export class CottageProfileComponent implements OnInit {
    });
  
    console.log(this.cottages)
+  }
+
+  search(){
+    this.searchDTO.name = this.form.get('name').value
+    this.searchDTO.address = this.form.get('address').value
+    this.searchDTO.rating = this.form.get('rating').value
+    //this.searchDTO.price = this.form.get('price').value
+    this.searchDTO.description = this.form.get('description').value 
+    this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
+      this.cottages = data; 
+    }); 
+  }
+
+  clear(){
+    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
+    this.cottageService.getAll().subscribe((data : any) => {
+      this.cottages = data;
+    }); 
   }
 
 }

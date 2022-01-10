@@ -1,3 +1,4 @@
+import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
 import { AddCottageComponent } from './components/cottage-owner/add-cottage/add-cottage.component';
 import { CottageProfileComponent } from './components/cottage-owner/cottage-profile/cottage-profile.component';
@@ -73,6 +74,10 @@ const routes: Routes = [
   {
     path: 'my-boats',
     component: MyBoatsComponent,
+  },
+  {
+    path: 'add-boat',
+    component: AddBoatComponent,
   }
 ];
 

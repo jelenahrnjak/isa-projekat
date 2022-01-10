@@ -77,8 +77,10 @@ export class LoginComponent implements OnInit {
           switch(this.role){
             case "COTTAGE_OWNER":
               this.router.navigate(['/cottage-profile']);
-              case "BOAT_OWNER":
-                this.router.navigate(['/my-boats']);
+              break;
+            case "BOAT_OWNER":
+              this.router.navigate(['/my-boats']);
+              break;
               
             }
            
