@@ -65,7 +65,7 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_o
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)
 	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)
-	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', false);
+	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', true);
 
 INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (124, 10, 111);
@@ -95,7 +95,7 @@ INSERT INTO public.rules(id, content, cottage_id)
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (135, '2', '12-02-2022', 7, 130, false, '10-02-2022', 111);
+	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)

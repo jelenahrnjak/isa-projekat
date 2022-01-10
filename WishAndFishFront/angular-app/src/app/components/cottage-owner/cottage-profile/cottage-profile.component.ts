@@ -1,7 +1,7 @@
 import { CottageOwnerService } from './../../../service/cottage-owner.service';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { AuthService, UserService } from '../../../service';
+import { AuthService, UserService, ConfigService } from '../../../service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CottageService } from 'src/app/service/cottage.service';
 import { takeUntil } from 'rxjs/operators';
@@ -28,11 +28,10 @@ export class CottageProfileComponent implements OnInit {
     "name" : "",
     "address" : "",
     "rating" : "",
-   // "price" : "",
     "description" : ""
   }
   constructor(private userService: UserService,
-    private authService: AuthService,
+    private configService: ConfigService,
     private router: Router,
     private route: ActivatedRoute,
     private cottageService: CottageService,
@@ -54,7 +53,7 @@ export class CottageProfileComponent implements OnInit {
        this.notification = params;
    }); 
 
-   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/cottage-profile';
    this.cottageOwnerService.getCottagesFromOwner().subscribe((data : any) => {
      this.cottages = data;
    });
@@ -66,7 +65,6 @@ export class CottageProfileComponent implements OnInit {
     this.searchDTO.name = this.form.get('name').value
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
-    //this.searchDTO.price = this.form.get('price').value
     this.searchDTO.description = this.form.get('description').value 
     this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
       this.cottages = data; 
@@ -79,5 +77,17 @@ export class CottageProfileComponent implements OnInit {
       this.cottages = data;
     }); 
   }
+
+  delete(id){
+    this.cottageService.deleteCottage(id)
+    .subscribe(data => {
+      window.location.reload();
+    },
+      error => {
+        console.log('Delete cottage error');
+       
+      });
+    }
+  
 
 }
