@@ -1,5 +1,6 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.service.FishingAdventuresService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class FishingAndventureController {
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<FishingAdventureDTO> getAll() {
         return this.fishingAdventuresService.findAll();
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public List<FishingAdventureDTO> search(FishingAdventureDTO dto) {
+        return this.fishingAdventuresService.search(dto);
     }
 }

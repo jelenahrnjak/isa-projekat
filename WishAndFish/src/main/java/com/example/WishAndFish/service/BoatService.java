@@ -55,7 +55,7 @@ public class BoatService {
 
     private boolean checkBoatForSearch(Boat b, BoatDTO dto,double rating, double price){
 
-        if(checkStrings(b.getName(),dto.getName()) && checkStrings(b.getDescription(),dto.getDescription()) && checkStrings(b.getAddress().toString(),dto.getAddress()) && checkRating(b.getRating(),rating) && checkPrice(b.getPricePerHour(),price)){
+        if(checkStrings(b.getName(),dto.getName())  && checkStrings(b.getAddress().toString(),dto.getAddress()) && checkRating(b.getRating(),rating) && checkPrice(b.getPricePerHour(),price)){
             return true;
         }
         return false;

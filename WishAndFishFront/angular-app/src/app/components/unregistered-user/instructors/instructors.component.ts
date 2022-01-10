@@ -15,6 +15,13 @@ export class InstructorsComponent implements OnInit {
 
   adventures:any= []
   form: FormGroup;
+  searchDTO = {
+    "name" : "",
+    "address" : "",
+    "rating" : "",
+    "price" : "", 
+    "instructor" : ""
+  }
 
   constructor( 
     private adventureService: AdventureService,   
@@ -25,7 +32,7 @@ export class InstructorsComponent implements OnInit {
     this.form = this.formBuilder.group({  
       name: [''],
       address: [''], 
-      description: [''],  
+      instructor: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
       price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
  
@@ -36,10 +43,20 @@ export class InstructorsComponent implements OnInit {
   }
 
   search(){
-
+    this.searchDTO.name = this.form.get('name').value
+    this.searchDTO.address = this.form.get('address').value
+    this.searchDTO.rating = this.form.get('rating').value
+    this.searchDTO.price = this.form.get('price').value 
+    this.searchDTO.instructor = this.form.get('instructor').value
+    this.adventureService.search(this.searchDTO).subscribe((data : any) => { 
+      this.adventures = data; 
+    });
   }
 
   clear(){
-
+    this.form.setValue({"name" : "", "address" : "", "rating": "",   "price" : "","instructor":""})
+    this.adventureService.getAll().subscribe((data : any) => {
+      this.adventures = data;
+    }); 
   }
 }

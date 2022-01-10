@@ -19,8 +19,7 @@ export class AdventureService {
       }));
   } 
 
-  search(data:any){
-    
+  search(data:any){ 
     return this.apiService.get(this.config.adventure_url + `/search`,data)
     .pipe(map(adventures => { 
       return adventures;

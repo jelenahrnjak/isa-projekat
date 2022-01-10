@@ -45,10 +45,21 @@
     background-clip: border-box;
     border: 3px outset rgba(0, 0, 0, 0.125);
     border-radius: 10px;
-    width : 355px;
-    max-width: 355px;
-    min-width: 355px;
     text-align: center; 
+} 
+
+.small{
+  
+  width : 177px;
+  max-width: 177px;
+  min-width: 177px;
+}
+
+.big{
+  
+  width : 355px;
+  max-width: 355px;
+  min-width: 355px;
 } 
 
 .card-img-top{
