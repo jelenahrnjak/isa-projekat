@@ -50,6 +50,9 @@ public class Cottage {
     private boolean deleted;
 
     public Cottage() {
+
+        this.rating = 0;
+        this.numberOfRatings = 0;
     }
 
     public Cottage(long id, String name, String description, Double pricePerDay, Address address) {
@@ -58,6 +61,8 @@ public class Cottage {
         this.description = description;
         this.pricePerDay = pricePerDay;
         this.address = address;
+        this.rating = 0;
+        this.numberOfRatings = 0;
     }
 
     public String getName() {

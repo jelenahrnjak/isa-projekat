@@ -79,6 +79,8 @@ public class Boat {
     private boolean deleted;
 
     public Boat() {
+        this.rating = 0;
+        this.numberOfRatings = 0;
     }
 
     public long getId() {

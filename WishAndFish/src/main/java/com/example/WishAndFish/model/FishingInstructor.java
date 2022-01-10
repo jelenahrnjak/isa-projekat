@@ -1,15 +1,12 @@
 package com.example.WishAndFish.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "fishing_instructors")
 public class FishingInstructor extends User{
-
-    @Column(name = "cover_image", unique = false, nullable = false)
-    private String coverImage;
 
     public FishingInstructor() {
     }
@@ -21,5 +18,4 @@ public class FishingInstructor extends User{
     public FishingInstructor(User u) {
         super(u);
     }
-
 }
