@@ -54,9 +54,8 @@ INSERT INTO COTTAGE_OWNER(id)
     VALUES (95);
 INSERT INTO BOAT_OWNER(id)
 	VALUES (75);
-
-INSERT INTO FISHING_INSTRUCTORS(id,cover_image)
-    VALUES(55, 'instructor.jpg');
+INSERT INTO FISHING_INSTRUCTORS(id)
+    VALUES(55);
 
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image,deleted)
 	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg',false);
@@ -112,6 +111,12 @@ INSERT INTO BOATS(
 INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
+
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
+	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55);
+
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id)
+	VALUES (101, 'adventure2.jpg', 'Go with me and find pink fish!', false, 'Pink fishing', 0, 10, 0, 500, 55);
 
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
 	VALUES (100, false, false, 'I do not use this site anymore', 35);

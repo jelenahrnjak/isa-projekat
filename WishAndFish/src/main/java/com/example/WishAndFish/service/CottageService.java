@@ -64,7 +64,7 @@ public class CottageService {
 
     private boolean checkCottageForSearch(Cottage c, CottageDTO dto,double rating, double price){
 
-        if(checkStrings(c.getName(),dto.getName()) && checkStrings(c.getDescription(),dto.getDescription()) && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating) && checkPrice(c.getPricePerDay(), price)){
+        if(checkStrings(c.getName(),dto.getName())  && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating) && checkPrice(c.getPricePerDay(), price)){
             return true;
         }
         return false;

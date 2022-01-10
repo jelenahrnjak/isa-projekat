@@ -79,6 +79,8 @@ public class Boat {
     private boolean deleted;
 
     public Boat() {
+        this.rating = 0;
+        this.numberOfRatings = 0;
     }
 
     public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerHour, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, Set<CancellationConditions> cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
