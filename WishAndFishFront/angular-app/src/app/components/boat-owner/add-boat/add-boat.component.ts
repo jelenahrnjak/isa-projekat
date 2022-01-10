@@ -66,7 +66,7 @@ export class AddBoatComponent implements OnInit {
      * Innocent until proven guilty
      */
     this.notification = undefined;
-    var Cottage = { 
+    var boat = { 
       "name" : this.form.get('name').value,
       "type" : this.form.get('type').value,
       "length" : this.form.get('length').value,
@@ -90,7 +90,7 @@ export class AddBoatComponent implements OnInit {
 
   }
 
-  this.boatService.addBoat(Cottage)
+  this.boatService.addBoat(boat)
   .subscribe(data => {
     this.router.navigate([this.returnUrl]);
   },
@@ -98,7 +98,7 @@ export class AddBoatComponent implements OnInit {
       console.log('Add cottage error');
      
     });
-    console.log(Cottage);
+    console.log(boat);
 
   }
 

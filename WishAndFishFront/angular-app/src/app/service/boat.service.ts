@@ -29,6 +29,7 @@ export class BoatService {
 
     
   addBoat(boat) {
+    console.log(boat)
     return this.apiService.post(this.config.boat_url + `/addBoat`, boat)
     .pipe(map(() => {
       console.log('Adding boat success');
