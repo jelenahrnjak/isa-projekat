@@ -1,5 +1,6 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.BoadDisplayDTO;
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.service.BoatOwnerService;
@@ -18,7 +19,7 @@ public class BoatOwnerController {
 
     @RequestMapping(value="/getBoatsFromOwner/{email}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
-    public List<BoatDTO> getCottagesFromOwner(@PathVariable String email) {
+    public List<BoadDisplayDTO> getCottagesFromOwner(@PathVariable String email) {
         return this.boatOwnerService.getBoatsFromOwner(email);
     }
 }

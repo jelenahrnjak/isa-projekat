@@ -22,7 +22,14 @@
                 <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
                 <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The boat currently does not have any ratings.</li> 
                 <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
-                </ul> 
+                <li class="list-group-item">
+                  <button  class="btn btn-primary" >Details</button> 
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button  class="btn btn-primary" (click)="delete(c.id)">Delete</button> 
+
+              </li>  
+              </ul> 
         </div>
     </div>
     
