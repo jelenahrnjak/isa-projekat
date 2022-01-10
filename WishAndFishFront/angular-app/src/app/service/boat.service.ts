@@ -35,4 +35,12 @@ export class BoatService {
       console.log('Adding boat success');
     }));
   }
+
+
+  deleteBoat(id) {
+    return this.apiService.delete(this.config.boat_url + `/deleteBoat/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting boat success');
+    }));   
+  }
 }

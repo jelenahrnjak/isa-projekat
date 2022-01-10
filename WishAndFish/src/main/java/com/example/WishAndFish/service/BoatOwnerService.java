@@ -1,9 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.AddressDTO;
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.dto.UserDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +48,12 @@ public class BoatOwnerService {
         return this.boatOwnerRepository.save(user);
     }
 
-    public List<BoatDTO> getBoatsFromOwner(String email){
-        List<BoatDTO> ret = new ArrayList<BoatDTO>();
+    public List<BoadDisplayDTO> getBoatsFromOwner(String email){
+        List<BoadDisplayDTO> ret = new ArrayList<BoadDisplayDTO>();
         for(Boat b: boatRepository.findAll()){
             User u = userRepository.findByEmail(b.getBoatOwner().getEmail());
-            if(u.getEmail().equals(email)){
-                ret.add(new BoatDTO(b));
+            if(u.getEmail().equals(email) && !b.isDeleted()){
+                ret.add(new BoadDisplayDTO(b));
             }
         }
         return  ret;

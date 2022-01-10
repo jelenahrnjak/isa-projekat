@@ -43,25 +43,25 @@ public class Boat {
     @Column(name = "average_grade", unique = false, nullable = true)
     private Double averageGrade;
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Image> images = new HashSet<Image>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<Rule>();
 
     @Column(name = "price_per_hour", unique = false)
     private Double pricePerHour;
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<NavigationEquipment> navigationEquipments = new HashSet<NavigationEquipment>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<FishingEquipment> fishingEquipments = new HashSet<FishingEquipment>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<CancellationConditions> cancellationConditions = new HashSet<CancellationConditions>();
 
     @Column(name="coverImage")

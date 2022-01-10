@@ -72,4 +72,14 @@ export class MyBoatsComponent implements OnInit {
     }); 
   }
 
+  delete(id){
+    this.boatService.deleteBoat(id)
+    .subscribe(data => {
+      window.location.reload();
+    },
+      error => {
+        window.alert('The boat is reserved!');
+      });
+    }
+
 }
