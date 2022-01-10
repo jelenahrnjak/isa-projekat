@@ -34,7 +34,8 @@ import { DialogContentExampleDialog } from './components/accept-registration/acc
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
-import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component'; 
+import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
+import { ClientHomeComponent } from './components/client/client-home/client-home.component'; 
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.comp
     BoatsComponent,
     InstructorsComponent,
     MyBoatsComponent,
-    AddBoatComponent, 
+    AddBoatComponent,
+    ClientHomeComponent, 
   ],
   imports: [
     BrowserModule,

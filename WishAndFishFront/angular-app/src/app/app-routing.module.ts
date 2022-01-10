@@ -16,6 +16,7 @@ import { AcceptRegistrationComponent } from './components/accept-registration/ac
 import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.component';
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
+import { ClientHomeComponent } from './components/client/client-home/client-home.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
   {
     path: 'add-boat',
     component: AddBoatComponent,
+  },
+  {
+    path:'client',
+    component: ClientHomeComponent,
   }
 ];
 

@@ -1,6 +1,6 @@
 <mat-toolbar class="app-navbar" color="primary">
     <div class="left">
-        <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/">
+        <button mat-button mat-ripple (click)="home()">
             <span>Home</span>
         </button>
     </div>
@@ -12,8 +12,7 @@
             </button>
             <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/boats">
                 <span>Boats</span>
-            </button>
-            
+            </button> 
             <button *ngIf="clientOrUnregistered()" mat-button mat-ripple routerLink="/instructors">
                 <span>Fishing instructors</span>
             </button>

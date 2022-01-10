@@ -20,5 +20,12 @@ export class UserMenuComponent implements OnInit {
     this.authService.logout();
   }
 
+  isClient(){
+    if(localStorage.getItem('role') === 'CLIENT' && localStorage.getItem('user') !== null){
+      return true;
+    }else{
+      return false;
+  }}
+
 
 }

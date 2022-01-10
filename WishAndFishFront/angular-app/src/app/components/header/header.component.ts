@@ -1,6 +1,7 @@
 import { AuthService } from './../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
+import {Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {UserService} from '../../service/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( private userService: UserService, private authService: AuthService) { }
+  constructor( private userService: UserService, private authService: AuthService, private router: Router,) { }
 
   ngOnInit() {
   }
@@ -52,6 +53,23 @@ export class HeaderComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  home() {
+    let role = localStorage.getItem("role");
+    switch (role) { 
+      case "COTTAGE_OWNER":
+        this.router.navigate(['/cottage-owner']);
+		    break 
+      case "CLIENT":
+        this.router.navigate(['/client']);
+        break 
+      case "BOAT_OWNER":
+        this.router.navigate(['/my-boats']);
+        break;
+      default:
+        this.router.navigate(['/']);
+    }
   }
 
 }
