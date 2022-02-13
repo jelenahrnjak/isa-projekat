@@ -1,5 +1,7 @@
 package com.example.WishAndFish.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,15 +33,19 @@ public class Cottage {
     @Column(name="coverImage")
     private String coverImage;
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Room> rooms = new HashSet<Room>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Image> images = new HashSet<Image>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Rule> rules = new HashSet<Rule>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

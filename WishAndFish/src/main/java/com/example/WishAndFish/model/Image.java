@@ -1,5 +1,8 @@
 package com.example.WishAndFish.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,12 +15,16 @@ public class Image {
     @Column(name = "path", unique = false, nullable = false)
     private String path;
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
+    @JsonBackReference
     private Cottage cottage;
-  
+
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id", nullable = true)
+    @JsonBackReference
     private Boat boat;
 
     public long getId() {

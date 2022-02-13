@@ -58,7 +58,6 @@ export class CottageProfileComponent implements OnInit {
      this.cottages = data;
    });
  
-   console.log(this.cottages)
   }
 
   search(){
@@ -97,4 +96,7 @@ export class CottageProfileComponent implements OnInit {
     this.reserved = false;
   }
 
+  details(id){
+    this.router.navigate(['/cottage-details/'+id]);
+  }
 }

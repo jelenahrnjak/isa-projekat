@@ -1,6 +1,8 @@
 package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.RuleDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -17,10 +19,12 @@ public class Rule {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id")
+    @JsonBackReference
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id")
+    @JsonBackReference
     private Boat boat;
 
     public Rule(RuleDTO ruleDTO){

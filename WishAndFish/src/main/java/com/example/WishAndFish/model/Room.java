@@ -1,6 +1,7 @@
 package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.RoomDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,9 +18,9 @@ public class Room {
     @Column(name = "bed_number", unique = false, nullable = false)
     private Integer bedNumber;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = false)
+    @JsonBackReference
     private Cottage cottage;
 
     public Room() {

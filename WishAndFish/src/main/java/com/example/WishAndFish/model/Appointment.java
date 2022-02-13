@@ -1,5 +1,8 @@
 package com.example.WishAndFish.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.Date;
@@ -34,14 +37,16 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
+    @JsonBackReference
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id", nullable = true)
+    @JsonBackReference
     private Boat boat;
 
-    @ManyToMany(mappedBy = "appointments")
-    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
+    //@ManyToMany(mappedBy = "appointments")
+    //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
     public Appointment() {
     }
@@ -112,11 +117,11 @@ public class Appointment {
         this.cottage = cottage;
     }
 
-    public Set<AdditionalService> getAdditionalServices() {
+    /*public Set<AdditionalService> getAdditionalServices() {
         return additionalServices;
     }
 
     public void setAdditionalServices(Set<AdditionalService> additionalServices) {
         this.additionalServices = additionalServices;
-    }
+    }*/
 }

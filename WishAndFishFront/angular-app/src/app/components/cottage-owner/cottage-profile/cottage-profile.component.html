@@ -26,7 +26,7 @@
                 <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The cottage currently does not have any ratings.</li> 
                 <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
                 <li class="list-group-item">
-                    <button  class="btn btn-primary" >Details</button> 
+                    <button  class="btn btn-primary" (click)="details(c.id)" >Details</button> 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button  class="btn btn-primary" (click)="delete(c.id)">Delete</button> 
@@ -35,33 +35,7 @@
                 </ul> 
                
     </div>
-
-    <!-- <div *ngIf="isReserved()" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Warning</h5>
-              <button type="button" class="close" data-dismiss="modal" (click) = "closeModal()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>The cottages is reserved!</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click) = "closeModal()">Close</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-
     </div>
 
-    <!-- <div *ngIf="isReserved()" class="alert alert-danger alert-dismissible d-flex align-items-center fade show"style="width: 700px; height: 50px;">
-        <i class="bi-exclamation-octagon-fill"></i>
-      <strong class="mx-2">Warning!</strong> The cottages is reserved!
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div> -->
-
+   
 </div>
