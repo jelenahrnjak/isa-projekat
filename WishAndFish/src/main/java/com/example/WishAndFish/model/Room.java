@@ -1,6 +1,7 @@
 package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.RoomDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.servlet.http.Cookie;
@@ -16,6 +17,7 @@ public class Room {
     @Column(name = "bed_number", unique = false, nullable = false)
     private Integer bedNumber;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = false)
     private Cottage cottage;

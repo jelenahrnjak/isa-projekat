@@ -128,4 +128,8 @@ public class CottageService {
         return new ResponseEntity<>(id, HttpStatus.OK);
 
     }
+
+    public Cottage findCottage(Long id){
+        return cottageRepository.findById(id).orElseGet(null);
+    }
 }

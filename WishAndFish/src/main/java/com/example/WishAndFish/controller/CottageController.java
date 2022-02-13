@@ -44,4 +44,11 @@ public class CottageController {
     public ResponseEntity<Long> deleteCottage(@PathVariable Long id) {
         return this.cottageService.deleteCottage(id);
     }
+
+
+    @RequestMapping(value="/findCottage/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public Cottage findCottage(@PathVariable Long id) {
+        return this.cottageService.findCottage(id);
+    }
 }
