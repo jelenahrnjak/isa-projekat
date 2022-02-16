@@ -121,3 +121,11 @@ INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, num
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
 	VALUES (100, false, false, 'I do not use this site anymore', 35);
 
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (666, 'cottage1.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (667, 'cottage2.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (668, 'cottage3.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (669, 'cottage4.jpg', null, 111);

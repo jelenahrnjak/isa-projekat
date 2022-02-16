@@ -28,10 +28,6 @@ export class CottageDetailsComponent implements OnInit {
 
     })
 
-    // this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + this.cottage.coverImage +')');
-    // this.image = this.sanitizer.bypassSecurityTrustStyle(`url(${this.cottage.coverImage})`);
-
-    console.log(this.userImage)
     ;
 
    
