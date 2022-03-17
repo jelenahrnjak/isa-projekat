@@ -105,7 +105,9 @@
     height: 565px; 
     background-repeat: no-repeat;
     background-size: 1540px 565px;
-    margin-left: 200px
+    margin-left: 250px;
+    margin-right: 35px;
+
   }
 
 
@@ -117,7 +119,8 @@
 
 
   .background-image-color{
-    margin-left: 200px;
+    margin-left: 250px;
+    margin-right: 35px;
     height: 500px;
     background-color: rgba(0, 0, 0, 0)
   }
