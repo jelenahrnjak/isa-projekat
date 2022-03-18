@@ -35,7 +35,7 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 30,  'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'kris', '0643515864', 900, 'Stojić', 200, 3, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)

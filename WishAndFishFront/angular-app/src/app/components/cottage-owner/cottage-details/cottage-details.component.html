@@ -8,9 +8,14 @@
     <ul class="sidebar-navigation ">
         <li>
         <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Edit availability
+            <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
         </a>
         </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-home" aria-hidden="true"></i> Edit availability
+            </a>
+            </li>
         <li>
             <a href="#">
                 <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
@@ -44,26 +49,32 @@
 </div>
 
 <!-- Cards -->
-<div style="margin-left: 220px;" class="container">
+<div style="margin-left: 220px; margin-top: 20px;" class="container">
 
-    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top:20px; margin-left: 1130px;">
+    <!-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top:20px; margin-left: 1130px;">
         <a class="btn btn-primary btn-sm px-4 me-sm-3" style="width: 90px;" href="#">Edit</a> 
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="card1">
-                <h5 class="text-white" style="margin-top: 25px; margin-left: 10px;">Our address:</h5>
-                <h6 class="text-white" style="margin-top: 60px; margin-left: -114px;">{{cottage.address.street}} {{cottage.address.streetNumber}}, {{cottage.address.postalCode}} {{cottage.address.cityName}}, {{cottage.address.countryName}}</h6>
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Our address:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.address.street}} {{cottage.address.streetNumber}}, {{cottage.address.postalCode}} {{cottage.address.cityName}}, {{cottage.address.countryName}}</h6>
+            </div>
         </div>
 
         <div class="card2">
-            <h5 class="text-white" style="margin-top: 25px; margin-left: 10px;">Description:</h5>
-            <h6 class="text-white" style="margin-top: 60px; margin-left: -105px;">{{cottage.description}}</h6>
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Description:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.description}}</h6>
+            </div>  
         </div>
 
         <div class="card2">
-            <h5 class="text-white" style="margin-top: 25px; margin-left: 10px;">Price per day:</h5>
-            <h6 class="text-white" style="margin-top: 60px; margin-left: -122px;">{{cottage.pricePerDay}}$</h6>
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Price per day:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.pricePerDay}}$</h6>
+            </div>
         </div>
     </div> 
 </div>
