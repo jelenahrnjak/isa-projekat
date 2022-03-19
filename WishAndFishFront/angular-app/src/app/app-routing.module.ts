@@ -1,3 +1,4 @@
+import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
 import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
@@ -88,6 +89,11 @@ const routes: Routes = [
   {
     path:'cottage-details/:id',
     component: CottageDetailsComponent,
+  }
+  ,
+  {
+    path:'edit-cottage-basic-info/:id',
+    component: EditCottageBasicInfoComponent,
   }
 ];
 

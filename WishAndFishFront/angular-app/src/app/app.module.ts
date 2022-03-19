@@ -39,7 +39,8 @@ import { ClientHomeComponent } from './components/client/client-home/client-home
 import { HistoryMenuComponent } from './components/client/history-menu/history-menu.component';
 import { OfferMenuComponent } from './components/client/offer-menu/offer-menu.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
-import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-options-menu/cottage-options-menu.component'; 
+import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-options-menu/cottage-options-menu.component';
+import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component'; 
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-
     HistoryMenuComponent,
     OfferMenuComponent,
     CottageDetailsComponent,
-    CottageOptionsMenuComponent, 
+    CottageOptionsMenuComponent,
+    EditCottageBasicInfoComponent, 
   ],
   imports: [
     BrowserModule,

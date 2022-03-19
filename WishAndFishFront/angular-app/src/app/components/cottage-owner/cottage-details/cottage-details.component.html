@@ -7,37 +7,39 @@
       </div> -->
     <ul class="sidebar-navigation ">
         <li>
-        <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
-        </a>
+            <a class="sidebar-click" (click)="editInfo()">
+                <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
+            </a>
         </li>
         <li>
-            <a href="#">
+            <a class="sidebar-click">
                 <i class="fa fa-home" aria-hidden="true"></i> Edit availability
             </a>
-            </li>
+        </li>
         <li>
-            <a href="#">
+            <a class="sidebar-click">
                 <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
             </a>
             </li>
         <li>
-        <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
-        </a>
+            <a class="sidebar-click">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
+            </a>
         </li>
         <li>
-            <a href="#">
+            <a class="sidebar-click">
                 <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
             </a>
             </li>        
         <li>
-        <a href="#">
-            <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
-        </a>
+            <a class="sidebar-click">
+                <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
+            </a>
         </li>       
     </ul>
 </div>
+
+<!-- <div *ngIf="mainInfo"> -->
 
 <div>
     <!-- Background image -->
@@ -93,11 +95,17 @@
     </div>
 
     <div class="row text-center text-lg-start">
-      <div *ngFor="let img of cottage.images;" class="col-lg-3 col-md-4 col-6" style="width: 360px;height: 220px;">
+      <div *ngFor="let img of cottage.images;" class="col-lg-3 col-md-4 col-6" style="width: 395px;height: 220px; margin-right: 45px; margin-bottom: 40px;">
           <img class="img-fluid img-thumbnail" src="assets/Images/{{img.path}}" alt="" >
       </div>    
     </div>
 </div>
 <!-- Gallery -->
 
+<!-- </div>
+
+
+<div *ngIf="editBasicInfo">
+    <app-edit-cottage-basic-info></app-edit-cottage-basic-info>
+</div> -->
 </div>

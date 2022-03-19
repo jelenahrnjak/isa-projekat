@@ -88,6 +88,11 @@
   .content-container {
     padding-left: 220px;
   }
+
+  .sidebar-click{
+    text-decoration: underline; 
+    cursor: pointer;
+  }
 /* sidebar */
 
 
@@ -129,6 +134,7 @@
 /* background-image */
 
 
+/* cards with info */
 .card1 {
   z-index:1;
   padding: 20px;
@@ -157,6 +163,11 @@
   height: 220px;
   border-radius: 10px
    }
+   /* cards with info */ 
+
+
+
+
 
 
  
