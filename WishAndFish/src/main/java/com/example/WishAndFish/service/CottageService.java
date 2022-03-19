@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -140,7 +141,7 @@ public class CottageService {
             if(editedCottage.getId().equals(c.getId())){
                 c.setName(editedCottage.getName());
                 c.setDescription(editedCottage.getDescription());
-                c.setPricePerDay(editedCottage.getPrice());
+                c.setPricePerDay(editedCottage.getPricePerDay());
                 c.getAddress().setCityName(editedCottage.getAddress().getCityName());
                 c.getAddress().setCountryName(editedCottage.getAddress().getCountryName());
                 c.getAddress().setLatitude(editedCottage.getAddress().getLatitude());

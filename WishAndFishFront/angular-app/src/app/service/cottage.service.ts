@@ -49,4 +49,11 @@ export class CottageService {
       return cottage;
     }));   
   }
+
+  editBasicInfo(cottage) {
+    return this.apiService.put(this.config.cottage_url + `/editBasicInfo`, cottage)
+    .pipe(map(c => {
+      console.log('Editing cottage success');
+    }));
+  }
 }

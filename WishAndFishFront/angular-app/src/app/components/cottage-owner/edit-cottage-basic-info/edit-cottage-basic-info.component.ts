@@ -42,7 +42,10 @@ export class EditCottageBasicInfoComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.cottage)
+    this.cottageService.editBasicInfo(this.cottage).subscribe((data) =>{
+      this.router.navigate(['/cottage-details/' + this.id]);
+
+    });
   }
 
   
