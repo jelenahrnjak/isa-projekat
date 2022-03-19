@@ -1,8 +1,17 @@
 package com.example.WishAndFish.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "request_for_deleting")
 public class RequestForDeleting {
 
@@ -23,8 +32,6 @@ public class RequestForDeleting {
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User user;
 
-    public RequestForDeleting() {
-    }
 
     public RequestForDeleting(String reason, boolean approved, User user) {
         this.reason = reason;
@@ -33,44 +40,6 @@ public class RequestForDeleting {
         this.processed = false;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public boolean isProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(boolean processed) {
-        this.processed = processed;
-    }
 }
 

@@ -3,11 +3,19 @@ package com.example.WishAndFish.model;
 import com.example.WishAndFish.dto.RoomDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.servlet.http.Cookie;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rooms")
 public class Room {
 
@@ -23,31 +31,11 @@ public class Room {
     @JsonBackReference
     private Cottage cottage;
 
-    public Room() {
-    }
 
     public Room(Integer bedNumber, Cottage cottage) {
         this.bedNumber = bedNumber;
         this.cottage = cottage;
     }
 
-    public Room(RoomDTO roomDTO){
-        this.bedNumber = roomDTO.getBedNumber();
-    }
 
-    public Integer getBedNumber() {
-        return bedNumber;
-    }
-
-    public void setBedNumber(Integer bedNumber) {
-        this.bedNumber = bedNumber;
-    }
-
-    public Cottage getCottage() {
-        return cottage;
-    }
-
-    public void setCottage(Cottage cottage) {
-        this.cottage = cottage;
-    }
 }

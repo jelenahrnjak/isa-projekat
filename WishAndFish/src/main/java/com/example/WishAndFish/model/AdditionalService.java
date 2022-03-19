@@ -1,11 +1,18 @@
 package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "additional_services")
 public class AdditionalService {
@@ -26,38 +33,4 @@ public class AdditionalService {
             inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
-
-
-    public AdditionalService() {
-    }
-
-    public AdditionalService(String name, String price, Set<Appointment> appointments) {
-        this.name = name;
-        this.price = price;
-        this.appointments = appointments;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(Set<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 }
