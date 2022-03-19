@@ -15,8 +15,6 @@ export class EditCottageBasicInfoComponent implements OnInit {
   showAddress = false;
   showFirstForm = true;
   showRules = false;
-  form: FormGroup;
-  formAdress : FormGroup;
   cottage : Cottage = new Cottage();
   userImage: SafeStyle;
   image: SafeStyle;
@@ -35,18 +33,7 @@ export class EditCottageBasicInfoComponent implements OnInit {
       this.userImage = data.coverImage;
     });
 
-    this.form = this.formBuilder.group({ 
-      name: [''],
-      description: [''],
-      price: [''],
-      street: [''],
-      streetNumber : [''],
-      postalCode : [''],
-      longitude : [''],
-      latitude : [''],
-      cityName : [''],
-      countryName : ['']
-    })
+    
   }
 
   

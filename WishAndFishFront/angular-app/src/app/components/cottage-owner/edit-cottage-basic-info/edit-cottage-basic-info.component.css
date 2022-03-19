@@ -113,20 +113,20 @@
     padding: 20px;
     background: #fff;
     border-style: solid;
-    max-width: 850px;
-    margin-left: 450px;
+    max-width: 650px;
+    margin-left: 550px;
     margin-right: auto;
     margin-top: 30px;
     margin-bottom: auto;
     display: flex;
      }
     .inner .image-holder {
-      width: 50%;
+      width: 40%;
        }
     .inner form {
-      width: 50%;
+      width: 100%;
       padding-top: 36px;
-      padding-left: 100px;
+      padding-left: 20px;
       padding-right: 50px; }
     .inner h3 {
       text-transform: uppercase;
