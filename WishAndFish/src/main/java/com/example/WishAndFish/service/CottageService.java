@@ -133,4 +133,26 @@ public class CottageService {
         System.out.println("ISPISUJEM ID: " + id);
         return cottageRepository.findById(id).orElseGet(null);
     }
+
+
+    public EditCottageDTO editBasicInfo(EditCottageDTO editedCottage){
+        for (Cottage c: cottageRepository.findAll()){
+            if(editedCottage.getId().equals(c.getId())){
+                c.setName(editedCottage.getName());
+                c.setDescription(editedCottage.getDescription());
+                c.setPricePerDay(editedCottage.getPrice());
+                c.getAddress().setCityName(editedCottage.getAddress().getCityName());
+                c.getAddress().setCountryName(editedCottage.getAddress().getCountryName());
+                c.getAddress().setLatitude(editedCottage.getAddress().getLatitude());
+                c.getAddress().setLongitude(editedCottage.getAddress().getLongitude());
+                c.getAddress().setPostalCode(editedCottage.getAddress().getPostalCode());
+                c.getAddress().setStreet(editedCottage.getAddress().getStreet());
+                c.getAddress().setStreetNumber(editedCottage.getAddress().getStreetNumber());
+
+                cottageRepository.save(c);
+                return new EditCottageDTO(c);
+            }
+        }
+        return null;
+    }
 }

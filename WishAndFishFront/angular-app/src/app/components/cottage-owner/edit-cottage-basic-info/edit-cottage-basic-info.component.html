@@ -35,72 +35,81 @@
     </ul>
   </div>
 </div>
+  <!--SideBar-->
+
 
 <div class="inner">
-  
-  <form>
-    <div *ngIf="!showAddress">
-      <div class="form-group" class="center">
-        <label style="margin-bottom: 10px;">Name:</label>
-        <input
-          style="font-weight: bold;"
-          type="text"
-          class="form-control"
-          [(ngModel)]="this.cottage.name" name="name"
-        />
-      </div>
-      <div class="form-group" class="center">
-        <label style="margin-bottom: 10px;">Description:</label>
-        <input
-         style="font-weight: bold;"
-          type="text"
-          class="form-control"
-          [(ngModel)]="this.cottage.description" name="description"
-        />
-      </div>
-      <div class="form-group" class="center">
-        <label style="margin-bottom: 10px;">Price per day:</label>
-        <input
-        style="font-weight: bold;"
-          type="text"
-          class="form-control"
-          [(ngModel)]="this.cottage.pricePerDay" name="pricePerDay"
-
-        />
-      </div>
-
-      <div class="form-group" class="center">
-        <label style="margin-bottom: 10px;">Street:</label>
-        <input
-        style="font-weight: bold;"
-          type="text"
-          class="form-control"
-          [(ngModel)]="this.cottage.address.street" name="street"
-
-        />
-
+  <!-- Left info -->
+    <form>
         <div class="form-group" class="center">
-            <label style="margin-bottom: 10px;">Street number:</label>
+            <label style="margin-bottom: 10px;">Name:</label>
             <input
             style="font-weight: bold;"
-              type="text"
-              class="form-control"
-              [(ngModel)]="this.cottage.address.streetNumber" name="streetNumber"
-    
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.cottage.name" name="name"
             />
-          </div>
-      </div>
-      <div class="form-group" class="center">
-        <label style="margin-bottom: 10px;">Postal code:</label>
-        <input
-        style="font-weight: bold;"
-          type="text"
-          class="form-control"
-          [(ngModel)]="this.cottage.address.postalCode" name="postalCode"
+        </div>
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Description:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.cottage.description" name="description"
+            />
+        </div>
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Price per day:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.cottage.pricePerDay" name="pricePerDay"
 
-        />
-      </div>
-      <div class="form-group" class="center">
+            />
+        </div>
+
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Street:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.cottage.address.street" name="street"
+
+            />
+
+            <div class="form-group" class="center">
+                <label style="margin-bottom: 10px;">Street number:</label>
+                <input
+                style="font-weight: bold;"
+                type="text"
+                class="form-control"
+                [(ngModel)]="this.cottage.address.streetNumber" name="streetNumber"
+        
+                />
+            </div>
+        </div>
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Postal code:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.cottage.address.postalCode" name="postalCode"
+
+            />
+        </div>   
+    </form>
+  <!-- Left info -->
+
+
+
+  <!-- Right info -->
+
+  <form>    
+    <div class="form-group" class="center">
         <label style="margin-bottom: 10px;">Longitude:</label>
         <input
         style="font-weight: bold;"
@@ -109,8 +118,8 @@
           [(ngModel)]="this.cottage.address.longitude" name="longitude"
 
         />
-      </div>
-      <div class="form-group" class="center">
+    </div>
+    <div class="form-group" class="center">
         <label style="margin-bottom: 10px;">Latitude:</label>
         <input
         style="font-weight: bold;"
@@ -119,9 +128,9 @@
           [(ngModel)]="this.cottage.address.latitude" name="latitude"
 
         />
-      </div>
+    </div>
 
-      <div class="form-group" class="center">
+    <div class="form-group" class="center">
         <label style="margin-bottom: 10px;">City name:</label>
         <input
         style="font-weight: bold;"
@@ -130,9 +139,9 @@
           [(ngModel)]="this.cottage.address.cityName" name="cityName"
 
         />
-      </div>
+    </div>
 
-      <div class="form-group" class="center">
+    <div class="form-group" class="center">
         <label style="margin-bottom: 10px;">Country name:</label>
         <input
         style="font-weight: bold;"
@@ -141,14 +150,17 @@
           [(ngModel)]="this.cottage.address.countryName" name="countryName"
 
         />
-      </div>
-
-      
     </div>
 
-    <button type="submit" class="btn btn-primary">Back</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary">Confirm</button>
+      
+    <!-- Buttons -->
+    <div style="justify-content: space-between;  flex-direction: row;  display: flex;">
+        <button type="submit" class="btn btn-primary" (click)= "cancel()">Cancel</button> 
+        <button type="submit" class="btn btn-primary" (click)= "submit()">Submit</button>
+    </div>
+    <!-- Buttons -->
+
   </form>
+<!-- Right info -->
+
 </div>

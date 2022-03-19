@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cottage } from 'src/app/model/cottage';
 import { CottageService } from 'src/app/service/cottage.service';
 
@@ -22,7 +22,8 @@ export class EditCottageBasicInfoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
@@ -34,6 +35,14 @@ export class EditCottageBasicInfoComponent implements OnInit {
     });
 
     
+  }
+
+  cancel(){
+    this.router.navigate(['/cottage-details/' + this.id]);
+  }
+
+  submit(){
+    console.log(this.cottage)
   }
 
   
