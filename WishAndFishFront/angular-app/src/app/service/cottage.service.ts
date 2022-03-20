@@ -42,4 +42,18 @@ export class CottageService {
       console.log('Deleting cottage success');
     }));   
   }
+
+ findCottage(id) {
+    return this.apiService.get(this.config.cottage_url + `/findCottage/${id}`, id)
+    .pipe(map(cottage => {
+      return cottage;
+    }));   
+  }
+
+  editBasicInfo(cottage) {
+    return this.apiService.put(this.config.cottage_url + `/editBasicInfo`, cottage)
+    .pipe(map(c => {
+      console.log('Editing cottage success');
+    }));
+  }
 }

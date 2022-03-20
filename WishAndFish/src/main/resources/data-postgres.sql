@@ -35,7 +35,7 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 30,  'Jelena', 'flasaflasica123', '0607363683',1510, 'Hrnjak', 100, 5, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'Nikola1234.', '0643515864', 900, 'Stojić', 200, 3, null);
+	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'kris', '0643515864', 900, 'Stojić', 200, 3, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
@@ -76,20 +76,20 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (121, 1, 110);
 
 
-INSERT INTO ADDITIONAL_SERVICES(id, name, price)
-	VALUES (901, 'Parking', 0);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (902, 'Wi-Fi', 10);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (903, 'Air conditioning', 5);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (904, 'Fruit', 2);
+INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted)
+	VALUES (901, 'Parking', 0, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (902, 'Wi-Fi', 10, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (903, 'Air conditioning', 5, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (904, 'Fruit', 2, false);
 
 
-INSERT INTO public.rules(id, content, cottage_id)
-	VALUES (25, 'No smoking', 111);
-INSERT INTO public.rules(id, content, cottage_id)
-	VALUES (26, 'Forbidden food intake', 112);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (25, 'No smoking', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (26, 'Forbidden food intake', 112, false);
 
 
 INSERT INTO APPOINTMENTS(
@@ -121,3 +121,11 @@ INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, num
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
 	VALUES (100, false, false, 'I do not use this site anymore', 35);
 
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (666, 'cottage1.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (667, 'cottage2.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (668, 'cottage3.jpg', null, 111);
+INSERT INTO public.images(id, path, boat_id, cottage_id)
+	VALUES (669, 'cottage4.jpg', null, 111);

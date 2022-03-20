@@ -1,11 +1,21 @@
 package com.example.WishAndFish.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "appointments")
 public class Appointment {
@@ -34,75 +44,17 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
+    @JsonBackReference
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id", nullable = true)
+    @JsonBackReference
     private Boat boat;
 
-    @ManyToMany(mappedBy = "appointments")
-    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
+    //@ManyToMany(mappedBy = "appointments")
+    //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
-    public Appointment() {
-    }
-
-    public Appointment(long id, Date startDate, Date endDate, Integer maxPersons, Double price, Duration duration, Boolean reserved) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.maxPersons = maxPersons;
-        this.price = price;
-        this.duration = duration;
-        this.reserved = reserved;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getMaxPersons() {
-        return maxPersons;
-    }
-
-    public void setMaxPersons(Integer maxPersons) {
-        this.maxPersons = maxPersons;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Duration getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
-    public Boolean getReserved() {
-        return reserved;
-    }
-
-    public void setReserved(Boolean reserved) {
-        this.reserved = reserved;
-    }
 
     public Cottage getCottage() {
         return cottage;
@@ -110,13 +62,5 @@ public class Appointment {
 
     public void setCottage(Cottage cottage) {
         this.cottage = cottage;
-    }
-
-    public Set<AdditionalService> getAdditionalServices() {
-        return additionalServices;
-    }
-
-    public void setAdditionalServices(Set<AdditionalService> additionalServices) {
-        this.additionalServices = additionalServices;
     }
 }

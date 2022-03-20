@@ -2,14 +2,14 @@
 <div>
     <div class="card-holder" style="margin-left: 10px;">
         <form (ngSubmit)="search()" [formGroup]="form">
-        <div class="input-group rounded" style="margin: 10px; margin-left: 50px; margin-top: 30px;"> 
-          <input type="text" class="input-border" formControlName="name" placeholder="Search by name"/>  
-          <input type="text" class="input-border" formControlName="address" placeholder="Search by address"/>  
-          <input type="number" step="0.01" min="0.0" max="5.0" class="input-border" formControlName="rating" placeholder="Minimal rating"/>  
-          <input type="text" class="input-border" formControlName="description" placeholder="Search by description"/> 
-          <button  class="input-group-text border-0 btn" type="submit">Search</button> 
-          <button  class="input-group-text border-0 btn" (click)="clear()">Clear</button> 
-        </div>
+            <div class="input-group rounded" style="margin: 10px; margin-left: 50px; margin-top: 30px;"> 
+                <input type="text" class="input-border" formControlName="name" placeholder="Search by name"/>  
+                <input type="text" class="input-border" formControlName="address" placeholder="Search by address"/>  
+                <input type="number" step="0.01" min="0.0" max="5.0" class="input-border" formControlName="rating" placeholder="Minimal rating"/>  
+                <input type="text" class="input-border" formControlName="description" placeholder="Search by description"/> 
+                <button  class="input-group-text border-0 btn" type="submit">Search</button> 
+                <button  class="input-group-text border-0 btn" (click)="clear()">Clear</button> 
+            </div>
         </form>
 
 
@@ -18,50 +18,24 @@
             <div class="card" style="margin: 30px; " *ngFor="let c of cottages">
                 <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
                 <ul class="list-group list-group-flush">
-                <li class = "list-group-item">
-                <b>{{c.name}}</b>
-                </li>
-                <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
-                <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
-                <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The cottage currently does not have any ratings.</li> 
-                <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
-                <li class="list-group-item">
-                    <button  class="btn btn-primary" >Details</button> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  class="btn btn-primary" (click)="delete(c.id)">Delete</button> 
+                    <li class = "list-group-item">
+                    <b>{{c.name}}</b>
+                    </li>
+                    <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
+                    <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
+                    <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The cottage currently does not have any ratings.</li> 
+                    <li style="height: 70px;" class="list-group-item">{{c.description}}</li> 
+                    <li class="list-group-item">
+                        <button  class="btn btn-primary" (click)="details(c.id)" >Details</button> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button  class="btn btn-primary" (click)="delete(c.id)">Delete</button> 
 
-                </li>
+                    </li>
                 </ul> 
                
+            </div>
     </div>
 
-    <!-- <div *ngIf="isReserved()" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Warning</h5>
-              <button type="button" class="close" data-dismiss="modal" (click) = "closeModal()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>The cottages is reserved!</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click) = "closeModal()">Close</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-
-    </div>
-
-    <!-- <div *ngIf="isReserved()" class="alert alert-danger alert-dismissible d-flex align-items-center fade show"style="width: 700px; height: 50px;">
-        <i class="bi-exclamation-octagon-fill"></i>
-      <strong class="mx-2">Warning!</strong> The cottages is reserved!
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div> -->
-
+   
 </div>

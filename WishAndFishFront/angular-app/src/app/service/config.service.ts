@@ -14,7 +14,21 @@ export class ConfigService {
   private _boat_url = this._api_url + '/boats';
   private _instructor_url = this._api_url + '/instructors'; 
   private _adventure_url = this._api_url + '/adventures';
+  private _image_url = this._api_url + '/images';
+  private _additional_services_url = this._api_url + '/additionalServices';
+  private _rule_url = this._api_url + '/rules';
 
+  get additional_services_url(): string{
+    return this._additional_services_url;
+  }
+
+  get rule_url(): string{
+    return this._rule_url;
+  }
+  get image_url(): string{
+    return this._image_url;
+  }
+  
   get user_url(): string {
     return this._user_url;
   }

@@ -1,0 +1,186 @@
+<div style="overflow: hidden"> 
+
+ <!--SideBar-->
+<div class="sidebar-container">
+    <!-- <div class="sidebar-logo">
+        Home
+      </div> -->
+    <ul class="sidebar-navigation ">
+        <li>
+            <a class="sidebar-click" (click)="editInfo()">
+                <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
+            </a>
+        </li>
+        <li>
+            <a class="sidebar-click">
+                <i class="fa fa-home" aria-hidden="true"></i> Edit availability
+            </a>
+        </li>
+        <li>
+            <a class="sidebar-click">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
+            </a>
+            </li>
+        <li>
+            <a class="sidebar-click">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
+            </a>
+        </li>
+        <li>
+            <a class="sidebar-click">
+                <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
+            </a>
+            </li>        
+        <li>
+            <a class="sidebar-click">
+                <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
+            </a>
+        </li>       
+    </ul>
+</div>
+
+<!-- <div *ngIf="mainInfo"> -->
+
+<div>
+    <!-- Background image -->
+    <div class="bg-image d-flex justify-content-center align-items-center background-image-color">
+        <div class="background-image" [style.background-image]="userImage"></div>
+        <h1 class="mb-0 background-image-text">{{cottage.name}}</h1>
+    </div>
+    <!-- Background image -->
+</div>
+
+<!-- Cards -->
+<div style="margin-left: 220px; margin-top: 20px;" class="container">
+
+    <!-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top:20px; margin-left: 1130px;">
+        <a class="btn btn-primary btn-sm px-4 me-sm-3" style="width: 90px;" href="#">Edit</a> 
+    </div> -->
+
+    <div class="row">
+        <div class="card1">
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Our address:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.address.street}} {{cottage.address.streetNumber}}, {{cottage.address.postalCode}} {{cottage.address.cityName}}, {{cottage.address.countryName}}</h6>
+            </div>
+        </div>
+
+        <div class="card2">
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Description:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.description}}</h6>
+            </div>  
+        </div>
+
+        <div class="card2">
+            <div class="col">
+                <h5 class="text-white row" style="margin-top: 25px; margin-left: 10px;">Price per day:</h5>
+                <h6 class="text-white row" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">{{cottage.pricePerDay}}$</h6>
+            </div>
+        </div>
+    </div> 
+</div>
+<!-- Cards -->
+
+
+
+<!-- Gallery -->
+<div class="container" style="margin-left: 230px;">
+    
+    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">{{cottage.name}} Gallery</h1>
+    <hr class="mt-2 mb-5">
+
+    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top: -20px; margin-left: 1100px; margin-bottom: 20px;">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Add photo
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add photo</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="file" (change)="selectImage($event)">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="addImage()" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center text-lg-start">
+      <div *ngFor="let img of cottage.images;" class="col-lg-3 col-md-4 col-6" style="width: 395px;height: 220px; margin-right: 45px; margin-bottom: 40px;">
+          <img class="img-fluid img-thumbnail" src="assets/Images/{{img.path}}" alt="" >
+      </div>    
+    </div>
+</div>
+<!-- Gallery -->
+
+<!-- </div>
+
+
+<div *ngIf="editBasicInfo">
+    <app-edit-cottage-basic-info></app-edit-cottage-basic-info>
+</div> -->
+
+<!-- Additional services -->
+<div class="container row" style="margin-left: 230px;">
+    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Additional services</h1>
+    <hr class="mt-2 mb-5">
+    <!-- <button class="btn btn-primary" type="submit" style="float: right; margin-right: 50px;">Add service</button> -->
+
+    <table class="table col" style="width: 450px; margin-right: 40px;">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 50%;">Name</th>
+            <th scope="col" style="width: 50%;">Price</th>
+            <th scope="col" style="width: 80%;">Delete</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let a of additionalServices">
+                <td>{{a.name}}</td>
+                <td>{{a.price}}</td>
+                <td>
+                    <button class="btn btn-primary" type="submit" (click)="deleteServices(a.id)">Delete</button>
+                </td>
+  
+              </tr>   
+        </tbody>
+      </table>
+
+      <table class="table col" style="margin-right: 30px;">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 50%;">Name</th>
+            <th scope="col" style="width: 80%;">Delete</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let r of rules">
+                <td>{{r.content}}</td>
+                <td>
+                    <button class="btn btn-primary" type="submit" (click)="deleteServices(a.id)">Delete</button>
+                </td>
+  
+              </tr>   
+        </tbody>
+      </table>
+
+
+</div>
+<!-- Additional services -->
+
+
+</div>
+
+

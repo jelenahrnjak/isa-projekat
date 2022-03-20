@@ -1,10 +1,20 @@
 package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.RuleDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rules")
 public class Rule {
 
@@ -17,18 +27,22 @@ public class Rule {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id")
+    @JsonBackReference
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id")
+    @JsonBackReference
     private Boat boat;
+
+    @Column(name = "deleted", unique = false, nullable = false)
+    private Boolean deleted;
 
     public Rule(RuleDTO ruleDTO){
         this.content = ruleDTO.getContent();
     }
 
-    public Rule() {
-    }
+
 
     public Rule(String content, Cottage cottage, Boat boat) {
         this.content = content;
@@ -36,35 +50,4 @@ public class Rule {
         this.boat = boat;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Cottage getCottage() {
-        return cottage;
-    }
-
-    public void setCottage(Cottage cottage) {
-        this.cottage = cottage;
-    }
-
-    public Boat getBoat() {
-        return boat;
-    }
-
-    public void setBoat(Boat boat) {
-        this.boat = boat;
-    }
 }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -127,5 +128,32 @@ public class CottageService {
         }
         return new ResponseEntity<>(id, HttpStatus.OK);
 
+    }
+
+    public Cottage findCottage(Long id){
+        System.out.println("ISPISUJEM ID: " + id);
+        return cottageRepository.findById(id).orElseGet(null);
+    }
+
+
+    public EditCottageDTO editBasicInfo(EditCottageDTO editedCottage){
+        for (Cottage c: cottageRepository.findAll()){
+            if(editedCottage.getId().equals(c.getId())){
+                c.setName(editedCottage.getName());
+                c.setDescription(editedCottage.getDescription());
+                c.setPricePerDay(editedCottage.getPricePerDay());
+                c.getAddress().setCityName(editedCottage.getAddress().getCityName());
+                c.getAddress().setCountryName(editedCottage.getAddress().getCountryName());
+                c.getAddress().setLatitude(editedCottage.getAddress().getLatitude());
+                c.getAddress().setLongitude(editedCottage.getAddress().getLongitude());
+                c.getAddress().setPostalCode(editedCottage.getAddress().getPostalCode());
+                c.getAddress().setStreet(editedCottage.getAddress().getStreet());
+                c.getAddress().setStreetNumber(editedCottage.getAddress().getStreetNumber());
+
+                cottageRepository.save(c);
+                return new EditCottageDTO(c);
+            }
+        }
+        return null;
     }
 }

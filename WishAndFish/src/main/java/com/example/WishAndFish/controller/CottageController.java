@@ -3,6 +3,7 @@ package com.example.WishAndFish.controller;
 import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.CottageDisplayDTO;
+import com.example.WishAndFish.dto.EditCottageDTO;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CottageService;
 import org.slf4j.Logger;
@@ -43,5 +44,18 @@ public class CottageController {
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteCottage(@PathVariable Long id) {
         return this.cottageService.deleteCottage(id);
+    }
+
+
+    @RequestMapping(value="/findCottage/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public Cottage findCottage(@PathVariable Long id) {
+        return this.cottageService.findCottage(id);
+    }
+
+    @RequestMapping(value="/editBasicInfo", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public EditCottageDTO editBasicInfo(@RequestBody EditCottageDTO editedCottage) {
+        return this.cottageService.editBasicInfo(editedCottage);
     }
 }

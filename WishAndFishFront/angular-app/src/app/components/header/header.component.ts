@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor( private userService: UserService, private authService: AuthService, private router: Router,) { }
 
   ngOnInit() {
+ 
   }
 
   hasSignedIn() {
@@ -77,6 +78,14 @@ export class HeaderComponent implements OnInit {
         break;
       default:
         this.router.navigate(['/']);
+    }
+  }
+
+  isSelectedCottage(){
+    if(window.location.pathname.split('/')[1] == "cottage-details"){
+      return true;
+    }else{
+      return false;
     }
   }
 
