@@ -89,5 +89,13 @@ export class CottageDetailsComponent implements OnInit {
     }
   
 
+    deleteRule(id){
+      console.log(id)
+  
+      this.ruleService.deleteRule(id)
+      .subscribe(data => {
+        window.location.reload();
+      });
+      }
   
 }

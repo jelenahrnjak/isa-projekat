@@ -160,8 +160,8 @@
       <table class="table col" style="margin-right: 30px;">
         <thead>
           <tr>
-            <th scope="col" style="width: 50%;">Name</th>
-            <th scope="col" style="width: 80%;">Delete</th>
+            <th scope="col" style="width: 90%;">Name</th>
+            <th scope="col" >Delete</th>
 
           </tr>
         </thead>
@@ -169,7 +169,7 @@
             <tr *ngFor = "let r of rules">
                 <td>{{r.content}}</td>
                 <td>
-                    <button class="btn btn-primary" type="submit" (click)="deleteServices(a.id)">Delete</button>
+                    <button class="btn btn-primary" type="submit" (click)="deleteRule(r.id)">Delete</button>
                 </td>
   
               </tr>   

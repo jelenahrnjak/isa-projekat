@@ -2,11 +2,14 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.RuleDTO;
+import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Rule;
 import com.example.WishAndFish.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,5 +30,17 @@ public class RuleService {
             }
         };
         return ret;
+    }
+
+
+    public ResponseEntity<Long> deleteRule(Long id){
+        for(Rule r: ruleRepository.findAll()){
+            if(r.getId() == id) {
+                r.setDeleted(true);
+                this.ruleRepository.save(r);
+                return new ResponseEntity<>(id, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
     }
 }

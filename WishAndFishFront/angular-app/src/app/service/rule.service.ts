@@ -17,6 +17,11 @@ export class RuleService {
       }));   
     }
 
- 
+    deleteRule(id){
+      return this.apiService.delete(this.config.rule_url + `/deleteRule/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting rule success');
+    }));   
+  }
 
 }
