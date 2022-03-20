@@ -35,6 +35,9 @@ public class Rule {
     @JsonBackReference
     private Boat boat;
 
+    @Column(name = "deleted", unique = false, nullable = false)
+    private Boolean deleted;
+
     public Rule(RuleDTO ruleDTO){
         this.content = ruleDTO.getContent();
     }

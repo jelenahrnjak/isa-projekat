@@ -86,10 +86,10 @@ INSERT INTO public.additional_services(id, name, price, deleted)
     VALUES (904, 'Fruit', 2, false);
 
 
-INSERT INTO public.rules(id, content, cottage_id)
-	VALUES (25, 'No smoking', 111);
-INSERT INTO public.rules(id, content, cottage_id)
-	VALUES (26, 'Forbidden food intake', 112);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (25, 'No smoking', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (26, 'Forbidden food intake', 112, false);
 
 
 INSERT INTO APPOINTMENTS(
