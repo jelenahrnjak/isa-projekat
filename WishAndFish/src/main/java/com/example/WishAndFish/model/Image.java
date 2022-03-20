@@ -24,7 +24,7 @@ public class Image {
     private String path;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_id", nullable = true)
     @JsonBackReference
     private Cottage cottage;
@@ -35,6 +35,14 @@ public class Image {
     @JsonBackReference
     private Boat boat;
 
+    public Image(String path, Cottage cottage){
+        this.path = path;
+        this.cottage = cottage;
+    }
+    public Image(String path){
+        this.path = path;
+
+    }
     public long getId() {
         return id;
     }
@@ -57,5 +65,5 @@ public class Image {
 
     public void setCottage(Cottage cottage) {
         this.cottage = cottage;
-    } 
+    }
 }

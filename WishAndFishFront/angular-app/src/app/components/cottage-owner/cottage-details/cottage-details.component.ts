@@ -1,3 +1,5 @@
+import { ImageService } from 'src/app/service/image.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CottageService } from 'src/app/service/cottage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,10 +17,19 @@ export class CottageDetailsComponent implements OnInit {
   image: SafeStyle;
   editBasicInfo: boolean = false;
   mainInfo: boolean = true;
+  selectedFile = null;
+
+  imageDto = {
+    "path": "",
+    "cottageId": ""
+  };
+
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
     private router: Router,
+    private http : HttpClient,
+    private imageService: ImageService
     ) { }
 
   ngOnInit() {
@@ -26,15 +37,28 @@ export class CottageDetailsComponent implements OnInit {
 
     this.cottageService.findCottage(this.id).subscribe((data) => {
       this.cottage = data;
-      console.log(this.cottage);
       this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
-      console.log(this.userImage)
-
     });
   }
 
   editInfo(){
     this.router.navigate(['/edit-cottage-basic-info/'+this.id]);
   }
+
+  selectImage(event){
+    this.selectedFile = event.target.files[0].name;
+  }
+
+  addImage(){
+
+    this.imageDto.path = this.selectedFile;
+    this.imageDto.cottageId = this.id;
+    this.imageService.addImage(this.imageDto).subscribe(() =>{
+
+    });      
+    window.location.reload();
+
+  }
+
   
 }

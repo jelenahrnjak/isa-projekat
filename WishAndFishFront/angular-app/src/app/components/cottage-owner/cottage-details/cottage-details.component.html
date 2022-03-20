@@ -90,8 +90,29 @@
     <h1 class="fw-light text-center text-lg-start mt-4 mb-0">{{cottage.name}} Gallery</h1>
     <hr class="mt-2 mb-5">
 
-    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top: -20px; margin-left: 1110px; margin-bottom: 20px;">
-        <a class="btn btn-primary btn-sm px-4 me-sm-3" style="width: 90px;" href="#">Edit</a> 
+    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top: -20px; margin-left: 1100px; margin-bottom: 20px;">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Add photo
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add photo</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="file" (change)="selectImage($event)">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="addImage()" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
 
     <div class="row text-center text-lg-start">
