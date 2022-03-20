@@ -15,6 +15,11 @@ export class ConfigService {
   private _instructor_url = this._api_url + '/instructors'; 
   private _adventure_url = this._api_url + '/adventures';
   private _image_url = this._api_url + '/images';
+  private _additional_services_url = this._api_url + '/additionalServices';
+
+  get additional_services_url(): string{
+    return this._additional_services_url;
+  }
 
   get image_url(): string{
     return this._image_url;

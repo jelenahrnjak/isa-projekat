@@ -134,6 +134,21 @@
 <div class="container" style="margin-left: 230px;">
     <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Additional services</h1>
     <hr class="mt-2 mb-5">
+
+    <table class="table" style="width: 1250px;">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let a of additionalServices">
+                <td>{{a.name}}</td>
+                <td>{{a.price}}</td>
+              </tr>   
+        </tbody>
+      </table>
 </div>
 <!-- Additional services -->
 

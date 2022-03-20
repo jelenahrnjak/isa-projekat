@@ -1,3 +1,4 @@
+import { AdditionalServicesService } from './../../../service/additional-services.service';
 import { ImageService } from 'src/app/service/image.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CottageService } from 'src/app/service/cottage.service';
@@ -24,12 +25,15 @@ export class CottageDetailsComponent implements OnInit {
     "cottageId": ""
   };
 
+  additionalServices : any
+
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
     private router: Router,
     private http : HttpClient,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private additionalService: AdditionalServicesService
     ) { }
 
   ngOnInit() {
@@ -38,6 +42,12 @@ export class CottageDetailsComponent implements OnInit {
     this.cottageService.findCottage(this.id).subscribe((data) => {
       this.cottage = data;
       this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+    });
+
+
+    this.additionalService.findAdditionalServices(this.id).subscribe((data : any) => {
+      this.additionalServices = data;
+      console.log(this.additionalServices[0])
     });
   }
 
