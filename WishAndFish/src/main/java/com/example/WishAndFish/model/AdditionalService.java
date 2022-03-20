@@ -1,5 +1,6 @@
 package com.example.WishAndFish.model;
 
+import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class AdditionalService {
     @Column(name = "price", unique = false, nullable = false)
     private String price;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "appointment_additional_services",
             joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))

@@ -56,4 +56,11 @@ public class Appointment {
     //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
 
+    public Cottage getCottage() {
+        return cottage;
+    }
+
+    public void setCottage(Cottage cottage) {
+        this.cottage = cottage;
+    }
 }
