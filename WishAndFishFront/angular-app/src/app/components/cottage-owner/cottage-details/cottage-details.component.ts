@@ -60,7 +60,6 @@ export class CottageDetailsComponent implements OnInit {
   }
 
   addImage(){
-
     this.imageDto.path = this.selectedFile;
     this.imageDto.cottageId = this.id;
     this.imageService.addImage(this.imageDto).subscribe(() =>{
@@ -69,6 +68,16 @@ export class CottageDetailsComponent implements OnInit {
     window.location.reload();
 
   }
+
+  deleteServices(id){
+    console.log(id)
+
+    this.additionalService.deleteAdditionalService(id)
+    .subscribe(data => {
+      window.location.reload();
+    });
+    }
+  
 
   
 }

@@ -16,4 +16,13 @@ export class AdditionalServicesService {
         return services;
       }));   
     }
+
+
+    deleteAdditionalService(id){
+      return this.apiService.delete(this.config.additional_services_url + `/deleteAdditionalServices/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting additional service success');
+    }));   
+  }
+    
 }
