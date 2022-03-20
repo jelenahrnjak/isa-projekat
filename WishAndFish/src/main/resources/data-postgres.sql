@@ -76,14 +76,14 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (121, 1, 110);
 
 
-INSERT INTO ADDITIONAL_SERVICES(id, name, price)
-	VALUES (901, 'Parking', 0);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (902, 'Wi-Fi', 10);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (903, 'Air conditioning', 5);
-INSERT INTO public.additional_services(id, name, price)
-    VALUES (904, 'Fruit', 2);
+INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted)
+	VALUES (901, 'Parking', 0, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (902, 'Wi-Fi', 10, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (903, 'Air conditioning', 5, false);
+INSERT INTO public.additional_services(id, name, price, deleted)
+    VALUES (904, 'Fruit', 2, false);
 
 
 INSERT INTO public.rules(id, content, cottage_id)

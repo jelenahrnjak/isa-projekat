@@ -10,10 +10,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "additional_services")
 public class AdditionalService {
@@ -27,6 +28,9 @@ public class AdditionalService {
 
     @Column(name = "price", unique = false, nullable = false)
     private String price;
+
+    @Column(name = "deleted", unique = false, nullable = false)
+    private Boolean deleted;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "appointment_additional_services",
