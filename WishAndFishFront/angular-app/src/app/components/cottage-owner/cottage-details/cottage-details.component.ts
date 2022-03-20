@@ -1,3 +1,4 @@
+import { RuleService } from './../../../service/rule.service';
 import { AdditionalServicesService } from './../../../service/additional-services.service';
 import { ImageService } from 'src/app/service/image.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -25,7 +26,8 @@ export class CottageDetailsComponent implements OnInit {
     "cottageId": ""
   };
 
-  additionalServices : any
+  additionalServices : any;
+  rules: any;
 
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
@@ -33,7 +35,8 @@ export class CottageDetailsComponent implements OnInit {
     private router: Router,
     private http : HttpClient,
     private imageService: ImageService,
-    private additionalService: AdditionalServicesService
+    private additionalService: AdditionalServicesService,
+    private ruleService : RuleService
     ) { }
 
   ngOnInit() {
@@ -49,7 +52,14 @@ export class CottageDetailsComponent implements OnInit {
       this.additionalServices = data;
       console.log(this.additionalServices[0])
     });
+
+     this.ruleService.findRules(this.id).subscribe((data : any) => {
+      this.rules = data;
+        console.log(this.rules)
+      });
   }
+
+  
 
   editInfo(){
     this.router.navigate(['/edit-cottage-basic-info/'+this.id]);
