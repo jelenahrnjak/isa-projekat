@@ -115,11 +115,43 @@
         </div>
     </div>
 
-    <div class="row text-center text-lg-start">
+    <!-- <div class="row text-center text-lg-start">
       <div *ngFor="let img of cottage.images;" class="col-lg-3 col-md-4 col-6" style="width: 395px;height: 220px; margin-right: 45px; margin-bottom: 40px;">
           <img class="img-fluid img-thumbnail" src="assets/Images/{{img.path}}" alt="" >
       </div>    
-    </div>
+    </div> -->
+
+    <!-- Carousel -->
+    <div>
+        <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel">
+          <div class="carousel-inner" >
+            <div class="carousel-item active">
+              <img src= "assets/Images/{{cottage.coverImage}}" class="d-block w-100" alt="...">
+              <button class="btn btn-primary dlt-img-btn">Delete photo</button>
+
+            </div>
+            <div class="carousel-item"  *ngFor="let img of cottage.images;">
+              <img src="assets/Images/{{img.path}}" class="d-block w-100" alt="...">
+              <button class="btn btn-primary dlt-img-btn">Delete photo</button>
+
+            </div>
+
+          </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+
+        </div>
+      </div>
+    <!-- Carousel -->
+
 </div>
 <!-- Gallery -->
 
@@ -182,5 +214,7 @@
 
 
 </div>
+
+
 
 
