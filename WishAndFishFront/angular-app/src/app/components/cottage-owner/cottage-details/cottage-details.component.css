@@ -188,4 +188,7 @@
     position: relative;
   }
 
+  input:invalid {
+    color: red;
+  }
  

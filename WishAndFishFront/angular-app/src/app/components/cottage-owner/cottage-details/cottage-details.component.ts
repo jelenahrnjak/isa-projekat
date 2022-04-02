@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cottage } from 'src/app/model/cottage';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cottage-details',
   templateUrl: './cottage-details.component.html',
@@ -25,6 +26,12 @@ export class CottageDetailsComponent implements OnInit {
     "path": "",
     "cottageId": ""
   };
+
+  newAdditionalService = {
+    "id": "",
+    "name" : "",
+    "price" : ""
+  }
 
   additionalServices : any;
   rules: any;
@@ -109,9 +116,29 @@ export class CottageDetailsComponent implements OnInit {
       this.imageService.deleteImage(path)
       .subscribe(data => {
         console.log(data)
+        
         window.location.reload();
       });
       }
-    
+  
+  addService(){
+
+    var letters = /[a-zA-Z]/;
+
+    if(letters.test(this.newAdditionalService.price) || this.newAdditionalService.name.length == 0 || this.newAdditionalService.price.length == 0){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Incorrectly filled fields!',
+      })    }
+    else{
+      this.newAdditionalService.id = this.id;
+      this.additionalService.addService(this.newAdditionalService).subscribe(() =>{
+      });      
+      window.location.reload();
+      this.newAdditionalService.name = ""
+      this.newAdditionalService.price = ""
+    }
+  }
   
 }

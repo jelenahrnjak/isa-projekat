@@ -24,5 +24,13 @@ export class AdditionalServicesService {
       console.log('Deleting additional service success');
     }));   
   }
+
+
+  public addService(serviceDto){
+    return this.apiService.post(this.config.additional_services_url + `/addAdditionalService`, serviceDto)
+    .pipe(map(path => {
+      console.log('Adding additional service success: ' + path);
+    }));;
+  }
     
 }
