@@ -1,6 +1,7 @@
 package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +26,11 @@ public class Appointment {
     private long id;
 
     @Column(name = "start_date", unique = false, nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
     @Column(name = "end_date", unique = false, nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
     @Column(name = "max_persons", unique = false, nullable = false)

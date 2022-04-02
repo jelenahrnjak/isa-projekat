@@ -1,3 +1,4 @@
+import { AppointmentService } from './../../../service/appointment.service';
 import { RuleService } from './../../../service/rule.service';
 import { AdditionalServicesService } from './../../../service/additional-services.service';
 import { ImageService } from 'src/app/service/image.service';
@@ -41,6 +42,8 @@ export class CottageDetailsComponent implements OnInit {
   additionalServices : any;
   rules: any;
   images: any;
+  appointments: any;
+
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
@@ -48,7 +51,8 @@ export class CottageDetailsComponent implements OnInit {
     private http : HttpClient,
     private imageService: ImageService,
     private additionalService: AdditionalServicesService,
-    private ruleService : RuleService
+    private ruleService : RuleService,
+    private appointmentService: AppointmentService
     ) { }
 
   ngOnInit() {
@@ -73,6 +77,11 @@ export class CottageDetailsComponent implements OnInit {
      this.ruleService.findRules(this.id).subscribe((data : any) => {
       this.rules = data;
         console.log(this.rules)
+      });
+
+    this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
+      this.appointments = data;
+        console.log(this.appointments)
       });
   }
 
