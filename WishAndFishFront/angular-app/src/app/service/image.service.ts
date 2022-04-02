@@ -17,4 +17,19 @@ export class ImageService {
       console.log('Adding cottage image success: ' + path);
     }));;
   }
+
+  public deleteImage(path){
+    return this.apiService.delete(this.config.image_url + `/deleteImage/${path}`, path)
+    .pipe(map((path) => {
+      console.log('Deleting image success' + path);
+    }));  
+  }
+
+
+  findImages(id) {
+    return this.apiService.get(this.config.image_url + `/getAllByCottage/${id}`, id)
+    .pipe(map(images => {
+      return images;
+    }));   
+  }
 }

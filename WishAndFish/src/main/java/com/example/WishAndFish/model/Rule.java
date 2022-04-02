@@ -25,7 +25,7 @@ public class Rule {
     @Column(name = "content", unique = false, nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_id")
     @JsonBackReference
     private Cottage cottage;

@@ -1,9 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
-import com.example.WishAndFish.model.AdditionalService;
-import com.example.WishAndFish.model.Appointment;
-import com.example.WishAndFish.model.Boat;
+import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AdditionalServiceRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,14 @@ public class AdditionalServiceService {
     public List<AdditionalServicesDTO> getAllByCottage(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
         for(AdditionalService as: additionalServiceRepository.findAll()){
-            for(Appointment a: as.getAppointments()){
-                if(id.equals(a.getCottage().getId()) && !as.getDeleted()){
-                    ret.add(new AdditionalServicesDTO(as));
-                }
+//            for(Appointment a: as.getAppointments()){
+//                if(id.equals(a.getCottage().getId()) && !as.getDeleted()){
+//                    ret.add(new AdditionalServicesDTO(as));
+//                }
+//            }
+
+            if(id.equals(as.getCottage().getId()) && !as.getDeleted()){
+                ret.add(new AdditionalServicesDTO(as));
             }
         }
         return ret;
@@ -45,5 +48,20 @@ public class AdditionalServiceService {
             }
         }
         return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+    }
+
+    public AdditionalService addAdditionalService(AdditionalServicesDTO dto){
+        for(Cottage c: this.cottageRepository.findAll()){
+            if(dto.getId().equals(c.getId())){
+                AdditionalService as = new AdditionalService();
+                as.setName(dto.getName());
+                as.setPrice(dto.getPrice());
+                as.setDeleted(false);
+                as.setCottage(c);
+                this.additionalServiceRepository.save(as);
+                return as;
+            }
+        }
+        return null;
     }
 }

@@ -17,6 +17,19 @@ export class RuleService {
       }));   
     }
 
- 
+    deleteRule(id){
+      return this.apiService.delete(this.config.rule_url + `/deleteRule/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting rule success');
+    }));   
+  }
+
+  
+   addRule(ruleDto){
+    return this.apiService.post(this.config.rule_url + `/addRule`, ruleDto)
+    .pipe(map(path => {
+      console.log('Adding rule success: ' + path);
+    }));;
+  }
 
 }

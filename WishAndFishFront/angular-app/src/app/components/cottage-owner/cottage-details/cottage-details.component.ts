@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cottage } from 'src/app/model/cottage';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cottage-details',
   templateUrl: './cottage-details.component.html',
@@ -26,9 +27,20 @@ export class CottageDetailsComponent implements OnInit {
     "cottageId": ""
   };
 
+  newAdditionalService = {
+    "id": "",
+    "name" : "",
+    "price" : ""
+  }
+
+  newRule={
+    "id": "",
+    "content": ""
+  }
+
   additionalServices : any;
   rules: any;
-
+  images: any;
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
@@ -45,8 +57,13 @@ export class CottageDetailsComponent implements OnInit {
     this.cottageService.findCottage(this.id).subscribe((data) => {
       this.cottage = data;
       this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+      console.log(this.cottage)
     });
 
+    this.imageService.findImages(this.id).subscribe((data : any) => {
+      this.images = data;
+        console.log(this.images)
+      });
 
     this.additionalService.findAdditionalServices(this.id).subscribe((data : any) => {
       this.additionalServices = data;
@@ -89,5 +106,52 @@ export class CottageDetailsComponent implements OnInit {
     }
   
 
+    deleteRule(id){
+      console.log(id)
+  
+      this.ruleService.deleteRule(id)
+      .subscribe(data => {
+        window.location.reload();
+      });
+      }
+
+    deleteImage(path){
+      console.log(path)
+
+      this.imageService.deleteImage(path)
+      .subscribe(data => {
+        console.log(data)
+        
+        window.location.reload();
+      });
+      }
+  
+  addService(){
+
+    var letters = /[a-zA-Z]/;
+
+    if(letters.test(this.newAdditionalService.price) || this.newAdditionalService.name.length == 0 || this.newAdditionalService.price.length == 0){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Incorrectly filled fields!',
+      })    }
+    else{
+      this.newAdditionalService.id = this.id;
+      this.additionalService.addService(this.newAdditionalService).subscribe(() =>{
+      });      
+      window.location.reload();
+      this.newAdditionalService.name = ""
+      this.newAdditionalService.price = ""
+    }
+  }
+
+  addRule(){
+    this.newRule.id = this.id;
+    this.ruleService.addRule(this.newRule).subscribe(() =>{
+    });      
+    window.location.reload();
+    this.newRule.content = ""
+  }
   
 }

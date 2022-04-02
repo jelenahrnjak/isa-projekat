@@ -23,6 +23,8 @@ public class Image {
     @Column(name = "path", unique = false, nullable = false)
     private String path;
 
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_id", nullable = true)
@@ -43,27 +45,5 @@ public class Image {
         this.path = path;
 
     }
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public Cottage getCottage() {
-        return cottage;
-    }
-
-    public void setCottage(Cottage cottage) {
-        this.cottage = cottage;
-    }
 }
