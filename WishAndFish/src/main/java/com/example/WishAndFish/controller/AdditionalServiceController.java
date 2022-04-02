@@ -1,7 +1,9 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.service.AdditionalServiceService;
 import com.example.WishAndFish.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class AdditionalServiceController {
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteAdditionalServices(@PathVariable Long id) {
         return this.additionalServiceService.deleteAdditionalServices(id);
+    }
+
+    @RequestMapping(value="/addAdditionalService", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public AdditionalService addAdditionalService(@RequestBody AdditionalServicesDTO dto) {
+        return this.additionalServiceService.addAdditionalService(dto);
     }
 
 }

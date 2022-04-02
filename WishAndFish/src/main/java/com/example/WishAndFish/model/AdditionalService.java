@@ -1,6 +1,7 @@
 package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,11 @@ public class AdditionalService {
 
     @Column(name = "deleted", unique = false, nullable = false)
     private Boolean deleted;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cottage_id", nullable = true)
+    @JsonBackReference
+    private Cottage cottage;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "appointment_additional_services",

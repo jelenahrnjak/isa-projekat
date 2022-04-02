@@ -76,20 +76,24 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (121, 1, 110);
 
 
-INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted)
-	VALUES (901, 'Parking', 0, false);
-INSERT INTO public.additional_services(id, name, price, deleted)
-    VALUES (902, 'Wi-Fi', 10, false);
-INSERT INTO public.additional_services(id, name, price, deleted)
-    VALUES (903, 'Air conditioning', 5, false);
-INSERT INTO public.additional_services(id, name, price, deleted)
-    VALUES (904, 'Fruit', 2, false);
+INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, cottage_id)
+	VALUES (901, 'Parking', 0, false, 111);
+INSERT INTO public.additional_services(id, name, price, deleted, cottage_id)
+    VALUES (902, 'Wi-Fi', 10, false, 111);
+INSERT INTO public.additional_services(id, name, price, deleted, cottage_id)
+    VALUES (903, 'Air conditioning', 5, false, 111);
+INSERT INTO public.additional_services(id, name, price, deleted, cottage_id)
+    VALUES (904, 'Fruit', 2, false, 111);
 
 
 INSERT INTO public.rules(id, content, cottage_id, deleted)
 	VALUES (25, 'No smoking', 111, false);
 INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (26, 'Forbidden food intake', 112, false);
+	VALUES (26, 'Forbidden food intake', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (27, 'Forbidden pets', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (28, 'Loud music forbidden', 112, false);
 
 
 INSERT INTO APPOINTMENTS(
