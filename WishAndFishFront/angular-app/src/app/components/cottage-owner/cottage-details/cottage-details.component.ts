@@ -28,7 +28,7 @@ export class CottageDetailsComponent implements OnInit {
 
   additionalServices : any;
   rules: any;
-
+  images: any;
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
@@ -45,8 +45,13 @@ export class CottageDetailsComponent implements OnInit {
     this.cottageService.findCottage(this.id).subscribe((data) => {
       this.cottage = data;
       this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+      console.log(this.cottage)
     });
 
+    this.imageService.findImages(this.id).subscribe((data : any) => {
+      this.images = data;
+        console.log(this.images)
+      });
 
     this.additionalService.findAdditionalServices(this.id).subscribe((data : any) => {
       this.additionalServices = data;
@@ -97,5 +102,16 @@ export class CottageDetailsComponent implements OnInit {
         window.location.reload();
       });
       }
+
+    deleteImage(path){
+      console.log(path)
+
+      this.imageService.deleteImage(path)
+      .subscribe(data => {
+        console.log(data)
+        window.location.reload();
+      });
+      }
+    
   
 }
