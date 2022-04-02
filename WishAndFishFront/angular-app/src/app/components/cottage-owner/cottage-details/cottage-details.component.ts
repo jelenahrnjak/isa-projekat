@@ -33,6 +33,11 @@ export class CottageDetailsComponent implements OnInit {
     "price" : ""
   }
 
+  newRule={
+    "id": "",
+    "content": ""
+  }
+
   additionalServices : any;
   rules: any;
   images: any;
@@ -139,6 +144,14 @@ export class CottageDetailsComponent implements OnInit {
       this.newAdditionalService.name = ""
       this.newAdditionalService.price = ""
     }
+  }
+
+  addRule(){
+    this.newRule.id = this.id;
+    this.ruleService.addRule(this.newRule).subscribe(() =>{
+    });      
+    window.location.reload();
+    this.newRule.content = ""
   }
   
 }
