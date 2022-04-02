@@ -71,36 +71,36 @@
         </div>
 
         <div class="form-group" class="center">
-            <label style="margin-bottom: 10px;">Street:</label>
-            <input
-            style="font-weight: bold;"
-            type="text"
-            class="form-control"
-            [(ngModel)]="this.cottage.address.street" name="street"
-
-            />
-
-            <div class="form-group" class="center">
-                <label style="margin-bottom: 10px;">Street number:</label>
-                <input
-                style="font-weight: bold;"
-                type="text"
-                class="form-control"
-                [(ngModel)]="this.cottage.address.streetNumber" name="streetNumber"
-        
-                />
-            </div>
+          <label style="margin-bottom: 10px;">Number of rooms:</label>
+          <input
+          style="font-weight: bold;"
+          type="text"
+          class="form-control"
+          [(ngModel)]="this.cottage.numberOfRooms" name="numberOfRooms"
+  
+          />
         </div>
         <div class="form-group" class="center">
-            <label style="margin-bottom: 10px;">Postal code:</label>
+            <label style="margin-bottom: 10px;">Bed number per room:</label>
             <input
             style="font-weight: bold;"
             type="text"
             class="form-control"
-            [(ngModel)]="this.cottage.address.postalCode" name="postalCode"
+            [(ngModel)]="this.cottage.bedNumberPerRoom" name="bedNumberPerRoom"
 
             />
-        </div>   
+        </div>
+        
+        <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">Street:</label>
+          <input
+          style="font-weight: bold;"
+          type="text"
+          class="form-control"
+          [(ngModel)]="this.cottage.address.street" name="street"
+
+          />
+      </div>
     </form>
   <!-- Left info -->
 
@@ -108,7 +108,27 @@
 
   <!-- Right info -->
 
-  <form>    
+  <form> 
+    <div class="form-group" class="center">
+      <label style="margin-bottom: 10px;">Street number:</label>
+      <input
+      style="font-weight: bold;"
+      type="text"
+      class="form-control"
+      [(ngModel)]="this.cottage.address.streetNumber" name="streetNumber"
+
+      />
+    </div>
+    <div class="form-group" class="center">
+        <label style="margin-bottom: 10px;">Postal code:</label>
+        <input
+        style="font-weight: bold;"
+        type="text"
+        class="form-control"
+        [(ngModel)]="this.cottage.address.postalCode" name="postalCode"
+
+        />
+    </div>   
     <div class="form-group" class="center">
         <label style="margin-bottom: 10px;">Longitude:</label>
         <input

@@ -31,12 +31,22 @@ public class Cottage {
     @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
+
     @Column(name = "numberOfRatings")
     private int numberOfRatings;
+
     @Column(name="rating")
     private double rating;
+
     @Column(name="coverImage")
     private String coverImage;
+
+    @Column(name="number_of_rooms")
+    private String numberOfRooms;
+
+    @Column(name="bed_number_per_day")
+    private String bedNumberPerRoom;
+
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Room> rooms = new HashSet<Room>();

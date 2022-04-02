@@ -21,6 +21,8 @@ export class Cottage {
         public roomOverview: string = '',
         public images: Image[] = [],
         public appointments: Appointment[] = [],
-        public deleted: boolean = false
+        public deleted: boolean = false,
+        public numberOfRooms:  string = '',
+        public bedNumberPerRoom:  string = ''
       ) {}
 }

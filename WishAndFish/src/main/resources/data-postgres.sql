@@ -57,14 +57,14 @@ INSERT INTO BOAT_OWNER(id)
 INSERT INTO FISHING_INSTRUCTORS(id)
     VALUES(55);
 
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image,deleted)
-	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg',false);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)
-	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50,3.5,4,'cottage2.jpg',false);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)
-	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false);
-INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted)
-	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', true);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image,deleted, number_of_rooms, bed_number_per_day)
+	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg',false, 3, 2);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, bed_number_per_day)
+	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50,3.5,4,'cottage2.jpg',false,2,3);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, bed_number_per_day)
+	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false,2, 1);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, bed_number_per_day)
+	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', true, 2, 2);
 
 INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (124, 10, 111);
