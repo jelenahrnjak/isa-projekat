@@ -104,6 +104,20 @@ INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
 	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111);
 
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
+	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
+	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111);
+
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
+	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111);
+
+
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
 	VALUES (901, 135);
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)

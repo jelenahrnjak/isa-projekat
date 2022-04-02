@@ -40,7 +40,9 @@ import { HistoryMenuComponent } from './components/client/history-menu/history-m
 import { OfferMenuComponent } from './components/client/offer-menu/offer-menu.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
 import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-options-menu/cottage-options-menu.component';
-import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component'; 
+import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
+import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-c
     OfferMenuComponent,
     CottageDetailsComponent,
     CottageOptionsMenuComponent,
-    EditCottageBasicInfoComponent, 
+    EditCottageBasicInfoComponent,
+    ShowFreeAppointmentsComponent, 
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,8 @@ import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-c
     UserService,
     ConfigService,
     AcceptRegistrationComponent,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    DatePipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogContentExampleDialog]

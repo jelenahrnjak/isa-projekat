@@ -19,6 +19,7 @@ import { AdminSignUpComponent } from './components/admin-sign-up/admin-sign-up.c
 import { BoatsComponent } from './components/unregistered-user/boats/boats.component';
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { ClientHomeComponent } from './components/client/client-home/client-home.component';
+import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,11 @@ const routes: Routes = [
   {
     path:'edit-cottage-basic-info/:id',
     component: EditCottageBasicInfoComponent,
+  },
+
+  {
+    path:'show-free-appointments/:id',
+    component: ShowFreeAppointmentsComponent,
   }
 ];
 

@@ -66,22 +66,18 @@ export class CottageDetailsComponent implements OnInit {
 
     this.imageService.findImages(this.id).subscribe((data : any) => {
       this.images = data;
-        console.log(this.images)
       });
 
     this.additionalService.findAdditionalServices(this.id).subscribe((data : any) => {
       this.additionalServices = data;
-      console.log(this.additionalServices[0])
     });
 
      this.ruleService.findRules(this.id).subscribe((data : any) => {
       this.rules = data;
-        console.log(this.rules)
       });
 
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
-        console.log(this.appointments)
       });
   }
 
@@ -89,6 +85,10 @@ export class CottageDetailsComponent implements OnInit {
 
   editInfo(){
     this.router.navigate(['/edit-cottage-basic-info/'+this.id]);
+  }
+
+  showAppointments(){
+    this.router.navigate(['/show-free-appointments/'+this.id]);
   }
 
   selectImage(event){

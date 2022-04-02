@@ -1,5 +1,6 @@
 package com.example.WishAndFish.dto;
 import com.example.WishAndFish.model.Appointment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentDTO {
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date startDate;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date endDate;
     private Integer maxPersons;
     private Double price;
