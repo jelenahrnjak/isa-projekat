@@ -49,7 +49,7 @@ public class Cottage {
     @JsonManagedReference
     private Set<Image> images = new HashSet<Image>();
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
     private Set<Rule> rules = new HashSet<Rule>();
 

@@ -1,10 +1,13 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.RuleDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Boat;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.Rule;
+import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -20,6 +23,9 @@ public class RuleService {
 
     @Autowired
     private RuleRepository ruleRepository;
+
+    @Autowired
+    private CottageRepository cottageRepository;
 
     public List<RuleDTO> getAllByCottage(Long id) {
 
@@ -42,5 +48,19 @@ public class RuleService {
             }
         }
         return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+    }
+
+    public Rule addRule(RuleDTO dto){
+        for(Cottage c: this.cottageRepository.findAll()){
+            if(dto.getId().equals(c.getId())){
+                Rule r = new Rule();
+                r.setContent(dto.getContent());
+                r.setDeleted(false);
+                r.setCottage(c);
+                this.ruleRepository.save(r);
+                return r;
+            }
+        }
+        return null;
     }
 }
