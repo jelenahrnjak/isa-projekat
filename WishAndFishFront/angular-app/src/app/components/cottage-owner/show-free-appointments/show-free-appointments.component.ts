@@ -26,8 +26,14 @@ export class ShowFreeAppointmentsComponent implements OnInit {
       this.appointments = data;
       console.log(this.appointments)
       });
+    }
+    delete(id){
+      console.log(id)
 
-
-  }
-
+      this.appointmentService.deleteAppointment(id)
+      .subscribe(data => {
+        window.location.reload();
+      });
+      }
+  
 }

@@ -17,4 +17,11 @@ export class AppointmentService {
         return appointments;
       }));   
     }
+
+    deleteAppointment(id){
+      return this.apiService.delete(this.config.appointment_url + `/deleteAppointment/${id}`, id)
+    .pipe(map(() => {
+      console.log('Deleting appointment success');
+    }));   
+  }
 }
