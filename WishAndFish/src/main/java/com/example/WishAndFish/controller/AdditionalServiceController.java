@@ -37,4 +37,12 @@ public class AdditionalServiceController {
         return this.additionalServiceService.addAdditionalService(dto);
     }
 
+
+    @RequestMapping(value="/findAdditionalServicesForAppointment/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(@PathVariable Long id) {
+        return this.additionalServiceService.findAdditionalServicesForAppointment(id);
+    }
+
+
 }

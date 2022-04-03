@@ -56,7 +56,7 @@
                 <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
                 <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
                 <li class="list-group-item">
-                    <button  class="btn btn-primary">Additional services</button> 
+                    <button  class="btn btn-primary"  data-toggle="modal" data-target="#addService">Additional services</button> 
                     &nbsp;&nbsp;&nbsp;
                 
                     <button  class="btn btn-primary" (click)="delete(a.id)">Delete</button> 
@@ -67,5 +67,40 @@
         </div>
 </div>
 
+
+
+<!-- Modal for adding new additional service -->
+<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add additional service</h5>
+        </div>
+           
+        <table class="table" style="margin-left: 10px; width: 470px;">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mark</td>
+                <td>Otto</td>
+              </tr>
+              <tr>
+                <td>Jacob</td>
+                <td>Thornton</td>
+              </tr>
+            </tbody>
+          </table>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+    </div>
+</div>
 
 </div>

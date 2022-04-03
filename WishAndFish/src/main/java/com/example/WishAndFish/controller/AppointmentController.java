@@ -31,4 +31,5 @@ public class AppointmentController {
         return this.appointmentService.deleteAppointment(id);
     }
 
+
 }

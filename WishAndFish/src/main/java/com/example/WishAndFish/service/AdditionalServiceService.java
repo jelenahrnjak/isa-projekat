@@ -39,6 +39,7 @@ public class AdditionalServiceService {
     }
 
 
+
     public ResponseEntity<Long> deleteAdditionalServices(Long id){
         for(AdditionalService as: additionalServiceRepository.findAll()){
             if(as.getId() == id) {
@@ -63,5 +64,19 @@ public class AdditionalServiceService {
             }
         }
         return null;
+    }
+
+
+    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
+        List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
+        for(AdditionalService as: this.additionalServiceRepository.findAll()){
+            for(Appointment a: as.getCottage().getAppointments()){
+                if(id.equals(a.getId()) && !a.isDeleted()){
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
+        }
+
+        return ret;
     }
 }
