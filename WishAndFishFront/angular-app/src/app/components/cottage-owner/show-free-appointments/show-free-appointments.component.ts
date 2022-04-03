@@ -24,6 +24,7 @@ export class ShowFreeAppointmentsComponent implements OnInit {
 
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
+      console.log(this.appointments)
       });
 
 

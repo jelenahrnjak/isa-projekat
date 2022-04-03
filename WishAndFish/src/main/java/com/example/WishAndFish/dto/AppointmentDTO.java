@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentDTO {
+    private Long id;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private Date startDate;
     @JsonFormat(pattern = "dd.MM.yyyy")
@@ -24,6 +25,7 @@ public class AppointmentDTO {
     private Boolean reserved;
 
     public AppointmentDTO(Appointment a){
+        this.id = a.getId();
         this.startDate = a.getStartDate();
         this.endDate = a.getEndDate();
         this.maxPersons = a.getMaxPersons();

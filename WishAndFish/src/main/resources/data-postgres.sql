@@ -97,25 +97,25 @@ INSERT INTO public.rules(id, content, cottage_id, deleted)
 
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
+	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111, false);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
+	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111, false);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
+	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111, false);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
+	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false);
 
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id)
-	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
+	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false);
 
 
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)

@@ -45,6 +45,9 @@ public class Appointment {
     @Column(name = "reserved", unique = false, nullable = false)
     private Boolean reserved;
 
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
     @JsonBackReference
