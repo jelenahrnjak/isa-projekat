@@ -43,6 +43,7 @@ import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-
 import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
 import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
 import { DatePipe } from '@angular/common';
+import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { DatePipe } from '@angular/common';
     CottageDetailsComponent,
     CottageOptionsMenuComponent,
     EditCottageBasicInfoComponent,
-    ShowFreeAppointmentsComponent, 
+    ShowFreeAppointmentsComponent,
+    AppoitmentSearchComponent, 
   ],
   imports: [
     BrowserModule,

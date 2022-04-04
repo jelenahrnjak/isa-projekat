@@ -16,8 +16,8 @@ public class EditCottageDTO {
     private String description;
     private AddressDTO address;
     private Double pricePerDay;
-    private String numberOfRooms;
-    private String bedNumberPerRoom;
+    private int numberOfRooms;
+    private int bedsPerRoom;
 
     public EditCottageDTO(Cottage c){
         this.id = c.getId();
@@ -26,6 +26,6 @@ public class EditCottageDTO {
         this.address = new AddressDTO(c.getAddress());
         this.pricePerDay = c.getPricePerDay();
         this.numberOfRooms = c.getNumberOfRooms();
-        this.bedNumberPerRoom = c.getBedNumberPerRoom();
+        this.bedsPerRoom = c.getBedsPerRoom();
     }
 }
