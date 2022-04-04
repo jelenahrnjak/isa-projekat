@@ -56,7 +56,7 @@
                 <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
                 <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
                 <li class="list-group-item">
-                    <button  class="btn btn-primary"  data-toggle="modal" data-target="#addService">Additional services</button> 
+                    <button  class="btn btn-primary"  data-toggle="modal" data-target="#addService" (click)="findAdditionalService(a.id)">Additional services</button> 
                     &nbsp;&nbsp;&nbsp;
                 
                     <button  class="btn btn-primary" (click)="delete(a.id)">Delete</button> 
@@ -85,19 +85,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
+              <tr *ngFor = "let a of additionalServices">
+                <td>{{a.name}}</td>
+                <td>{{a.price}}</td>
               </tr>
             </tbody>
           </table>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
     </div>
     </div>

@@ -32,5 +32,13 @@ export class AdditionalServicesService {
       console.log('Adding additional service success: ' + path);
     }));;
   }
+
+
+  findAdditionalServicesForAppointment(id) {
+    return this.apiService.get(this.config.additional_services_url + `/findAdditionalServicesForAppointment/${id}`, id)
+    .pipe(map(services => {
+      return services;
+    }));   
+  }
     
 }
