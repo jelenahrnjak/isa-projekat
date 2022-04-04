@@ -47,4 +47,6 @@ public class FishingAdventure {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @Column(name="capacity", unique = false, nullable = false)
+    private int capacity;
 }

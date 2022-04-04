@@ -41,11 +41,11 @@ public class Cottage {
     @Column(name="coverImage")
     private String coverImage;
 
-    @Column(name="number_of_rooms")
-    private String numberOfRooms;
+    @Column(name="number_of_rooms",unique = false, nullable = false)
+    private int numberOfRooms;
 
-    @Column(name="bed_number_per_day")
-    private String bedNumberPerRoom;
+    @Column(name="beds_per_room", unique = false, nullable = false)
+    private int bedsPerRoom;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference

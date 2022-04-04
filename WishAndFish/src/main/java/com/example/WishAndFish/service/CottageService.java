@@ -150,7 +150,7 @@ public class CottageService {
                 c.getAddress().setStreet(editedCottage.getAddress().getStreet());
                 c.getAddress().setStreetNumber(editedCottage.getAddress().getStreetNumber());
                 c.setNumberOfRooms(editedCottage.getNumberOfRooms());
-                c.setBedNumberPerRoom(editedCottage.getBedNumberPerRoom());
+                c.setBedsPerRoom(editedCottage.getBedsPerRoom());
                 cottageRepository.save(c);
                 return new EditCottageDTO(c);
             }

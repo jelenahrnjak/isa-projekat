@@ -22,7 +22,7 @@ export class Cottage {
         public images: Image[] = [],
         public appointments: Appointment[] = [],
         public deleted: boolean = false,
-        public numberOfRooms:  string = '',
-        public bedNumberPerRoom:  string = ''
+        public numberOfRooms:  number = 0,
+        public bedsPerRoom:  number = 0
       ) {}
 }
