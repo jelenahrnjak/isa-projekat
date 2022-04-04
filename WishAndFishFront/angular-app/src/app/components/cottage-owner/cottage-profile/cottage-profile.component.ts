@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CottageService } from 'src/app/service/cottage.service';
 import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -84,7 +85,12 @@ export class CottageProfileComponent implements OnInit {
     },
       error => {
         this.reserved = true;
-        window.alert('The cottage is reserved!');
+        // window.alert('The cottage is reserved!');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'The cottage is reserved!',
+        })
       });
     }
 
