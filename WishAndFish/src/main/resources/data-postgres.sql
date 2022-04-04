@@ -64,7 +64,11 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_o
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
 	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false,2, 1);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
-	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', true, 2, 2);
+	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', false, 2, 2);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
+    VALUES (114, 'Great cottage near the river', 'ss', 75, 401, 50,0.0,0,'cottage4.jpg', false, 2, 2);
+INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
+    VALUES (115, 'G4reat cottage near the river', 'ssd', 75, 401, 50,0.0,0,'cottage4.jpg', false, 2, 2);
 
 INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (124, 10, 111);
@@ -86,28 +90,41 @@ INSERT INTO public.rules(id, content, cottage_id, deleted)
 	VALUES (28, 'Loud music forbidden', 112, false);
 
 
+--special action
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
-	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
-	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
-	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
-	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111, false, true);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, true);
 
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted)
-	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, true);
 
+--normal
 
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (139, '5', '10-05-2022', 7, 130, false, '05-10-2022', 113, false, false);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (140, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (141, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
 
 INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id)
 	VALUES (901, 'Parking', 0, false, 133, 111);

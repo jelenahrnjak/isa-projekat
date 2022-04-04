@@ -14,15 +14,15 @@
     <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Guests"/> 
     <input type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price"/>  
   </div> -->
-  <div style=" margin-left: 417px; ">   
-    <button style="margin-right: 60px; margin-top: 30px;"  class="btn" (click)="clear()">Clear</button>  
-    <button class=" btn" style="margin-top: 30px;" type="submit">Search</button> 
+  <div style=" margin-left:27%; margin-top: 1%;">   
+    <button class="btn" (click)="clear()">Clear</button>  
+    <button class=" btn" style="margin-left: 9%;" type="submit">Search</button> 
   </div>
   </form> 
 
-    <div   style="margin-left: 30px; ">
+    <div>
     <div class="row" > 
-            <div class="card" style="margin: 30px; " *ngFor="let c of adventures">
+            <div class="card" *ngFor="let c of adventures">
                 <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
                 <ul class="list-group list-group-flush">
                   <li class = "list-group-item">

@@ -59,6 +59,11 @@ public class Appointment {
     @JsonBackReference
     private Boat boat;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fishing_adventure_id", nullable = true)
+    @JsonBackReference
+    private FishingAdventure fishingAdventure;
+
     @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
@@ -66,6 +71,8 @@ public class Appointment {
     //@ManyToMany(mappedBy = "appointments")
     //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
+    @Column(name = "action", unique = false, nullable = false)
+    private boolean action;
 
     public Cottage getCottage() {
         return cottage;
