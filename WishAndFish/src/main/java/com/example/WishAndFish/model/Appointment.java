@@ -1,7 +1,9 @@
 package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +27,11 @@ public class Appointment {
     private long id;
 
     @Column(name = "start_date", unique = false, nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
     @Column(name = "end_date", unique = false, nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
     @Column(name = "max_persons", unique = false, nullable = false)
@@ -42,6 +46,9 @@ public class Appointment {
     @Column(name = "reserved", unique = false, nullable = false)
     private Boolean reserved;
 
+    @Column(name = "deleted", unique = false, nullable = false)
+    private boolean deleted;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cottage_id", nullable = true)
     @JsonBackReference
@@ -51,6 +58,10 @@ public class Appointment {
     @JoinColumn(name = "boat_id", nullable = true)
     @JsonBackReference
     private Boat boat;
+
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
     //@ManyToMany(mappedBy = "appointments")
     //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();

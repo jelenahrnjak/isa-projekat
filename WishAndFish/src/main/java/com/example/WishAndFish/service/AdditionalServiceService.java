@@ -4,6 +4,7 @@ import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AdditionalServiceRepository;
+import com.example.WishAndFish.repository.AppointmentRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ public class AdditionalServiceService {
     @Autowired
     private AdditionalServiceRepository additionalServiceRepository;
 
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     public List<AdditionalServicesDTO> getAllByCottage(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
@@ -37,6 +40,7 @@ public class AdditionalServiceService {
         }
         return ret;
     }
+
 
 
     public ResponseEntity<Long> deleteAdditionalServices(Long id){
@@ -63,5 +67,15 @@ public class AdditionalServiceService {
             }
         }
         return null;
+    }
+
+    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
+        List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
+        for(AdditionalService as: this.additionalServiceRepository.findAll()){
+           if(id.equals(as.getAppointment().getId())){
+               ret.add(new AdditionalServicesDTO(as));
+           }
+        }
+        return ret;
     }
 }

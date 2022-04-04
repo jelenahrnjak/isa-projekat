@@ -38,10 +38,15 @@ public class AdditionalService {
     @JsonBackReference
     private Cottage cottage;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "appointment_additional_services",
-            joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
-    private Set<Appointment> appointments = new HashSet<Appointment>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "appointment_id", nullable = true)
+    @JsonBackReference
+    private Appointment appointment;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "appointment_additional_services",
+//            joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
+//    private Set<Appointment> appointments = new HashSet<Appointment>();
 
 }

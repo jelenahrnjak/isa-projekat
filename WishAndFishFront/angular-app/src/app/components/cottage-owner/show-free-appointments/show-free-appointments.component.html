@@ -1,0 +1,101 @@
+<div style="overflow: hidden"> 
+
+    <!--SideBar-->
+   <div class="sidebar-container">
+       <!-- <div class="sidebar-logo">
+           Home
+         </div> -->
+       <ul class="sidebar-navigation ">
+           <li>
+               <a class="sidebar-click" (click)="editInfo()">
+                   <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
+               </a>
+           </li>
+           <li>
+               <a class="sidebar-click" >
+                   <i class="fa fa-home" aria-hidden="true"></i> Edit availability
+               </a>
+           </li>
+           <li>
+               <a class="sidebar-click" (click)="showAppointments()">
+                   <i class="fa fa-home" aria-hidden="true"></i> Show appointments
+               </a>
+           </li>
+           <li>
+               <a class="sidebar-click">
+                   <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
+               </a>
+               </li>
+           <li>
+               <a class="sidebar-click">
+                   <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
+               </a>
+           </li>
+           <li>
+               <a class="sidebar-click">
+                   <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
+               </a>
+               </li>        
+           <li>
+               <a class="sidebar-click">
+                   <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
+               </a>
+           </li>       
+       </ul>
+   </div>
+<!--SideBar-->
+
+
+<div class="card-holder" style="margin-left: 200px;">
+<div class="row" style="margin: 20px; "> 
+        <div class="card" style="margin: 30px; " *ngFor="let a of appointments">
+            <ul class="list-group list-group-flush">
+              
+                <li style="height: 70px;" class="list-group-item">Duration: {{a.startDate}} - {{a.endDate}}</li>  
+
+                <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
+                <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
+                <li class="list-group-item">
+                    <button  class="btn btn-primary"  data-toggle="modal" data-target="#addService" (click)="findAdditionalService(a.id)">Additional services</button> 
+                    &nbsp;&nbsp;&nbsp;
+                
+                    <button  class="btn btn-primary" (click)="delete(a.id)">Delete</button> 
+
+                </li>
+            </ul> 
+           
+        </div>
+</div>
+
+
+
+<!-- Modal for adding new additional service -->
+<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add additional service</h5>
+        </div>
+           
+        <table class="table" style="margin-left: 10px; width: 470px;">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let a of additionalServices">
+                <td>{{a.name}}</td>
+                <td>{{a.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+</div>
