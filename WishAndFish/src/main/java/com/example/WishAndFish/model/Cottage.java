@@ -44,7 +44,7 @@ public class Cottage {
     @Column(name="number_of_rooms")
     private String numberOfRooms;
 
-    @Column(name="bed_number_per_day")
+    @Column(name="bed_number_per_room")
     private String bedNumberPerRoom;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
