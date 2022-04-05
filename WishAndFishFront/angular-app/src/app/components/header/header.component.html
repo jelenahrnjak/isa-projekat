@@ -17,6 +17,9 @@
                 <span>Fishing</span>
             </button>
 
+            <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="/reservation">
+                <span>New reservation</span>
+            </button>
             <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="#!">
                 <span>My reservations</span>
             </button>

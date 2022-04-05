@@ -54,7 +54,7 @@ export class InstructorsComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "",   "price" : "","instructor":""})
+    this.form.reset();
     this.adventureService.getAll().subscribe((data : any) => {
       this.adventures = data;
     }); 
