@@ -24,4 +24,11 @@ export class AppointmentService {
       console.log('Deleting appointment success');
     }));   
   }
+
+  editAvailability(dto){
+    return this.apiService.post(this.config.appointment_url + `/editAvailability`, dto)
+    .pipe(map((appointment) => {
+      console.log('Creating appointment success:');
+    }));  
+  }
 }

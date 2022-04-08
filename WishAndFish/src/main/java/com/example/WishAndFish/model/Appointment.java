@@ -1,5 +1,6 @@
 package com.example.WishAndFish.model;
 
+import com.example.WishAndFish.dto.AvailabilityDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +12,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,17 +29,17 @@ public class Appointment {
     private long id;
 
     @Column(name = "start_date", unique = false, nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date startDate;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime startDate;
 
     @Column(name = "end_date", unique = false, nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date endDate;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime endDate;
 
-    @Column(name = "max_persons", unique = false, nullable = false)
+    @Column(name = "max_persons", unique = false, nullable = true)
     private Integer maxPersons;
 
-    @Column(name = "price", unique = false, nullable = false)
+    @Column(name = "price", unique = false, nullable = true)
     private Double price;
 
     @Column(name = "duration", unique = false, nullable = false)
@@ -49,7 +51,10 @@ public class Appointment {
     @Column(name = "deleted", unique = false, nullable = false)
     private boolean deleted;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "action", unique = false, nullable = true) //ispraviti na false
+    private Boolean isAction;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_id", nullable = true)
     @JsonBackReference
     private Cottage cottage;
@@ -81,4 +86,5 @@ public class Appointment {
     public void setCottage(Cottage cottage) {
         this.cottage = cottage;
     }
+
 }
