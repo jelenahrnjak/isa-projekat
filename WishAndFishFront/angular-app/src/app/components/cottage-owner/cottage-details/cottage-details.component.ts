@@ -22,6 +22,11 @@ export class CottageDetailsComponent implements OnInit {
   editBasicInfo: boolean = false;
   mainInfo: boolean = true;
   selectedFile = null;
+  startDate: String;
+  endDate: String;
+  startTime: any;
+  endTime: any;
+
 
   imageDto = {
     "path": "",
@@ -161,6 +166,20 @@ export class CottageDetailsComponent implements OnInit {
     });      
     window.location.reload();
     this.newRule.content = ""
+  }
+
+  editAvailability(){
+    console.log(this.startDate + " " + this.endDate)
+    var s = this.startDate.toString().split(" ");
+    var start = s[2] + "-" +  s[1] + "-" + s[3] + " " + this.startTime + ":00"
+
+
+    var e = this.endDate.toString().split(" ");
+    var end = e[2] + "-" +  e[1] + "-" + e[3] + " " + this.endTime + ":00"
+
+    console.log(start)
+    console.log(end)
+
   }
   
 }
