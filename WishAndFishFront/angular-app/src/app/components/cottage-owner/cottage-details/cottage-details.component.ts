@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cottage } from 'src/app/model/cottage';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-cottage-details',
   templateUrl: './cottage-details.component.html',
@@ -22,8 +23,8 @@ export class CottageDetailsComponent implements OnInit {
   editBasicInfo: boolean = false;
   mainInfo: boolean = true;
   selectedFile = null;
-  startDate: String;
-  endDate: String;
+  startDate: String | any;
+  endDate: String | any;
   startTime: any;
   endTime: any;
 
@@ -48,6 +49,10 @@ export class CottageDetailsComponent implements OnInit {
   rules: any;
   images: any;
   appointments: any;
+
+  //today's date
+todayDate:Date = new Date();
+
 
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
@@ -170,16 +175,35 @@ export class CottageDetailsComponent implements OnInit {
 
   editAvailability(){
     console.log(this.startDate + " " + this.endDate)
-    var s = this.startDate.toString().split(" ");
-    var start = s[2] + "-" +  s[1] + "-" + s[3] + " " + this.startTime + ":00"
 
 
-    var e = this.endDate.toString().split(" ");
-    var end = e[2] + "-" +  e[1] + "-" + e[3] + " " + this.endTime + ":00"
+    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+ 
 
-    console.log(start)
-    console.log(end)
+    if(start >= end){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Start date is greater or equal then end date!',
+      }) 
+    }
+   else{
+    var dto = {
+      "id": this.id,
+      "startDate": start + " " + this.startTime,
+      "endDate": end  + " " + this.endTime
+    }
 
+    this.appointmentService.editAvailability(dto).subscribe((data : any) => {
+        // console.log(data)
+        this.startTime = "";
+        this.endTime = "";
+        this.startDate = "";
+        this.endDate = ""
+      });
   }
+   }
+    
   
 }

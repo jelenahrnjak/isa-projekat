@@ -297,7 +297,7 @@
             <label style="margin-bottom: 10px; margin-left: 2%;">Start date:</label>
             <mat-form-field appearance="fill" style="margin-left: 7%; width: 70%;">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [(ngModel)]="startDate" >
+                <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="startDate" >
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker ></mat-datepicker>
             </mat-form-field>
@@ -313,7 +313,7 @@
             <label style="margin-bottom: 10px; margin-left: 2%;">End date:</label>
             <mat-form-field appearance="fill" style="margin-left: 8.5%; width: 70%;">
             <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker1" [(ngModel)]="endDate">
+            <input matInput [matDatepicker]="picker1" [min]="todayDate" [(ngModel)]="endDate">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>

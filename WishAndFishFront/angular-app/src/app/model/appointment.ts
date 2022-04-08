@@ -5,7 +5,7 @@ export class Appointment {
         public maxPersons: number,
         public price: number,
         public duration: any,
-        public reserved: boolean
-
+        public reserved: boolean,
+        public isAction: boolean
       ) {}
 }

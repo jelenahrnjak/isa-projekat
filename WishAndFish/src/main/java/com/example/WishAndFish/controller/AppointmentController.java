@@ -1,8 +1,11 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.AppointmentDTO;
+import com.example.WishAndFish.dto.AvailabilityDTO;
 import com.example.WishAndFish.model.Appointment;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.AdditionalServiceService;
 import com.example.WishAndFish.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +34,10 @@ public class AppointmentController {
         return this.appointmentService.deleteAppointment(id);
     }
 
+    @PostMapping(value="/editAvailability")
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    public Appointment editAvailability(@RequestBody AvailabilityDTO dto) {
+        return this.appointmentService.editAvailability(dto);
+    }
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -16,13 +17,14 @@ import java.util.Date;
 public class AppointmentDTO {
     private Long id;
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private Date startDate;
+    private LocalDateTime startDate;
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private Date endDate;
+    private LocalDateTime endDate;
     private Integer maxPersons;
     private Double price;
     private Duration duration;
     private Boolean reserved;
+    private Boolean isAction;
 
     public AppointmentDTO(Appointment a){
         this.id = a.getId();
@@ -32,5 +34,6 @@ public class AppointmentDTO {
         this.price = a.getPrice();
         this.duration = a.getDuration();
         this.reserved = a.getReserved();
+        this.isAction = a.getIsAction();
     }
 }

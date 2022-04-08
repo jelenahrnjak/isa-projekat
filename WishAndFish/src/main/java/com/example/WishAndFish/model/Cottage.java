@@ -51,7 +51,7 @@ public class Cottage {
     @JsonManagedReference
     private Set<Room> rooms = new HashSet<Room>();
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
