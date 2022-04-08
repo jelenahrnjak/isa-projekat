@@ -76,8 +76,8 @@ public class Appointment {
     //@ManyToMany(mappedBy = "appointments")
     //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
-    @Column(name = "action", unique = false, nullable = false)
-    private boolean action;
+//    @Column(name = "action", unique = false, nullable = false)
+//    private boolean action;
 
     public Cottage getCottage() {
         return cottage;
