@@ -11,7 +11,7 @@ export class Cottage {
         public rating: number = 0,
         public pricePerDay: number = 0,
         public name: string = '',
-        public address: Address = undefined,
+        public address: Address = new Address(),
         public cottageOwner: CottageOwner = [],
         public description: string = '',
         public coverImage: string = '',
