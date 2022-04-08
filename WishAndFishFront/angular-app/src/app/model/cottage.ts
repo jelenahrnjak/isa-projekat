@@ -11,7 +11,7 @@ export class Cottage {
         public rating: number = 0,
         public pricePerDay: number = 0,
         public name: string = '',
-        public address: Address[] = [],
+        public address: Address = undefined,
         public cottageOwner: CottageOwner = [],
         public description: string = '',
         public coverImage: string = '',
@@ -22,7 +22,7 @@ export class Cottage {
         public images: Image[] = [],
         public appointments: Appointment[] = [],
         public deleted: boolean = false,
-        public numberOfRooms:  string = '',
-        public bedNumberPerRoom:  string = ''
+        public numberOfRooms:  number = 0,
+        public bedsPerRoom:  number = 0
       ) {}
 }

@@ -20,6 +20,7 @@ import { BoatsComponent } from './components/unregistered-user/boats/boats.compo
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { ClientHomeComponent } from './components/client/client-home/client-home.component';
 import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
+import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
 
 const routes: Routes = [
   {
@@ -100,7 +101,13 @@ const routes: Routes = [
   {
     path:'show-free-appointments/:id',
     component: ShowFreeAppointmentsComponent,
+  },
+
+  {
+    path:'reservation',
+    component: AppoitmentSearchComponent,
   }
+
 ];
 
 @NgModule({

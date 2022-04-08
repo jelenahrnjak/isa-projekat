@@ -39,7 +39,7 @@ export class BoatsComponent implements OnInit {
       guests : [''] 
        
     })  
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "price" : "","startDate":"","endDate":"","guests":""})
+    this.form.reset();
     
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
@@ -58,7 +58,7 @@ export class BoatsComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "price" : "","startDate":"","endDate":"","guests":""})
+    this.form.reset();
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
