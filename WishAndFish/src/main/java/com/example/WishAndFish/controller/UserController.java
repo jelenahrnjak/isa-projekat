@@ -6,19 +6,16 @@ import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
-import com.example.WishAndFish.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.WishAndFish.service.UserService;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 

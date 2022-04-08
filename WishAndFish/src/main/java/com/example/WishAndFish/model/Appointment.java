@@ -1,9 +1,7 @@
 package com.example.WishAndFish.model;
 
-import com.example.WishAndFish.dto.AvailabilityDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +11,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 @Getter
@@ -71,7 +68,7 @@ public class Appointment {
 
     @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
+    private Set<AdditionalService> additionalServices = new HashSet<>();
 
     //@ManyToMany(mappedBy = "appointments")
     //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();

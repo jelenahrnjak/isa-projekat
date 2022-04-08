@@ -1,6 +1,5 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.service.FishingAdventuresService;
 import org.springframework.beans.factory.annotation.Autowired;

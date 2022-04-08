@@ -2,7 +2,6 @@ package com.example.WishAndFish.model;
 
 import com.example.WishAndFish.dto.RuleDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

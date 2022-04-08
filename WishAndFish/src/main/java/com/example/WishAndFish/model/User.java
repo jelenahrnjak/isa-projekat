@@ -9,8 +9,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -104,7 +102,7 @@ public class User implements UserDetails{
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Role> collection = new ArrayList<Role>();
+        List<Role> collection = new ArrayList<>();
         collection.add(this.role);
         return collection;
     }

@@ -1,11 +1,8 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
-import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.service.AdditionalServiceService;
-import com.example.WishAndFish.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

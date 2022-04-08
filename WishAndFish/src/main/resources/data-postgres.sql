@@ -47,6 +47,8 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (95, false, 'jovana@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
 
+INSERT INTO CLIENT(id)
+    VALUES(35);
 
 INSERT INTO COTTAGE_OWNER(id)
 	VALUES (50);

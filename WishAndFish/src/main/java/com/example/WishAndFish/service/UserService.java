@@ -12,7 +12,6 @@ import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -112,8 +111,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        User u = userRepository.findByEmail(email);
-        return u;
+        return userRepository.findByEmail(email);
     }
 
     public List<UserDTO> getAllUsers(){

@@ -2,7 +2,6 @@ package com.example.WishAndFish.model;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
 import java.util.Set;
 

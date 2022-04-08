@@ -1,6 +1,5 @@
 package com.example.WishAndFish.dto;
 
-import com.example.WishAndFish.model.LoyaltyCategory;
 import com.example.WishAndFish.model.User;
 
 public class UserDTO {

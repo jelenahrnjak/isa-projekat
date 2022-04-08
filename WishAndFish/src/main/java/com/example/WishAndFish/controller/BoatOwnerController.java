@@ -1,10 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.BoadDisplayDTO;
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.service.BoatOwnerService;
-import com.example.WishAndFish.service.CottageOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

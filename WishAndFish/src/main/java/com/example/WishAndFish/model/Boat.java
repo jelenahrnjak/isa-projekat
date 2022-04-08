@@ -1,8 +1,6 @@
 package com.example.WishAndFish.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -50,25 +48,25 @@ public class Boat {
     private Double averageGrade;
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Image> images = new HashSet<Image>();
+    private Set<Image> images = new HashSet<>();
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Appointment> appointments = new HashSet<Appointment>();
+    private Set<Appointment> appointments = new HashSet<>();
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Rule> rules = new HashSet<Rule>();
+    private Set<Rule> rules = new HashSet<>();
 
     @Column(name = "price_per_hour", unique = false)
     private Double pricePerHour;
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<NavigationEquipment> navigationEquipments = new HashSet<NavigationEquipment>();
+    private Set<NavigationEquipment> navigationEquipments = new HashSet<>();
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<FishingEquipment> fishingEquipments = new HashSet<FishingEquipment>();
+    private Set<FishingEquipment> fishingEquipments = new HashSet<>();
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<CancellationConditions> cancellationConditions = new HashSet<CancellationConditions>();
+    private Set<CancellationConditions> cancellationConditions = new HashSet<>();
 
     @Column(name="coverImage")
     private String coverImage;

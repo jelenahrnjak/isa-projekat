@@ -2,7 +2,6 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.ImageDTO;
-import com.example.WishAndFish.dto.RuleDTO;
 import com.example.WishAndFish.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ public class ImageController {
 
     @Autowired
     private ImageService imageService;
-    private Logger logger = LoggerFactory.getLogger(ImageController.class);
+    private final Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")

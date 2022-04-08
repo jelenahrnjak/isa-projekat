@@ -3,8 +3,6 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.CottageOwnerRepository;
-import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class CottageService {
@@ -34,7 +29,7 @@ public class CottageService {
 
     public List<CottageDTO> findAll() {
 
-        List<CottageDTO> ret = new ArrayList<CottageDTO>();
+        List<CottageDTO> ret = new ArrayList<>();
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(!c.isDeleted()){
             ret.add(new CottageDTO(c));}
@@ -44,7 +39,7 @@ public class CottageService {
     }
 
     public List<CottageDTO> search(CottageDTO dto) {
-        List<CottageDTO> ret = new ArrayList<CottageDTO>();
+        List<CottageDTO> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -67,34 +62,22 @@ public class CottageService {
 
     private boolean checkCottageForSearch(Cottage c, CottageDTO dto,double rating, double price){
 
-        if(checkStrings(c.getName(),dto.getName())  && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating) && checkPrice(c.getPricePerDay(), price)){
-            return true;
-        }
-        return false;
+        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerDay(), price);
     }
 
     private boolean checkStrings(String cottage, String search){
         if(search==null){
             return true;
         }
-        if(search.isEmpty() || cottage.toLowerCase().contains(search.toLowerCase())){
-            return true;
-        }
-        return false;
+        return search.isEmpty() || cottage.toLowerCase().contains(search.toLowerCase());
     }
 
     private boolean checkRating(Double cottage, Double search){
-        if(cottage >= search || search > 5){
-            return true;
-        }
-        return false;
+        return cottage >= search || search > 5;
     }
 
     private boolean checkPrice(Double cottage, Double search){
-        if(cottage <= search || cottage<=0 || search == 0){
-            return true;
-        }
-        return false;
+        return cottage <= search || cottage <= 0 || search == 0;
     }
 
     public Cottage addCottage(AddCottageDTO newCottage){

@@ -1,9 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddBoatDTO;
-import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

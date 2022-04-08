@@ -18,7 +18,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import com.example.WishAndFish.security.util.TokenUtils;
 public class TokenAuthenticationFilter extends OncePerRequestFilter{
 
-    private TokenUtils tokenUtils;
+    private final TokenUtils tokenUtils;
 
     private UserDetailsService userDetailsService;
 

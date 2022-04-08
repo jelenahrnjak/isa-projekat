@@ -2,7 +2,6 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.dto.CottageDisplayDTO;
 import com.example.WishAndFish.dto.EditCottageDTO;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CottageService;
@@ -22,7 +21,7 @@ public class CottageController {
     @Autowired
     private CottageService cottageService;
 
-    private Logger logger = LoggerFactory.getLogger(CottageController.class);
+    private final Logger logger = LoggerFactory.getLogger(CottageController.class);
 
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<CottageDTO> getAll() {

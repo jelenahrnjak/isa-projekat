@@ -1,6 +1,5 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AdditionalServiceRepository;
@@ -26,7 +25,7 @@ public class AdditionalServiceService {
     private AppointmentRepository appointmentRepository;
 
     public List<AdditionalServicesDTO> getAllByCottage(Long id){
-        List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
+        List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: additionalServiceRepository.findAll()){
 //            for(Appointment a: as.getAppointments()){
 //                if(id.equals(a.getCottage().getId()) && !as.getDeleted()){
@@ -70,7 +69,7 @@ public class AdditionalServiceService {
     }
 
     public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
-        List<AdditionalServicesDTO> ret = new ArrayList<AdditionalServicesDTO>();
+        List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: this.additionalServiceRepository.findAll()){
            if(id.equals(as.getAppointment().getId())){
                ret.add(new AdditionalServicesDTO(as));

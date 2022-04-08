@@ -1,11 +1,7 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.RuleDTO;
-import com.example.WishAndFish.dto.UserDTO;
-import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Rule;
-import com.example.WishAndFish.service.BoatService;
 import com.example.WishAndFish.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
