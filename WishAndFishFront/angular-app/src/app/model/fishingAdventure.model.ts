@@ -15,6 +15,7 @@ export class FishingAdventure {
         public maximumPeople:  number = 0,
         public price : number = 0,
         public instructorEmail : string = '',
-        public instructor : string = ''
+        public instructor : string = '',
+        public isSubscribed : boolean = false,
       ) {}
 }

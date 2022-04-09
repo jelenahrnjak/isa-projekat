@@ -44,10 +44,11 @@ export class ClientService {
 
   checkSubscription(id: any, type : string) {
     
-    return this.apiService.get(this.config.client_url + `/checkSubscription/${localStorage.getItem('user')}/${type}/${id}` )
-      .pipe(map(user => {
-        return user;
-      })); 
+    return this.apiService.get(this.config.client_url + `/checkSubscription/${type}/${id}` , {
+      headers: {
+        "Access-Control-Allow-Origin": this.config.client_url,
+        Authorization: "Bearer " + localStorage.refreshToken 
+      },}) 
   
     }
 }

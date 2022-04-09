@@ -55,12 +55,11 @@ export class CottageComponent implements OnInit {
      .subscribe((params: DisplayMessage) => {
        this.notification = params;
    }); 
-   this.form.reset();
     
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.cottageService.getAll().subscribe((data : any) => {
-      this.cottages = data;  
-  }); 
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; 
+
+  this.clear();
+      
     if(localStorage.getItem('user')){
       this.isClient = true;
     }
@@ -79,9 +78,15 @@ export class CottageComponent implements OnInit {
 
   clear(){
     this.form.reset();
-    this.cottageService.getAll().subscribe((data : any) => {
-      this.cottages = data;
-    }); 
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.cottageService.getAllClient().subscribe((data : any) => {
+        this.cottages = data;
+        console.dir(data)
+      }); 
+    }else{
+      this.cottageService.getAll().subscribe((data : any) => {
+        this.cottages = data;
+      }); }
   }
 
   details(){
@@ -91,6 +96,26 @@ export class CottageComponent implements OnInit {
   subscribe(id){ 
     this.clientService.subscribeToCottage(id, localStorage.getItem('user')).subscribe(
       (data) => {  
+        for(var v of this.cottages){
+          if(v.id === id){
+            v.isSubscribed = true;
+          }
+        }
+        alert("Successfully subscribed") 
+      },
+      (err) => {  
+        alert('Already subscribed!') 
+      }) 
+  }
+
+  unsubscribe(id){ 
+    this.clientService.subscribeToCottage(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        for(var v of this.cottages){
+          if(v.id === id){
+            v.isSubscribed = true;
+          }
+        }
         alert("Successfully subscribed") 
       },
       (err) => {  

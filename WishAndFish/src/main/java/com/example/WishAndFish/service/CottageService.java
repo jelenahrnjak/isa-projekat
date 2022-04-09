@@ -23,6 +23,8 @@ public class CottageService {
     @Autowired
     private CottageOwnerRepository cottageOwnerRepository;
 
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private UserRepository userRepository;
@@ -139,5 +141,45 @@ public class CottageService {
             }
         }
         return null;
+    }
+
+    public List<CottageDTO> findAllClient(String email) {
+        List<CottageDTO> ret = new ArrayList<>();
+        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
+            CottageDTO cottage = new CottageDTO(c);
+            cottage.setIsSubscribed(clientService.checkCottageExistence(email, c.getId()));
+            if(!c.isDeleted()){
+                ret.add(cottage);}
+
+        };
+
+        return ret;
+    }
+
+    public List<CottageDTO> searchClient(CottageDTO dto, String email) {
+
+        List<CottageDTO> ret = new ArrayList<>();
+        double rating = 0;
+        double price = 0;
+        try{
+            rating = Double.parseDouble(dto.getRating());
+        }catch (Exception e){
+            System.out.println("Error with parsing rating");
+        }
+        try{
+            price = Double.parseDouble(dto.getPrice());
+        }catch (Exception e){
+            System.out.println("Error with parsing price");
+        }
+        for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
+
+            CottageDTO cottage = new CottageDTO(c);
+            cottage.setIsSubscribed(clientService.checkCottageExistence(email, c.getId()));
+            if(checkCottageForSearch(c,dto,rating, price) && !c.isDeleted()){
+                ret.add(cottage);}
+        }
+
+        return ret;
+
     }
 }

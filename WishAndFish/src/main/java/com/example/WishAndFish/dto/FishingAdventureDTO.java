@@ -22,7 +22,7 @@ public class FishingAdventureDTO {
     private String instructor;
     private String instructorEmail;
     private int maximumPeople;
-
+    private Boolean isSubscribed;
 
     public FishingAdventureDTO(FishingAdventure f) {
         this.id = f.getId();

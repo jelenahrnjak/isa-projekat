@@ -19,6 +19,17 @@ export class CottageService {
       }));
   } 
 
+  getAllClient() {
+    return this.apiService.get(this.config.cottage_url + '/client', {
+      headers: {
+        "Access-Control-Allow-Origin": this.config.client_url,
+        Authorization: "Bearer " + localStorage.refreshToken 
+      },})
+      .pipe(map(cottages => { 
+        return cottages;
+      }));
+  } 
+
   search(data:any){
     
     return this.apiService.get(this.config.cottage_url + `/search`,data)

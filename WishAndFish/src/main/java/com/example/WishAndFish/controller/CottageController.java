@@ -1,9 +1,11 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddCottageDTO;
+import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.EditCottageDTO;
 import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.CottageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,9 @@ public class CottageController {
     @Autowired
     private CottageService cottageService;
 
+    @Autowired
+    TokenUtils tokenUtils;
+
     private final Logger logger = LoggerFactory.getLogger(CottageController.class);
 
     @RequestMapping(value="", method = RequestMethod.GET)
@@ -28,6 +33,17 @@ public class CottageController {
         return this.cottageService.findAll();
     }
 
+    @RequestMapping(value="/client", method = RequestMethod.GET)
+    public List<CottageDTO> getAllClients(@RequestHeader("Authorization") String token) {
+        String email  = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+        return this.cottageService.findAllClient(email);
+    }
+
+    @RequestMapping(value="/search/client", method = RequestMethod.GET)
+    public List<CottageDTO> searchClient(@RequestHeader("Authorization") String token,CottageDTO dto) {
+        String email  = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+        return this.cottageService.searchClient(dto,email);
+    }
     @RequestMapping(value="/search", method = RequestMethod.GET)
     public List<CottageDTO> search(CottageDTO dto) {
         return this.cottageService.search(dto);
