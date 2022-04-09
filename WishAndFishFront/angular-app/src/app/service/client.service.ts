@@ -40,4 +40,14 @@ export class ClientService {
    
     return this.apiService.put(this.config.client_url + `/subscribeToAdventure`, data) ;
   }
+  
+
+  checkSubscription(id: any, type : string) {
+    
+    return this.apiService.get(this.config.client_url + `/checkSubscription/${localStorage.getItem('user')}/${type}/${id}` )
+      .pipe(map(user => {
+        return user;
+      })); 
+  
+    }
 }

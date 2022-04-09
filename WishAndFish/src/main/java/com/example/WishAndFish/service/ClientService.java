@@ -32,14 +32,25 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         Cottage cottage = cottageRepository.getById(cottageId);
 
-       for(Cottage c : client.getCottageSubscriptions()){
-           if(c.getId() == cottageId){
-               return false;
-           }
-       }
+        if(checkCottageExistence(userEmail,cottageId)){
+            return false;
+        }
 
         addCottageToClientsSubscriptions(client, cottage);
         return true;
+    }
+
+    public boolean checkCottageExistence(String userEmail, Long cottageId){
+
+        Client client = clientRepository.findByEmail(userEmail);
+
+        for(Cottage c : client.getCottageSubscriptions()){
+            if(c.getId() == cottageId){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void addCottageToClientsSubscriptions(Client client, Cottage cottage) {
@@ -53,14 +64,25 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         Boat boat = boatRepository.getById(boatId);
 
-        for(Boat b : client.getBoatSubscriptions()){
-            if(b.getId() == boatId){
-                return false;
-            }
+        if(checkBoatExistence(userEmail,boatId)){
+            return false;
         }
 
         addBoatToClientsSubscriptions(client, boat);
         return true;
+    }
+
+    public boolean checkBoatExistence(String userEmail, Long boatId){
+
+        Client client = clientRepository.findByEmail(userEmail);
+
+        for(Boat c : client.getBoatSubscriptions()){
+            if(c.getId() == boatId){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void addBoatToClientsSubscriptions(Client client, Boat boat) {
@@ -74,14 +96,25 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         FishingAdventure adventure = fishingAdventureRepository.getById(adventureId);
 
-        for(FishingAdventure f : client.getAdventureSubscriptions()){
-            if(f.getId() == adventureId){
-                return false;
-            }
+        if(checkAdventureExistence(userEmail,adventureId)){
+            return false;
         }
 
         addAdventureToClientsSubscriptions(client, adventure);
         return true;
+    }
+
+    public boolean checkAdventureExistence(String userEmail, Long adventureId){
+
+        Client client = clientRepository.findByEmail(userEmail);
+        
+        for(FishingAdventure c : client.getAdventureSubscriptions()){
+            if(c.getId() == adventureId){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void addAdventureToClientsSubscriptions(Client client, FishingAdventure adventure) {

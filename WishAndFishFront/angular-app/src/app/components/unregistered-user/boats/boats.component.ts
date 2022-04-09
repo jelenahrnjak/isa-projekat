@@ -43,8 +43,13 @@ export class BoatsComponent implements OnInit {
     this.form.reset();
     
     this.boatService.getAll().subscribe((data : any) => {
-      this.boats = data;
+      for(var v of data){
+        v.isSubscribed = this.checkSubscription(v.id)
+        this.boats.push(v); 
+        console.dir(this.checkSubscription(v.id))
+      } 
     }); 
+
     if(localStorage.getItem('user')){
       this.isClient = true;
     } 
@@ -66,6 +71,14 @@ export class BoatsComponent implements OnInit {
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
+  }
+
+  checkSubscription(boatId) : boolean { 
+    this.clientService.checkSubscription(boatId, "boat").subscribe((data : any) => {
+      return data;
+    }); 
+
+    return false;
   }
   
   details(){

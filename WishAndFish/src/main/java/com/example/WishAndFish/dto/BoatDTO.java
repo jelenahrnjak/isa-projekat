@@ -20,6 +20,7 @@ public class BoatDTO {
     private String price;
     private String coverImage;
     private int maximumPeople;
+    private Boolean isSubscribed;
 
     public BoatDTO(Boat b){
         this.id = b.getId();
@@ -30,6 +31,7 @@ public class BoatDTO {
         this.price = Double.toString(b.getPricePerHour());
         this.coverImage = b.getCoverImage();
         this.maximumPeople = b.getCapacity();
+
     }
 
 
