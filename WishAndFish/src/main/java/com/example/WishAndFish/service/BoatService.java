@@ -1,9 +1,7 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.AddBoatDTO;
-import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.RequestDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.BoatOwnerRepository;
 import com.example.WishAndFish.repository.BoatRepository;
@@ -31,7 +29,7 @@ public class BoatService {
 
     public List<BoatDTO> findAll() {
 
-        List<BoatDTO> ret = new ArrayList<BoatDTO>();
+        List<BoatDTO> ret = new ArrayList<>();
         for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(!b.isDeleted()){
             ret.add(new BoatDTO(b));}
@@ -41,7 +39,7 @@ public class BoatService {
     }
 
     public List<BoatDTO> search(BoatDTO dto) {
-        List<BoatDTO> ret = new ArrayList<BoatDTO>();
+        List<BoatDTO> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -64,34 +62,22 @@ public class BoatService {
 
     private boolean checkBoatForSearch(Boat b, BoatDTO dto,double rating, double price){
 
-        if(checkStrings(b.getName(),dto.getName())  && checkStrings(b.getAddress().toString(),dto.getAddress()) && checkRating(b.getRating(),rating) && checkPrice(b.getPricePerHour(),price)){
-            return true;
-        }
-        return false;
+        return checkStrings(b.getName(), dto.getName()) && checkStrings(b.getAddress().toString(), dto.getAddress()) && checkRating(b.getRating(), rating) && checkPrice(b.getPricePerHour(), price);
     }
 
     private boolean checkStrings(String boat, String search){
         if(search==null){
             return true;
         }
-        if(search.isEmpty() || boat.toLowerCase().contains(search.toLowerCase())){
-            return true;
-        }
-        return false;
+        return search.isEmpty() || boat.toLowerCase().contains(search.toLowerCase());
     }
 
     private boolean checkPrice(Double cottage, Double search){
-        if(cottage <= search || cottage<=0 || search == 0){
-            return true;
-        }
-        return false;
+        return cottage <= search || cottage <= 0 || search == 0;
     }
 
     private boolean checkRating(Double boat, Double search){
-        if(boat >= search || search > 5){
-            return true;
-        }
-        return false;
+        return boat >= search || search > 5;
     }
 
     public AddBoatDTO addBoat(AddBoatDTO newBoat){

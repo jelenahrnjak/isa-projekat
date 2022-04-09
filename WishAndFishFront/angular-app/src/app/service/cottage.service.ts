@@ -7,9 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class CottageService {
- 
-   
+export class CottageService { 
   constructor( 
     private apiService: ApiService,
     private config: ConfigService) { }
@@ -56,4 +54,5 @@ export class CottageService {
       console.log('Editing cottage success');
     }));
   }
+ 
 }

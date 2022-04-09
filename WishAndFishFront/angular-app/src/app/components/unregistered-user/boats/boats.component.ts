@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { AuthService, UserService } from '../../../service';
+import { ActivatedRoute } from '@angular/router'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
 import { BoatService } from 'src/app/service/boat.service';
+import { Boat } from 'src/app/model/boat.model';
+import { ClientService } from 'src/app/service/client.service';
 
 @Component({
   selector: 'app-boats',
@@ -13,19 +12,21 @@ import { BoatService } from 'src/app/service/boat.service';
 })
 export class BoatsComponent implements OnInit {
   
-  boats: any  
+  boats: Boat[] = [];  
   form: FormGroup;
   searchDTO = {
     "name" : "",
     "address" : "",
     "rating" : "",
     "price" : "", 
-  }
+  };
+  isClient : boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private boatService: BoatService,   
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clientService: ClientService
   ) { }
 
   ngOnInit() {
@@ -42,8 +43,16 @@ export class BoatsComponent implements OnInit {
     this.form.reset();
     
     this.boatService.getAll().subscribe((data : any) => {
-      this.boats = data;
+      for(var v of data){
+        v.isSubscribed = this.checkSubscription(v.id)
+        this.boats.push(v); 
+        console.dir(this.checkSubscription(v.id))
+      } 
     }); 
+
+    if(localStorage.getItem('user')){
+      this.isClient = true;
+    } 
  
   }
 
@@ -62,6 +71,28 @@ export class BoatsComponent implements OnInit {
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
+  }
+
+  checkSubscription(boatId) : boolean { 
+    this.clientService.checkSubscription(boatId, "boat").subscribe((data : any) => {
+      return data;
+    }); 
+
+    return false;
+  }
+  
+  details(){
+
+  }
+
+  subscribe(id){ 
+    this.clientService.subscribeToBoat(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        alert("Successfully subscribed") 
+      },
+      (err) => {  
+        alert('Already subscribed!') 
+      }) 
   }
 
 }

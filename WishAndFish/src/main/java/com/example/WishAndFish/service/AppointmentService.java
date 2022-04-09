@@ -1,12 +1,9 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.AppointmentDTO;
 import com.example.WishAndFish.dto.AvailabilityDTO;
-import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Appointment;
 import com.example.WishAndFish.model.Cottage;
-import com.example.WishAndFish.model.Rule;
 import com.example.WishAndFish.repository.AppointmentRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +27,7 @@ public class AppointmentService {
     private CottageRepository cottageRepository;
 
     public List<AppointmentDTO> getAllByCottage(Long id){
-        List<AppointmentDTO> ret = new ArrayList<AppointmentDTO>();
+        List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
                 ret.add(new AppointmentDTO(as));

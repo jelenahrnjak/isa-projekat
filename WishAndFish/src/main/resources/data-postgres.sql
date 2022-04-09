@@ -47,6 +47,8 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (95, false, 'jovana@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
 
+INSERT INTO CLIENT(id)
+    VALUES(35);
 
 INSERT INTO COTTAGE_OWNER(id)
 	VALUES (50);
@@ -62,7 +64,7 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_o
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
 	VALUES (111, 'Very good', 'The Overlook', 75, 500, 50,3.5,4,'cottage2.jpg',false,2,3);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
-	VALUES (112, 'Good', 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false,2, 1);
+	VALUES (112, null, 'The River', 75, 501, 50,4.6,123,'cottage3.jpg',false,2, 1);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
 	VALUES (113, 'Great cottage near the river', 'Acros', 75, 401, 50,0.0,0,'cottage4.jpg', true, 2, 2);
 

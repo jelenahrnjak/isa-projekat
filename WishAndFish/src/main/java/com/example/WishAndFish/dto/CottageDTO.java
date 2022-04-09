@@ -1,78 +1,35 @@
 package com.example.WishAndFish.dto;
 
 import com.example.WishAndFish.model.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CottageDTO {
 
+    private Long id;
     private String name;
     private String description;
     private String address;
     private String rating;
     private String price;
     private String coverImage;
-
-    public CottageDTO() {
-    }
+    private int maximumPeople;
 
     public  CottageDTO(Cottage c){
+        this.id = c.getId();
         this.name = c.getName();
         this.description = c.getDescription();
         this.address= c.getAddress().toString();
         this.rating = Double.toString(c.getRating());
         this.price = Double.toString(c.getPricePerDay());
         this.coverImage = c.getCoverImage();
-    }
-    public String getName() {
-        return name;
+        this.maximumPeople = c.getBedsPerRoom();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 }

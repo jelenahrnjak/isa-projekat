@@ -1,9 +1,18 @@
 package com.example.WishAndFish.dto;
 
 import com.example.WishAndFish.model.FishingAdventure;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class FishingAdventureDTO {
 
+    private Long id;
     private String name;
     private String description;
     private String address;
@@ -12,22 +21,11 @@ public class FishingAdventureDTO {
     private String coverImage;
     private String instructor;
     private String instructorEmail;
+    private int maximumPeople;
 
-    public FishingAdventureDTO() {
-    }
-
-    public FishingAdventureDTO(String name, String description, String address, String rating, String price, String coverImage, String instructor, String instructorName) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.rating = rating;
-        this.price = price;
-        this.coverImage = coverImage;
-        this.instructor = instructor;
-        this.instructorEmail = instructorName;
-    }
 
     public FishingAdventureDTO(FishingAdventure f) {
+        this.id = f.getId();
         this.name = f.getName();
         this.description = f.getDescription();
         this.address = f.getAddress().toString();
@@ -36,6 +34,7 @@ public class FishingAdventureDTO {
         this.coverImage = f.getCoverImage();
         this.instructor = f.getFishingInstructor().getName() + " " + f.getFishingInstructor().getSurname();
         this.instructorEmail = f.getFishingInstructor().getEmail();
+        this.maximumPeople = f.getCapacity();
     }
 
     public String getName() {

@@ -1,10 +1,7 @@
 package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,13 +16,13 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", unique = false, nullable = true)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "description", unique = false, nullable = true)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "price_per_day", unique = false, nullable = true)
+    @Column(name = "price_per_day")
     private Double pricePerDay;
 
     @OneToOne(targetEntity = Address.class,cascade = CascadeType.ALL)
@@ -41,33 +38,33 @@ public class Cottage {
     @Column(name="coverImage")
     private String coverImage;
 
-    @Column(name="number_of_rooms",unique = false, nullable = false)
+    @Column(name="number_of_rooms", nullable = false)
     private int numberOfRooms;
 
-    @Column(name="beds_per_room", unique = false, nullable = false)
+    @Column(name="beds_per_room", nullable = false)
     private int bedsPerRoom;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Room> rooms = new HashSet<Room>();
+    private Set<Room> rooms = new HashSet<>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
-    private Set<Appointment> appointments = new HashSet<Appointment>();
+    private Set<Appointment> appointments = new HashSet<>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Image> images = new HashSet<Image>();
+    private Set<Image> images = new HashSet<>();
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
-    private Set<Rule> rules = new HashSet<Rule>();
+    private Set<Rule> rules = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cottage_owner_id")
     private CottageOwner cottageOwner;
 
-    @Column(name = "deleted", unique = false, nullable = false)
+    @Column(name = "deleted", nullable = false)
     private boolean deleted;
 
     public Cottage() {

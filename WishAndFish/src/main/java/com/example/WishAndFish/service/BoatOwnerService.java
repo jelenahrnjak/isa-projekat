@@ -49,7 +49,7 @@ public class BoatOwnerService {
     }
 
     public List<BoadDisplayDTO> getBoatsFromOwner(String email){
-        List<BoadDisplayDTO> ret = new ArrayList<BoadDisplayDTO>();
+        List<BoadDisplayDTO> ret = new ArrayList<>();
         for(Boat b: boatRepository.findAll()){
             User u = userRepository.findByEmail(b.getBoatOwner().getEmail());
             if(u.getEmail().equals(email) && !b.isDeleted()){

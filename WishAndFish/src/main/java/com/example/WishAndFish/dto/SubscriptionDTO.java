@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class AvailabilityDTO {
-    private Long id;
-    private String startDate;
-    private String endDate;
+@AllArgsConstructor
+public class SubscriptionDTO {
 
+    public String userEmail;
+    public Long cottageId;
+    public Long boatId;
+    public Long adventureId;
 }

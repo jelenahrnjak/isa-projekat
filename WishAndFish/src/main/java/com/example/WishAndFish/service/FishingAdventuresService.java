@@ -22,7 +22,7 @@ public class FishingAdventuresService {
 
     public List<FishingAdventureDTO> findAll() {
 
-        List<FishingAdventureDTO> ret = new ArrayList<FishingAdventureDTO>();
+        List<FishingAdventureDTO> ret = new ArrayList<>();
         for(FishingAdventure f : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(!f.isDeleted()){
                 ret.add(new FishingAdventureDTO(f));}
@@ -32,7 +32,7 @@ public class FishingAdventuresService {
     }
 
     public List<FishingAdventureDTO> search(FishingAdventureDTO dto) {
-        List<FishingAdventureDTO> ret = new ArrayList<FishingAdventureDTO>();
+        List<FishingAdventureDTO> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -55,33 +55,21 @@ public class FishingAdventuresService {
 
     private boolean checkAdventureForSearch(FishingAdventure c, FishingAdventureDTO dto, double rating, double price){
 
-        if(checkStrings(c.getName(),dto.getName()) && checkStrings(c.getFishingInstructor().getName(),dto.getInstructor()) && checkStrings(c.getAddress().toString(),dto.getAddress()) && checkRating(c.getRating(),rating) && checkPrice(c.getPricePerHour(), price)){
-            return true;
-        }
-        return false;
+        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getFishingInstructor().getName(), dto.getInstructor()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerHour(), price);
     }
 
     private boolean checkStrings(String adventure, String search){
         if(search==null){
             return true;
         }
-        if(search.isEmpty() || adventure.toLowerCase().contains(search.toLowerCase())){
-            return true;
-        }
-        return false;
+        return search.isEmpty() || adventure.toLowerCase().contains(search.toLowerCase());
     }
 
     private boolean checkRating(Double adventure, Double search){
-        if(adventure >= search || search > 5){
-            return true;
-        }
-        return false;
+        return adventure >= search || search > 5;
     }
 
     private boolean checkPrice(Double adventure, Double search){
-        if(adventure <= search || adventure<=0 || search == 0){
-            return true;
-        }
-        return false;
+        return adventure <= search || adventure <= 0 || search == 0;
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,17 +40,17 @@ public class ImageService {
             if(i.getPath().equals(path)){
                 i.setDeleted(true);
                 this.imageRepository.save(i);
-                return new ResponseEntity<Long>(i.getId(), HttpStatus.OK);
+                return new ResponseEntity<>(i.getId(), HttpStatus.OK);
             }
         }
 
-        return new ResponseEntity<Long>(-1L, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(-1L, HttpStatus.NOT_FOUND);
     }
 
 
     public List<ImageDTO> getAllByCottage(Long id) {
 
-        List<ImageDTO> ret = new ArrayList<ImageDTO>();
+        List<ImageDTO> ret = new ArrayList<>();
         for(Image i : imageRepository.findAll()){
             if(id.equals(i.getCottage().getId()) && !i.isDeleted()){
                 ret.add(new ImageDTO(i));

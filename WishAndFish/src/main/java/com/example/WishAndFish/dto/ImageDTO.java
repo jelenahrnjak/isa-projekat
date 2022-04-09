@@ -2,7 +2,6 @@ package com.example.WishAndFish.dto;
 
 
 import com.example.WishAndFish.model.Image;
-import com.example.WishAndFish.model.Rule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
