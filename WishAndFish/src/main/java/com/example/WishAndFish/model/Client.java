@@ -12,6 +12,11 @@ import java.util.Set;
 @Entity
 public class Client extends User{
 
+
+    public Client(User u) {
+        super(u);
+    }
+
     @ManyToMany(targetEntity = Cottage.class, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Cottage> cottageSubscriptions;
 

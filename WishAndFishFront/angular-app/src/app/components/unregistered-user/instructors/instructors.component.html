@@ -36,7 +36,11 @@
                   <li style="height: 70px;" *ngIf="c.rating === 0" class="list-group-item">The adventure currently does not have any ratings.</li> 
                   <li  *ngIf="c.description === null" style="height: 70px;" class="list-group-item">The adventure currently does not have decription.</li> 
                   <li  *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
-                  <li style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li>  
+                  <li style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
+                  <li class="list-group-item">
+                    <button class="small-btn" (click)="details(c.id)">Details</button>  
+                    <button *ngIf="isClient" class="small-btn" (click)="subscribe(c.id)">Subscribe</button>  
+                </li> 
                 </ul>  
         </div>
     </div>

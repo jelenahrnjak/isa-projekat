@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FishingAdventureDTO {
 
+    private Long id;
     private String name;
     private String description;
     private String address;
@@ -24,6 +25,7 @@ public class FishingAdventureDTO {
 
 
     public FishingAdventureDTO(FishingAdventure f) {
+        this.id = f.getId();
         this.name = f.getName();
         this.description = f.getDescription();
         this.address = f.getAddress().toString();

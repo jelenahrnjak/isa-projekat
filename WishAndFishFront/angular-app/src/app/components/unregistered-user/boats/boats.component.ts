@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BoatService } from 'src/app/service/boat.service';
 import { Boat } from 'src/app/model/boat.model';
+import { ClientService } from 'src/app/service/client.service';
 
 @Component({
   selector: 'app-boats',
@@ -18,12 +19,14 @@ export class BoatsComponent implements OnInit {
     "address" : "",
     "rating" : "",
     "price" : "", 
-  }
+  };
+  isClient : boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private boatService: BoatService,   
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clientService: ClientService
   ) { }
 
   ngOnInit() {
@@ -42,6 +45,9 @@ export class BoatsComponent implements OnInit {
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
+    if(localStorage.getItem('user')){
+      this.isClient = true;
+    } 
  
   }
 
@@ -60,6 +66,20 @@ export class BoatsComponent implements OnInit {
     this.boatService.getAll().subscribe((data : any) => {
       this.boats = data;
     }); 
+  }
+  
+  details(){
+
+  }
+
+  subscribe(id){ 
+    this.clientService.subscribeToBoat(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        alert("Successfully subscribed") 
+      },
+      (err) => {  
+        alert('Already subscribed!') 
+      }) 
   }
 
 }

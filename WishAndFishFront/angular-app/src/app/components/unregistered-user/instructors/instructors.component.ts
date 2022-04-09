@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { AdventureService } from 'src/app/service/adventure.service';
 import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
+import { ClientService } from 'src/app/service/client.service';
 
 @Component({
   selector: 'app-instructors',
@@ -22,11 +23,13 @@ export class InstructorsComponent implements OnInit {
     "rating" : "",
     "price" : "", 
     "instructor" : ""
-  }
+  };
+  isClient : boolean = false;
 
   constructor( 
     private adventureService: AdventureService,   
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clientService : ClientService
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,9 @@ export class InstructorsComponent implements OnInit {
     this.adventureService.getAll().subscribe((data : any) => {
       this.adventures = data;
   }); 
+    if(localStorage.getItem('user')){
+      this.isClient = true;
+    }
   }
 
   search(){
@@ -59,5 +65,19 @@ export class InstructorsComponent implements OnInit {
     this.adventureService.getAll().subscribe((data : any) => {
       this.adventures = data;
     }); 
+  }
+  
+  details(){
+
+  }
+
+  subscribe(id){ 
+    this.clientService.subscribeToAdventure(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        alert("Successfully subscribed") 
+      },
+      (err) => {  
+        alert('Already subscribed!') 
+      }) 
   }
 }

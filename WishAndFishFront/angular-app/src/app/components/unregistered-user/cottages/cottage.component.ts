@@ -5,6 +5,7 @@ import { AuthService, UserService } from '../../../service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { CottageService } from 'src/app/service/cottage.service';
+import { ClientService } from 'src/app/service/client.service';
 import { Cottage } from 'src/app/model/cottage';
 
 interface DisplayMessage {
@@ -29,12 +30,14 @@ export class CottageComponent implements OnInit {
     "address" : "",
     "rating" : "",
     "price" : "", 
-  }
+  };
+  isClient : boolean = false;
 
   constructor(  
     private route: ActivatedRoute,
     private cottageService: CottageService,   
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private clientService : ClientService) { }
 
   ngOnInit() {
     
@@ -56,9 +59,11 @@ export class CottageComponent implements OnInit {
     
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.cottageService.getAll().subscribe((data : any) => {
-      this.cottages = data;
-      console.dir(data)
+      this.cottages = data;  
   }); 
+    if(localStorage.getItem('user')){
+      this.isClient = true;
+    }
  
   }
 
@@ -77,5 +82,19 @@ export class CottageComponent implements OnInit {
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
     }); 
+  }
+
+  details(){
+
+  }
+
+  subscribe(id){ 
+    this.clientService.subscribeToCottage(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        alert("Successfully subscribed") 
+      },
+      (err) => {  
+        alert('Already subscribed!') 
+      }) 
   }
 }

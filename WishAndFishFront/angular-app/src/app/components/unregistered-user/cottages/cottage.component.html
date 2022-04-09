@@ -22,8 +22,8 @@
 <div>
 <div class="row" > 
         <div class="card"  *ngFor="let c of cottages">
-            <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
-            <ul class="list-group list-group-flush">
+          <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
+          <ul class="list-group list-group-flush">
             <li class = "list-group-item">
             <b>{{c.name}}</b>
             </li>
@@ -34,7 +34,11 @@
             <li style="height: 70px;" *ngIf="c.rating === 0" class="list-group-item">The cottage currently does not have any ratings.</li>  
             <li  *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
             <li  *ngIf="c.description == null" style="height: 70px;" class="list-group-item">The cottage currently does not have decription.</li> 
-            </ul> 
+            <li class="list-group-item">
+              <button class="small-btn" (click)="details(c.id)">Details</button>  
+              <button *ngIf="isClient" class="small-btn" (click)="subscribe(c.id)">Subscribe</button>  
+          </li> 
+          </ul> 
     </div>
 </div>
 
