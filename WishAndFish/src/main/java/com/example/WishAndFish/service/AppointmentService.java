@@ -1,7 +1,10 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.AddActionDTO;
+import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.AppointmentDTO;
 import com.example.WishAndFish.dto.AvailabilityDTO;
+import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Appointment;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.repository.AppointmentRepository;
@@ -29,7 +32,7 @@ public class AppointmentService {
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
-            if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
+            if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
                 ret.add(new AppointmentDTO(as));
             }
         }
@@ -51,8 +54,7 @@ public class AppointmentService {
     public Appointment editAvailability(AvailabilityDTO dto){
         Appointment a = new Appointment();
         a.setDeleted(false);
-        Cottage c = cottageRepository.findById(dto.getId()).orElseGet(null);
-        a.setCottage(c);
+        a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setIsAction(false);
         a.setStartDate(findDate(dto.getStartDate()));
         a.setEndDate(findDate(dto.getEndDate()));
@@ -65,5 +67,22 @@ public class AppointmentService {
     private LocalDateTime findDate(String start){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(start, formatter);
+    }
+
+
+    public Appointment addNewAction(AddActionDTO dto){
+        Appointment a = new Appointment();
+        a.setIsAction(true);
+        a.setStartDate(dto.getStartDate());
+        a.setEndDate(dto.getEndDate());
+        a.setExpirationDate(dto.getExpirationDate());
+        a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
+        a.setMaxPersons(dto.getMaxPersons());
+        a.setPrice(dto.getPrice());
+        for(AdditionalService as: dto.getAdditionalServices()){
+            a.getAdditionalServices().add(as);
+        }
+
+        return a;
     }
 }

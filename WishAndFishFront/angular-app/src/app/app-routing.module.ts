@@ -1,3 +1,4 @@
+import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
 import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
@@ -106,7 +107,12 @@ const routes: Routes = [
   {
     path:'reservation',
     component: AppoitmentSearchComponent,
-  }
+  },
+
+  {
+    path:'add-action/:id',
+    component: AddActionComponent,
+  },
 
 ];
 

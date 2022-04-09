@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "appointments")
@@ -32,6 +31,10 @@ public class Appointment {
     @Column(name = "end_date", unique = false, nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime endDate;
+
+    @Column(name = "expiration_date", unique = false, nullable = true)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime expirationDate;
 
     @Column(name = "max_persons", unique = false, nullable = true)
     private Integer maxPersons;
@@ -84,4 +87,8 @@ public class Appointment {
         this.cottage = cottage;
     }
 
+    public Appointment(){
+        this.setDeleted(false);
+        this.setReserved(false);
+    }
 }

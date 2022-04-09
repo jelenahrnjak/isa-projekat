@@ -1,50 +1,6 @@
 <div style="overflow: hidden"> 
 
- <!--SideBar-->
-<div class="sidebar-container">
-    <!-- <div class="sidebar-logo">
-        Home
-      </div> -->
-    <ul class="sidebar-navigation ">
-        <li>
-            <a class="sidebar-click" (click)="editInfo()">
-                <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click" data-toggle="modal" data-target="#availability">
-                <i class="fa fa-home" aria-hidden="true"></i> Select availability
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click" (click)="showAppointments()">
-                <i class="fa fa-home" aria-hidden="true"></i> Show appointments
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
-            </a>
-            </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
-            </a>
-            </li>        
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
-            </a>
-        </li>       
-    </ul>
-</div>
-
-<!-- <div *ngIf="mainInfo"> -->
+ <app-sidebar></app-sidebar>
 
 <div>
     <!-- Background image -->

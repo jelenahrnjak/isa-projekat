@@ -93,13 +93,13 @@ todayDate:Date = new Date();
 
   
 
-  editInfo(){
-    this.router.navigate(['/edit-cottage-basic-info/'+this.id]);
-  }
+  // editInfo(){
+  //   this.router.navigate(['/edit-cottage-basic-info/'+this.id]);
+  // }
 
-  showAppointments(){
-    this.router.navigate(['/show-free-appointments/'+this.id]);
-  }
+  // showAppointments(){
+  //   this.router.navigate(['/show-free-appointments/'+this.id]);
+  // }
 
   selectImage(event){
     this.selectedFile = event.target.files[0].name;
@@ -204,6 +204,11 @@ todayDate:Date = new Date();
       });
   }
    }
+
+  //  addAction(){
+  //     this.router.navigate(['/add-action/'+this.id]);
+
+  //  }
     
   
 }
