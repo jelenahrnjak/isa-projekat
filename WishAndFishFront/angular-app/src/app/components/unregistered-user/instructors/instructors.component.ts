@@ -5,6 +5,7 @@ import { AuthService, UserService } from '../../../service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { AdventureService } from 'src/app/service/adventure.service';
+import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
 
 @Component({
   selector: 'app-instructors',
@@ -13,7 +14,7 @@ import { AdventureService } from 'src/app/service/adventure.service';
 })
 export class InstructorsComponent implements OnInit {
 
-  adventures:any= []
+  adventures: FishingAdventure[] = []
   form: FormGroup;
   searchDTO = {
     "name" : "",

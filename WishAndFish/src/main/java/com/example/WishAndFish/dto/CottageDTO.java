@@ -1,7 +1,15 @@
 package com.example.WishAndFish.dto;
 
 import com.example.WishAndFish.model.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CottageDTO {
 
     private String name;
@@ -10,9 +18,7 @@ public class CottageDTO {
     private String rating;
     private String price;
     private String coverImage;
-
-    public CottageDTO() {
-    }
+    private int maximumPeople;
 
     public  CottageDTO(Cottage c){
         this.name = c.getName();
@@ -21,52 +27,7 @@ public class CottageDTO {
         this.rating = Double.toString(c.getRating());
         this.price = Double.toString(c.getPricePerDay());
         this.coverImage = c.getCoverImage();
-    }
-    public String getName() {
-        return name;
+        this.maximumPeople = c.getBedsPerRoom();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 }

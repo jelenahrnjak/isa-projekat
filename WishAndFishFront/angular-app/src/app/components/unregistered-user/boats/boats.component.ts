@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { AuthService, UserService } from '../../../service';
+import { ActivatedRoute } from '@angular/router'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
 import { BoatService } from 'src/app/service/boat.service';
+import { Boat } from 'src/app/model/boat.model';
 
 @Component({
   selector: 'app-boats',
@@ -13,7 +11,7 @@ import { BoatService } from 'src/app/service/boat.service';
 })
 export class BoatsComponent implements OnInit {
   
-  boats: any  
+  boats: Boat[] = [];  
   form: FormGroup;
   searchDTO = {
     "name" : "",

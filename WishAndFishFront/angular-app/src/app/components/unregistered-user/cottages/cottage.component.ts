@@ -5,6 +5,7 @@ import { AuthService, UserService } from '../../../service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { CottageService } from 'src/app/service/cottage.service';
+import { Cottage } from 'src/app/model/cottage';
 
 interface DisplayMessage {
   msgType: string;
@@ -20,7 +21,7 @@ export class CottageComponent implements OnInit {
   returnUrl: string;
   notification: DisplayMessage; 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  cottages: any  
+  cottages: Cottage[] = [];  
   form: FormGroup;
   
   searchDTO = {
@@ -56,6 +57,7 @@ export class CottageComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.cottageService.getAll().subscribe((data : any) => {
       this.cottages = data;
+      console.dir(data)
   }); 
  
   }

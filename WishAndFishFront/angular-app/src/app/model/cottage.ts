@@ -23,6 +23,8 @@ export class Cottage {
         public appointments: Appointment[] = [],
         public deleted: boolean = false,
         public numberOfRooms:  number = 0,
-        public bedsPerRoom:  number = 0
+        public bedsPerRoom:  number = 0,
+        public price : number = 0,
+        public maximumPeople : number = 0
       ) {}
 }
