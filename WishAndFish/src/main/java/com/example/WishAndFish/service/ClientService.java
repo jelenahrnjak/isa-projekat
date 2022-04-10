@@ -32,7 +32,7 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         Cottage cottage = cottageRepository.getById(cottageId);
 
-        if(checkCottageExistence(userEmail,cottageId)){
+        if (checkCottageExistence(userEmail, cottageId)) {
             return false;
         }
 
@@ -40,12 +40,37 @@ public class ClientService {
         return true;
     }
 
-    public boolean checkCottageExistence(String userEmail, Long cottageId){
+    public boolean unsubscribeFromCottage(Long cottageId, String userEmail) {
+        Client client = clientRepository.findByEmail(userEmail);
+        Cottage cottage = cottageRepository.getById(cottageId);
+
+        if (!checkCottageExistence(userEmail, cottageId)) {
+            return false;
+        }
+
+        removeCottageFromClientsSubscriptions(client, cottage);
+        return true;
+    }
+
+    private void removeCottageFromClientsSubscriptions(Client client, Cottage cottage) {
+
+        Set<Cottage> subscriptions = client.getCottageSubscriptions();
+
+        for(Cottage c : subscriptions){
+            if(c.getId() == cottage.getId()){
+                subscriptions.remove(c);
+            }
+        }
+        client.setCottageSubscriptions(subscriptions);
+        clientRepository.save(client);
+    }
+
+    public boolean checkCottageExistence(String userEmail, Long cottageId) {
 
         Client client = clientRepository.findByEmail(userEmail);
 
-        for(Cottage c : client.getCottageSubscriptions()){
-            if(c.getId() == cottageId){
+        for (Cottage c : client.getCottageSubscriptions()) {
+            if (c.getId() == cottageId) {
                 return true;
             }
         }
@@ -64,7 +89,7 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         Boat boat = boatRepository.getById(boatId);
 
-        if(checkBoatExistence(userEmail,boatId)){
+        if (checkBoatExistence(userEmail, boatId)) {
             return false;
         }
 
@@ -72,18 +97,45 @@ public class ClientService {
         return true;
     }
 
-    public boolean checkBoatExistence(String userEmail, Long boatId){
+
+    public boolean unsubscribeFromBoat(Long boatId, String userEmail) {
+        Client client = clientRepository.findByEmail(userEmail);
+        Boat boat = boatRepository.getById(boatId);
+
+        if (!checkBoatExistence(userEmail, boatId)) {
+            return false;
+        }
+
+        removeBoatFromClientsSubscriptions(client, boat);
+        return true;
+    }
+
+    private void removeBoatFromClientsSubscriptions(Client client, Boat boat) {
+
+        Set<Boat> subscriptions = client.getBoatSubscriptions();
+
+        for(Boat c : subscriptions){
+            if(c.getId() == boat.getId()){
+                subscriptions.remove(c);
+            }
+        }
+        client.setBoatSubscriptions(subscriptions);
+        clientRepository.save(client);
+    }
+
+    public boolean checkBoatExistence(String userEmail, Long boatId) {
 
         Client client = clientRepository.findByEmail(userEmail);
 
-        for(Boat c : client.getBoatSubscriptions()){
-            if(c.getId() == boatId){
+        for (Boat c : client.getBoatSubscriptions()) {
+            if (c.getId() == boatId) {
                 return true;
             }
         }
 
         return false;
     }
+
 
     private void addBoatToClientsSubscriptions(Client client, Boat boat) {
         Set<Boat> subscriptions = client.getBoatSubscriptions();
@@ -96,20 +148,43 @@ public class ClientService {
         Client client = clientRepository.findByEmail(userEmail);
         FishingAdventure adventure = fishingAdventureRepository.getById(adventureId);
 
-        if(checkAdventureExistence(userEmail,adventureId)){
+        if (checkAdventureExistence(userEmail, adventureId)) {
             return false;
         }
 
         addAdventureToClientsSubscriptions(client, adventure);
         return true;
     }
+    public boolean unsubscribeFromAdventure(Long adventureId, String userEmail) {
+        Client client = clientRepository.findByEmail(userEmail);
+        FishingAdventure adventure = fishingAdventureRepository.getById(adventureId);
 
-    public boolean checkAdventureExistence(String userEmail, Long adventureId){
+        if (!checkAdventureExistence(userEmail, adventureId)) {
+            return false;
+        }
+
+        removeAdventureFromClientsSubscriptions(client, adventure);
+        return true;
+    }
+
+    private void removeAdventureFromClientsSubscriptions(Client client, FishingAdventure adventure) {
+
+        Set<FishingAdventure> subscriptions = client.getAdventureSubscriptions();
+
+        for(FishingAdventure c : subscriptions){
+            if(c.getId() == adventure.getId()){
+                subscriptions.remove(c);
+            }
+        }
+        client.setAdventureSubscriptions(subscriptions);
+        clientRepository.save(client);
+    }
+    public boolean checkAdventureExistence(String userEmail, Long adventureId) {
 
         Client client = clientRepository.findByEmail(userEmail);
-        
-        for(FishingAdventure c : client.getAdventureSubscriptions()){
-            if(c.getId() == adventureId){
+
+        for (FishingAdventure c : client.getAdventureSubscriptions()) {
+            if (c.getId() == adventureId) {
                 return true;
             }
         }

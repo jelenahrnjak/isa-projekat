@@ -18,9 +18,23 @@ export class AdventureService {
         return adventures;
       }));
   } 
+  
+  getAllClient() {
+    return this.apiService.get(this.config.adventure_url + `/client/${localStorage.getItem('user')}`)
+    .pipe(map(adventures => { 
+        return adventures;
+      }));
+  }
 
   search(data:any){ 
     return this.apiService.get(this.config.adventure_url + `/search`,data)
+    .pipe(map(adventures => { 
+      return adventures;
+    }));
+  }
+
+  searchClient(data:any){ 
+    return this.apiService.get(this.config.adventure_url + `/search/client/${localStorage.getItem('user')}`, data)
     .pipe(map(adventures => { 
       return adventures;
     }));

@@ -5,6 +5,7 @@ import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.BoatOwnerRepository;
 import com.example.WishAndFish.repository.BoatRepository;
+import com.example.WishAndFish.repository.ClientRepository;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -27,12 +28,33 @@ public class BoatService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private ClientService clientService;
+
     public List<BoatDTO> findAll() {
 
         List<BoatDTO> ret = new ArrayList<>();
         for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(!b.isDeleted()){
-            ret.add(new BoatDTO(b));}
+                ret.add(new BoatDTO(b));}
+
+        };
+
+        return ret;
+    }
+
+    public List<BoatDTO> findAllClient(String email) {
+
+        List<BoatDTO> ret = new ArrayList<>();
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+            BoatDTO boat = new BoatDTO(b);
+            boat.setIsSubscribed(clientService.checkBoatExistence(email, b.getId()));
+            if(!b.isDeleted()){
+                ret.add(boat);}
+
         };
 
         return ret;
@@ -117,4 +139,27 @@ public class BoatService {
 
     }
 
+    public List<BoatDTO> searchClient(BoatDTO dto, String email) {
+        List<BoatDTO> ret = new ArrayList<>();
+        double rating = 0;
+        double price = 0;
+        try{
+            rating = Double.parseDouble(dto.getRating());
+        }catch (Exception e){
+            System.out.println("Error with parsing rating");
+        }
+        try{
+            price = Double.parseDouble(dto.getPrice());
+        }catch (Exception e){
+            System.out.println("Error with parsing price");
+        }
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+            BoatDTO boat = new BoatDTO(b);
+            boat.setIsSubscribed(clientService.checkBoatExistence(email, b.getId()));
+            if(checkBoatForSearch(b,dto,rating, price) && !b.isDeleted()){
+                ret.add(boat);}
+        }
+
+        return ret;
+    }
 }

@@ -40,8 +40,11 @@ export class AuthService {
         this.logged = true;
         this.access_token = res.accessToken;
         let decoded: any = jwt_decode(res.accessToken)
+        console.dir(res)
         localStorage.setItem("user", decoded.sub)
         localStorage.setItem("role", decoded.role)
+        localStorage.setItem("jwt", res.accessToken);
+        localStorage.setItem("refreshToken", res.expiresIn); 
       }));
   }
 

@@ -20,6 +20,7 @@ public class CottageDTO {
     private String price;
     private String coverImage;
     private int maximumPeople;
+    private Boolean isSubscribed;
 
     public  CottageDTO(Cottage c){
         this.id = c.getId();
