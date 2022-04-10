@@ -41,9 +41,7 @@ export class InstructorsComponent implements OnInit {
       price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
  
     })
-    this.adventureService.getAll().subscribe((data : any) => {
-      this.adventures = data;
-  }); 
+    this.clear();
     if(localStorage.getItem('user')){
       this.isClient = true;
     }
@@ -55,29 +53,66 @@ export class InstructorsComponent implements OnInit {
     this.searchDTO.rating = this.form.get('rating').value
     this.searchDTO.price = this.form.get('price').value 
     this.searchDTO.instructor = this.form.get('instructor').value
-    this.adventureService.search(this.searchDTO).subscribe((data : any) => { 
-      this.adventures = data; 
-    });
+
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.adventureService.searchClient(this.searchDTO).subscribe((data : any) => { 
+        this.adventures = data; 
+      });
+    }else{
+      this.adventureService.search(this.searchDTO).subscribe((data : any) => { 
+        this.adventures = data; 
+      });
+      
+    }
   }
 
   clear(){
     this.form.reset();
-    this.adventureService.getAll().subscribe((data : any) => {
-      this.adventures = data;
-    }); 
+    
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.adventureService.getAllClient().subscribe((data : any) => {
+        this.adventures = data;
+      });
+    } else{ 
+      this.adventureService.getAll().subscribe((data : any) => {
+        this.adventures = data;
+      }); 
+    }
   }
   
   details(){
 
   }
 
-  subscribe(id){ 
+  subscribe(id){  
+
     this.clientService.subscribeToAdventure(id, localStorage.getItem('user')).subscribe(
       (data) => {  
+        for(var v of this.adventures){
+          if(v.id === id){
+            v.isSubscribed = true;
+          }
+        }
         alert("Successfully subscribed") 
       },
       (err) => {  
         alert('Already subscribed!') 
       }) 
+  }
+
+  unsubscribe(id){  
+
+    this.clientService.unsubscribeFromAdventure(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        for(var v of this.adventures){
+          if(v.id === id){
+            v.isSubscribed = false;
+          }
+        }
+        alert("Successfully unsubscribed") 
+      },
+      (err) => {  
+        alert('Already unsubscribed!') 
+      })  
   }
 }

@@ -20,11 +20,7 @@ export class BoatService {
     } 
 
     getAllClient() {
-      return this.apiService.get(this.config.boat_url + '/client', {
-        headers: {
-          "Access-Control-Allow-Origin": this.config.client_url,
-          Authorization: "Bearer " + localStorage.refreshToken 
-        },})
+      return this.apiService.get(this.config.boat_url + `/client/${localStorage.getItem('user')}`)
         .pipe(map(boats => { 
           return boats;
         }));
@@ -32,7 +28,7 @@ export class BoatService {
     
     search(data:any){
     
-      return this.apiService.get(this.config.boat_url + `/search`)
+      return this.apiService.get(this.config.boat_url + `/search`, data)
         .pipe(map(boats => {   
           return boats;
         }));
@@ -41,12 +37,7 @@ export class BoatService {
     
     searchClient(data:any){
     
-      return this.apiService.get(this.config.boat_url + `/search/client`,{
-        headers: {
-          "data" : data,
-          "Access-Control-Allow-Origin": this.config.client_url,
-          Authorization: "Bearer " + localStorage.refreshToken 
-        },})
+      return this.apiService.get(this.config.boat_url + `/search/client/${localStorage.getItem('user')}`, data)
         .pipe(map(boats => {   
           return boats;
         }));

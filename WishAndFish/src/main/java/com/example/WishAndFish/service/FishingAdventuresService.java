@@ -1,6 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.FishingAdventure;
 import com.example.WishAndFish.repository.FishingAdventureRepository;
 import com.example.WishAndFish.repository.FishingInstructorRepository;
@@ -19,6 +21,9 @@ public class FishingAdventuresService {
 
     @Autowired
     private FishingInstructorRepository fishingInstructorRepository;
+
+    @Autowired
+    private ClientService clientService;
 
     public List<FishingAdventureDTO> findAll() {
 
@@ -71,5 +76,47 @@ public class FishingAdventuresService {
 
     private boolean checkPrice(Double adventure, Double search){
         return adventure <= search || adventure <= 0 || search == 0;
+    }
+
+    public List<FishingAdventureDTO> findAllClient(String email) {
+
+        List<FishingAdventureDTO> ret = new ArrayList<>();
+        for(FishingAdventure c : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+            FishingAdventureDTO adventure = new FishingAdventureDTO(c);
+            adventure.setIsSubscribed(clientService.checkAdventureExistence(email, c.getId()));
+            if(!c.isDeleted()){
+                ret.add(adventure);}
+
+        };
+
+        return ret;
+
+    }
+
+    public List<FishingAdventureDTO> searchClient(FishingAdventureDTO dto, String email) {
+
+        List<FishingAdventureDTO> ret = new ArrayList<>();
+        double rating = 0;
+        double price = 0;
+        try{
+            rating = Double.parseDouble(dto.getRating());
+        }catch (Exception e){
+            System.out.println("Error with parsing rating");
+        }
+        try{
+            price = Double.parseDouble(dto.getPrice());
+        }catch (Exception e){
+            System.out.println("Error with parsing price");
+        }
+        for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+            FishingAdventureDTO adventure = new FishingAdventureDTO(a);
+            adventure.setIsSubscribed(clientService.checkAdventureExistence(email, a.getId()));
+
+            if(checkAdventureForSearch(a,dto,rating, price) && !a.isDeleted()){
+                ret.add(adventure);}
+        }
+
+        return ret;
+
     }
 }

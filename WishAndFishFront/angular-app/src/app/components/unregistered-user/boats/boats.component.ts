@@ -104,17 +104,17 @@ export class BoatsComponent implements OnInit {
 
   unsubscribe(id){  
 
-    this.clientService.subscribeToBoat(id, localStorage.getItem('user')).subscribe(
+    this.clientService.unsubscribeFromBoat(id, localStorage.getItem('user')).subscribe(
       (data) => {  
         for(var v of this.boats){
           if(v.id === id){
-            v.isSubscribed = true;
+            v.isSubscribed = false;
           }
         }
-        alert("Successfully subscribed") 
+        alert("Successfully unsubscribed") 
       },
       (err) => {  
-        alert('Already subscribed!') 
+        alert('Already unsubscribed!') 
       }) 
   }
 

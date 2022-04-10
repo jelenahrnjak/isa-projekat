@@ -2,6 +2,7 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.SubscriptionDTO;
 import com.example.WishAndFish.dto.UserDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.ClientService;
@@ -38,6 +39,20 @@ public class ClientController {
         return new ResponseEntity<>("{\"text\": \"Unsuccessful subscription\"}", httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/unsubscribeFromCottage", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<String> unsubscribeFromCottage(@RequestBody SubscriptionDTO data) {
+
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        if (clientService.unsubscribeFromCottage(data.cottageId, data.userEmail)) {
+            return new ResponseEntity<>("{\"text\": \"Successfully subscribed\"}", httpHeaders, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("{\"text\": \"Unsuccessful subscription\"}", httpHeaders, HttpStatus.BAD_REQUEST);
+    }
+
     @RequestMapping(value = "/subscribeToBoat", method = RequestMethod.PUT)
     //@PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<String> subscribeToBoat(@RequestBody SubscriptionDTO data) {
@@ -46,6 +61,20 @@ public class ClientController {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         if (clientService.subscribeToBoat(data.boatId, data.userEmail)) {
+            return new ResponseEntity<>("{\"text\": \"Successfully subscribed\"}", httpHeaders, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("{\"text\": \"Unsuccessful subscription\"}", httpHeaders, HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/unsubscribeFromBoat", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<String> unsubscribeFromBoat(@RequestBody SubscriptionDTO data) {
+
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        if (clientService.unsubscribeFromBoat(data.boatId, data.userEmail)) {
             return new ResponseEntity<>("{\"text\": \"Successfully subscribed\"}", httpHeaders, HttpStatus.OK);
         }
 
@@ -67,11 +96,24 @@ public class ClientController {
         return new ResponseEntity<>("{\"text\": \"Unsuccessful subscription\"}", httpHeaders, HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/checkSubscription/{type}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/unsubscribeFromAdventure", method = RequestMethod.PUT,
+            produces = "application/json")
     //@PreAuthorize("hasRole('CLIENT')")
-    public boolean getUser(@RequestHeader("Authorization") String token, @PathVariable String type, Long id) {
+    public ResponseEntity<String> unsubscribeFromAdventure(@RequestBody SubscriptionDTO data) {
 
-        String email  = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        if (clientService.unsubscribeFromAdventure(data.adventureId, data.userEmail)) {
+            return new ResponseEntity<>("{\"text\": \"Successfully subscribed\"}", httpHeaders, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("{\"text\": \"Unsuccessful subscription\"}", httpHeaders, HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/checkSubscription/{type}/{id}/{email}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public boolean checkSubscription(@PathVariable String type,@PathVariable Long id,@PathVariable String email) {
 
         if (type.equals("boat")) {
             return clientService.checkBoatExistence(email, id);

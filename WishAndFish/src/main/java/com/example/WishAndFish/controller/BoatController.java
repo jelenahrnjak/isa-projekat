@@ -26,9 +26,8 @@ public class BoatController {
         return this.boatService.findAll();
     }
 
-    @RequestMapping(value="/client", method = RequestMethod.GET)
-    public List<BoatDTO> getAllClients(@RequestHeader("Authorization") String token) {
-        String email  = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+    @RequestMapping(value="/client/{email}", method = RequestMethod.GET)
+    public List<BoatDTO> getAllClients(@PathVariable String email) {
         return this.boatService.findAllClient(email);
     }
 
@@ -38,9 +37,8 @@ public class BoatController {
         return this.boatService.search(dto);
     }
 
-    @RequestMapping(value="/search/client", method = RequestMethod.GET)
-    public List<BoatDTO> searchClient(@RequestHeader("Authorization") String token,BoatDTO dto) {
-        String email  = tokenUtils.getEmailFromToken(token.split(" ")[1]);
+    @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
+    public List<BoatDTO> searchClient(@PathVariable String email, BoatDTO dto) {
         return this.boatService.searchClient(dto,email);
     }
 

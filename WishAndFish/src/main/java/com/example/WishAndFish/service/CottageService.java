@@ -116,7 +116,6 @@ public class CottageService {
     }
 
     public Cottage findCottage(Long id){
-        System.out.println("ISPISUJEM ID: " + id);
         return cottageRepository.findById(id).orElseGet(null);
     }
 

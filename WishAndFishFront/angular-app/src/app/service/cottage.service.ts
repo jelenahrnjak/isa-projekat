@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {ApiService} from './api.service';
 import {ConfigService} from './config.service';
 import {map} from 'rxjs/operators';   
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CottageService { 
+export class CottageService {
+
   constructor( 
     private apiService: ApiService,
     private config: ConfigService) { }
@@ -20,11 +21,7 @@ export class CottageService {
   } 
 
   getAllClient() {
-    return this.apiService.get(this.config.cottage_url + '/client', {
-      headers: {
-        "Access-Control-Allow-Origin": this.config.client_url,
-        Authorization: "Bearer " + localStorage.refreshToken 
-      },})
+    return this.apiService.get(this.config.cottage_url + `/client/${localStorage.getItem('user')}`)
       .pipe(map(cottages => { 
         return cottages;
       }));
@@ -37,6 +34,15 @@ export class CottageService {
         return cottages;
       }));
   }
+
+  searchClient(data: { name: string; address: string; rating: string; price: string; }) { 
+
+    return this.apiService.get(this.config.cottage_url + `/search/client/${localStorage.getItem('user')}` , data)
+    .pipe(map(cottages => {   
+      return cottages;
+    }));
+
+  } 
 
   addCottage(cottage) {
     return this.apiService.post(this.config.cottage_url + `/addCottage`, cottage)

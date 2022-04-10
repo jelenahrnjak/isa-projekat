@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { AuthService, UserService } from '../../../service';
+import { takeUntil } from 'rxjs/operators'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { CottageService } from 'src/app/service/cottage.service';
@@ -37,7 +36,8 @@ export class CottageComponent implements OnInit {
     private route: ActivatedRoute,
     private cottageService: CottageService,   
     private formBuilder: FormBuilder,
-    private clientService : ClientService) { }
+    private clientService : ClientService,
+    private router : Router) { }
 
   ngOnInit() {
     
@@ -71,13 +71,21 @@ export class CottageComponent implements OnInit {
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
     this.searchDTO.price = this.form.get('price').value 
-    this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
-      this.cottages = data; 
-    }); 
+
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.cottageService.searchClient(this.searchDTO).subscribe((data : any) => { 
+        this.cottages = data; 
+      });
+    }else{
+      this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
+        this.cottages = data; 
+      });
+    }
   }
 
   clear(){
     this.form.reset();
+    this.cottages = []
     if(localStorage.getItem('role') === 'CLIENT'){ 
       this.cottageService.getAllClient().subscribe((data : any) => {
         this.cottages = data;
@@ -88,10 +96,10 @@ export class CottageComponent implements OnInit {
         this.cottages = data;
       }); }
   }
-
-  details(){
-
-  }
+ 
+  details(id){
+    this.router.navigate(['/cottage-details/'+id]);
+  } 
 
   subscribe(id){ 
     this.clientService.subscribeToCottage(id, localStorage.getItem('user')).subscribe(
@@ -108,18 +116,19 @@ export class CottageComponent implements OnInit {
       }) 
   }
 
-  unsubscribe(id){ 
-    this.clientService.subscribeToCottage(id, localStorage.getItem('user')).subscribe(
+  unsubscribe(id){  
+    
+    this.clientService.unsubscribeFromCottage(id, localStorage.getItem('user')).subscribe(
       (data) => {  
         for(var v of this.cottages){
           if(v.id === id){
-            v.isSubscribed = true;
+            v.isSubscribed = false;
           }
         }
-        alert("Successfully subscribed") 
+        alert("Successfully unsubscribed") 
       },
       (err) => {  
-        alert('Already subscribed!') 
+        alert('Already unsubscribed!') 
       }) 
   }
 }
