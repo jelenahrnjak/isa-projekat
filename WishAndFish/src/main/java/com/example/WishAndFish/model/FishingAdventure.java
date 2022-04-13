@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -49,4 +51,5 @@ public class FishingAdventure {
 
     @Column(name="capacity", unique = false, nullable = false)
     private int capacity;
+
 }

@@ -10,6 +10,8 @@ import { Cottage } from 'src/app/model/cottage';
 import { SafeStyle,DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
+import { ClientService } from './../../../service/client.service'
+
 @Component({
   selector: 'app-cottage-details',
   templateUrl: './cottage-details.component.html',
@@ -27,6 +29,7 @@ export class CottageDetailsComponent implements OnInit {
   endDate: String | any;
   startTime: any;
   endTime: any;
+  userRole = localStorage.getItem('role');
 
 
   imageDto = {
@@ -62,7 +65,8 @@ todayDate:Date = new Date();
     private imageService: ImageService,
     private additionalService: AdditionalServicesService,
     private ruleService : RuleService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private clientService : ClientService,
     ) { }
 
   ngOnInit() {
@@ -89,6 +93,13 @@ todayDate:Date = new Date();
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
       });
+
+    
+    if(this.userRole === 'CLIENT'){
+      this.clientService.checkSubscription(this.id, 'cottage').subscribe((data:boolean) =>{
+        this.cottage.isSubscribed = data; 
+      })
+    }
   }
 
   
@@ -204,11 +215,41 @@ todayDate:Date = new Date();
       });
   }
    }
-
+  
   //  addAction(){
   //     this.router.navigate(['/add-action/'+this.id]);
 
   //  }
-    
   
+   ifOwner(){
+    if(this.userRole === 'COTTAGE_OWNER'){
+      return true;
+    }
+    return false;
+   }
+    
+   subscribe(){ 
+     console.log('uradio')
+
+      this.clientService.subscribeToCottage(this.id, localStorage.getItem('user')).subscribe(
+        (data) => {  
+          this.cottage.isSubscribed = true;
+          alert("Successfully subscribed") 
+        },
+        (err) => {  
+          alert('Already subscribed!') 
+        })  
+   }
+
+   unsubscribe(){ 
+    this.clientService.unsubscribeFromCottage(this.id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        this.cottage.isSubscribed = false;
+        alert("Successfully unsubscribed") 
+      },
+      (err) => {  
+        alert('Already unsubscribed!') 
+      })  
+   }
+
 }

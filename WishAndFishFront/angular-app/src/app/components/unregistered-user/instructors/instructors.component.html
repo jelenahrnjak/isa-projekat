@@ -39,7 +39,8 @@
                   <li style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
                   <li class="list-group-item">
                     <button class="small-btn" (click)="details(c.id)">Details</button>  
-                    <button *ngIf="isClient" class="small-btn" (click)="subscribe(c.id)">Subscribe</button>  
+                    <button *ngIf="isClient && !c.isSubscribed" class="small-btn" (click)="subscribe(c.id)">Subscribe</button>  
+                    <button *ngIf="isClient && c.isSubscribed" class="small-btn" (click)="unsubscribe(c.id)">Unsubscribe</button>  
                 </li> 
                 </ul>  
         </div>

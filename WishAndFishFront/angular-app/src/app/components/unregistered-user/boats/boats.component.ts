@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BoatService } from 'src/app/service/boat.service';
 import { Boat } from 'src/app/model/boat.model';
 import { ClientService } from 'src/app/service/client.service';
+import { clear } from 'console';
 
 @Component({
   selector: 'app-boats',
@@ -40,15 +41,8 @@ export class BoatsComponent implements OnInit {
       guests : [''] 
        
     })  
-    this.form.reset();
-    
-    this.boatService.getAll().subscribe((data : any) => {
-      for(var v of data){
-        v.isSubscribed = this.checkSubscription(v.id)
-        this.boats.push(v); 
-        console.dir(this.checkSubscription(v.id))
-      } 
-    }); 
+
+    this.clear();
 
     if(localStorage.getItem('user')){
       this.isClient = true;
@@ -61,37 +55,66 @@ export class BoatsComponent implements OnInit {
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
     this.searchDTO.price = this.form.get('price').value
-    this.boatService.search(this.searchDTO).subscribe((data : any) => { 
+
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.boatService.searchClient(this.searchDTO).subscribe((data : any) => { 
       this.boats = data; 
     }); 
+    }  else{ 
+      this.boatService.search(this.searchDTO).subscribe((data : any) => { 
+        this.boats = data; 
+      }); 
+    }
   }
 
   clear(){
     this.form.reset();
-    this.boatService.getAll().subscribe((data : any) => {
-      this.boats = data;
-    }); 
-  }
+  
+    if(localStorage.getItem('role') === 'CLIENT'){ 
+      this.boatService.getAllClient().subscribe((data : any) => {
+        this.boats = data;
+      }); 
+    }else{
+      this.boatService.getAll().subscribe((data : any) => {
+        this.boats = data;
+      }); 
 
-  checkSubscription(boatId) : boolean { 
-    this.clientService.checkSubscription(boatId, "boat").subscribe((data : any) => {
-      return data;
-    }); 
-
-    return false;
-  }
+    }
+  }  
   
   details(){
 
   }
 
-  subscribe(id){ 
+  subscribe(id){  
+
     this.clientService.subscribeToBoat(id, localStorage.getItem('user')).subscribe(
       (data) => {  
+        for(var v of this.boats){
+          if(v.id === id){
+            v.isSubscribed = true;
+          }
+        }
         alert("Successfully subscribed") 
       },
       (err) => {  
         alert('Already subscribed!') 
+      }) 
+  }
+
+  unsubscribe(id){  
+
+    this.clientService.unsubscribeFromBoat(id, localStorage.getItem('user')).subscribe(
+      (data) => {  
+        for(var v of this.boats){
+          if(v.id === id){
+            v.isSubscribed = false;
+          }
+        }
+        alert("Successfully unsubscribed") 
+      },
+      (err) => {  
+        alert('Already unsubscribed!') 
       }) 
   }
 

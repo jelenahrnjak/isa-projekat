@@ -82,6 +82,7 @@ public class Boat {
     @Column(name = "deleted", unique = false, nullable = false)
     private boolean deleted;
 
+
     public Boat() {
         this.rating = 0;
         this.numberOfRatings = 0;
