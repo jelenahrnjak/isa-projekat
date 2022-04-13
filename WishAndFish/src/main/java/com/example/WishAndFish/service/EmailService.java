@@ -65,4 +65,17 @@ public class EmailService {
         helper.setText("Hello " + user.getName() + " " + user.getSurname() + text + declinedRegistration.getMessage(), true);
         javaMailSender.send(mail);
     }
+
+    public void sendEmailForNewAction(String userEmail, String cottageName) throws MessagingException {
+        String text = "<br>There is a new action in cottage:<br> !";
+        User user = userRepository.findByEmail(userEmail);
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail);
+        helper.setTo(userEmail);
+        helper.setFrom(env.getProperty("spring.mail.username"));
+        helper.setSubject("New action");
+        helper.setText("Hello " + user.getName() + " " + user.getSurname() + text + cottageName, true);
+        javaMailSender.send(mail);
+
+    }
 }

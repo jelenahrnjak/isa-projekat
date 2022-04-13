@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -42,7 +43,7 @@ public class AppointmentController {
 
     @RequestMapping(value="/addNewAction", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
-    public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) {
+    public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) throws MessagingException {
         System.out.println("ISPISUJEM PODATKE:" + dto);
         Appointment added = this.appointmentService.addNewAction(dto);
         if(added == null){

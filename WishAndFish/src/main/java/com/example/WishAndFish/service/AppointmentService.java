@@ -6,16 +6,15 @@ import com.example.WishAndFish.dto.AppointmentDTO;
 import com.example.WishAndFish.dto.AvailabilityDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Appointment;
+import com.example.WishAndFish.model.Client;
 import com.example.WishAndFish.model.Cottage;
-import com.example.WishAndFish.repository.AdditionalServiceRepository;
-import com.example.WishAndFish.repository.AddressRepository;
-import com.example.WishAndFish.repository.AppointmentRepository;
-import com.example.WishAndFish.repository.CottageRepository;
+import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +32,12 @@ public class AppointmentService {
 
     @Autowired
     private AdditionalServiceRepository additionalServiceRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
@@ -75,7 +80,7 @@ public class AppointmentService {
     }
 
 
-    public Appointment addNewAction(AddActionDTO dto){
+    public Appointment addNewAction(AddActionDTO dto) throws MessagingException {
         Appointment a = new Appointment();
         a.setIsAction(true);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -89,6 +94,14 @@ public class AppointmentService {
             a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
         }
         appointmentRepository.save(a);
+
+        for(Client c: clientRepository.findAll()){
+            for(Cottage cot: c.getCottageSubscriptions()){
+                if(dto.getId().equals(cot.getId())){
+                    emailService.sendEmailForNewAction(c.getEmail(), cot.getName());
+                }
+            }
+        }
 
         //TO DO: slanje mejlova!!
         return a;
