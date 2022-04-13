@@ -7,7 +7,7 @@
               <label style="margin-bottom: 10px;">Start date:</label>
               <mat-form-field class="row" appearance="fill" style="width: 100%;">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="startDate" name="startDate" >
+                <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="startDate" name="startDate" (dateChange)="selectStartDate($event)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker ></mat-datepicker>
             </mat-form-field>
@@ -16,7 +16,7 @@
               <label style="margin-bottom: 10px;">End date:</label>
               <mat-form-field class="row" appearance="fill" style="width: 100%;">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker1" [min]="todayDate" [(ngModel)]="endDate" name="endDate" >
+                <input matInput [matDatepicker]="picker1" [min]="startDate" [(ngModel)]="endDate" name="endDate" >
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1 ></mat-datepicker>
             </mat-form-field>
@@ -37,7 +37,7 @@
             style="font-weight: bold;"
             type="text"
             class="form-control"
-            [(ngModel)]="this.cottage.numberOfRooms" name="numberOfRooms"
+            [(ngModel)]="maxPersons" name="maxPersons"
     
             />
           </div>
@@ -47,7 +47,7 @@
               style="font-weight: bold;"
               type="text"
               class="form-control"
-              [(ngModel)]="this.cottage.bedsPerRoom" name="bedNumberPerRoom"
+              [(ngModel)]="price" name="price"
   
               />
           </div>

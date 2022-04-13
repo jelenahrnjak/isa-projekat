@@ -42,7 +42,7 @@ public class Appointment {
     @Column(name = "price", unique = false, nullable = true)
     private Double price;
 
-    @Column(name = "duration", unique = false, nullable = false)
+    @Column(name = "duration", unique = false, nullable = true) //obrisati
     private Duration duration;
 
     @Column(name = "reserved", unique = false, nullable = false)
@@ -69,7 +69,7 @@ public class Appointment {
     @JsonBackReference
     private FishingAdventure fishingAdventure;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
     private Set<AdditionalService> additionalServices = new HashSet<>();
 

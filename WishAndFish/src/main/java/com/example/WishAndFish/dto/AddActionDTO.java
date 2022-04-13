@@ -17,10 +17,10 @@ import java.util.List;
 public class AddActionDTO {
 
     private Long id;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private LocalDateTime expirationDate;
+    private String startDate;
+    private String endDate;
+    private String expirationDate;
     private Integer maxPersons;
     private Double price;
-    private List<AdditionalService> additionalServices;
+    private List<Long> additionalServices;
 }

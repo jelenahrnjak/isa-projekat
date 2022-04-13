@@ -7,6 +7,8 @@ import com.example.WishAndFish.dto.AvailabilityDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Appointment;
 import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.repository.AdditionalServiceRepository;
+import com.example.WishAndFish.repository.AddressRepository;
 import com.example.WishAndFish.repository.AppointmentRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class AppointmentService {
 
     @Autowired
     private CottageRepository cottageRepository;
+
+    @Autowired
+    private AdditionalServiceRepository additionalServiceRepository;
 
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
@@ -73,16 +78,19 @@ public class AppointmentService {
     public Appointment addNewAction(AddActionDTO dto){
         Appointment a = new Appointment();
         a.setIsAction(true);
-        a.setStartDate(dto.getStartDate());
-        a.setEndDate(dto.getEndDate());
-        a.setExpirationDate(dto.getExpirationDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        a.setStartDate(LocalDateTime.parse(dto.getStartDate(), formatter));
+        a.setEndDate(LocalDateTime.parse(dto.getEndDate(), formatter));
+        a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
         a.setPrice(dto.getPrice());
-        for(AdditionalService as: dto.getAdditionalServices()){
-            a.getAdditionalServices().add(as);
+        for(Long as: dto.getAdditionalServices()){
+            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
         }
+        appointmentRepository.save(a);
 
+        //TO DO: slanje mejlova!!
         return a;
     }
 }
