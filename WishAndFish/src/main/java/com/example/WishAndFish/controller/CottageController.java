@@ -1,5 +1,6 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.AddActionDTO;
 import com.example.WishAndFish.dto.AddCottageDTO;
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.CottageDTO;
@@ -76,3 +77,5 @@ public class CottageController {
     }
 
 }
+
+

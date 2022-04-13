@@ -1,98 +1,137 @@
 <div style="overflow: hidden"> 
 
-    <!--SideBar-->
-   <div class="sidebar-container">
-       <!-- <div class="sidebar-logo">
-           Home
-         </div> -->
-       <ul class="sidebar-navigation ">
-           <li>
-               <a class="sidebar-click" (click)="editInfo()">
-                   <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
-               </a>
-           </li>
-           <li>
-               <a class="sidebar-click" >
-                   <i class="fa fa-home" aria-hidden="true"></i> Edit availability
-               </a>
-           </li>
-           <li>
-               <a class="sidebar-click" (click)="showAppointments()">
-                   <i class="fa fa-home" aria-hidden="true"></i> Show appointments
-               </a>
-           </li>
-           <li>
-               <a class="sidebar-click">
-                   <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
-               </a>
-               </li>
-           <li>
-               <a class="sidebar-click">
-                   <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
-               </a>
-           </li>
-           <li>
-               <a class="sidebar-click">
-                   <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
-               </a>
-               </li>        
-           <li>
-               <a class="sidebar-click">
-                   <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
-               </a>
-           </li>       
-       </ul>
-   </div>
-<!--SideBar-->
+    <app-sidebar></app-sidebar>
 
+<div>
+    <button class="btn btn-primary" style="margin-left: 90%; margin-top: 1%;" data-toggle="modal" data-target="#action">Add action</button>
+</div>
 
-<div class="card-holder" style="margin-left: 200px;">
-<div class="row" style="margin: 20px; "> 
-        <div class="card" style="margin: 30px; " *ngFor="let a of appointments">
-            <ul class="list-group list-group-flush">
-              
-                <li style="height: 70px;" class="list-group-item">Duration: {{a.startDate}} - {{a.endDate}}</li>  
-
-                <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
-                <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
-                <li class="list-group-item">
-                    <button  class="btn btn-primary"  data-toggle="modal" data-target="#addService" (click)="findAdditionalService(a.id)">Additional services</button> 
-                    &nbsp;&nbsp;&nbsp;
+<div class="card-holder" style="margin-left: 205px;">
+    <div class="row" style="margin: 20px; "> 
+            <div class="card" style="margin: 29px; " *ngFor="let a of appointments">
+                <ul class="list-group list-group-flush">
                 
-                    <button  class="btn btn-primary" (click)="delete(a.id)">Delete</button> 
+                    <li style="height: 70px;" class="list-group-item">Duration: {{a.startDate}} - {{a.endDate}}</li>  
 
-                </li>
-            </ul> 
-           
-        </div>
+                    <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
+                    <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
+                    <li class="list-group-item">
+                        <button  class="btn-white btn-primary"  data-toggle="modal" data-target="#addService" (click)="findAdditionalService(a.id)">Additional services</button> 
+                        &nbsp;&nbsp;&nbsp;
+                    
+                        <button  class="btn-white btn-primary" (click)="delete(a.id)">Delete</button> 
+
+                    </li>
+                </ul> 
+            
+            </div>
+    </div>
 </div>
 
 
 
-<!-- Modal for adding new additional service -->
-<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Modal for adding new additional service -->
+    <div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add additional service</h5>
+            </div>
+            
+            <table class="table" style="margin-left: 10px; width: 470px;">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor = "let a of additionalServices">
+                    <td>{{a.name}}</td>
+                    <td>{{a.price}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal for cotage availability -->
+<div class="modal fade" id="action" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Add additional service</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Select cottage availability</h5>
         </div>
            
-        <table class="table" style="margin-left: 10px; width: 470px;">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor = "let a of additionalServices">
-                <td>{{a.name}}</td>
-                <td>{{a.price}}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div  class="container"  style="margin-bottom: 3%; margin-top: 3%;">
+            <label style="margin-bottom: 10px; margin-left: 2%;">Start date:</label>
+            <mat-form-field appearance="fill" style="margin-left: 7%; width: 70%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="startDate" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field>
+
+            <br>
+            <label style="margin-bottom: 10px; margin-left: 2%;">End date:</label>
+            <mat-form-field appearance="fill" style="margin-left: 8.5%; width: 70%;">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker2" [min]="todayDate" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            
+            <br>
+            <label style="margin-bottom: 10px; margin-left: 2%;">Expiration date:</label>
+            <mat-form-field appearance="fill" style=" width: 70%;">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker1" [min]="todayDate" [(ngModel)]="newAction.expirationDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <div class="row">
+                <label style="margin-bottom: 10px; margin-left: 2%; width: 24.1%;">Max persons:</label>
+                <div class="col">
+                    <input type="text" id="form3Example1q" class="form-control" style="width: 93%;" [(ngModel)]="endTime"/>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <label class="col" style="margin-bottom: 10px; margin-left: 2%; max-width: 22%;">Price:</label>
+                <div class="col">
+                    <input type="text" id="form3Example1q" class="form-control" style="width: 93%;" [(ngModel)]="endTime"/>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <label class="col" style="margin-bottom: 10px; margin-left: 2%; max-width: 31.1%;">Additional service:</label>
+                <!-- <div class="col">
+                    <select style="width: 93%;"  class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select> 
+               </div> -->
+               <button type="button" class="btn btn-primary" style="max-width: 60%; margin-right: 2%;">Select</button>
+
+            </div>
+
+
+        </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="addAction()">Save changes</button>
         </div>
     </div>
     </div>

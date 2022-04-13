@@ -71,5 +71,7 @@ export class CottageService {
       console.log('Editing cottage success');
     }));
   }
+
+ 
  
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService, ConfigService } from '.';
 import {map} from 'rxjs/operators';   
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,17 @@ export class AppointmentService {
     .pipe(map((appointment) => {
       console.log('Creating appointment success:');
     }));  
+  }
+
+  addNewAction(dto){
+    console.log("evo me ")
+    const loginHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this.apiService.post(this.config.appointment_url + `/addNewAction`, JSON.stringify(dto), loginHeaders)
+    .pipe(map(() => {
+      console.log('Adding action success');
+    }));
   }
 }

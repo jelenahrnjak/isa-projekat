@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "appointments")
@@ -33,13 +32,17 @@ public class Appointment {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime endDate;
 
+    @Column(name = "expiration_date", unique = false, nullable = true)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime expirationDate;
+
     @Column(name = "max_persons", unique = false, nullable = true)
     private Integer maxPersons;
 
     @Column(name = "price", unique = false, nullable = true)
     private Double price;
 
-    @Column(name = "duration", unique = false, nullable = false)
+    @Column(name = "duration", unique = false, nullable = true) //obrisati
     private Duration duration;
 
     @Column(name = "reserved", unique = false, nullable = false)
@@ -66,7 +69,7 @@ public class Appointment {
     @JsonBackReference
     private FishingAdventure fishingAdventure;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JsonManagedReference
     private Set<AdditionalService> additionalServices = new HashSet<>();
 
@@ -84,4 +87,8 @@ public class Appointment {
         this.cottage = cottage;
     }
 
+    public Appointment(){
+        this.setDeleted(false);
+        this.setReserved(false);
+    }
 }

@@ -57,12 +57,6 @@
     to {bottom: 200; opacity: 0;}
   }
   
-  @font-face {
-    font-family: "Poppins-Regular";
-    src: url("../../../../assets/fonts/poppins/Poppins-Regular.ttf"); }
-  @font-face {
-    font-family: "Poppins-SemiBold";
-    src: url("../../../../assets/fonts/poppins/Poppins-SemiBold.ttf"); }
   * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -73,13 +67,11 @@
   }
   
   body {
-    font-family: "Poppins-Regular";
     color: #333;
     font-size: 13px;
     margin: 0; }
   
   input, textarea, select, button {
-    font-family: "Poppins-Regular";
     color: #333;
     font-size: 13px; }
   
@@ -147,7 +139,6 @@
     .inner h3 {
       text-transform: uppercase;
       font-size: 25px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 28px; }
   
@@ -168,7 +159,6 @@
     .navigacija h3 {
       text-transform: uppercase;
       font-size: 25px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 28px; }
   
@@ -200,19 +190,18 @@
     .form-control::-webkit-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
     .form-control::-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-ms-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; 
   }
   
   .form-control {
@@ -228,19 +217,19 @@
     .form-control::-webkit-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control::-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-ms-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
   
 
 
@@ -366,19 +355,18 @@
     .form-control::-webkit-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
     .form-control::-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
     .form-control:-ms-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
     .form-control:-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; 
   }
   .form-control1 {
     border: 1px solid #333;
@@ -393,19 +381,19 @@
     .form-control::-webkit-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
     .form-control::-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-ms-input-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+     }
     .form-control:-moz-placeholder {
       font-size: 13px;
       color: #333;
-      font-family: "Poppins-Regular"; }
+    }
   .dugme1 {
     border: 1px solid #333;
     background: white;
@@ -503,7 +491,6 @@
    .inner1 h3 {
       text-transform: uppercase;
       font-size: 25px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 28px; }
   
@@ -606,7 +593,6 @@
     .izmena h3 {
       text-transform: uppercase;
       font-size: 25px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 20px; }
   
@@ -630,12 +616,10 @@
     .korpa h3 {
       text-transform: uppercase;
       font-size: 25px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 20px; }
       .korpa h4 {
       font-size: 20px;
-      font-family: "Poppins-SemiBold";
       text-align: center;
       margin-bottom: 20px; }
       

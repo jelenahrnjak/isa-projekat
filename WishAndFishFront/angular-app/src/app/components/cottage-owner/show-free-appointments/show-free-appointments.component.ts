@@ -15,6 +15,23 @@ export class ShowFreeAppointmentsComponent implements OnInit {
   date: any;
   additionalServices = [];
 
+  startDate: any;
+  endDate: any;
+  expirationDate: any;
+  maxPersons: any;
+  price: any;
+
+  newAction = {
+    "id": "",
+    "startDate" : "",
+    "endDate": "",
+    "expirationDate": "",
+    "maxPersons": "",
+    "price": ""
+
+
+  }
+
   constructor(private route: ActivatedRoute,
     private appointmentService: AppointmentService,
     public datepipe: DatePipe,
@@ -50,6 +67,11 @@ export class ShowFreeAppointmentsComponent implements OnInit {
         console.log(this.additionalServices)
         });
   
+    }
+
+
+    addAction(){
+    
     }
   
 }

@@ -1,49 +1,6 @@
-<div style="overflow: hidden">  
- <!--SideBar-->
-<div class="sidebar-container" *ngIf="ifOwner()">
-    <!-- <div class="sidebar-logo">
-        Home
-      </div> -->
-    <ul class="sidebar-navigation ">
-        <li>
-            <a class="sidebar-click" (click)="editInfo()">
-                <i class="fa fa-home" aria-hidden="true"></i> Edit basic info
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click" data-toggle="modal" data-target="#availability">
-                <i class="fa fa-home" aria-hidden="true"></i> Select availability
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click" (click)="showAppointments()">
-                <i class="fa fa-home" aria-hidden="true"></i> Show appointments
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new reservation
-            </a>
-            </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Add new action
-            </a>
-        </li>
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-tachometer" aria-hidden="true"></i> Reservation history
-            </a>
-            </li>        
-        <li>
-            <a class="sidebar-click">
-                <i class="fa fa-cog" aria-hidden="true"></i> Cottage report
-            </a>
-        </li>       
-    </ul>
-</div>
+<div style="overflow: hidden"> 
 
-<!-- <div *ngIf="mainInfo"> -->
+ <app-sidebar></app-sidebar>
 
 <div>
     <!-- Background image -->
@@ -64,9 +21,7 @@
 <!-- Cards -->
 <div style="margin-left: 220px; margin-top: 20px;" class="container">
 
-    <!-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top:20px; margin-left: 1130px;">
-        <a class="btn btn-primary btn-sm px-4 me-sm-3" style="width: 90px;" href="#">Edit</a> 
-    </div> -->
+
 
     <div class="row">
         <div class="card1">
@@ -129,12 +84,6 @@
         </div>
     </div>
 
-    <!-- <div class="row text-center text-lg-start">
-      <div *ngFor="let img of cottage.images;" class="col-lg-3 col-md-4 col-6" style="width: 395px;height: 220px; margin-right: 45px; margin-bottom: 40px;">
-          <img class="img-fluid img-thumbnail" src="assets/Images/{{img.path}}" alt="" >
-      </div>    
-    </div> -->
-
     <!-- Carousel -->
     <div>
         <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel">
@@ -182,6 +131,7 @@
         <hr class="mt-2 mb-5">
 
         <table class="table" style="width: 590px;">
+            
             <thead>
                 <tr>
                     <th scope="col" style="width: 45%;">Name</th>

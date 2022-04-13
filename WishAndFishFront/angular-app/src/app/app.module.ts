@@ -44,6 +44,8 @@ import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-c
 import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
 import { DatePipe } from '@angular/common';
 import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
+import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
+import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { AppoitmentSearchComponent } from './components/client/appoitment-search
     CottageOptionsMenuComponent,
     EditCottageBasicInfoComponent,
     ShowFreeAppointmentsComponent,
-    AppoitmentSearchComponent, 
+    AppoitmentSearchComponent,
+    AddActionComponent,
+    SidebarComponent, 
   ],
   imports: [
     BrowserModule,
