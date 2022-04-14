@@ -7,6 +7,7 @@ import { CottageService } from './../../../service/cottage.service';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-action',
@@ -25,8 +26,11 @@ export class AddActionComponent implements OnInit {
   startDate: any;
   endDate: any;
   expirationDate: any;
-  maxPersons: any;
-  price: any;
+  maxPersons: string;
+  price: string;
+  error: boolean = false
+
+  
 
   constructor(private formBuilder: FormBuilder,
     private cottageService: CottageService,
@@ -74,18 +78,46 @@ export class AddActionComponent implements OnInit {
   //   this.router.navigate(['/cottage-details/' + this.id]);
   // });
   
-  var dto = {
-    "id": this.id,
-    "startDate": formatDate(this.startDate,'dd/MM/yyyy HH:mm','en_US'),
-    "endDate": formatDate(this.endDate,'dd/MM/yyyy HH:mm','en_US'),
-    "expirationDate": formatDate(this.expirationDate,'dd/MM/yyyy HH:mm','en_US'),
-    "maxPersons": this.maxPersons,
-    "price": this.price,
-    "additionalServices": this.selectedServices
+  
+  var letters = /[a-zA-Z]/;
+  var numbers = /[0-9]/;
+
+   if(this.price == undefined || this.maxPersons == undefined || this.startDate == undefined || this.endDate == undefined || this.expirationDate == undefined){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Fill all field!',
+    })
+     this.error = true;
+   }
+   else if(letters.test(this.price) || letters.test(this.maxPersons)){
+    this.error = true;
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Max persons and price should not contain letters!',
+    })    
+
+  }else{
+    this.error = false;
   }
-  this.appointmentService.addNewAction(dto).subscribe((data) =>{
-  });      
-  // this.router.navigate(['/show-free-appointments/'+this.id]);
+
+
+  if(!this.error){
+    var dto = {
+      "id": this.id,
+      "startDate": formatDate(this.startDate,'dd/MM/yyyy HH:mm','en_US'),
+      "endDate": formatDate(this.endDate,'dd/MM/yyyy HH:mm','en_US'),
+      "expirationDate": formatDate(this.expirationDate,'dd/MM/yyyy HH:mm','en_US'),
+      "maxPersons": this.maxPersons,
+      "price": this.price,
+      "additionalServices": this.selectedServices
+    }
+    this.appointmentService.addNewAction(dto).subscribe((data) =>{
+    });      
+    this.router.navigate(['/show-free-appointments/'+this.id]);
+  }
+
 }
 
 
