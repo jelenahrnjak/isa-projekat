@@ -79,7 +79,7 @@
                             </mat-form-field> 
                         </div> 
                 </div>
-                <div class="col-6 col-md-3" *ngIf="!deleting">  
+                <div class="col-6 col-md-3" *ngIf="!deleting  && isClient()">  
                     <br><br><br><br><br>
                     <p>You are currently a {{program}} member. <br></p>
                     <p>Discount you get: {{discount}}%<br></p>
