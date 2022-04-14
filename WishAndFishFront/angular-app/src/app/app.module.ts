@@ -46,6 +46,7 @@ import { DatePipe } from '@angular/common';
 import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.component';
+import { NewReservationComponent } from './components/cottage-owner/new-reservation/new-reservation.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.com
     ShowFreeAppointmentsComponent,
     AppoitmentSearchComponent,
     AddActionComponent,
-    SidebarComponent, 
+    SidebarComponent,
+    NewReservationComponent, 
   ],
   imports: [
     BrowserModule,
