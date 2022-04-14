@@ -164,4 +164,12 @@ export class UserProfileComponent implements OnInit {
   deletingChange(){
     this.deleting = !this.deleting
   }
+
+  isClient() {
+    let role = localStorage.getItem("role");
+    if (role == "CLIENT"){
+      return true;
+    }
+    return false;
+  }
 }
