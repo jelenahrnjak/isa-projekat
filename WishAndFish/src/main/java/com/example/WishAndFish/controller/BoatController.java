@@ -2,9 +2,12 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.AddBoatDTO;
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.BoatDetailDTO;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +55,18 @@ public class BoatController {
     //@PreAuthorize("hasRole('BOAT_OWNER')")
     public ResponseEntity<Long> deleteBoat(@PathVariable Long id) {
         return this.boatService.deleteBoat(id);
+    }
+
+
+    @RequestMapping(value = "/findBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<BoatDetailDTO> findBoat(@PathVariable Long id) {
+        BoatDetailDTO b = this.boatService.findBoat(id);
+
+        if(b != null){
+            return new ResponseEntity<>(b, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

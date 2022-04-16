@@ -82,4 +82,8 @@ export class MyBoatsComponent implements OnInit {
       });
     }
 
+  details(id){
+    this.router.navigate(['boat-details/' + id])
+  }
+
 }

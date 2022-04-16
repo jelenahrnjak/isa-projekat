@@ -1,7 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.AddBoatDTO;
-import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.BoatOwnerRepository;
 import com.example.WishAndFish.repository.BoatRepository;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -162,4 +162,50 @@ public class BoatService {
 
         return ret;
     }
+
+    public BoatDetailDTO findBoat(Long id){
+        Boat b = boatRepository.findById(id).orElseGet(null);
+        BoatDetailDTO boat = new BoatDetailDTO(b);
+
+        AddressDTO address = new AddressDTO(b.getAddress());
+        boat.setAddress(address);
+
+        List<ImageDTO> images = new ArrayList<>();
+        for(Image i: b.getImages()){
+            ImageDTO image = new ImageDTO(i);
+            images.add(image);
+        }
+        boat.setImages(images);
+
+        List<RuleDTO> rules = new ArrayList<>();
+        for(Rule r: b.getRules()){
+            RuleDTO rule = new RuleDTO(r);
+            rules.add(rule);
+        }
+        boat.setRules(rules);
+
+        List<NavigationEquipmentDTO> navigationEquipments = new ArrayList<>();
+        for(NavigationEquipment n: b.getNavigationEquipments()){
+            NavigationEquipmentDTO navigationEquipment = new NavigationEquipmentDTO(n);
+            navigationEquipments.add(navigationEquipment);
+        }
+        boat.setNavigationEquipments(navigationEquipments);
+
+        List<FishingEquipmentDTO> fishingEquipments = new ArrayList<>();
+        for(FishingEquipment f: b.getFishingEquipments()){
+            FishingEquipmentDTO fishingEquipment = new FishingEquipmentDTO(f);
+            fishingEquipments.add(fishingEquipment);
+        }
+        boat.setFishingEquipments(fishingEquipments);
+
+        List<CancellationCondiionsDTO> cancellationConditions = new ArrayList<>();
+        for(CancellationConditions c: b.getCancellationConditions()){
+            CancellationCondiionsDTO cancellationCondition = new CancellationCondiionsDTO(c);
+            cancellationConditions.add(cancellationCondition);
+        }
+        boat.setCancellationConditions(cancellationConditions);
+
+        return boat;
+    }
+
 }

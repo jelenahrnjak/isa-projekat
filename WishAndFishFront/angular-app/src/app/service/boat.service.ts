@@ -58,4 +58,11 @@ export class BoatService {
       console.log('Deleting boat success');
     }));   
   }
+
+  findBoat(id) {
+    return this.apiService.get(this.config.boat_url+ `/findBoat/${id}`, id)
+    .pipe(map(cottage => {
+      return cottage;
+    }));   
+  }
 }

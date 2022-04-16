@@ -1,5 +1,6 @@
 package com.example.WishAndFish.model;
 
+import com.example.WishAndFish.dto.BoatDetailDTO;
 import lombok.Getter;
 import lombok.Setter;
 
