@@ -76,3 +76,34 @@
     border-radius: 10px
         }
      /* cards with info */ 
+
+
+      /*carousel image size*/
+   .w-100 {
+    width: 99.4% !important;
+    height: 85vh;
+  }
+
+  .dlt-img-btn {
+    position: absolute;
+    top: 4%;
+    right: -2.6%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+
+
+  .buttons-wrapper {
+    position: relative;
+  }
+
+  input:invalid {
+    color: red;
+  }
+ 
+
+  ::ng-deep .cdk-overlay-container {     z-index:2000; }

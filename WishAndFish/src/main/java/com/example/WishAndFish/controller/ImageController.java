@@ -37,4 +37,10 @@ public class ImageController {
     public ResponseEntity<Long> deleteImage(@PathVariable String path) {
         return this.imageService.deleteImage(path);
     }
+
+    @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public List<ImageDTO> getAllByBoat(@PathVariable Long id) {
+        return this.imageService.getAllByBoat(id);
+    }
 }

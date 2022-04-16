@@ -52,7 +52,19 @@ public class ImageService {
 
         List<ImageDTO> ret = new ArrayList<>();
         for(Image i : imageRepository.findAll()){
-            if(id.equals(i.getCottage().getId()) && !i.isDeleted()){
+            if(i.getCottage() != null && id.equals(i.getCottage().getId()) && !i.isDeleted()){
+                ret.add(new ImageDTO(i));
+            }
+        };
+        return ret;
+    }
+
+
+    public List<ImageDTO> getAllByBoat(Long id) {
+
+        List<ImageDTO> ret = new ArrayList<>();
+        for(Image i : imageRepository.findAll()){
+            if(i.getBoat() != null && id.equals(i.getBoat().getId()) && !i.isDeleted()){
                 ret.add(new ImageDTO(i));
             }
         };

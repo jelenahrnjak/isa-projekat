@@ -21,7 +21,7 @@
             <!-- Background image -->
         </div>
 
-
+        <!-- Cards -->
         <div>
             <div class="row">
                 <div class="card1">
@@ -68,6 +68,68 @@
             </div> 
         </div>
         <!-- Cards -->
+    <!-- Gallery -->
+    <div class="container" style="margin-left: 0.7%; max-width: 100%;">
+        
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0">{{boat.name}} Gallery</h1>
+        <hr class="mt-2 mb-5">
+
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top: -20px; margin-left: 90%; margin-bottom: 20px;">
+            <!-- Button trigger modal -->
+            <button *ngIf="ifOwner()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Add photo
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add photo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" (change)="selectImage($event)">
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addImage()" data-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel -->
+        <div>
+            <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel">
+                <div class="carousel-inner" >
+                    <div class="carousel-item active">
+                        <img src= "assets/Images/{{boat.coverImage}}" class="d-block w-100" alt="...">
+                        <!-- <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(cottage.coverImage)>Delete photo</button> -->
+                    </div>
+
+                    
+                    <div class="carousel-item"  *ngFor="let img of images;">
+                        <img src="assets/Images/{{img.path}}" class="d-block w-100" alt="...">
+                        <!-- <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(img.path)>Delete photo</button> -->
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev"  type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" style="top: 50px;" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- Carousel -->
+
+    </div>
+    <!-- Gallery -->
+
 
     </div>
 

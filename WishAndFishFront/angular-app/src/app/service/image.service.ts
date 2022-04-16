@@ -30,6 +30,14 @@ export class ImageService {
     return this.apiService.get(this.config.image_url + `/getAllByCottage/${id}`, id)
     .pipe(map(images => {
       return images;
-    }));   
+    })); 
+  }
+
+
+  findImagesBoat(id) {
+    return this.apiService.get(this.config.image_url + `/getAllByBoat/${id}`, id)
+    .pipe(map(images => {
+      return images;
+    })); 
   }
 }

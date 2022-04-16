@@ -20,6 +20,8 @@ export class BoatDetailsComponent implements OnInit {
   id: any
   boat: Boat = new Boat()
   userImage: SafeStyle;
+  images: any;
+  userRole = localStorage.getItem('role');
 
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
@@ -41,6 +43,20 @@ export class BoatDetailsComponent implements OnInit {
       this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
       console.log(this.boat)
     });
+
+
+    this.imageService.findImagesBoat(this.id).subscribe((data : any) => {
+      this.images = data;
+      });
   }
+
+
+  
+  ifOwner(){
+    if(this.userRole === 'BOAT_OWNER'){
+      return true;
+    }
+    return false;
+   }
 
 }
