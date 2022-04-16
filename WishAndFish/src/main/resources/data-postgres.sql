@@ -166,8 +166,8 @@ INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (670, 'boat-adding.jpg', 125, null, false);
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
-	VALUES (671, 'avanture1.jpg', 125, null, false);
+	VALUES (671, 'adventure1.jpg', 125, null, false);
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
-	VALUES (672, 'avanture2.jpg', 125, null, false);
+	VALUES (672, 'adventure2.jpg', 125, null, false);
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (673, 'boat2.jpg', 125, null, false);

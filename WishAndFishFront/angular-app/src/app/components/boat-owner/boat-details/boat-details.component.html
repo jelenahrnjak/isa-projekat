@@ -105,13 +105,13 @@
                 <div class="carousel-inner" >
                     <div class="carousel-item active">
                         <img src= "assets/Images/{{boat.coverImage}}" class="d-block w-100" alt="...">
-                        <!-- <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(cottage.coverImage)>Delete photo</button> -->
+                        <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(boat.coverImage)>Delete photo</button>
                     </div>
 
                     
                     <div class="carousel-item"  *ngFor="let img of images;">
                         <img src="assets/Images/{{img.path}}" class="d-block w-100" alt="...">
-                        <!-- <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(img.path)>Delete photo</button> -->
+                        <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(img.path)>Delete photo</button>
                     </div>
                 </div>
 

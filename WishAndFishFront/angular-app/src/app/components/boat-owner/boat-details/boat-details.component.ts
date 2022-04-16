@@ -59,4 +59,15 @@ export class BoatDetailsComponent implements OnInit {
     return false;
    }
 
+   deleteImage(path){
+    console.log(path)
+
+    this.imageService.deleteImage(path)
+    .subscribe(data => {
+      console.log(data)
+      
+      window.location.reload();
+    });
+    }
+
 }
