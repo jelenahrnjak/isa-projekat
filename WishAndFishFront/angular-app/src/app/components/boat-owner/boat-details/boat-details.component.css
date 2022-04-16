@@ -30,3 +30,49 @@
   }
 
 /* background-image */
+
+
+/* cards with info */
+.card1 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    /* margin-right: 1ch; */
+    margin-left: 1.8vw;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+     }
+  
+  
+  .card2 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    margin-right: 1ch;
+    margin-left: 4.8%;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+     }
+
+    .card4 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    /* margin-right: 2%; */
+    margin-left: 4.8%;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+        }
+     /* cards with info */ 
