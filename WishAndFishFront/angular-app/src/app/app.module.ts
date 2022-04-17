@@ -49,6 +49,7 @@ import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.com
 import { NewReservationComponent } from './components/cottage-owner/new-reservation/new-reservation.component';
 import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
 import { BoatSidebarComponent } from './components/boat-owner/boat-sidebar/boat-sidebar.component';
+import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { BoatSidebarComponent } from './components/boat-owner/boat-sidebar/boat-
     SidebarComponent,
     NewReservationComponent,
     BoatDetailsComponent,
-    BoatSidebarComponent, 
+    BoatSidebarComponent,
+    AddBoatActionComponent, 
   ],
   imports: [
     BrowserModule,

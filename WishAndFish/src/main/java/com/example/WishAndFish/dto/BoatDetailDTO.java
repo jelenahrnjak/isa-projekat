@@ -34,7 +34,7 @@ public class BoatDetailDTO {
     private Double pricePerHour;
     private List<NavigationEquipmentDTO> navigationEquipments = new ArrayList<>();
     private List<FishingEquipmentDTO> fishingEquipments = new ArrayList<>();
-    private List<CancellationCondiionsDTO> cancellationConditions = new ArrayList<>();
+    private String cancellationConditions;
     private String coverImage;
     private int numberOfRatings;
     private double rating;
@@ -57,6 +57,7 @@ public class BoatDetailDTO {
         this.numberOfRatings = b.getNumberOfRatings();
         this.rating = b.getRating();
         this.deleted = b.isDeleted();
+        this.cancellationConditions = b.getCancellationConditions();
     }
 
 }

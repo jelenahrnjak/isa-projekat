@@ -109,6 +109,7 @@ public class BoatService {
 
         Boat boat = new Boat(newBoat.getName(),newBoat.getType(),newBoat.getLength(),newBoat.getEngineNumber(), newBoat.getEnginePower(), newBoat.getMaxSpeed(), address,
                 newBoat.getDescription(),newBoat.getCapacity(), newBoat.getPricePerHour());
+        boat.setCancellationConditions(newBoat.getCancellationConditions());
         User user = this.userRepository.findByEmail(newBoat.getOwnerEmail());
 
         for(BoatOwner b: this.boatOwnerRepository.findAll()){
@@ -198,12 +199,6 @@ public class BoatService {
         }
         boat.setFishingEquipments(fishingEquipments);
 
-        List<CancellationCondiionsDTO> cancellationConditions = new ArrayList<>();
-        for(CancellationConditions c: b.getCancellationConditions()){
-            CancellationCondiionsDTO cancellationCondition = new CancellationCondiionsDTO(c);
-            cancellationConditions.add(cancellationCondition);
-        }
-        boat.setCancellationConditions(cancellationConditions);
 
         return boat;
     }

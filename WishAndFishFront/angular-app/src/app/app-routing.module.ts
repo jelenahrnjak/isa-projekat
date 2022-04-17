@@ -1,3 +1,4 @@
+import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
@@ -118,6 +119,11 @@ const routes: Routes = [
   {
     path:'boat-details/:id',
     component: BoatDetailsComponent,
+  },
+
+  {
+    path:'add-boat-action/:id',
+    component: AddBoatActionComponent,
   }
 
 ];

@@ -23,7 +23,7 @@ public class AddBoatDTO {
     private Integer capacity;
     private Double pricePerHour;
     private String ownerEmail;
-
+    private String cancellationConditions;
 
 
 }
