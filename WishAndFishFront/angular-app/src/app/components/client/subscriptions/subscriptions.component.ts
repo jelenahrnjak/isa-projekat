@@ -95,6 +95,7 @@ export class SubscriptionsComponent implements OnInit {
       (data) => {       
         this.clientService.getAdventureSubscriptions().subscribe((data : any) => {
         this.adventures = data; 
+      }); 
   
         alert("Successfully unsubscribed")  
       },
