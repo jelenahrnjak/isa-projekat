@@ -1,12 +1,15 @@
 package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,14 +38,20 @@ public class AdditionalService {
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "appointment_id", nullable = true)
+    @JoinColumn(name = "boat_id", nullable = true)
     @JsonBackReference
-    private Appointment appointment;
+    private Boat boat;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "appointment_additional_services",
-//            joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
-//    private Set<Appointment> appointments = new HashSet<Appointment>();
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "appointment_id", nullable = true)
+//    @JsonBackReference
+//    private Appointment appointment;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "appointment_additional_services",
+            joinColumns = @JoinColumn(name = "additional_service_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
+    @JsonIgnore
+    private Set<Appointment> appointments = new HashSet<>();
 
 }

@@ -1,0 +1,109 @@
+/*background-image */
+
+.background-image{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.7;
+    height: 565px; 
+    /* width: 82.6%; */
+    background-repeat: no-repeat;
+    background-size: 98.5% 565px;
+    margin-left: 27ch;
+
+  }
+
+  .background-image-text{
+    font-size: 6ch;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+
+  .background-image-color{
+    align-items: center;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0)
+  }
+
+/* background-image */
+
+
+/* cards with info */
+.card1 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    /* margin-right: 1ch; */
+    margin-left: 1.8vw;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+     }
+  
+  
+  .card2 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    margin-right: 1ch;
+    margin-left: 4.8%;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+     }
+
+    .card4 {
+    z-index:1;
+    padding: 20px;
+    background:  #3f51b5;
+    margin-bottom: 1ch;
+    margin-top: 1ch;
+    /* margin-right: 2%; */
+    margin-left: 4.8%;
+    display: flex;
+    width: 20%;
+    height: 24ch;
+    border-radius: 10px
+        }
+     /* cards with info */ 
+
+
+      /*carousel image size*/
+   .w-100 {
+    width: 99.4% !important;
+    height: 85vh;
+  }
+
+  .dlt-img-btn {
+    position: absolute;
+    top: 4%;
+    right: -2.6%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+
+
+  .buttons-wrapper {
+    position: relative;
+  }
+
+  input:invalid {
+    color: red;
+  }
+ 
+
+  ::ng-deep .cdk-overlay-container {     z-index:2000; }

@@ -6,6 +6,7 @@ import com.example.WishAndFish.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,25 @@ public class ImageController {
         return this.imageService.addImage(dto);
     }
 
+    @RequestMapping(value="/addImageBoat", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<String> addImageBoat(@RequestBody AddCottageImageDTO dto) {
+        String path =  this.imageService.addImageBoat(dto);
+        if(path != null){
+            return new ResponseEntity<>(path, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @DeleteMapping(value="/deleteImage/{path}")
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteImage(@PathVariable String path) {
         return this.imageService.deleteImage(path);
+    }
+
+    @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public List<ImageDTO> getAllByBoat(@PathVariable Long id) {
+        return this.imageService.getAllByBoat(id);
     }
 }

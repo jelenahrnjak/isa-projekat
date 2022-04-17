@@ -4,10 +4,7 @@ import com.example.WishAndFish.dto.AddActionDTO;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.AppointmentDTO;
 import com.example.WishAndFish.dto.AvailabilityDTO;
-import com.example.WishAndFish.model.AdditionalService;
-import com.example.WishAndFish.model.Appointment;
-import com.example.WishAndFish.model.Client;
-import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,11 +36,28 @@ public class AppointmentService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    BoatRepository boatRepository;
+
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
-            if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
-                ret.add(new AppointmentDTO(as));
+            if(as.getCottage() != null){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                    ret.add(new AppointmentDTO(as));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public List<AppointmentDTO> getAllByBoat(Long id){
+        List<AppointmentDTO> ret = new ArrayList<>();
+        for(Appointment as: appointmentRepository.findAll()){
+            if(as.getBoat() != null){
+                if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                    ret.add(new AppointmentDTO(as));
+                }
             }
         }
         return ret;
@@ -90,10 +104,15 @@ public class AppointmentService {
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
         a.setPrice(dto.getPrice());
-        for(Long as: dto.getAdditionalServices()){
-            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-        }
         appointmentRepository.save(a);
+
+        for(Long as: dto.getAdditionalServices()){
+            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+            add.getAppointments().add(a);
+            additionalServiceRepository.save(add);
+            //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+        }
+//        appointmentRepository.save(a);
 
         for(Client c: clientRepository.findAll()){
             for(Cottage cot: c.getCottageSubscriptions()){
@@ -102,8 +121,40 @@ public class AppointmentService {
                 }
             }
         }
+        return a;
+    }
 
-        //TO DO: slanje mejlova!!
+
+
+    public Appointment addNewActionBoat(AddActionDTO dto) throws MessagingException {
+        Appointment a = new Appointment();
+        a.setIsAction(true);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        a.setStartDate(LocalDateTime.parse(dto.getStartDate(), formatter));
+        a.setEndDate(LocalDateTime.parse(dto.getEndDate(), formatter));
+        a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
+        a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
+        a.setMaxPersons(dto.getMaxPersons());
+        a.setPrice(dto.getPrice());
+        appointmentRepository.save(a);
+
+        for(Long as: dto.getAdditionalServices()){
+//            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
+//            aservice.setBoat(boatRepository.getById(dto.getId()));
+//            additionalServiceRepository.save(aservice);
+//            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+            add.getAppointments().add(a);
+            additionalServiceRepository.save(add);
+        }
+
+        for(Client c: clientRepository.findAll()){
+            for(Boat boat: c.getBoatSubscriptions()){
+                if(dto.getId().equals(boat.getId())){
+                    emailService.sendEmailForNewActionBoat(c.getEmail(), boat.getName());
+                }
+            }
+        }
         return a;
     }
 }

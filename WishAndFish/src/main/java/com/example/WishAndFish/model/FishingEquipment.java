@@ -1,5 +1,6 @@
 package com.example.WishAndFish.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,11 @@ public class FishingEquipment {
     @Column(name = "name", unique = false, nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "boat_id", nullable = false)
+    @JsonBackReference
     private Boat boat;
 }

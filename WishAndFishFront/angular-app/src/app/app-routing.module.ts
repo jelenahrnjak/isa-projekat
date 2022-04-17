@@ -1,3 +1,5 @@
+import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-free-appointments-boat/show-free-appointments-boat.component';
+import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
@@ -23,6 +25,7 @@ import { ClientHomeComponent } from './components/client/client-home/client-home
 import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
 import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
 import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
+import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
 
 const routes: Routes = [
   {
@@ -119,6 +122,19 @@ const routes: Routes = [
     path:'subscriptions',
     component: SubscriptionsComponent,
   },
+    path:'boat-details/:id',
+    component: BoatDetailsComponent,
+  },
+
+  {
+    path:'add-boat-action/:id',
+    component: AddBoatActionComponent,
+  },
+
+  {
+    path:'show-free-appointments-boat/:id',
+    component: ShowFreeAppointmentsBoatComponent,
+  }
 
 ];
 

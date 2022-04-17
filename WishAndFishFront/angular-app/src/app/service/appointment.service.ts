@@ -15,6 +15,15 @@ export class AppointmentService {
     findAppointments(id) {
       return this.apiService.get(this.config.appointment_url + `/getAllByCottage/${id}`, id)
       .pipe(map(appointments => {
+        console.log(appointments)
+        return appointments;
+      }));   
+    }
+
+    findAppointmentsBoat(id) {
+      return this.apiService.get(this.config.appointment_url + `/getAllByBoat/${id}`, id)
+      .pipe(map(appointments => {
+        console.log(appointments)
         return appointments;
       }));   
     }
@@ -40,6 +49,17 @@ export class AppointmentService {
       'Content-Type': 'application/json'
     });
     return this.apiService.post(this.config.appointment_url + `/addNewAction`, JSON.stringify(dto), loginHeaders)
+    .pipe(map(() => {
+      console.log('Adding action success');
+    }));
+  }
+
+  addNewActionBoat(dto){
+    const loginHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this.apiService.post(this.config.appointment_url + `/addNewActionBoat`, JSON.stringify(dto), loginHeaders)
     .pipe(map(() => {
       console.log('Adding action success');
     }));

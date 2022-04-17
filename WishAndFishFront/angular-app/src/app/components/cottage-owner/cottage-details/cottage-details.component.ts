@@ -74,7 +74,9 @@ todayDate:Date = new Date();
 
     this.cottageService.findCottage(this.id).subscribe((data) => {
       this.cottage = data;
-      this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+      // this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+      this.userImage = 'url(assets/Images/' + data.coverImage +')';
+
       console.log(this.cottage)
     });
 

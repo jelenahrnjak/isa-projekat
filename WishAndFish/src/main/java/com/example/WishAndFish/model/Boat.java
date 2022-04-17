@@ -1,5 +1,6 @@
 package com.example.WishAndFish.model;
 
+import com.example.WishAndFish.dto.BoatDetailDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,26 +48,29 @@ public class Boat {
     @Column(name = "average_grade", unique = false, nullable = true)
     private Double averageGrade;
 
+    @Column(name = "cancellation_conditions", unique = false, nullable = false)
+    private String cancellationConditions;
+
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Image> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Appointment> appointments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Rule> rules = new HashSet<>();
 
     @Column(name = "price_per_hour", unique = false)
     private Double pricePerHour;
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<NavigationEquipment> navigationEquipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<FishingEquipment> fishingEquipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<CancellationConditions> cancellationConditions = new HashSet<>();
+//    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+//    private Set<CancellationConditions> cancellationConditions = new HashSet<>();
 
     @Column(name="coverImage")
     private String coverImage;
@@ -88,7 +92,7 @@ public class Boat {
         this.numberOfRatings = 0;
     }
 
-    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerHour, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, Set<CancellationConditions> cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
+    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerHour, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
         this.id = id;
         this.name = name;
         this.type = type;

@@ -2,8 +2,10 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.AddCottageImageDTO;
 import com.example.WishAndFish.dto.ImageDTO;
+import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.Image;
+import com.example.WishAndFish.repository.BoatRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,25 @@ public class ImageService {
     @Autowired
     private CottageRepository cottageRepository;
 
+    @Autowired
+    private BoatRepository boatRepository;
+
     public String addImage(AddCottageImageDTO dto){
         for(Cottage c: this.cottageRepository.findAll()){
             if(dto.getCottageId().equals(c.getId())){
                 Image image = new Image(dto.getPath());
                 image.setCottage(c);
+                this.imageRepository.save(image);
+            }
+        }
+        return dto.getPath();
+    }
+
+    public String addImageBoat(AddCottageImageDTO dto){
+        for(Boat b: this.boatRepository.findAll()){
+            if(dto.getCottageId().equals(b.getId())){
+                Image image = new Image(dto.getPath());
+                image.setBoat(b);
                 this.imageRepository.save(image);
             }
         }
@@ -52,7 +68,19 @@ public class ImageService {
 
         List<ImageDTO> ret = new ArrayList<>();
         for(Image i : imageRepository.findAll()){
-            if(id.equals(i.getCottage().getId()) && !i.isDeleted()){
+            if(i.getCottage() != null && id.equals(i.getCottage().getId()) && !i.isDeleted()){
+                ret.add(new ImageDTO(i));
+            }
+        };
+        return ret;
+    }
+
+
+    public List<ImageDTO> getAllByBoat(Long id) {
+
+        List<ImageDTO> ret = new ArrayList<>();
+        for(Image i : imageRepository.findAll()){
+            if(i.getBoat() != null && id.equals(i.getBoat().getId()) && !i.isDeleted()){
                 ret.add(new ImageDTO(i));
             }
         };
