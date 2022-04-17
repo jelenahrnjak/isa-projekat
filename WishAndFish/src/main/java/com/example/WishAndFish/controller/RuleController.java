@@ -4,6 +4,7 @@ import com.example.WishAndFish.dto.RuleDTO;
 import com.example.WishAndFish.model.Rule;
 import com.example.WishAndFish.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,12 @@ public class RuleController {
         return this.ruleService.getAllByCottage(id);
     }
 
+    @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public List<RuleDTO> getAllByBoat(@PathVariable Long id) {
+        return this.ruleService.getAllByBoat(id);
+    }
+
     @DeleteMapping(value="/deleteRule/{id}")
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteRule(@PathVariable Long id) {
@@ -34,5 +41,16 @@ public class RuleController {
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public Rule addRule(@RequestBody RuleDTO dto) {
         return this.ruleService.addRule(dto);
+    }
+
+    @RequestMapping(value="/addRuleBoat", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<Rule> addRuleBoat(@RequestBody RuleDTO dto) {
+        Rule r = this.ruleService.addRuleBoat(dto);
+        if(r!=null){
+            return new ResponseEntity<>(r, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }

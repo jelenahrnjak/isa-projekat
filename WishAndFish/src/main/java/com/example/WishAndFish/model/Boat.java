@@ -54,7 +54,7 @@ public class Boat {
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Appointment> appointments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Rule> rules = new HashSet<>();
 
     @Column(name = "price_per_hour", unique = false)

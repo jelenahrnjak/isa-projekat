@@ -78,15 +78,6 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (121, 1, 110);
 
 
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (25, 'No smoking', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (26, 'Forbidden food intake', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (27, 'Forbidden pets', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (28, 'Loud music forbidden', 112, false);
-
 
 --special action
 INSERT INTO APPOINTMENTS(
@@ -130,6 +121,21 @@ INSERT INTO BOATS(
 INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
+
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (25, 'No smoking', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (26, 'Forbidden food intake', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (27, 'Forbidden pets', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (28, 'Loud music forbidden', 112, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (29, 'Forbidden food intake', 125, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (30, 'Forbidden pets', 125, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (31, 'Loud music forbidden', 125, false);
 
 
 INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id, boat_id)

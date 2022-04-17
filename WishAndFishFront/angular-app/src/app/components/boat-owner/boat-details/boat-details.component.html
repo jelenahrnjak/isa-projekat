@@ -160,8 +160,8 @@
             </tbody>
         </table>
     </div>
-<!-- 
-    <div class="col" style="margin-right: 18px;">
+
+    <div class="col" style="margin-right: 10px;">
         <h1 class="fw-light text-center text-lg-start mt-4 mb-0"  style="display: inline-block;">Rules</h1>
         <button *ngIf="ifOwner()" class="btn btn-primary" type="submit" style="float: right; margin-right: 7px; margin-top: 30px;"  data-toggle="modal" data-target="#addRule">Add rule</button>
 
@@ -186,7 +186,7 @@
                 </tr>   
             </tbody>
         </table>
-    </div> -->
+    </div>
 
 </div>
 <!-- Additional services -->
@@ -224,4 +224,26 @@
 
 
 
+
+<!-- Modal for adding new rule -->
+<div class="modal fade" id="addRule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add additional service</h5>
+        </div>
+           
+        <div  class="container">
+                <!-- <label for="exampleInputEmail1" class="col" style="width: 25px;">Name:</label> -->
+                <input [(ngModel)]="newRule.content" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter content"> <br>
+                <!-- <input [(ngModel)]="newAdditionalService.price" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter price" pattern="^[0-9]+([,.][0-9]+)?$">  -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="addRule()" data-dismiss="modal">Save changes</button>
+        </div>
+    </div>
+    </div>
+</div>
 

@@ -30,6 +30,13 @@ export class BoatDetailsComponent implements OnInit {
     "name" : "",
     "price" : ""
   }
+
+  rules: any;
+  newRule={
+    "id": "",
+    "content": ""
+  }
+
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -60,6 +67,11 @@ export class BoatDetailsComponent implements OnInit {
     this.additionalService.findAdditionalServicesBoat(this.id).subscribe((data : any) => {
       this.additionalServices = data;
     });
+
+
+    this.ruleService.findRulesBoat(this.id).subscribe((data : any) => {
+      this.rules = data;
+      });
   }
 
 
@@ -111,5 +123,14 @@ export class BoatDetailsComponent implements OnInit {
         window.location.reload();
       });
       }
+
+    
+  addRule(){
+    this.newRule.id = this.id;
+    this.ruleService.addRule(this.newRule).subscribe(() =>{
+    });      
+    window.location.reload();
+    this.newRule.content = ""
+  }
 
 }
