@@ -64,11 +64,11 @@ export class SubscriptionsComponent implements OnInit {
   unsubscribeCottage(id){  
     
     this.clientService.unsubscribeFromCottage(id, localStorage.getItem('user')).subscribe(
-      (data) => {  
-        for(var v of this.cottages){
-        }
-        alert("Successfully unsubscribed") 
-        // this.ngOnInit()
+      (data) => {    
+        this.clientService.getCottageSubscriptions().subscribe((data : any) => {
+          this.cottages = data; 
+        }); 
+        alert("Successfully unsubscribed")  
       },
       (err) => {  
         alert('Already unsubscribed!') 
@@ -78,11 +78,11 @@ export class SubscriptionsComponent implements OnInit {
   unsubscribeBoat(id){  
     
     this.clientService.unsubscribeFromBoat(id, localStorage.getItem('user')).subscribe(
-      (data) => {  
-        for(var v of this.cottages){
-        }
-        alert("Successfully unsubscribed") 
-        // this.ngOnInit()
+      (data) => {    
+        this.clientService.getBoatSubscriptions().subscribe((data : any) => {
+          this.boats = data; 
+        }); 
+        alert("Successfully unsubscribed")  
       },
       (err) => {  
         alert('Already unsubscribed!') 
@@ -92,11 +92,11 @@ export class SubscriptionsComponent implements OnInit {
   unsubscribeAdventure(id){  
     
     this.clientService.unsubscribeFromAdventure(id, localStorage.getItem('user')).subscribe(
-      (data) => {  
-        for(var v of this.cottages){
-        }
-        alert("Successfully unsubscribed") 
-        // this.ngOnInit()
+      (data) => {       
+        this.clientService.getAdventureSubscriptions().subscribe((data : any) => {
+        this.adventures = data; 
+  
+        alert("Successfully unsubscribed")  
       },
       (err) => {  
         alert('Already unsubscribed!') 
