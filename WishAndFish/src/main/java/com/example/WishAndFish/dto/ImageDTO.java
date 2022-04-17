@@ -17,4 +17,5 @@ public class ImageDTO {
     public ImageDTO(Image i){
         this.path = i.getPath();
     }
+
 }

@@ -18,6 +18,13 @@ export class ImageService {
     }));;
   }
 
+  public addImageBoat(imageDto){
+    return this.apiService.post(this.config.image_url + `/addImageBoat`, imageDto)
+    .pipe(map(path => {
+      console.log('Adding cottage image success: ' + path);
+    }));;
+  }
+
   public deleteImage(path){
     return this.apiService.delete(this.config.image_url + `/deleteImage/${path}`, path)
     .pipe(map((path) => {
@@ -30,6 +37,14 @@ export class ImageService {
     return this.apiService.get(this.config.image_url + `/getAllByCottage/${id}`, id)
     .pipe(map(images => {
       return images;
-    }));   
+    })); 
+  }
+
+
+  findImagesBoat(id) {
+    return this.apiService.get(this.config.image_url + `/getAllByBoat/${id}`, id)
+    .pipe(map(images => {
+      return images;
+    })); 
   }
 }

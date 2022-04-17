@@ -1,0 +1,25 @@
+package com.example.WishAndFish.dto;
+
+import com.example.WishAndFish.model.NavigationEquipment;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class NavigationEquipmentDTO {
+
+    private Long id;
+    private String name;
+
+    public NavigationEquipmentDTO(NavigationEquipment n){
+        this.id = n.getId();
+        this.name = n.getName();
+
+    }
+}

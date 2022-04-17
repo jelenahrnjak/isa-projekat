@@ -31,7 +31,7 @@ public class Image {
     private Cottage cottage;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "boat_id", nullable = true)
     @JsonBackReference
     private Boat boat;

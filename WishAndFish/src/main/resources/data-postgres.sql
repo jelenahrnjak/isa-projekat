@@ -78,15 +78,6 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 	VALUES (121, 1, 110);
 
 
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (25, 'No smoking', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (26, 'Forbidden food intake', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (27, 'Forbidden pets', 111, false);
-INSERT INTO public.rules(id, content, cottage_id, deleted)
-	VALUES (28, 'Loud music forbidden', 112, false);
-
 
 --special action
 INSERT INTO APPOINTMENTS(
@@ -124,26 +115,54 @@ INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
 	VALUES (141, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
 
-INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id)
-	VALUES (901, 'Parking', 0, false, 133, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id)
-    VALUES (902, 'Wi-Fi', 10, false, 137, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id,cottage_id)
-    VALUES (903, 'Air conditioning', 5, false, 137, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id)
-    VALUES (904, 'Fruit', 2, false, 137, 111);
-
---INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
---	VALUES (901, 135);
---INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
---	VALUES (902, 135);
-
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings, deleted)
-	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75, 4.3, 123, false);
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings, deleted, cancellation_conditions)
+	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75, 4.3, 123, false, 'Free');
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
-	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted, cancellation_conditions)
+	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false, '10% of the reservation price');
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (1232, '5', '10-05-2022', 7, 130, false, '05-10-2022', 125, false, true);
+
+
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (25, 'No smoking', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (26, 'Forbidden food intake', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (27, 'Forbidden pets', 111, false);
+INSERT INTO public.rules(id, content, cottage_id, deleted)
+	VALUES (28, 'Loud music forbidden', 112, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (29, 'Forbidden food intake', 125, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (30, 'Forbidden pets', 125, false);
+INSERT INTO public.rules(id, content, boat_id, deleted)
+	VALUES (31, 'Loud music forbidden', 125, false);
+
+
+--INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+--	VALUES (901, 'Parking', 0, false, 133, 111, null);
+--INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+--    VALUES (902, 'Wi-Fi', 10, false, 137, 111, null);
+--INSERT INTO public.additional_services(id, name, price, deleted, appointment_id,cottage_id, boat_id)
+--    VALUES (903, 'Air conditioning', 5, false, 137, 111, null);
+--INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+--    VALUES (904, 'Fruit', 2, false, 137, 111, null);
+--INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+--    VALUES (905, 'Swimming', 2, false, null, null, 125);
+INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
+    VALUES (906, 'Coctel', 2, false, null, 125);
+INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
+    VALUES (907, 'Free fruit', 2, false, null, 125);
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (906, 1232);
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (907, 1232);
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (907, 133);
 
 INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id, capacity)
 	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55, 10);
@@ -162,3 +181,32 @@ INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (668, 'cottage3.jpg', null, 111, false);
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (669, 'cottage4.jpg', null, 111, false);
+
+INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
+	VALUES (670, 'boat-adding.jpg', 125, null, false);
+INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
+	VALUES (671, 'adventure1.jpg', 125, null, false);
+INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
+	VALUES (672, 'adventure2.jpg', 125, null, false);
+INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
+	VALUES (673, 'boat2.jpg', 125, null, false);
+
+
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (101, false, 'GPS', 125);
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (102, false, 'Radar', 125);
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (103, false, 'VHF radio', 125);
+
+
+INSERT INTO public.fishing_equipment(
+	id, name, boat_id, deleted)
+	VALUES (100, 'Stap', 125, false);
+INSERT INTO public.fishing_equipment(
+	id, name, boat_id, deleted)
+	VALUES (101, 'Udica', 125, false );
+

@@ -26,7 +26,15 @@ public class AppointmentController {
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public List<AppointmentDTO> getAllByCottage(@PathVariable Long id) {
-        return this.appointmentService.getAllByCottage(id);
+        List<AppointmentDTO> list = this.appointmentService.getAllByCottage(id);
+        return list;
+    }
+
+    @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public List<AppointmentDTO> getAllByBoat(@PathVariable Long id) {
+        List<AppointmentDTO> list = this.appointmentService.getAllByBoat(id);
+        return list;
     }
 
     @DeleteMapping(value="/deleteAppointment/{id}")
@@ -44,12 +52,22 @@ public class AppointmentController {
     @RequestMapping(value="/addNewAction", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) throws MessagingException {
-        System.out.println("ISPISUJEM PODATKE:" + dto);
         Appointment added = this.appointmentService.addNewAction(dto);
         if(added == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(added,HttpStatus.OK);
-}
+    }
+
+
+    @RequestMapping(value="/addNewActionBoat", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<?> addNewActionBoat(@RequestBody AddActionDTO dto) throws MessagingException {
+        Appointment added = this.appointmentService.addNewActionBoat(dto);
+        if(added == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(added,HttpStatus.OK);
+    }
 
 }

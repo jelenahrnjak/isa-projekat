@@ -57,7 +57,8 @@ export class AddBoatComponent implements OnInit {
       longitude : [''],
       latitude : [''],
       cityName : [''],
-      countryName : ['']
+      countryName : [''],
+      cancellationConditions: ['']
     })
   }
 
@@ -87,7 +88,7 @@ export class AddBoatComponent implements OnInit {
           "countryName" : this.form.get('countryName').value    
       },
       "ownerEmail" : localStorage.getItem("user"),
-
+      "cancellationConditions" : this.form.get('cancellationConditions').value
   }
 
   this.boatService.addBoat(boat)
@@ -95,7 +96,7 @@ export class AddBoatComponent implements OnInit {
     this.router.navigate([this.returnUrl]);
   },
     error => {
-      console.log('Add cottage error');
+      console.log('Add boat error');
      
     });
     console.log(boat);

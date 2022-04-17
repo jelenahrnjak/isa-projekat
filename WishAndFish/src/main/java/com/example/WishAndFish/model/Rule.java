@@ -29,7 +29,7 @@ public class Rule {
     @JsonBackReference
     private Cottage cottage;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "boat_id")
     @JsonBackReference
     private Boat boat;
