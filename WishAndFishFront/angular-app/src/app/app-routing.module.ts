@@ -22,6 +22,7 @@ import { InstructorsComponent } from './components/unregistered-user/instructors
 import { ClientHomeComponent } from './components/client/client-home/client-home.component';
 import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-free-appointments/show-free-appointments.component';
 import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
+import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
 
 const routes: Routes = [
   {
@@ -112,6 +113,11 @@ const routes: Routes = [
   {
     path:'add-action/:id',
     component: AddActionComponent,
+  },
+
+  {
+    path:'subscriptions',
+    component: SubscriptionsComponent,
   },
 
 ];

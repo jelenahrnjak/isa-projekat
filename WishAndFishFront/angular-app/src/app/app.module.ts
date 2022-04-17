@@ -47,6 +47,7 @@ import { AppoitmentSearchComponent } from './components/client/appoitment-search
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.component';
 import { NewReservationComponent } from './components/cottage-owner/new-reservation/new-reservation.component';
+import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { NewReservationComponent } from './components/cottage-owner/new-reservat
     AppoitmentSearchComponent,
     AddActionComponent,
     SidebarComponent,
-    NewReservationComponent, 
+    NewReservationComponent,
+    SubscriptionsComponent, 
   ],
   imports: [
     BrowserModule,

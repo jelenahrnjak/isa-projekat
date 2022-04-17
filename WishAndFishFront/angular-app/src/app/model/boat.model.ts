@@ -16,6 +16,7 @@ export class Boat {
         public maximumPeople:  number = 0,
         public price : number = 0,
         public isSubscribed : boolean = false,
+        public show : boolean = true
       ) {}
  
 }
