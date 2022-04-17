@@ -66,9 +66,6 @@ export class SubscriptionsComponent implements OnInit {
     this.clientService.unsubscribeFromCottage(id, localStorage.getItem('user')).subscribe(
       (data) => {  
         for(var v of this.cottages){
-          if(v.id === id){
-            v.show = false;
-          }
         }
         alert("Successfully unsubscribed") 
         // this.ngOnInit()
@@ -83,9 +80,6 @@ export class SubscriptionsComponent implements OnInit {
     this.clientService.unsubscribeFromBoat(id, localStorage.getItem('user')).subscribe(
       (data) => {  
         for(var v of this.cottages){
-          if(v.id === id){
-            v.show = false;
-          }
         }
         alert("Successfully unsubscribed") 
         // this.ngOnInit()
@@ -100,9 +94,6 @@ export class SubscriptionsComponent implements OnInit {
     this.clientService.unsubscribeFromAdventure(id, localStorage.getItem('user')).subscribe(
       (data) => {  
         for(var v of this.cottages){
-          if(v.id === id){
-            v.show = false;
-          }
         }
         alert("Successfully unsubscribed") 
         // this.ngOnInit()
