@@ -30,7 +30,7 @@ public class AdditionalServiceController {
     }
 
     @DeleteMapping(value="/deleteAdditionalServices/{id}")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    //@PreAuthorize("hasRole('COTTAGE_OWNER')") //moze i boat_owner
     public ResponseEntity<Long> deleteAdditionalServices(@PathVariable Long id) {
         return this.additionalServiceService.deleteAdditionalServices(id);
     }

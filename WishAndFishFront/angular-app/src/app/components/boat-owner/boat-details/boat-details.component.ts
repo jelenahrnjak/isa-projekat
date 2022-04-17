@@ -103,6 +103,13 @@ export class BoatDetailsComponent implements OnInit {
       }
     }
 
-
+    deleteServices(id){
+      console.log(id)
+  
+      this.additionalService.deleteAdditionalService(id)
+      .subscribe(data => {
+        window.location.reload();
+      });
+      }
 
 }
