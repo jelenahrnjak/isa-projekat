@@ -51,7 +51,7 @@ public class Boat {
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Image> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Appointment> appointments = new HashSet<>();
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
@@ -60,13 +60,13 @@ public class Boat {
     @Column(name = "price_per_hour", unique = false)
     private Double pricePerHour;
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<NavigationEquipment> navigationEquipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<FishingEquipment> fishingEquipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<CancellationConditions> cancellationConditions = new HashSet<>();
 
     @Column(name="coverImage")

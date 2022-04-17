@@ -48,6 +48,12 @@ export class BoatDetailsComponent implements OnInit {
   navigationEquipments: any
   fishingEquipments: any
 
+
+  newEquipment={
+    "id": "",
+    "name": ""
+  }
+
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -176,6 +182,25 @@ export class BoatDetailsComponent implements OnInit {
     .subscribe(data => {
       window.location.reload();
     });
+    }
+
+
+    
+    addNavigationEquipment(){
+  
+      if(this.newEquipment.name.length == 0){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Incorrectly filled fields!',
+        })    }
+      else{
+        this.newEquipment.id = this.id;
+        this.navigationEquipmentService.addEquipment(this.newEquipment).subscribe(() =>{
+        });      
+        window.location.reload();
+        this.newEquipment.name = ""
+      }
     }
 
 }

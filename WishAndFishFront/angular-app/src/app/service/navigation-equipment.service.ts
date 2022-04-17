@@ -17,4 +17,13 @@ export class NavigationEquipmentService {
         return navigations;
       }));   
     }
+
+      
+   addEquipment(equipmentDTO){
+     console.log(equipmentDTO)
+    return this.apiService.post(this.config.navigation_equipment_url + `/addNavigationEquipment`, equipmentDTO)
+    .pipe(map(path => {
+      console.log('Adding equipment success: ' + path);
+    }));;
+  }
 }
