@@ -9,7 +9,10 @@ import lombok.Setter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class AppointmentDTO {
     private Long id;
     @JsonFormat(pattern = "dd.MM.yyyy")

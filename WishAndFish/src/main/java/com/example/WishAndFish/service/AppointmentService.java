@@ -42,8 +42,22 @@ public class AppointmentService {
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
-            if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
-                ret.add(new AppointmentDTO(as));
+            if(as.getCottage() != null){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                    ret.add(new AppointmentDTO(as));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public List<AppointmentDTO> getAllByBoat(Long id){
+        List<AppointmentDTO> ret = new ArrayList<>();
+        for(Appointment as: appointmentRepository.findAll()){
+            if(as.getBoat() != null){
+                if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                    ret.add(new AppointmentDTO(as));
+                }
             }
         }
         return ret;
@@ -118,6 +132,9 @@ public class AppointmentService {
         a.setMaxPersons(dto.getMaxPersons());
         a.setPrice(dto.getPrice());
         for(Long as: dto.getAdditionalServices()){
+            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
+            aservice.setBoat(boatRepository.getById(dto.getId()));
+            additionalServiceRepository.save(aservice);
             a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
         }
         appointmentRepository.save(a);

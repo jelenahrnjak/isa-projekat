@@ -31,14 +31,10 @@ public class AdditionalServiceService {
     public List<AdditionalServicesDTO> getAllByCottage(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: additionalServiceRepository.findAll()){
-//            for(Appointment a: as.getAppointments()){
-//                if(id.equals(a.getCottage().getId()) && !as.getDeleted()){
-//                    ret.add(new AdditionalServicesDTO(as));
-//                }
-//            }
-
-            if((id.equals(as.getCottage().getId()) && !as.getDeleted())){
-                ret.add(new AdditionalServicesDTO(as));
+            if(as.getCottage() != null){
+                if((id.equals(as.getCottage().getId()) && !as.getDeleted())){
+                    ret.add(new AdditionalServicesDTO(as));
+                }
             }
         }
         return ret;
@@ -90,9 +86,12 @@ public class AdditionalServiceService {
     public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: this.additionalServiceRepository.findAll()){
-           if(id.equals(as.getAppointment().getId())){
-               ret.add(new AdditionalServicesDTO(as));
-           }
+            if(as.getAppointment() != null){
+                if(id.equals(as.getAppointment().getId())){
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
+
         }
         return ret;
     }

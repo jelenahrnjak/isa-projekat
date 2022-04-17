@@ -1,3 +1,4 @@
+import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-free-appointments-boat/show-free-appointments-boat.component';
 import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { EditCottageBasicInfoComponent } from './components/cottage-owner/edit-cottage-basic-info/edit-cottage-basic-info.component';
@@ -124,6 +125,11 @@ const routes: Routes = [
   {
     path:'add-boat-action/:id',
     component: AddBoatActionComponent,
+  },
+
+  {
+    path:'show-free-appointments-boat/:id',
+    component: ShowFreeAppointmentsBoatComponent,
   }
 
 ];

@@ -26,7 +26,15 @@ public class AppointmentController {
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public List<AppointmentDTO> getAllByCottage(@PathVariable Long id) {
-        return this.appointmentService.getAllByCottage(id);
+        List<AppointmentDTO> list = this.appointmentService.getAllByCottage(id);
+        return list;
+    }
+
+    @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public List<AppointmentDTO> getAllByBoat(@PathVariable Long id) {
+        List<AppointmentDTO> list = this.appointmentService.getAllByBoat(id);
+        return list;
     }
 
     @DeleteMapping(value="/deleteAppointment/{id}")

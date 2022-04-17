@@ -15,6 +15,15 @@ export class AppointmentService {
     findAppointments(id) {
       return this.apiService.get(this.config.appointment_url + `/getAllByCottage/${id}`, id)
       .pipe(map(appointments => {
+        console.log(appointments)
+        return appointments;
+      }));   
+    }
+
+    findAppointmentsBoat(id) {
+      return this.apiService.get(this.config.appointment_url + `/getAllByBoat/${id}`, id)
+      .pipe(map(appointments => {
+        console.log(appointments)
         return appointments;
       }));   
     }

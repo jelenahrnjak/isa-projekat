@@ -104,7 +104,7 @@ submit(){
     }
     this.appointmentService.addNewActionBoat(dto).subscribe((data) =>{
     });      
-    // this.router.navigate(['/show-free-appointments/'+this.id]);
+    this.router.navigate(['/show-free-appointments-boat/'+this.id]);
   }
 
 }

@@ -50,6 +50,7 @@ export class AdditionalServicesService {
   findAdditionalServicesForAppointment(id) {
     return this.apiService.get(this.config.additional_services_url + `/findAdditionalServicesForAppointment/${id}`, id)
     .pipe(map(services => {
+      console.log(services)
       return services;
     }));   
   }
