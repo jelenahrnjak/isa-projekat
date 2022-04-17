@@ -191,6 +191,64 @@
 </div>
 <!-- Additional services -->
 
+<!-- Equipments -->
+<div class="container row" style="max-width: 100%;">
+    <div class="col" style="margin-right: 15px;">
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0" style="display: inline-block;">Navigation equipments</h1>
+        <button *ngIf="ifOwner()" class="btn btn-primary" type="submit" style="float: right; margin-right: 15px; margin-top: 30px;"  data-toggle="modal" data-target="#addService">Add service</button>
+
+        <hr class="mt-2 mb-5">
+
+        <table class="table" style="width: 100%;">
+            <caption style="caption-side:inherit;">Navigation equipments</caption>
+
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 90%;">Name</th>
+                    <th *ngIf="ifOwner()" scope="col" >Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let a of navigationEquipments">
+                    <td>{{a.name}}</td>
+                    <td *ngIf="ifOwner()">
+                        <button class="btn btn-primary" type="submit" (click)="deleteServices(a.id)">Delete</button>
+                    </td>
+                </tr>   
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col" >    <!-- style="margin-right: 10px;" -->
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0"  style="display: inline-block;">Fishing equipments</h1>
+        <button *ngIf="ifOwner()" class="btn btn-primary" type="submit" style="float: right; margin-right: 7px; margin-top: 30px;"  data-toggle="modal" data-target="#addRule">Add rule</button>
+
+        <hr class="mt-2 mb-5">
+
+        <table class="table col" style="margin-right: 10%;">
+            <caption style="caption-side:unset;">Fishing equipments</caption>
+
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 90%;">Name</th>
+                    <th  *ngIf="ifOwner()" scope="col" >Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor = "let r of fishingEquipments">
+                    <td>{{r.name}}</td>
+                    <td *ngIf="ifOwner()">
+                        <button class="btn btn-primary" type="submit" (click)="deleteRule(r.id)">Delete</button>
+                    </td> 
+                </tr>   
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- Equipments --> 
+
 
     </div>
 

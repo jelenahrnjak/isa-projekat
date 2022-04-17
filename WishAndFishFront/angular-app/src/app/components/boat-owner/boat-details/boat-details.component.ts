@@ -1,3 +1,5 @@
+import { FishingEquipmentService } from './../../../service/fishing-equipment.service';
+import { NavigationEquipmentService } from './../../../service/navigation-equipment.service';
 import { Boat } from './../../../model/boat.model';
 import { ClientService } from './../../../service/client.service';
 import { AppointmentService } from './../../../service/appointment.service';
@@ -37,6 +39,9 @@ export class BoatDetailsComponent implements OnInit {
     "content": ""
   }
 
+  navigationEquipments: any
+  fishingEquipments: any
+
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -46,7 +51,9 @@ export class BoatDetailsComponent implements OnInit {
     private additionalService: AdditionalServicesService,
     private ruleService : RuleService,
     private appointmentService: AppointmentService,
-    private clientService : ClientService,) { }
+    private clientService : ClientService,
+    private navigationEquipmentService: NavigationEquipmentService,
+    private fishingEquipmensService: FishingEquipmentService) { }
 
   ngOnInit() {
 
@@ -72,6 +79,14 @@ export class BoatDetailsComponent implements OnInit {
     this.ruleService.findRulesBoat(this.id).subscribe((data : any) => {
       this.rules = data;
       });
+
+    this.navigationEquipmentService.findNavigation(this.id).subscribe((data : any) => {
+      this.navigationEquipments = data;
+      });
+
+      this.fishingEquipmensService.findNavigation(this.id).subscribe((data : any) => {
+        this.fishingEquipments = data;
+        });
   }
 
 
