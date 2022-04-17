@@ -65,7 +65,7 @@ export class BoatDetailsComponent implements OnInit {
     private appointmentService: AppointmentService,
     private clientService : ClientService,
     private navigationEquipmentService: NavigationEquipmentService,
-    private fishingEquipmensService: FishingEquipmentService) { }
+    private fishingEquipmensService: FishingEquipmentService,) { }
 
   ngOnInit() {
 
@@ -197,6 +197,24 @@ export class BoatDetailsComponent implements OnInit {
       else{
         this.newEquipment.id = this.id;
         this.navigationEquipmentService.addEquipment(this.newEquipment).subscribe(() =>{
+        });      
+        window.location.reload();
+        this.newEquipment.name = ""
+      }
+    }
+
+
+    addFishingEquipment(){
+  
+      if(this.newEquipment.name.length == 0){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Incorrectly filled fields!',
+        })    }
+      else{
+        this.newEquipment.id = this.id;
+        this.fishingEquipmensService.addEquipment(this.newEquipment).subscribe(() =>{
         });      
         window.location.reload();
         this.newEquipment.name = ""

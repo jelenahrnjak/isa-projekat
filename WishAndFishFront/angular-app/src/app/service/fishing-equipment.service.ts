@@ -18,4 +18,12 @@ export class FishingEquipmentService {
         return navigations;
       }));   
     }
+
+    addEquipment(equipmentDTO){
+      console.log(equipmentDTO)
+     return this.apiService.post(this.config.fishing_equipment_url + `/addFishingEquipment`, equipmentDTO)
+     .pipe(map(path => {
+       console.log('Adding equipment success: ' + path);
+     }));;
+   }
 }

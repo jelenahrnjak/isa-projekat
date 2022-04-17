@@ -2,8 +2,12 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.FishingEquipmentDTO;
 import com.example.WishAndFish.dto.NavigationEquipmentDTO;
+import com.example.WishAndFish.model.FishingEquipment;
+import com.example.WishAndFish.model.NavigationEquipment;
 import com.example.WishAndFish.service.FishingEquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,5 +23,16 @@ public class FishingEquipmentController {
     //@PreAuthorize("hasRole('BOAT_OWNER')")
     public List<FishingEquipmentDTO> getAllByBoat(@PathVariable Long id) {
         return this.fishingEquipmentService.getAllByBoat(id);
+    }
+
+    @RequestMapping(value="/addFishingEquipment", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<FishingEquipment> addFishingEquipment(@RequestBody FishingEquipmentDTO dto) {
+        FishingEquipment fe = this.fishingEquipmentService.addFishingEquipment(dto);
+        if(fe!=null){
+            return new ResponseEntity<>(fe, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }
