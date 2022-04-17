@@ -1,5 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.CottageDTO;
+import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Client;
 import com.example.WishAndFish.model.Cottage;
@@ -9,9 +12,14 @@ import com.example.WishAndFish.repository.ClientRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.FishingAdventureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import static java.util.Comparator.comparing;
 
 @Service
 public class ClientService {
@@ -199,4 +207,44 @@ public class ClientService {
         clientRepository.save(client);
     }
 
+    public List<CottageDTO> getAllCottagesSubscriptions(String email) {
+
+        List<CottageDTO> ret = new ArrayList<>();
+
+        for(Cottage c : clientRepository.findByEmail(email).getCottageSubscriptions()){
+            if(!c.isDeleted()){
+                ret.add(new CottageDTO(c));}
+
+        };
+
+        return ret;
+    }
+
+    public List<BoatDTO> getAllBoatsSubscriptions(String email) {
+
+        List<BoatDTO> ret = new ArrayList<>();
+
+        for(Boat b : clientRepository.findByEmail(email).getBoatSubscriptions()){
+            if(!b.isDeleted()){
+                ret.add(new BoatDTO(b));}
+
+        };
+
+        return ret;
+    }
+
+    public List<FishingAdventureDTO> getAllAdventuresSubscriptions(String email) {
+
+        List<FishingAdventureDTO> ret = new ArrayList<>();
+
+        for(FishingAdventure a : clientRepository.findByEmail(email).getAdventureSubscriptions()){
+
+            if(!a.isDeleted()){
+                ret.add(new FishingAdventureDTO(a));}
+
+        };
+
+        return ret;
+
+    }
 }

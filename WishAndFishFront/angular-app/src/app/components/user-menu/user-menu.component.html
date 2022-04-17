@@ -1,4 +1,5 @@
 <button mat-menu-item routerLink="/profile">MY PROFILE</button>
 <button mat-menu-item routerLink="/changePassword">CHANGE PASSWORD</button>
+<button mat-menu-item *ngIf="isClient()" routerLink="/subscriptions">SUBSCRIPTIONS</button>
 <button mat-menu-item *ngIf="isClient()" routerLink="#!">MY PENALTIES</button>
 <button (click)="logout()" mat-menu-item>SIGN OUT</button>

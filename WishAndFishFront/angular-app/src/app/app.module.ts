@@ -47,6 +47,7 @@ import { AppoitmentSearchComponent } from './components/client/appoitment-search
 import { AddActionComponent } from './components/cottage-owner/add-action/add-action.component';
 import { SidebarComponent } from './components/cottage-owner/sidebar/sidebar.component';
 import { NewReservationComponent } from './components/cottage-owner/new-reservation/new-reservation.component';
+import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
 import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
 import { BoatSidebarComponent } from './components/boat-owner/boat-sidebar/boat-sidebar.component';
 import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
@@ -84,6 +85,7 @@ import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-
     AddActionComponent,
     SidebarComponent,
     NewReservationComponent,
+    SubscriptionsComponent, 
     BoatDetailsComponent,
     BoatSidebarComponent,
     AddBoatActionComponent,

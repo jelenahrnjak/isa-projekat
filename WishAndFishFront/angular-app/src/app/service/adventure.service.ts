@@ -24,7 +24,7 @@ export class AdventureService {
     .pipe(map(adventures => { 
         return adventures;
       }));
-  }
+  } 
 
   search(data:any){ 
     return this.apiService.get(this.config.adventure_url + `/search`,data)

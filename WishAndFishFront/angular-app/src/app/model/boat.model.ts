@@ -15,7 +15,7 @@ export class Boat {
         public deleted: boolean = false,
         public maximumPeople:  number = 0,
         public price : number = 0,
-        public isSubscribed : boolean = false,
+        public isSubscribed : boolean = false
       ) {}
  
 }

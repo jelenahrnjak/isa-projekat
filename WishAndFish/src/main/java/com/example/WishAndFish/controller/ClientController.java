@@ -1,7 +1,6 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.SubscriptionDTO;
-import com.example.WishAndFish.dto.UserDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
@@ -13,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/clients")
@@ -123,5 +124,23 @@ public class ClientController {
             return clientService.checkAdventureExistence(email, id);
         }
         return false;
+    }
+
+    @RequestMapping(value = "/cottageSubscriptions/{email}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<CottageDTO> getAllCottagesSubscriptions(@PathVariable String email) {
+        return clientService.getAllCottagesSubscriptions(email);
+    }
+
+    @RequestMapping(value = "/boatSubscriptions/{email}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<BoatDTO> getAllBoatsSubscriptions(@PathVariable String email) {
+        return clientService.getAllBoatsSubscriptions(email);
+    }
+
+    @RequestMapping(value = "/adventureSubscriptions/{email}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<FishingAdventureDTO> getAllAdventuresSubscriptions(@PathVariable String email) {
+        return clientService.getAllAdventuresSubscriptions(email);
     }
 }

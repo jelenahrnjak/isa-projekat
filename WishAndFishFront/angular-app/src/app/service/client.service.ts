@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ClientService { 
 
   constructor( 
     private apiService: ApiService,
@@ -70,6 +70,26 @@ export class ClientService {
   checkSubscription(id: any, type : string) {
     var email = localStorage.getItem('user');
     return this.apiService.get(this.config.client_url + `/checkSubscription/${type}/${id}/${email}`) 
+  }
+
+  getCottageSubscriptions() {
+
+    var email = localStorage.getItem('user');
+    return this.apiService.get(this.config.client_url + `/cottageSubscriptions/${email}`) 
   
-    }
+  }
+
+  getBoatSubscriptions() {
+
+    var email = localStorage.getItem('user');
+    return this.apiService.get(this.config.client_url + `/boatSubscriptions/${email}`) 
+  
+  }
+
+  getAdventureSubscriptions() {
+
+    var email = localStorage.getItem('user');
+    return this.apiService.get(this.config.client_url + `/adventureSubscriptions/${email}`) 
+  
+  }
 }

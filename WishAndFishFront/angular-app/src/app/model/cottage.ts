@@ -26,6 +26,6 @@ export class Cottage {
         public bedsPerRoom:  number = 0,
         public price : number = 0,
         public maximumPeople : number = 0,
-        public isSubscribed : boolean = false,
+        public isSubscribed : boolean = false
       ) {}
 }
