@@ -39,6 +39,12 @@ export class BoatDetailsComponent implements OnInit {
     "content": ""
   }
 
+  imageDto = {
+    "path": "",
+    "cottageId": ""
+  };
+  selectedFile = null;
+
   navigationEquipments: any
   fishingEquipments: any
 
@@ -107,6 +113,20 @@ export class BoatDetailsComponent implements OnInit {
       
       window.location.reload();
     });
+    }
+
+    selectImage(event){
+      this.selectedFile = event.target.files[0].name;
+    }
+  
+    addImage(){
+      this.imageDto.path = this.selectedFile;
+      this.imageDto.cottageId = this.id;
+      this.imageService.addImageBoat(this.imageDto).subscribe(() =>{
+  
+      });      
+      window.location.reload();
+  
     }
 
 
