@@ -108,7 +108,7 @@ public class AdditionalServiceService {
 //            }
 
            for(Appointment app: as.getAppointments()){
-               if (id.equals(app.getId())) {
+               if (id.equals(app.getId()) && !as.getDeleted()) {
                    ret.add(new AdditionalServicesDTO(as));
                }
            }

@@ -44,4 +44,14 @@ export class ShowFreeAppointmentsBoatComponent implements OnInit {
 
   }
 
+  
+  delete(id){
+    console.log(id)
+
+    this.appointmentService.deleteAppointment(id)
+    .subscribe(data => {
+      window.location.reload();
+    });
+    }
+
 }
