@@ -127,7 +127,7 @@ export class BoatDetailsComponent implements OnInit {
     
   addRule(){
     this.newRule.id = this.id;
-    this.ruleService.addRule(this.newRule).subscribe(() =>{
+    this.ruleService.addRuleBoat(this.newRule).subscribe(() =>{
     });      
     window.location.reload();
     this.newRule.content = ""
