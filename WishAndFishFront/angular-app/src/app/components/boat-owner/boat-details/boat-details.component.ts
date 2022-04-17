@@ -9,6 +9,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { BoatService } from './../../../service/boat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-boat-details',
@@ -22,7 +23,13 @@ export class BoatDetailsComponent implements OnInit {
   userImage: SafeStyle;
   images: any;
   userRole = localStorage.getItem('role');
+  additionalServices : any;
 
+  newAdditionalService = {
+    "id": "",
+    "name" : "",
+    "price" : ""
+  }
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -48,6 +55,11 @@ export class BoatDetailsComponent implements OnInit {
     this.imageService.findImagesBoat(this.id).subscribe((data : any) => {
       this.images = data;
       });
+
+  
+    this.additionalService.findAdditionalServicesBoat(this.id).subscribe((data : any) => {
+      this.additionalServices = data;
+    });
   }
 
 
@@ -69,5 +81,28 @@ export class BoatDetailsComponent implements OnInit {
       window.location.reload();
     });
     }
+
+
+    addService(){
+
+      var letters = /[a-zA-Z]/;
+  
+      if(letters.test(this.newAdditionalService.price) || this.newAdditionalService.name.length == 0 || this.newAdditionalService.price.length == 0){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Incorrectly filled fields!',
+        })    }
+      else{
+        this.newAdditionalService.id = this.id;
+        this.additionalService.addServiceBoat(this.newAdditionalService).subscribe(() =>{
+        });      
+        window.location.reload();
+        this.newAdditionalService.name = ""
+        this.newAdditionalService.price = ""
+      }
+    }
+
+
 
 }

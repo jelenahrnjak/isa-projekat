@@ -4,6 +4,7 @@ import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AdditionalServiceRepository;
 import com.example.WishAndFish.repository.AppointmentRepository;
+import com.example.WishAndFish.repository.BoatRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class AdditionalServiceService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private BoatRepository boatRepository;
+
     public List<AdditionalServicesDTO> getAllByCottage(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: additionalServiceRepository.findAll()){
@@ -33,7 +37,7 @@ public class AdditionalServiceService {
 //                }
 //            }
 
-            if(id.equals(as.getCottage().getId()) && !as.getDeleted()){
+            if((id.equals(as.getCottage().getId()) && !as.getDeleted())){
                 ret.add(new AdditionalServicesDTO(as));
             }
         }
@@ -68,12 +72,40 @@ public class AdditionalServiceService {
         return null;
     }
 
+    public AdditionalService addAdditionalServiceBoat(AdditionalServicesDTO dto){
+        for(Boat b: this.boatRepository.findAll()){
+            if(dto.getId().equals(b.getId())){
+                AdditionalService as = new AdditionalService();
+                as.setName(dto.getName());
+                as.setPrice(dto.getPrice());
+                as.setDeleted(false);
+                as.setBoat(b);
+                this.additionalServiceRepository.save(as);
+                return as;
+            }
+        }
+        return null;
+    }
+
     public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: this.additionalServiceRepository.findAll()){
            if(id.equals(as.getAppointment().getId())){
                ret.add(new AdditionalServicesDTO(as));
            }
+        }
+        return ret;
+    }
+
+
+    public List<AdditionalServicesDTO> getAllByBoat(Long id){
+        List<AdditionalServicesDTO> ret = new ArrayList<>();
+        for(AdditionalService as: additionalServiceRepository.findAll()){
+            if(as.getBoat() != null){
+                if((id.equals(as.getBoat().getId()) && !as.getDeleted())){
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
         }
         return ret;
     }

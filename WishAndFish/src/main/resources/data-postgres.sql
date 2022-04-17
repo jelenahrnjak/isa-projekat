@@ -124,26 +124,33 @@ INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
 	VALUES (141, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
 
-INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id)
-	VALUES (901, 'Parking', 0, false, 133, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id)
-    VALUES (902, 'Wi-Fi', 10, false, 137, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id,cottage_id)
-    VALUES (903, 'Air conditioning', 5, false, 137, 111);
-INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id)
-    VALUES (904, 'Fruit', 2, false, 137, 111);
-
---INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
---	VALUES (901, 135);
---INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
---	VALUES (902, 135);
-
 INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings, deleted)
 	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75, 4.3, 123, false);
 INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted)
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 0.0 , 0, false);
+
+
+INSERT INTO ADDITIONAL_SERVICES(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+	VALUES (901, 'Parking', 0, false, 133, 111, null);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+    VALUES (902, 'Wi-Fi', 10, false, 137, 111, null);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id,cottage_id, boat_id)
+    VALUES (903, 'Air conditioning', 5, false, 137, 111, null);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+    VALUES (904, 'Fruit', 2, false, 137, 111, null);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+    VALUES (905, 'Swimming', 2, false, null, null, 125);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+    VALUES (906, 'Coctel', 2, false, null, null, 125);
+INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
+    VALUES (907, 'Free fruit', 2, false, null, null, 125);
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (901, 135);
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (902, 135);
+
 
 INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id, capacity)
 	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55, 10);

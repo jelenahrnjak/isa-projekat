@@ -35,6 +35,11 @@ public class AdditionalService {
     private Cottage cottage;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "boat_id", nullable = true)
+    @JsonBackReference
+    private Boat boat;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "appointment_id", nullable = true)
     @JsonBackReference
     private Appointment appointment;
