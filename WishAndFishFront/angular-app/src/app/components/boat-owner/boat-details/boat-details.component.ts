@@ -73,8 +73,9 @@ export class BoatDetailsComponent implements OnInit {
 
     this.boatService.findBoat(this.id).subscribe((data) => {
       this.boat = data;
-      this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
-      console.log(this.boat)
+      // this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
+      this.userImage = 'url(assets/Images/' + data.coverImage +')';
+      console.log(this.userImage)
     });
 
 
