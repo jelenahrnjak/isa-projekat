@@ -195,3 +195,12 @@ INSERT INTO public.navigation_equipment(
 INSERT INTO public.navigation_equipment(
 	id, deleted, name, boat_id)
 	VALUES (103, false, 'VHF radio', 125);
+
+
+INSERT INTO public.fishing_equipment(
+	id, name, boat_id, deleted)
+	VALUES (100, 'Stap', 125, false);
+INSERT INTO public.fishing_equipment(
+	id, name, boat_id, deleted)
+	VALUES (101, 'Udica', 125, false );
+

@@ -20,6 +20,9 @@ public class FishingEquipment {
     @Column(name = "name", unique = false, nullable = false)
     private String name;
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "boat_id", nullable = false)
     private Boat boat;
