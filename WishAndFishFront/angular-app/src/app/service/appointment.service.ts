@@ -44,4 +44,15 @@ export class AppointmentService {
       console.log('Adding action success');
     }));
   }
+
+  addNewActionBoat(dto){
+    const loginHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this.apiService.post(this.config.appointment_url + `/addNewActionBoat`, JSON.stringify(dto), loginHeaders)
+    .pipe(map(() => {
+      console.log('Adding action success');
+    }));
+  }
 }

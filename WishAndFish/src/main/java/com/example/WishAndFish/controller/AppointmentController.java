@@ -44,12 +44,22 @@ public class AppointmentController {
     @RequestMapping(value="/addNewAction", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) throws MessagingException {
-        System.out.println("ISPISUJEM PODATKE:" + dto);
         Appointment added = this.appointmentService.addNewAction(dto);
         if(added == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(added,HttpStatus.OK);
-}
+    }
+
+
+    @RequestMapping(value="/addNewActionBoat", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<?> addNewActionBoat(@RequestBody AddActionDTO dto) throws MessagingException {
+        Appointment added = this.appointmentService.addNewActionBoat(dto);
+        if(added == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(added,HttpStatus.OK);
+    }
 
 }
