@@ -184,3 +184,14 @@ INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (672, 'adventure2.jpg', 125, null, false);
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (673, 'boat2.jpg', 125, null, false);
+
+
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (101, false, 'GPS', 125);
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (102, false, 'Radar', 125);
+INSERT INTO public.navigation_equipment(
+	id, deleted, name, boat_id)
+	VALUES (103, false, 'VHF radio', 125);

@@ -20,5 +20,6 @@ public class NavigationEquipmentDTO {
     public NavigationEquipmentDTO(NavigationEquipment n){
         this.id = n.getId();
         this.name = n.getName();
+
     }
 }
