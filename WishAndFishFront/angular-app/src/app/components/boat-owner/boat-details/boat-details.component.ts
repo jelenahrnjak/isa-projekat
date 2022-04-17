@@ -133,4 +133,14 @@ export class BoatDetailsComponent implements OnInit {
     this.newRule.content = ""
   }
 
+  
+  deleteRule(id){
+    console.log(id)
+
+    this.ruleService.deleteRule(id)
+    .subscribe(data => {
+      window.location.reload();
+    });
+    }
+
 }
