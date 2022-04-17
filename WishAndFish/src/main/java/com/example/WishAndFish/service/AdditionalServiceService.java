@@ -82,15 +82,36 @@ public class AdditionalServiceService {
         }
         return null;
     }
+//
+//    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
+//        List<AdditionalServicesDTO> ret = new ArrayList<>();
+//        for(AdditionalService as: this.additionalServiceRepository.findAll()){
+//            if(as.getAppointment() != null){
+//                if(id.equals(as.getAppointment().getId())){
+//                    ret.add(new AdditionalServicesDTO(as));
+//                }
+//            }
+//
+//        }
+//        return ret;
+//    }
+
+
 
     public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
         List<AdditionalServicesDTO> ret = new ArrayList<>();
         for(AdditionalService as: this.additionalServiceRepository.findAll()){
-            if(as.getAppointment() != null){
-                if(id.equals(as.getAppointment().getId())){
-                    ret.add(new AdditionalServicesDTO(as));
-                }
-            }
+//            if(as.getAppointment() != null){
+//                if(id.equals(as.getAppointment().getId())){
+//                    ret.add(new AdditionalServicesDTO(as));
+//                }
+//            }
+
+           for(Appointment app: as.getAppointments()){
+               if (id.equals(app.getId())) {
+                   ret.add(new AdditionalServicesDTO(as));
+               }
+           }
 
         }
         return ret;

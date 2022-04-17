@@ -2,6 +2,7 @@ package com.example.WishAndFish.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -69,15 +70,14 @@ public class Appointment {
     @JsonBackReference
     private FishingAdventure fishingAdventure;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-    @JsonManagedReference
-    private Set<AdditionalService> additionalServices = new HashSet<>();
+//    @OneToMany(mappedBy = "appointment", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+//    @JsonManagedReference
+//    private Set<AdditionalService> additionalServices = new HashSet<>();
 
-    //@ManyToMany(mappedBy = "appointments")
-    //private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
+    @ManyToMany(mappedBy = "appointments")
+    @JsonIgnore
+    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
-//    @Column(name = "action", unique = false, nullable = false)
-//    private boolean action;
 
     public Cottage getCottage() {
         return cottage;

@@ -104,10 +104,15 @@ public class AppointmentService {
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
         a.setPrice(dto.getPrice());
-        for(Long as: dto.getAdditionalServices()){
-            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-        }
         appointmentRepository.save(a);
+
+        for(Long as: dto.getAdditionalServices()){
+            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+            add.getAppointments().add(a);
+            additionalServiceRepository.save(add);
+            //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+        }
+//        appointmentRepository.save(a);
 
         for(Client c: clientRepository.findAll()){
             for(Cottage cot: c.getCottageSubscriptions()){
@@ -131,13 +136,17 @@ public class AppointmentService {
         a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
         a.setPrice(dto.getPrice());
-        for(Long as: dto.getAdditionalServices()){
-            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
-            aservice.setBoat(boatRepository.getById(dto.getId()));
-            additionalServiceRepository.save(aservice);
-            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-        }
         appointmentRepository.save(a);
+
+        for(Long as: dto.getAdditionalServices()){
+//            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
+//            aservice.setBoat(boatRepository.getById(dto.getId()));
+//            additionalServiceRepository.save(aservice);
+//            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+            add.getAppointments().add(a);
+            additionalServiceRepository.save(add);
+        }
 
         for(Client c: clientRepository.findAll()){
             for(Boat boat: c.getBoatSubscriptions()){
