@@ -12,6 +12,7 @@ import { BoatService } from './../../../service/boat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-boat-details',
@@ -26,7 +27,8 @@ export class BoatDetailsComponent implements OnInit {
   images: any;
   userRole = localStorage.getItem('role');
   additionalServices : any;
-
+  //today's date
+  todayDate:Date = new Date();
   newAdditionalService = {
     "id": "",
     "name" : "",
@@ -53,6 +55,11 @@ export class BoatDetailsComponent implements OnInit {
     "id": "",
     "name": ""
   }
+
+  startDate: String | any;
+  endDate: String | any;
+  startTime: any;
+  endTime: any;
 
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
@@ -221,5 +228,49 @@ export class BoatDetailsComponent implements OnInit {
         this.newEquipment.name = ""
       }
     }
+
+
+
+    editAvailability(){
+  
+      if(start >= end){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Start date is greater or equal then end date!',
+        }) 
+      }
+     else{
+      console.log(this.startTime + " " + this.endTime)
+  
+      if(this.startDate == undefined || this.endDate == undefined || this.startTime == undefined || this.endTime == undefined || this.startTime == "" || this.endTime == ""){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please fill in all fields!',
+        }) 
+      }
+      else{
+
+        var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+        var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+     
+
+        var dto = {
+          "id": this.id,
+          "startDate": start + " " + this.startTime,
+          "endDate": end  + " " + this.endTime
+        }
+        this.appointmentService.editAvailabilityBoat(dto).subscribe((data : any) => {
+          // console.log(data)
+          this.startTime = "";
+          this.endTime = "";
+          this.startDate = "";
+          this.endDate = ""
+        });
+      }
+    
+    }
+     }
 
 }
