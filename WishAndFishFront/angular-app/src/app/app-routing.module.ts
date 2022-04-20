@@ -122,6 +122,7 @@ const routes: Routes = [
     path:'subscriptions',
     component: SubscriptionsComponent,
   },
+  {
     path:'boat-details/:id',
     component: BoatDetailsComponent,
   },
