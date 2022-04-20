@@ -49,6 +49,12 @@ public class AppointmentController {
         return this.appointmentService.editAvailability(dto);
     }
 
+    @PostMapping(value="/editAvailabilityBoat")
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public Appointment editAvailabilityBoat(@RequestBody AvailabilityDTO dto) {
+        return this.appointmentService.editAvailabilityBoat(dto);
+    }
+
     @RequestMapping(value="/addNewAction", method = RequestMethod.POST)
     //@PreAuthorize("hasRole('COTTAGE_OWNER')")
     public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) throws MessagingException {

@@ -42,6 +42,13 @@ export class AppointmentService {
     }));  
   }
 
+  editAvailabilityBoat(dto){
+    return this.apiService.post(this.config.appointment_url + `/editAvailabilityBoat`, dto)
+    .pipe(map((appointment) => {
+      console.log('Creating appointment success:');
+    }));  
+  }
+
   addNewAction(dto){
     console.log("evo me ")
     const loginHeaders = new HttpHeaders({

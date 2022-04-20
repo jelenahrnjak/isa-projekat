@@ -88,6 +88,19 @@ public class AppointmentService {
         return a;
     }
 
+    public Appointment editAvailabilityBoat(AvailabilityDTO dto){
+        Appointment a = new Appointment();
+        a.setDeleted(false);
+        a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
+        a.setIsAction(false);
+        a.setStartDate(findDate(dto.getStartDate()));
+        a.setEndDate(findDate(dto.getEndDate()));
+        a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
+        a.setReserved(false);
+        this.appointmentRepository.save(a);
+        return a;
+    }
+
     private LocalDateTime findDate(String start){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(start, formatter);
