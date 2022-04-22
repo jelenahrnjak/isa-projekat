@@ -32,4 +32,10 @@ export class EditBoatBasicInfoComponent implements OnInit {
     this.router.navigate(['/boat-details/' + this.id]);
   }
 
+  submit(){
+    this.boatService.editBasicInfo(this.boat).subscribe((data) =>{
+      this.router.navigate(['/boat-details/' + this.id]);
+    });
+  }
+
 }

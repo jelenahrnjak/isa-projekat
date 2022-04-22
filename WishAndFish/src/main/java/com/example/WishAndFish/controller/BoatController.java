@@ -1,8 +1,7 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.AddBoatDTO;
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.BoatDetailDTO;
+import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.BoatService;
@@ -66,6 +65,18 @@ public class BoatController {
         if(b != null){
             return new ResponseEntity<>(b, HttpStatus.OK);
         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+    @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<Boat> editBasicInfo(@RequestBody EditBoatDTO editedBoat) {
+        Boat b = this.boatService.editBasicInfo(editedBoat);
+        if(b != null){
+            return new ResponseEntity<>(b, HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
