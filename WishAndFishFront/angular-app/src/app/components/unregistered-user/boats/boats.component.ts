@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BoatService } from 'src/app/service/boat.service';
 import { Boat } from 'src/app/model/boat.model';
@@ -27,7 +27,8 @@ export class BoatsComponent implements OnInit {
     private route: ActivatedRoute,
     private boatService: BoatService,   
     private formBuilder: FormBuilder,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -82,9 +83,9 @@ export class BoatsComponent implements OnInit {
     }
   }  
   
-  details(){
-
-  }
+  details(id){
+    this.router.navigate(['/boat-details/'+id]);
+  } 
 
   subscribe(id){  
 
