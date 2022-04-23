@@ -62,15 +62,13 @@ public class ClientService {
 
     private void removeCottageFromClientsSubscriptions(Client client, Cottage cottage) {
 
-        Set<Cottage> subscriptions = client.getCottageSubscriptions();
-
-        for(Cottage c : subscriptions){
+        for(Cottage c : client.getCottageSubscriptions()){
             if(c.getId() == cottage.getId()){
-                subscriptions.remove(c);
+                client.getCottageSubscriptions().remove(c);
+                clientRepository.save(client);
+                return;
             }
         }
-        client.setCottageSubscriptions(subscriptions);
-        clientRepository.save(client);
     }
 
     public boolean checkCottageExistence(String userEmail, Long cottageId) {
@@ -87,9 +85,7 @@ public class ClientService {
     }
 
     private void addCottageToClientsSubscriptions(Client client, Cottage cottage) {
-        Set<Cottage> subscriptions = client.getCottageSubscriptions();
-        subscriptions.add(cottage);
-        client.setCottageSubscriptions(subscriptions);
+        client.getCottageSubscriptions().add(cottage);
         clientRepository.save(client);
     }
 
@@ -120,15 +116,13 @@ public class ClientService {
 
     private void removeBoatFromClientsSubscriptions(Client client, Boat boat) {
 
-        Set<Boat> subscriptions = client.getBoatSubscriptions();
-
-        for(Boat c : subscriptions){
+        for(Boat c : client.getBoatSubscriptions()){
             if(c.getId() == boat.getId()){
-                subscriptions.remove(c);
+                client.getBoatSubscriptions().remove(c);
+                clientRepository.save(client);
+                return;
             }
         }
-        client.setBoatSubscriptions(subscriptions);
-        clientRepository.save(client);
     }
 
     public boolean checkBoatExistence(String userEmail, Long boatId) {
@@ -146,9 +140,7 @@ public class ClientService {
 
 
     private void addBoatToClientsSubscriptions(Client client, Boat boat) {
-        Set<Boat> subscriptions = client.getBoatSubscriptions();
-        subscriptions.add(boat);
-        client.setBoatSubscriptions(subscriptions);
+        client.getBoatSubscriptions().add(boat);
         clientRepository.save(client);
     }
 
@@ -177,15 +169,13 @@ public class ClientService {
 
     private void removeAdventureFromClientsSubscriptions(Client client, FishingAdventure adventure) {
 
-        Set<FishingAdventure> subscriptions = client.getAdventureSubscriptions();
-
-        for(FishingAdventure c : subscriptions){
+        for(FishingAdventure c : client.getAdventureSubscriptions()){
             if(c.getId() == adventure.getId()){
-                subscriptions.remove(c);
+                client.getAdventureSubscriptions().remove(c);
+                clientRepository.save(client);
+                return;
             }
         }
-        client.setAdventureSubscriptions(subscriptions);
-        clientRepository.save(client);
     }
     public boolean checkAdventureExistence(String userEmail, Long adventureId) {
 
@@ -201,9 +191,7 @@ public class ClientService {
     }
 
     private void addAdventureToClientsSubscriptions(Client client, FishingAdventure adventure) {
-        Set<FishingAdventure> subscriptions = client.getAdventureSubscriptions();
-        subscriptions.add(adventure);
-        client.setAdventureSubscriptions(subscriptions);
+        client.getAdventureSubscriptions().add(adventure);
         clientRepository.save(client);
     }
 
