@@ -32,14 +32,18 @@ export class AppoitmentSearchComponent implements OnInit {
     private boatService : BoatService,
     private adventureService: AdventureService,  
     private formBuilder: FormBuilder) { }
-    private selectedEntity = 0;   
+
+    selectedEntity = 0;   
     searchDTO = {
       "name" : "",
       "address" : "",
       "rating" : "",
       "price" : "", 
+      "startDate" : new Date(),
+      "endDate" : new Date(),
+      "maxPersons" : 0
     }
-
+ 
     ngOnInit() {
     
       this.form = this.formBuilder.group({  
@@ -47,9 +51,11 @@ export class AppoitmentSearchComponent implements OnInit {
         address: [''],  
         rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
         price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
-        startDate : [''],
-        endDate : [''],
-        guests : ['']  
+        startDate : ['',Validators.compose([Validators.required])],
+        endDate : ['',Validators.compose([Validators.required])],
+        guests : [''],
+        startTime : [''],
+        hours : ['']
       })
        this.route.params
        .pipe(takeUntil(this.ngUnsubscribe))
@@ -61,17 +67,22 @@ export class AppoitmentSearchComponent implements OnInit {
 
     
     search(){ 
-      if(this.selectedEntity == 0){  
+      if(this.selectedEntity == 1 && this.form.get('startDate').invalid && this.form.get('endDate').invalid){  
+        alert('You must enter start and end date!')
         return 
       }
 
       this.searchDTO.name = this.form.get('name').value
       this.searchDTO.address = this.form.get('address').value
       this.searchDTO.rating = this.form.get('rating').value
-      this.searchDTO.price = this.form.get('price').value  
+      this.searchDTO.price = this.form.get('price').value 
+      
+      this.searchDTO.startDate = this.form.get('startDate').value;
+      this.searchDTO.endDate = this.form.get('endDate').value;
+      this.searchDTO.maxPersons = this.form.get('guests').value; 
 
       if(this.selectedEntity == 1){ 
-        this.cottageService.search(this.searchDTO).subscribe((data : any) => {
+        this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
       }else if(this.selectedEntity == 2){ 
@@ -105,6 +116,10 @@ export class AppoitmentSearchComponent implements OnInit {
           this.items = data;
         }); 
       }
+
+    }
+
+    details(id){
 
     }
 

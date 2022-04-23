@@ -11,8 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CottageService {
@@ -40,8 +44,19 @@ public class CottageService {
         return ret;
     }
 
-    public List<CottageDTO> search(CottageDTO dto) {
+    public List<CottageDTO> mapSearch(CottageDTO dto) {
         List<CottageDTO> ret = new ArrayList<>();
+
+        for(Cottage c : search(dto)){
+
+            ret.add(new CottageDTO(c));
+        }
+
+        return ret;
+    }
+
+    public List<Cottage> search(CottageDTO dto) {
+        List<Cottage> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -56,7 +71,7 @@ public class CottageService {
         }
         for(Cottage c : cottageRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(checkCottageForSearch(c,dto,rating, price) && !c.isDeleted()){
-            ret.add(new CottageDTO(c));}
+                ret.add(c);}
         }
 
         return ret;
@@ -180,5 +195,43 @@ public class CottageService {
 
         return ret;
 
+    }
+
+    public List<CottageDTO> searchAppointments(AppointmentSearchDTO criteria){
+
+        CottageDTO cottage = new CottageDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
+        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons());
+
+
+        List<Cottage> cottages = search(cottage);
+        List<CottageDTO> ret = new ArrayList<>();
+
+        for(Cottage c : cottages){
+
+            if(findAppointments(c.getAppointments(), appointment)){
+                ret.add(new CottageDTO(c));
+            }
+
+        }
+
+        return ret;
+    }
+
+    private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
+
+        for(Appointment a : appointments){
+            if(a.isDeleted() || a.getIsAction() || criteria.getMaxPersons()==null || criteria.getMaxPersons() < a.getMaxPersons()){
+                continue;
+            }
+            if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){
+                continue;
+            }
+            if(a.getEndDate().toLocalDate().isBefore(criteria.getEndDate().toLocalDate())){
+                continue;
+            }
+            return true;
+        }
+
+        return false;
     }
 }

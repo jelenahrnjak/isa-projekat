@@ -33,4 +33,10 @@ public class CottageDTO {
         this.maximumPeople = c.getBedsPerRoom();
     }
 
+    public CottageDTO(String name, String address, String rating, String price){
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.price = price;
+    }
 }

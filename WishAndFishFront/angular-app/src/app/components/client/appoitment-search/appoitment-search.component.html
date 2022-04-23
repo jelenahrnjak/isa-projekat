@@ -3,7 +3,7 @@
     <div class="dropdown" style="margin-left: 30%; margin-top: 1rem; width: 180rem; ">
         <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" data-toggle="dropdown" 
          aria-haspopup="true" aria-expanded="false" (change)="onChange()" [(ngModel)]="selectedEntity">
-            <option [value]=0 selected>What do you want to book?</option>
+            <option [value]=0 selected disabled>What do you want to book?</option>
             <option [value] = 1>Cottage</option>
             <option [value]=2 >Boat</option>
             <option [value]=3 >Fishing adventure</option>
@@ -11,19 +11,21 @@
         
       </div>
     
-    <form (ngSubmit)="search()" [formGroup]="form">
+    <form (ngSubmit)="search()" [formGroup]="form" *ngIf="selectedEntity">
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 
       <input type="text" class="input-border" formControlName="name" placeholder="Search by name"/>  
       <input type="text" class="input-border" formControlName="address" placeholder="Search by address"/>  
       <input type="number" step="0.01" min="0.0" max="5.0" class="input-border" formControlName="rating" placeholder="Minimal rating"/>  
-      <input type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per day"/>  
+      <input *ngIf="selectedEntity == 1" type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per day"/>  
+      <input *ngIf="selectedEntity != 1" type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per hour"/> 
         
     </div>
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 
-      <input type="text" class="input-border" formControlName="startDate" placeholder="Check in" onfocus="(this.type='date')"/>  
-      <input type="text" class="input-border" formControlName="endDate" placeholder="Check out" onfocus="(this.type='date')"/>  
-      <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Number of guests"/> 
-      <input type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price"/>  
+      <input class="input-border" formControlName="startDate"  placeholder="Check in" onfocus="(this.type='date')"/>  
+      <input *ngIf="selectedEntity == 1" type="text" class="input-border" formControlName="endDate" placeholder="Check out" onfocus="(this.type='date')"/>  
+      <input *ngIf="selectedEntity != 1" type="text" class="input-border" formControlName="startTime" placeholder="Start time" onfocus="(this.type='time')"/>
+      <input *ngIf="selectedEntity != 1" type="number" class="input-border" formControlName="hours" placeholder="Number of hours"/>  
+      <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Number of guests"/>  
     </div>
     <div style=" margin-left:27%; margin-top: 1%;">   
       <button class="btn" (click)="clear()">Clear</button>  
@@ -40,13 +42,20 @@
                 <li class = "list-group-item">
                 <b>{{c.name}}</b>
                 </li>
+                <li *ngIf="selectedEntity == 3" class="list-group-item">Instructor: {{c.instructor}}</li>  
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
-                <li style="height: 70px; text-align: center;" class="list-group-item">Price per day: {{c.price}}€</li>  
+                <li *ngIf="selectedEntity == 1" style="height: 70px; text-align: center;" class="list-group-item">Price per day: {{c.price}}€</li>  
+                <li *ngIf="selectedEntity != 1" style="height: 70px; text-align: center;" class="list-group-item">Price per hour: {{c.price}}€</li>  
+                <li class="list-group-item">Maximum people: {{c.maximumPeople}}</li>  
                 <li style="height: 70px;" *ngIf="c.rating !== '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
-                <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">The cottage currently does not have any ratings.</li> 
-                <li  *ngIf="c.declaration == null" style="height: 70px;" class="list-group-item">The cottage currently does not have decription.</li> 
-                <li  *ngIf="c.rating !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
-                </ul> 
+                <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">There is currently no ratings.</li> 
+                <li *ngIf="c.description == null" style="height: 70px;" class="list-group-item">There is currently no decription.</li> 
+                <li *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
+                <li *ngIf="selectedEntity == 3" style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
+                <li class="list-group-item">
+                  <button class="small-btn" (click)="details(c.id)">Details</button>  
+                </li>
+                </ul>   
         </div>
     </div>
     
