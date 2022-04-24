@@ -36,7 +36,7 @@ public class BoatController {
     @RequestMapping(value="/search", method = RequestMethod.GET)
     public List<BoatDTO> search(BoatDTO dto) {
 
-        return this.boatService.search(dto);
+        return this.boatService.mapSearch(dto);
     }
 
     @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
@@ -68,7 +68,6 @@ public class BoatController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
     @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
     //@PreAuthorize("hasRole('BOAT_OWNER')")
     public ResponseEntity<Boat> editBasicInfo(@RequestBody EditBoatDTO editedBoat) {
@@ -78,6 +77,12 @@ public class BoatController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  
+    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){
+        return this.boatService.searchAppointments(data);
     }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BoatService } from 'src/app/service/boat.service';
 import { Boat } from 'src/app/model/boat.model';
@@ -27,7 +27,8 @@ export class BoatsComponent implements OnInit {
     private route: ActivatedRoute,
     private boatService: BoatService,   
     private formBuilder: FormBuilder,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,11 +39,13 @@ export class BoatsComponent implements OnInit {
       price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
       startDate : [''],
       endDate : [''],
-      guests : [''] 
+      guests : [''],
+      sorting : ['']
        
     })  
 
     this.clear();
+    this.form.get('sorting').setValue(0)
 
     if(localStorage.getItem('user')){
       this.isClient = true;
@@ -70,6 +73,7 @@ export class BoatsComponent implements OnInit {
   clear(){
     this.form.reset();
   
+    this.form.get('sorting').setValue(0)
     if(localStorage.getItem('role') === 'CLIENT'){ 
       this.boatService.getAllClient().subscribe((data : any) => {
         this.boats = data;
@@ -82,9 +86,9 @@ export class BoatsComponent implements OnInit {
     }
   }  
   
-  details(){
-
-  }
+  details(id){
+    this.router.navigate(['/boat-details/'+id]);
+  } 
 
   subscribe(id){  
 
@@ -116,6 +120,22 @@ export class BoatsComponent implements OnInit {
       (err) => {  
         alert('Already unsubscribed!') 
       }) 
+  }
+
+  changeSorting(){
+
+    if(this.form.get('sorting').value == 1){ 
+
+      this.boats.sort(function(a, b) { 
+        return a.price - b.price;})
+
+    }else{ 
+
+      this.boats.sort(function(a, b) {
+
+        return b.rating - a.rating  })
+    }
+
   }
 
 }

@@ -36,4 +36,11 @@ public class FishingAdventureDTO {
         this.instructorEmail = f.getFishingInstructor().getEmail();
         this.maximumPeople = f.getCapacity();
     }
+
+    public FishingAdventureDTO(String name, String address, String rating, String price){
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.price = price;
+    }
 }

@@ -107,6 +107,12 @@ export class BoatDetailsComponent implements OnInit {
       this.fishingEquipmensService.findNavigation(this.id).subscribe((data : any) => {
         this.fishingEquipments = data;
         });
+
+    if(this.userRole === 'CLIENT'){
+      this.clientService.checkSubscription(this.id, 'boat').subscribe((data:boolean) =>{
+        this.boat.isSubscribed = data; 
+      })
+    }
   }
 
 
@@ -272,5 +278,30 @@ export class BoatDetailsComponent implements OnInit {
     
     }
      }
+
+
+     subscribe(){ 
+      console.log('uradio')
+ 
+       this.clientService.subscribeToBoat(this.id, localStorage.getItem('user')).subscribe(
+         (data) => {  
+           this.boat.isSubscribed = true;
+           alert("Successfully subscribed") 
+         },
+         (err) => {  
+           alert('Already subscribed!') 
+         })  
+    }
+ 
+    unsubscribe(){ 
+     this.clientService.unsubscribeFromBoat(this.id, localStorage.getItem('user')).subscribe(
+       (data) => {  
+         this.boat.isSubscribed = false;
+         alert("Successfully unsubscribed") 
+       },
+       (err) => {  
+         alert('Already unsubscribed!') 
+       })  
+    }
 
 }

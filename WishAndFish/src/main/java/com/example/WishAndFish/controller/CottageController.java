@@ -1,10 +1,6 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.AddActionDTO;
-import com.example.WishAndFish.dto.AddCottageDTO;
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.dto.EditCottageDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.CottageService;
@@ -48,7 +44,7 @@ public class CottageController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<CottageDTO> search(CottageDTO dto) {
-        return this.cottageService.search(dto);
+        return this.cottageService.mapSearch(dto);
     }
 
     @PostMapping(value = "/addCottage")
@@ -76,6 +72,12 @@ public class CottageController {
         return this.cottageService.editBasicInfo(editedCottage);
     }
 
+    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
+
+        return this.cottageService.searchAppointments(data);
+    }
 }
 
 

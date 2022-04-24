@@ -32,14 +32,23 @@ export class AppoitmentSearchComponent implements OnInit {
     private boatService : BoatService,
     private adventureService: AdventureService,  
     private formBuilder: FormBuilder) { }
-    private selectedEntity = 0;   
+
+    selectedEntity = 0;   
     searchDTO = {
       "name" : "",
       "address" : "",
       "rating" : "",
       "price" : "", 
-    }
-
+      "startDate" : new Date(),
+      "endDate" : new Date(),
+      "maxPersons" : 0,
+      "startTime" : "",
+      "hours" : 0
+    } 
+    minDate: Date = new Date();
+    minDateMax : Date = new Date(); 
+    message = "Please select enetity and then choose criteria.";
+ 
     ngOnInit() {
     
       this.form = this.formBuilder.group({  
@@ -47,65 +56,114 @@ export class AppoitmentSearchComponent implements OnInit {
         address: [''],  
         rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
         price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
-        startDate : [''],
-        endDate : [''],
-        guests : ['']  
-      })
+        startDate : ['',Validators.compose([Validators.required])],
+        endDate : ['',Validators.compose([Validators.required])],
+        guests : [''],
+        startTime : ['',Validators.compose([Validators.required])],
+        hours : ['',Validators.compose([Validators.required, Validators.pattern('([0-9]+)$')])],
+        sorting : ['']
+         
+      })  
+
        this.route.params
        .pipe(takeUntil(this.ngUnsubscribe))
        .subscribe((params: DisplayMessage) => {
          this.notification = params;
-     }); 
+     });  
+      
+
      this.form.reset(); 
+   
+     this.form.get('sorting').setValue(0)
+ 
     }
 
-    
+    checkDates(){
+
+      if(this.form.get('startDate').value > this.form.get('endDate').value){
+        this.form.get('endDate').setValue("")
+
+      }
+      this.minDateMax = this.form.get('startDate').value
+    }
+
     search(){ 
-      if(this.selectedEntity == 0){  
+      if(this.selectedEntity == 1 && (this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
+        this.message = 'You must enter start and end date!'
         return 
       }
+
+      if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
+        this.message =  'You must enter start date, start time and how many hours you want to stay!'
+        return 
+      } 
+
+      this.message = null; 
 
       this.searchDTO.name = this.form.get('name').value
       this.searchDTO.address = this.form.get('address').value
       this.searchDTO.rating = this.form.get('rating').value
-      this.searchDTO.price = this.form.get('price').value  
+      this.searchDTO.price = this.form.get('price').value 
+      
+      this.searchDTO.startDate = this.form.get('startDate').value; 
+      this.searchDTO.maxPersons = this.form.get('guests').value; 
 
       if(this.selectedEntity == 1){ 
-        this.cottageService.search(this.searchDTO).subscribe((data : any) => {
+        this.searchDTO.endDate = this.form.get('endDate').value;
+        this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
-      }else if(this.selectedEntity == 2){ 
-        this.boatService.search(this.searchDTO).subscribe((data : any) => {
+      }else if(this.selectedEntity == 2){
+        this.searchDTO.startTime = this.form.get('startTime').value;
+        this.searchDTO.hours = this.form.get('hours').value; 
+        this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
 
       }else if(this.selectedEntity == 3){ 
-        this.adventureService.search(this.searchDTO).subscribe((data : any) => {
+        this.searchDTO.startTime = this.form.get('startTime').value;
+        this.searchDTO.hours = this.form.get('hours').value; 
+        this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
-    }}
+    }
+    
+      if(this.items.length == 0 ){
+        this.message = "There are no apoitments for this criteria :("
+      }
+  }
 
     clear(){
       this.form.reset();
+      
+      this.form.get('sorting').setValue(0)
     }
 
     onChange(){ 
-      
-      if(this.selectedEntity == 1){ 
-        this.cottageService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
-      }else if(this.selectedEntity == 2){ 
-        this.boatService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
+      this.message = null;
+      this.form.reset() 
+      this.form.get('sorting').setValue(0)
+      this.items = []
+    }
 
-      }else if(this.selectedEntity == 3){ 
-        this.adventureService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
+    details(id){
+
+    }
+
+    changeSorting(){
+
+      if(this.form.get('sorting').value == 1){ 
+  
+        this.items.sort(function(a, b) { 
+          return a.price - b.price;})
+  
+      }else{ 
+  
+        this.items.sort(function(a, b) {
+  
+          return b.rating - a.rating  })
       }
-
+  
     }
 
 }

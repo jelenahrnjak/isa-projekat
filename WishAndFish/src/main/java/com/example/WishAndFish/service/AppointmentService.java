@@ -1,9 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.AddActionDTO;
-import com.example.WishAndFish.dto.AdditionalServicesDTO;
-import com.example.WishAndFish.dto.AppointmentDTO;
-import com.example.WishAndFish.dto.AvailabilityDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,4 +167,5 @@ public class AppointmentService {
         }
         return a;
     }
+
 }

@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BoatService {
@@ -60,8 +60,19 @@ public class BoatService {
         return ret;
     }
 
-    public List<BoatDTO> search(BoatDTO dto) {
+    public List<BoatDTO> mapSearch(BoatDTO dto) {
         List<BoatDTO> ret = new ArrayList<>();
+
+        for(Boat b : search(dto)){
+
+            ret.add(new BoatDTO(b));
+        }
+
+        return ret;
+    }
+
+    public List<Boat> search(BoatDTO dto) {
+        List<Boat> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -76,7 +87,7 @@ public class BoatService {
         }
         for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(checkBoatForSearch(b,dto,rating, price) && !b.isDeleted()){
-                ret.add(new BoatDTO(b));}
+                ret.add(b);}
         }
 
         return ret;
@@ -229,6 +240,44 @@ public class BoatService {
             }
         }
         return null;
+    }
+
+    public List<BoatDTO> searchAppointments(AppointmentSearchDTO criteria){
+
+        BoatDTO boat = new BoatDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
+        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getStartTime(), criteria.getHours(), criteria.getMaxPersons());
+
+
+        List<Boat> boats = search(boat);
+        List<BoatDTO> ret = new ArrayList<>();
+
+        for(Boat b : boats){
+
+            if(findAppointments(b.getAppointments(), appointment)){
+                ret.add(new BoatDTO(b));
+            }
+
+        }
+
+        return ret;
+    }
+
+    private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
+
+        for(Appointment a : appointments){
+            if(a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+                continue;
+            }
+            if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){
+                continue;
+            }
+            if(a.getEndDate().toLocalDate().isBefore(criteria.getEndDate().toLocalDate())){
+                continue;
+            }
+            return true;
+        }
+
+        return false;
     }
 
 }
