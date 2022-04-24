@@ -39,11 +39,13 @@ export class BoatsComponent implements OnInit {
       price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
       startDate : [''],
       endDate : [''],
-      guests : [''] 
+      guests : [''],
+      sorting : ['']
        
     })  
 
     this.clear();
+    this.form.get('sorting').setValue(0)
 
     if(localStorage.getItem('user')){
       this.isClient = true;
@@ -71,6 +73,7 @@ export class BoatsComponent implements OnInit {
   clear(){
     this.form.reset();
   
+    this.form.get('sorting').setValue(0)
     if(localStorage.getItem('role') === 'CLIENT'){ 
       this.boatService.getAllClient().subscribe((data : any) => {
         this.boats = data;
@@ -117,6 +120,22 @@ export class BoatsComponent implements OnInit {
       (err) => {  
         alert('Already unsubscribed!') 
       }) 
+  }
+
+  changeSorting(){
+
+    if(this.form.get('sorting').value == 1){ 
+
+      this.boats.sort(function(a, b) { 
+        return a.price - b.price;})
+
+    }else{ 
+
+      this.boats.sort(function(a, b) {
+
+        return b.rating - a.rating  })
+    }
+
   }
 
 }

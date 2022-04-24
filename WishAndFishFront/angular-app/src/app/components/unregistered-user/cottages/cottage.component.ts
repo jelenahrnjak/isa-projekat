@@ -30,7 +30,7 @@ export class CottageComponent implements OnInit {
     "rating" : "",
     "price" : "", 
   };
-  isClient : boolean = false;
+  isClient : boolean = false; 
 
   constructor(  
     private route: ActivatedRoute,
@@ -48,7 +48,8 @@ export class CottageComponent implements OnInit {
       price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
       startDate : [''],
       endDate : [''],
-      guests : ['']  
+      guests : [''] ,
+      sorting : ['']
     })
      this.route.params
      .pipe(takeUntil(this.ngUnsubscribe))
@@ -59,6 +60,7 @@ export class CottageComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; 
 
   this.clear();
+  this.form.get('sorting').setValue(0)
       
     if(localStorage.getItem('user')){
       this.isClient = true;
@@ -85,6 +87,8 @@ export class CottageComponent implements OnInit {
 
   clear(){
     this.form.reset();
+    
+    this.form.get('sorting').setValue(0)
     this.cottages = []
     if(localStorage.getItem('role') === 'CLIENT'){ 
       this.cottageService.getAllClient().subscribe((data : any) => {
@@ -130,5 +134,21 @@ export class CottageComponent implements OnInit {
       (err) => {  
         alert('Already unsubscribed!') 
       }) 
+  }
+
+  changeSorting(){
+
+    if(this.form.get('sorting').value == 1){ 
+
+      this.cottages.sort(function(a, b) { 
+        return a.price - b.price;})
+
+    }else{ 
+
+      this.cottages.sort(function(a, b) {
+
+        return b.rating - a.rating  })
+    }
+
   }
 }

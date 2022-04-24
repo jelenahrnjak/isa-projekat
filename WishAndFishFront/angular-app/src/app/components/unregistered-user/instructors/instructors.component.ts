@@ -38,10 +38,14 @@ export class InstructorsComponent implements OnInit {
       address: [''], 
       instructor: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.max(5), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])], 
-      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
- 
-    })
+      price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+      sorting : ['']
+       
+    })  
+
     this.clear();
+    this.form.get('sorting').setValue(0)
+    
     if(localStorage.getItem('user')){
       this.isClient = true;
     }
@@ -68,6 +72,8 @@ export class InstructorsComponent implements OnInit {
 
   clear(){
     this.form.reset();
+    
+    this.form.get('sorting').setValue(0)
     
     if(localStorage.getItem('role') === 'CLIENT'){ 
       this.adventureService.getAllClient().subscribe((data : any) => {
@@ -114,5 +120,21 @@ export class InstructorsComponent implements OnInit {
       (err) => {  
         alert('Already unsubscribed!') 
       })  
+  }
+
+  changeSorting(){
+
+    if(this.form.get('sorting').value == 1){ 
+
+      this.adventures.sort(function(a, b) { 
+        return a.price - b.price;})
+
+    }else{ 
+
+      this.adventures.sort(function(a, b) {
+
+        return b.rating - a.rating  })
+    }
+
   }
 }

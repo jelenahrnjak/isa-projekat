@@ -46,7 +46,7 @@ export class AppoitmentSearchComponent implements OnInit {
       "hours" : 0
     } 
     minDate: Date = new Date();
-    minDateMax : Date = new Date();
+    minDateMax : Date = new Date(); 
     message = "Please select enetity and then choose criteria.";
  
     ngOnInit() {
@@ -60,19 +60,30 @@ export class AppoitmentSearchComponent implements OnInit {
         endDate : ['',Validators.compose([Validators.required])],
         guests : [''],
         startTime : ['',Validators.compose([Validators.required])],
-        hours : ['',Validators.compose([Validators.required, Validators.pattern('([0-9]+)$')])]  ,
-      })
+        hours : ['',Validators.compose([Validators.required, Validators.pattern('([0-9]+)$')])],
+        sorting : ['']
+         
+      })  
+
        this.route.params
        .pipe(takeUntil(this.ngUnsubscribe))
        .subscribe((params: DisplayMessage) => {
          this.notification = params;
-     }); 
+     });  
+      
+
      this.form.reset(); 
+   
+     this.form.get('sorting').setValue(0)
  
     }
 
     checkDates(){
-      this.form.get('endDate').setValue("")
+
+      if(this.form.get('startDate').value > this.form.get('endDate').value){
+        this.form.get('endDate').setValue("")
+
+      }
       this.minDateMax = this.form.get('startDate').value
     }
 
@@ -124,16 +135,35 @@ export class AppoitmentSearchComponent implements OnInit {
 
     clear(){
       this.form.reset();
+      
+      this.form.get('sorting').setValue(0)
     }
 
     onChange(){ 
       this.message = null;
-      this.form.reset()
+      this.form.reset() 
+      this.form.get('sorting').setValue(0)
       this.items = []
     }
 
     details(id){
 
+    }
+
+    changeSorting(){
+
+      if(this.form.get('sorting').value == 1){ 
+  
+        this.items.sort(function(a, b) { 
+          return a.price - b.price;})
+  
+      }else{ 
+  
+        this.items.sort(function(a, b) {
+  
+          return b.rating - a.rating  })
+      }
+  
     }
 
 }
