@@ -4,12 +4,13 @@
     padding: 20px;
     background: #fff;
     border-style: solid;
-    max-width: 1240px;
-    margin-left: 250px;
+    max-width: 97.5%;
+    margin-left: 1%;
     margin-right: auto;
     margin-top: 30px;
     margin-bottom: auto;
     display: flex;
+    height: 100%;
      }
     .inner .image-holder {
       width: 40%;
