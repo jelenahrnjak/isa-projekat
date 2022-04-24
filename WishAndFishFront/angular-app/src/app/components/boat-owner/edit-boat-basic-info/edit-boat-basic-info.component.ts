@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-boat-basic-info',
@@ -33,9 +34,20 @@ export class EditBoatBasicInfoComponent implements OnInit {
   }
 
   submit(){
-    this.boatService.editBasicInfo(this.boat).subscribe((data) =>{
-      this.router.navigate(['/boat-details/' + this.id]);
-    });
+
+    if(this.boat.name == "" || this.boat.type == "" || this.boat.pricePerHour == undefined || this.boat.description == "" || this.boat.cancellationConditions == "" || this.boat.maximumPeople == undefined || this.boat.length == undefined || this.boat.engineNumber == undefined || this.boat.enginePower == undefined || this.boat.maxSpeed == undefined || this.boat.maxSpeed == undefined || this.boat.capacity == undefined
+    || this.boat.address.cityName == "" || this.boat.address.cityName == "" || this.boat.address.latitude == undefined || this.boat.address.longitude == undefined || this.boat.address.postalCode == undefined || this.boat.address.street == undefined || this.boat.address.streetNumber == undefined){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Fill all fields!',
+      })    }
+    else{
+      this.boatService.editBasicInfo(this.boat).subscribe((data) =>{
+        this.router.navigate(['/boat-details/' + this.id]);
+      });
+    }
+
   }
 
 }
