@@ -1,6 +1,8 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.model.Boat;
+import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,10 +68,20 @@ public class BoatController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    public ResponseEntity<Boat> editBasicInfo(@RequestBody EditBoatDTO editedBoat) {
+        Boat b = this.boatService.editBasicInfo(editedBoat);
+        if(b != null){
+            return new ResponseEntity<>(b, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  
     @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('CLIENT')")
     public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){
-
         return this.boatService.searchAppointments(data);
     }
 

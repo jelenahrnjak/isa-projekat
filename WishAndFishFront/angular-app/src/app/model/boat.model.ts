@@ -5,17 +5,26 @@ export class Boat {
   
     constructor(
         public id: number = 0,
-        public rating: number = 0,
-        public pricePerDay: number = 0,
+        public rating: string = '',
+        public pricePerDay: string = '',
         public name: string = '',
         public address: Address = new Address(), 
         public description: string = '',
         public coverImage: string = '', 
         public images: Image[] = [], 
         public deleted: boolean = false,
-        public maximumPeople:  number = 0,
-        public price : number = 0,
-        public isSubscribed : boolean = false
+        public maximumPeople:  string = '',
+        public pricePerHour :string = '',
+        public isSubscribed : boolean = false,
+        public type : string = "",
+        public cancellationConditions: string = "",
+        public length: string = '',
+        public engineNumber: string = '',
+        public enginePower: string = '',
+        public maxSpeed: string = '',
+        public capacity: string = '',
+
+
       ) {}
  
 }

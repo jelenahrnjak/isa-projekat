@@ -1,3 +1,4 @@
+import { Boat } from './../model/boat.model';
 import { Injectable } from '@angular/core';
 import {ApiService} from './api.service';
 import {ConfigService} from './config.service';
@@ -72,5 +73,12 @@ export class BoatService {
     .pipe(map(cottage => {
       return cottage;
     }));   
+  }
+
+  editBasicInfo(boat) {
+    return this.apiService.put(this.config.boat_url + `/editBasicInfo`, boat)
+    .pipe(map(c => {
+      console.log('Editing boat success');
+    }));
   }
 }

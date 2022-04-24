@@ -214,6 +214,34 @@ public class BoatService {
         return boat;
     }
 
+
+    public Boat editBasicInfo(EditBoatDTO editedBoat){
+        for (Boat b: boatRepository.findAll()){
+            if(editedBoat.getId().equals(b.getId())){
+                b.setName(editedBoat.getName());
+                b.setType(editedBoat.getType());
+                b.setLength(editedBoat.getLength());
+                b.setEngineNumber(editedBoat.getEngineNumber());
+                b.setEnginePower(editedBoat.getEnginePower());
+                b.setMaxSpeed(editedBoat.getMaxSpeed());
+                b.getAddress().setCityName(editedBoat.getAddress().getCityName());
+                b.getAddress().setCountryName(editedBoat.getAddress().getCountryName());
+                b.getAddress().setLatitude(editedBoat.getAddress().getLatitude());
+                b.getAddress().setLongitude(editedBoat.getAddress().getLongitude());
+                b.getAddress().setPostalCode(editedBoat.getAddress().getPostalCode());
+                b.getAddress().setStreet(editedBoat.getAddress().getStreet());
+                b.getAddress().setStreetNumber(editedBoat.getAddress().getStreetNumber());
+                b.setDescription(editedBoat.getDescription());
+                b.setCapacity(editedBoat.getCapacity());
+                b.setCancellationConditions(editedBoat.getCancellationConditions());
+                b.setPricePerHour(editedBoat.getPricePerHour());
+                boatRepository.save(b);
+                return b;
+            }
+        }
+        return null;
+    }
+
     public List<BoatDTO> searchAppointments(AppointmentSearchDTO criteria){
 
         BoatDTO boat = new BoatDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
@@ -251,4 +279,5 @@ public class BoatService {
 
         return false;
     }
+
 }
