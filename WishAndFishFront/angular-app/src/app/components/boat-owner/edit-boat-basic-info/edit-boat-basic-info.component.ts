@@ -37,7 +37,7 @@ export class EditBoatBasicInfoComponent implements OnInit {
 
     var letters = /[a-zA-Z]/;
 
-    if(this.boat.name == "" || this.boat.type == "" || this.boat.pricePerHour == "" || this.boat.description == "" || this.boat.cancellationConditions == "" || this.boat.maximumPeople == "" || this.boat.length == "" || this.boat.engineNumber == "" || this.boat.enginePower == "" || this.boat.maxSpeed == "" || this.boat.capacity == ""
+    if(this.boat.name == "" || this.boat.type == "" || isNaN(this.boat.pricePerHour) || this.boat.description == "" || this.boat.cancellationConditions == "" || this.boat.maximumPeople == "" || this.boat.length == "" || this.boat.engineNumber == "" || this.boat.enginePower == "" || this.boat.maxSpeed == "" || this.boat.capacity == ""
     || this.boat.address.cityName == "" || this.boat.address.cityName == "" || this.boat.address.latitude == "" || this.boat.address.longitude == "" || this.boat.address.postalCode == "" || this.boat.address.street == "" || this.boat.address.streetNumber == ""){
       Swal.fire({
         icon: 'error',
@@ -46,7 +46,7 @@ export class EditBoatBasicInfoComponent implements OnInit {
       })    
       console.log(this.boat)
     }
-    else if(letters.test(this.boat.pricePerHour) || letters.test(this.boat.length) || letters.test(this.boat.engineNumber) || letters.test(this.boat.enginePower) || letters.test(this.boat.maxSpeed) || letters.test(this.boat.capacity) || letters.test(this.boat.address.latitude) || letters.test(this.boat.address.longitude)){
+    else if(isNaN(this.boat.pricePerHour) || letters.test(this.boat.length) || letters.test(this.boat.engineNumber) || letters.test(this.boat.enginePower) || letters.test(this.boat.maxSpeed) || letters.test(this.boat.capacity) || letters.test(this.boat.address.latitude) || letters.test(this.boat.address.longitude)){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

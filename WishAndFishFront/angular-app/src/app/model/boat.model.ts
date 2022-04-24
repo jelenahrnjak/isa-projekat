@@ -5,7 +5,7 @@ export class Boat {
   
     constructor(
         public id: number = 0,
-        public rating: string = '',
+        public rating: number = 0,
         public pricePerDay: string = '',
         public name: string = '',
         public address: Address = new Address(), 
@@ -14,7 +14,7 @@ export class Boat {
         public images: Image[] = [], 
         public deleted: boolean = false,
         public maximumPeople:  string = '',
-        public pricePerHour :string = '',
+        public pricePerHour : number = 0,
         public isSubscribed : boolean = false,
         public type : string = "",
         public cancellationConditions: string = "",
