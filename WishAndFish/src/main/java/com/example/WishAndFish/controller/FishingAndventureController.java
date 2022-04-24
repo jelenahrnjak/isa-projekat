@@ -35,7 +35,7 @@ public class FishingAndventureController {
 
     @RequestMapping(value="/search", method = RequestMethod.GET)
     public List<FishingAdventureDTO> search(FishingAdventureDTO dto) {
-        return this.fishingAdventuresService.search(dto);
+        return this.fishingAdventuresService.mapSearch(dto);
     }
 
     @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
@@ -45,7 +45,7 @@ public class FishingAndventureController {
 
     @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('CLIENT')")
-    public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
+    public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO data){
 
         return this.fishingAdventuresService.searchAppointments(data);
     }

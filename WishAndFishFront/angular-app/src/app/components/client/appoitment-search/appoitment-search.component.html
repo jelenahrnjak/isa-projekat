@@ -2,7 +2,7 @@
     
     <div class="dropdown" style="margin-left: 30%; margin-top: 1rem; width: 180rem; ">
         <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" data-toggle="dropdown" 
-         aria-haspopup="true" aria-expanded="false" (change)="onChange()" [(ngModel)]="selectedEntity">
+         aria-haspopup="true" aria-expanded="false" [(ngModel)]="selectedEntity">
             <option [value]=0 selected disabled>What do you want to book?</option>
             <option [value] = 1>Cottage</option>
             <option [value]=2 >Boat</option>
@@ -10,6 +10,10 @@
         </select>
         
       </div>
+
+    <div *ngIf="!selectedEntity" style="margin: 10ch; font-size: 50px; text-align: center;">
+      Please select enetity and then choose criteria.
+    </div>
     
     <form (ngSubmit)="search()" [formGroup]="form" *ngIf="selectedEntity">
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 

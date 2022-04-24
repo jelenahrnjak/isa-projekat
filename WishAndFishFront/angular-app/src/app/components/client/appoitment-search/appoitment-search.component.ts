@@ -95,33 +95,16 @@ export class AppoitmentSearchComponent implements OnInit {
         }); 
 
       }else if(this.selectedEntity == 3){ 
-        this.adventureService.search(this.searchDTO).subscribe((data : any) => {
+        this.searchDTO.startTime = this.form.get('startTime').value;
+        this.searchDTO.hours = this.form.get('hours').value; 
+        this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
     }}
 
     clear(){
       this.form.reset();
-    }
-
-    onChange(){ 
-      
-      if(this.selectedEntity == 1){ 
-        this.cottageService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
-      }else if(this.selectedEntity == 2){ 
-        this.boatService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
-
-      }else if(this.selectedEntity == 3){ 
-        this.adventureService.getAll().subscribe((data : any) => {
-          this.items = data;
-        }); 
-      }
-
-    }
+    } 
 
     details(id){
 
