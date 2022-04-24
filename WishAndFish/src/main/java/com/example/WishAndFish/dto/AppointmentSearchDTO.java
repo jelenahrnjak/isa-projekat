@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -22,4 +23,7 @@ public class AppointmentSearchDTO {
     private String startDate;
     private String endDate;
     private Integer maxPersons;
+
+    private String startTime;
+    private Integer hours;
 }

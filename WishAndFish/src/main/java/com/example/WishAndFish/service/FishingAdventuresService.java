@@ -1,5 +1,6 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.AppointmentSearchDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.model.Cottage;
@@ -118,5 +119,9 @@ public class FishingAdventuresService {
 
         return ret;
 
+    }
+
+    public List<CottageDTO> searchAppointments(AppointmentSearchDTO data) {
+        return new ArrayList<>();
     }
 }

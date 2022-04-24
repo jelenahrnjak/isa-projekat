@@ -1,5 +1,6 @@
 package com.example.WishAndFish.controller;
 
+import com.example.WishAndFish.dto.AppointmentSearchDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.security.util.TokenUtils;
@@ -40,5 +41,12 @@ public class FishingAndventureController {
     @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
     public List<FishingAdventureDTO> searchClient(@PathVariable String email, FishingAdventureDTO dto) {
         return this.fishingAdventuresService.searchClient(dto, email);
+    }
+
+    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('CLIENT')")
+    public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
+
+        return this.fishingAdventuresService.searchAppointments(data);
     }
 }

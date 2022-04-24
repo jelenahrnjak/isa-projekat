@@ -41,7 +41,9 @@ export class AppoitmentSearchComponent implements OnInit {
       "price" : "", 
       "startDate" : new Date(),
       "endDate" : new Date(),
-      "maxPersons" : 0
+      "maxPersons" : 0,
+      "startTime" : "",
+      "hours" : 0
     }
  
     ngOnInit() {
@@ -77,16 +79,18 @@ export class AppoitmentSearchComponent implements OnInit {
       this.searchDTO.rating = this.form.get('rating').value
       this.searchDTO.price = this.form.get('price').value 
       
-      this.searchDTO.startDate = this.form.get('startDate').value;
-      this.searchDTO.endDate = this.form.get('endDate').value;
+      this.searchDTO.startDate = this.form.get('startDate').value; 
       this.searchDTO.maxPersons = this.form.get('guests').value; 
 
       if(this.selectedEntity == 1){ 
+        this.searchDTO.endDate = this.form.get('endDate').value;
         this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
-      }else if(this.selectedEntity == 2){ 
-        this.boatService.search(this.searchDTO).subscribe((data : any) => {
+      }else if(this.selectedEntity == 2){
+        this.searchDTO.startTime = this.form.get('startTime').value;
+        this.searchDTO.hours = this.form.get('hours').value; 
+        this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
 

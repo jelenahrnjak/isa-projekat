@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -61,6 +62,18 @@ public class AppointmentDTO {
         this.startDate = start.atStartOfDay();
         this.endDate = end.atStartOfDay();
         this.maxPersons = maxPersons;
+    }
+
+    public AppointmentDTO(String startDate, String startTime, Integer hours, Integer maxPersons){
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(startDate);
+        LocalTime time = LocalTime.parse(startTime);
+
+        this.startDate = start.atTime(time);
+        this.maxPersons = maxPersons;
+        this.endDate = start.atTime(time).plusHours(hours);
     }
 
 }

@@ -42,8 +42,7 @@ export class CottageService {
       return cottages;
     }));
 
-  } 
-
+  }  
   
   searchAppointments(data) {
 

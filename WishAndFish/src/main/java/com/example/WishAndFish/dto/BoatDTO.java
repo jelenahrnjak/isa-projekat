@@ -34,5 +34,10 @@ public class BoatDTO {
 
     }
 
-
+    public BoatDTO(String name, String address, String rating, String price){
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.price = price;
+    }
 }
