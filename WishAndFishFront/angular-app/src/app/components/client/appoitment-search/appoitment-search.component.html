@@ -2,7 +2,7 @@
     
     <div class="dropdown" style="margin-left: 30%; margin-top: 1rem; width: 180rem; ">
         <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" data-toggle="dropdown" 
-         aria-haspopup="true" aria-expanded="false" [(ngModel)]="selectedEntity">
+         aria-haspopup="true" aria-expanded="false" (change)="onChange()" [(ngModel)]="selectedEntity">
             <option [value]=0 selected disabled>What do you want to book?</option>
             <option [value] = 1>Cottage</option>
             <option [value]=2 >Boat</option>
@@ -11,9 +11,6 @@
         
       </div>
 
-    <div *ngIf="!selectedEntity" style="margin: 10ch; font-size: 50px; text-align: center;">
-      Please select enetity and then choose criteria.
-    </div>
     
     <form (ngSubmit)="search()" [formGroup]="form" *ngIf="selectedEntity">
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 
@@ -25,8 +22,10 @@
         
     </div>
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 
-      <input class="input-border" formControlName="startDate"  placeholder="Check in" onfocus="(this.type='date')"/>  
-      <input *ngIf="selectedEntity == 1" type="text" class="input-border" formControlName="endDate" placeholder="Check out" onfocus="(this.type='date')"/>  
+      <input class="input-border" formControlName="startDate"  placeholder="Check in"
+          min="{{minDate | date:'yyyy-MM-dd' }}" (change)="checkDates()" onfocus="(this.type='date')"/>  
+      <input *ngIf="selectedEntity == 1" type="text" class="input-border" formControlName="endDate"  
+          min="{{minDateMax | date:'yyyy-MM-dd' }}" placeholder="Check out" onfocus="(this.type='date')" [disabled]="!this.form.get('startDate')"/>  
       <input *ngIf="selectedEntity != 1" type="text" class="input-border" formControlName="startTime" placeholder="Start time" onfocus="(this.type='time')"/>
       <input *ngIf="selectedEntity != 1" type="number" class="input-border" formControlName="hours" placeholder="Number of hours"/>  
       <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Number of guests"/>  
@@ -36,6 +35,11 @@
       <button class=" btn" style="margin-left: 9%;" type="submit">Search</button> 
     </div>
     </form> 
+
+    
+    <div *ngIf="message" style="margin: 10ch; font-size: 50px; text-align: center;">
+      {{message}}
+    </div>
     
     <div>
     <div class="row" > 

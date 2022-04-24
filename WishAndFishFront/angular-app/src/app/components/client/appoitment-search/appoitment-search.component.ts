@@ -44,7 +44,10 @@ export class AppoitmentSearchComponent implements OnInit {
       "maxPersons" : 0,
       "startTime" : "",
       "hours" : 0
-    }
+    } 
+    minDate: Date = new Date();
+    minDateMax : Date = new Date();
+    message = "Please select enetity and then choose criteria.";
  
     ngOnInit() {
     
@@ -56,8 +59,8 @@ export class AppoitmentSearchComponent implements OnInit {
         startDate : ['',Validators.compose([Validators.required])],
         endDate : ['',Validators.compose([Validators.required])],
         guests : [''],
-        startTime : [''],
-        hours : ['']
+        startTime : ['',Validators.compose([Validators.required])],
+        hours : ['',Validators.compose([Validators.required, Validators.pattern('([0-9]+)$')])]  ,
       })
        this.route.params
        .pipe(takeUntil(this.ngUnsubscribe))
@@ -65,14 +68,26 @@ export class AppoitmentSearchComponent implements OnInit {
          this.notification = params;
      }); 
      this.form.reset(); 
+ 
     }
 
-    
+    checkDates(){
+      this.form.get('endDate').setValue("")
+      this.minDateMax = this.form.get('startDate').value
+    }
+
     search(){ 
-      if(this.selectedEntity == 1 && this.form.get('startDate').invalid && this.form.get('endDate').invalid){  
-        alert('You must enter start and end date!')
+      if(this.selectedEntity == 1 && (this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
+        this.message = 'You must enter start and end date!'
         return 
       }
+
+      if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
+        this.message =  'You must enter start date, start time and how many hours you want to stay!'
+        return 
+      } 
+
+      this.message = null; 
 
       this.searchDTO.name = this.form.get('name').value
       this.searchDTO.address = this.form.get('address').value
@@ -100,11 +115,22 @@ export class AppoitmentSearchComponent implements OnInit {
         this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
         }); 
-    }}
+    }
+    
+      if(this.items.length == 0 ){
+        this.message = "There are no apoitments for this criteria :("
+      }
+  }
 
     clear(){
       this.form.reset();
-    } 
+    }
+
+    onChange(){ 
+      this.message = null;
+      this.form.reset()
+      this.items = []
+    }
 
     details(id){
 
