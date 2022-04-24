@@ -42,7 +42,16 @@ export class CottageService {
       return cottages;
     }));
 
-  } 
+  }  
+  
+  searchAppointments(data) {
+
+    return this.apiService.get(this.config.cottage_url + `/searchAppointments` , data )
+    .pipe(map(cottages => {   
+      return cottages;
+    }));
+
+  }
 
   addCottage(cottage) {
     return this.apiService.post(this.config.cottage_url + `/addCottage`, cottage)

@@ -39,4 +39,13 @@ export class AdventureService {
       return adventures;
     }));
   }
+
+  searchAppointments(data) {
+
+    return this.apiService.get(this.config.adventure_url + `/searchAppointments` , data )
+    .pipe(map(boats => {   
+      return boats;
+    }));
+
+  }
 }

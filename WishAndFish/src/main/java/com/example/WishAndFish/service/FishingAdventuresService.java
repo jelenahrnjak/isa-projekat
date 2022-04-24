@@ -1,7 +1,8 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.dto.FishingAdventureDTO;
+import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.model.Appointment;
+import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.FishingAdventure;
 import com.example.WishAndFish.repository.FishingAdventureRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FishingAdventuresService {
@@ -36,8 +38,19 @@ public class FishingAdventuresService {
         return ret;
     }
 
-    public List<FishingAdventureDTO> search(FishingAdventureDTO dto) {
+    public List<FishingAdventureDTO> mapSearch(FishingAdventureDTO dto) {
         List<FishingAdventureDTO> ret = new ArrayList<>();
+
+        for(FishingAdventure a : search(dto)){
+
+            ret.add(new FishingAdventureDTO(a));
+        }
+
+        return ret;
+    }
+
+    public List<FishingAdventure> search(FishingAdventureDTO dto) {
+        List<FishingAdventure> ret = new ArrayList<>();
         double rating = 0;
         double price = 0;
         try{
@@ -52,7 +65,7 @@ public class FishingAdventuresService {
         }
         for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
             if(checkAdventureForSearch(a,dto,rating, price) && !a.isDeleted()){
-                ret.add(new FishingAdventureDTO(a));}
+                ret.add(a);}
         }
 
         return ret;
@@ -118,5 +131,43 @@ public class FishingAdventuresService {
 
         return ret;
 
+    }
+
+    public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO criteria){
+
+        FishingAdventureDTO adventure = new FishingAdventureDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
+        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getStartTime(), criteria.getHours(), criteria.getMaxPersons());
+
+
+        List<FishingAdventure> adventures = search(adventure);
+        List<FishingAdventureDTO> ret = new ArrayList<>();
+
+        for(FishingAdventure a : adventures){
+
+            if(findAppointments(a.getAppointments(), appointment)){
+                ret.add(new FishingAdventureDTO(a));
+            }
+
+        }
+
+        return ret;
+    }
+
+    private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
+
+        for(Appointment a : appointments){
+            if(a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+                continue;
+            }
+            if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){
+                continue;
+            }
+            if(a.getEndDate().toLocalDate().isBefore(criteria.getEndDate().toLocalDate())){
+                continue;
+            }
+            return true;
+        }
+
+        return false;
     }
 }

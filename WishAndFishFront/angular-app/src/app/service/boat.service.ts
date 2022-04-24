@@ -12,36 +12,44 @@ export class BoatService {
     private apiService: ApiService,
     private config: ConfigService) { }
 
-    getAll() {
-      return this.apiService.get(this.config.boat_url)
-        .pipe(map(boats => { 
-          return boats;
-        }));
-    } 
+  getAll() {
+    return this.apiService.get(this.config.boat_url)
+      .pipe(map(boats => { 
+        return boats;
+      }));
+  } 
 
-    getAllClient() {
-      return this.apiService.get(this.config.boat_url + `/client/${localStorage.getItem('user')}`)
-        .pipe(map(boats => { 
-          return boats;
-        }));
-    } 
-    
-    search(data:any){
-    
-      return this.apiService.get(this.config.boat_url + `/search`, data)
-        .pipe(map(boats => {   
-          return boats;
-        }));
-    }
+  getAllClient() {
+    return this.apiService.get(this.config.boat_url + `/client/${localStorage.getItem('user')}`)
+      .pipe(map(boats => { 
+        return boats;
+      }));
+  } 
+  
+  search(data:any){
+  
+    return this.apiService.get(this.config.boat_url + `/search`, data)
+      .pipe(map(boats => {   
+        return boats;
+      }));
+  } 
+  
+  searchClient(data:any){
+  
+    return this.apiService.get(this.config.boat_url + `/search/client/${localStorage.getItem('user')}`, data)
+      .pipe(map(boats => {   
+        return boats;
+      }));
+  }
 
-    
-    searchClient(data:any){
-    
-      return this.apiService.get(this.config.boat_url + `/search/client/${localStorage.getItem('user')}`, data)
-        .pipe(map(boats => {   
-          return boats;
-        }));
-    }
+  searchAppointments(data) {
+
+    return this.apiService.get(this.config.boat_url + `/searchAppointments` , data )
+    .pipe(map(boats => {   
+      return boats;
+    }));
+
+  }
 
   addBoat(boat) {
     console.log(boat)
