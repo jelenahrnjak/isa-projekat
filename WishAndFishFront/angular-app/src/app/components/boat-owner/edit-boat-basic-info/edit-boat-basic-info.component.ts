@@ -35,13 +35,15 @@ export class EditBoatBasicInfoComponent implements OnInit {
 
   submit(){
 
-    if(this.boat.name == "" || this.boat.type == "" || this.boat.pricePerHour == undefined || this.boat.description == "" || this.boat.cancellationConditions == "" || this.boat.maximumPeople == undefined || this.boat.length == undefined || this.boat.engineNumber == undefined || this.boat.enginePower == undefined || this.boat.maxSpeed == undefined || this.boat.maxSpeed == undefined || this.boat.capacity == undefined
-    || this.boat.address.cityName == "" || this.boat.address.cityName == "" || this.boat.address.latitude == undefined || this.boat.address.longitude == undefined || this.boat.address.postalCode == undefined || this.boat.address.street == undefined || this.boat.address.streetNumber == undefined){
+    if(this.boat.name == "" || this.boat.type == "" || this.boat.pricePerHour == "" || this.boat.description == "" || this.boat.cancellationConditions == "" || this.boat.maximumPeople == "" || this.boat.length == "" || this.boat.engineNumber == "" || this.boat.enginePower == "" || this.boat.maxSpeed == "" || this.boat.capacity == ""
+    || this.boat.address.cityName == "" || this.boat.address.cityName == "" || this.boat.address.latitude == "" || this.boat.address.longitude == "" || this.boat.address.postalCode == "" || this.boat.address.street == "" || this.boat.address.streetNumber == ""){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Fill all fields!',
-      })    }
+      })    
+      console.log(this.boat)
+    }
     else{
       this.boatService.editBasicInfo(this.boat).subscribe((data) =>{
         this.router.navigate(['/boat-details/' + this.id]);
