@@ -73,8 +73,11 @@ export class CottageReservationHistoryComponent implements OnInit {
         "client": "",
         "bad": false,
         "came": true
-      }   
+      } 
+      this.clientCame = true  
     })
+
+    console.log(this.clientCame)
 
   }
 

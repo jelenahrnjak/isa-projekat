@@ -12,11 +12,14 @@
                         <li style="height: 70px;" class="list-group-item">Client email: {{r.client.email}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client phone: {{r.client.phoneNumber}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client address: {{r.client.address.street}} {{r.client.address.streetNumber}}, {{r.client.address.cityName}}</li> 
-                        <li *ngIf="r.finished" style="height: 70px;" class="list-group-item">
+                        <li *ngIf="r.finished  && !r.commented" style="height: 70px;" class="list-group-item">
                             <button class="btn btn-primary" data-toggle="modal" data-target="#addComment" (click)="findClient(r.client.email)">Add comment</button>
                         </li> 
                         <li *ngIf="!r.finished" style="height: 70px;" class="list-group-item">
                             Adding comment will be enabled after the reservation expires!
+                        </li> 
+                        <li *ngIf="r.commented" style="height: 70px;" class="list-group-item">
+                            Comment already added!
                         </li> 
 
                     </ul> 
@@ -36,7 +39,7 @@
         <div  class="container">
 
             <div class="form-check" style="margin-top: 2%; margin-bottom: 2%;">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="came($event)">
+                <input [checked]="!clientCame" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="came($event)">
                 <label class="form-check-label" for="flexCheckDefault">
                     The client did not show up at the agreed time
                 </label>

@@ -216,16 +216,16 @@ INSERT INTO public.fishing_equipment(
 
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished)
-	VALUES (1, false, 133, 35, false);
+	id, canceled, appointment_id, client_id, finished, commented)
+	VALUES (1, false, 133, 35, false , false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished)
-	VALUES (2, false, 140, 35, false);
+	id, canceled, appointment_id, client_id, finished, commented)
+	VALUES (2, false, 140, 35, false, true);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished)
-	VALUES (3, false, 139, 35, false);
+	id, canceled, appointment_id, client_id, finished, commented)
+	VALUES (3, false, 139, 35, false , false);
 
 
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);

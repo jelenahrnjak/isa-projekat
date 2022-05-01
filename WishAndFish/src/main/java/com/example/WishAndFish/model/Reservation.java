@@ -32,4 +32,6 @@ public class Reservation {
     @Column(name = "finished", nullable = true)
     private Boolean finished;
 
+    @Column(name = "commented")
+    private Boolean commented;
 }
