@@ -1,4 +1,21 @@
 <app-sidebar></app-sidebar>
 <div style="margin-left: 25ch;">
-    <p>cottage-reservation-history works!</p>
+    <div class="card-holder">
+        <div class="row" style="margin: 20px; "> 
+                <div class="card" style="margin: 29px; " *ngFor="let r of reservations">
+                    <ul class="list-group list-group-flush">
+                    
+                        <li style="height: 70px;" class="list-group-item">Duration: {{r.appointment.startDate}} - {{r.appointment.endDate}}</li>  
+                        <li style="height: 70px;" class="list-group-item">Max persons: {{r.appointment.maxPersons}}</li>  
+                        <li style="height: 70px;" class="list-group-item">Price: {{r.appointment.price}}</li> 
+                        <li style="height: 70px;" class="list-group-item">Client name: {{r.client.name}} {{r.client.surname}}</li> 
+                        <li style="height: 70px;" class="list-group-item">Client email: {{r.client.email}}</li> 
+                        <li style="height: 70px;" class="list-group-item">Client phone: {{r.client.phoneNumber}}</li> 
+                        <li style="height: 70px;" class="list-group-item">Client address: {{r.client.address.street}} {{r.client.address.streetNumber}}, {{r.client.address.cityName}}</li> 
+
+                    </ul> 
+                
+                </div>
+        </div>
+    </div>
 </div>
