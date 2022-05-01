@@ -221,7 +221,7 @@ INSERT INTO public.reservations(
 
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (2, false, 140, 35, false, true);
+	VALUES (2, false, 140, 35, false, false);
 
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented)

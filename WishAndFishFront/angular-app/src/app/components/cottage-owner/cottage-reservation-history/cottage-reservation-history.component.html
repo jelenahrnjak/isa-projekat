@@ -55,8 +55,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addComment()">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+            <button [disabled]="!validComment || (this.comment.content == '' && this.clientCame)" type="button" class="btn btn-primary" data-dismiss="modal" (click)="addComment()">Save changes</button>
         </div>
     </div>
     </div>

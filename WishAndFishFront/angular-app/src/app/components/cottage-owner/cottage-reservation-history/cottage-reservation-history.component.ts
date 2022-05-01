@@ -15,7 +15,7 @@ export class CottageReservationHistoryComponent implements OnInit {
   reservations: any
   id: any
   clientCame: boolean = true
-
+  validComment: boolean = false
   comment= {
     "content": "",
     "client": "",
@@ -45,6 +45,7 @@ export class CottageReservationHistoryComponent implements OnInit {
     if ($event.target.checked === true) {
       this.clientCame = false;
       this.comment.came = false;
+      this.validComment = true
     }
     else if ($event.target.checked === false) {
       this.clientCame = true;
@@ -79,6 +80,16 @@ export class CottageReservationHistoryComponent implements OnInit {
 
     console.log(this.clientCame)
 
+  }
+
+  close(){
+    this.comment= {
+      "content": "",
+      "client": "",
+      "bad": false,
+      "came": true
+    } 
+    this.clientCame = true  
   }
 
   findClient(email){
