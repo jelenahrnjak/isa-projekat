@@ -228,6 +228,6 @@ INSERT INTO public.reservations(
 	VALUES (3, false, 139, 35, false);
 
 
-INSERT INTO public.comments(id, content, client_id) VALUES (1, 'Kasnio je', 35);
-INSERT INTO public.comments(id, content, client_id) VALUES (2, 'Neuredan je', 35);
-INSERT INTO public.comments(id, content, client_id) VALUES (3, 'Podnosljiv je', 35);
+INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
+INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
+INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

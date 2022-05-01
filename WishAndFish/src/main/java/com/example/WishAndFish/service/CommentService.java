@@ -21,6 +21,7 @@ public class CommentService {
         c.setCame(comment.getCame());
         c.setBadComment(comment.getBad());
         c.setClient(clientRepository.findByEmail(comment.getClient()));
+        commentRepository.save(c);
         return c;
     }
 }
