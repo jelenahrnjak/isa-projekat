@@ -226,3 +226,8 @@ INSERT INTO public.reservations(
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished)
 	VALUES (3, false, 139, 35, false);
+
+
+INSERT INTO public.comments(id, content, client_id) VALUES (1, 'Kasnio je', 35);
+INSERT INTO public.comments(id, content, client_id) VALUES (2, 'Neuredan je', 35);
+INSERT INTO public.comments(id, content, client_id) VALUES (3, 'Podnosljiv je', 35);
