@@ -23,6 +23,7 @@ public class ReservationDTO {
     private Client client;
     private Appointment appointment;
     private Boolean canceled;
+    private Boolean finished;
 
 
     public ReservationDTO(Reservation r){
@@ -30,5 +31,6 @@ public class ReservationDTO {
         this.client = r.getClient();
         this.appointment = r.getAppointment();
         this.canceled = r.getCanceled();
+        this.finished = r.getFinished();
     }
 }

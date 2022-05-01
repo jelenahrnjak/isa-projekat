@@ -29,4 +29,7 @@ public class Reservation {
     @Column(name = "canceled", nullable = false)
     private Boolean canceled;
 
+    @Column(name = "finished", nullable = true)
+    private Boolean finished;
+
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class ReservationService {
         List<ReservationDTO> ret = new ArrayList<>();
         for(Reservation r: reservationRepository.findAll()){
             if(id.equals(r.getAppointment().getCottage().getId())){
+                if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
+                    r.setFinished(true);
+                }
                 ret.add(new ReservationDTO(r));
             }
         }

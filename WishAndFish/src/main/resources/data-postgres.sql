@@ -86,20 +86,20 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (133, '5', '10-05-2022', 7, 130, false, '05-05-2022', 111, false, true);
+	VALUES (133, '5', '05-30-2022', 7, 130, false, '05-05-2022', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (134, '5', '10-05-2022', 7, 130, false, '07-05-2022', 111, false, true);
+	VALUES (134, '5', '04-30-2022', 7, 130, false, '04-15-2022', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (137, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, true);
+	VALUES (137, '5', '04-30-2022', 7, 130, false, '04-10-2022', 111, false, true);
 
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (138, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, true);
+	VALUES (138, '5', '04-30-2022', 7, 130, false, '04-10-2022', 111, false, true);
 
 --normal
 
@@ -109,7 +109,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (140, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
+	VALUES (140, '5', '03-05-2022', 7, 130, false, '02-10-2022', 111, false, false);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
@@ -216,13 +216,13 @@ INSERT INTO public.fishing_equipment(
 
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id)
-	VALUES (1, false, 133, 35);
+	id, canceled, appointment_id, client_id, finished)
+	VALUES (1, false, 133, 35, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id)
-	VALUES (2, false, 140, 35);
+	id, canceled, appointment_id, client_id, finished)
+	VALUES (2, false, 140, 35, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id)
-	VALUES (3, false, 139, 35);
+	id, canceled, appointment_id, client_id, finished)
+	VALUES (3, false, 139, 35, false);

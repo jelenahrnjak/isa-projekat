@@ -12,6 +12,12 @@
                         <li style="height: 70px;" class="list-group-item">Client email: {{r.client.email}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client phone: {{r.client.phoneNumber}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client address: {{r.client.address.street}} {{r.client.address.streetNumber}}, {{r.client.address.cityName}}</li> 
+                        <li *ngIf="r.finished" style="height: 70px;" class="list-group-item">
+                            <button class="btn btn-primary">Add comment</button>
+                        </li> 
+                        <li *ngIf="!r.finished" style="height: 70px;" class="list-group-item">
+                            Adding comment will be enabled after the reservation expires!
+                        </li> 
 
                     </ul> 
                 
@@ -19,3 +25,7 @@
         </div>
     </div>
 </div>
+
+
+
+
