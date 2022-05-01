@@ -60,7 +60,7 @@ export class BoatDetailsComponent implements OnInit {
   endDate: String | any;
   startTime: any;
   endTime: any;
-
+  src
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -113,6 +113,10 @@ export class BoatDetailsComponent implements OnInit {
         this.boat.isSubscribed = data; 
       })
     }
+
+
+    this.src = "https://maps.google.com/maps?q=" + this.boat.address.latitude + "," + this.boat.address.longitude +"&t=&z=13&ie=UTF8&iwloc=&output=embed"
+    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
 
 
