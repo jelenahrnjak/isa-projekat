@@ -213,3 +213,16 @@ INSERT INTO public.fishing_equipment(
 	id, name, boat_id, deleted)
 	VALUES (101, 'Udica', 125, false );
 
+
+
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id)
+	VALUES (1, false, 133, 35);
+
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id)
+	VALUES (2, false, 140, 35);
+
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id)
+	VALUES (3, false, 139, 35);

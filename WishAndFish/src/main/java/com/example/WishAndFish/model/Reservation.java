@@ -29,5 +29,4 @@ public class Reservation {
     @Column(name = "canceled", nullable = false)
     private Boolean canceled;
 
-
 }

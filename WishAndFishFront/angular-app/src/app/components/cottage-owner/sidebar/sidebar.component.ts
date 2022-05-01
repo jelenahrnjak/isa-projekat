@@ -49,5 +49,10 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/cottage-details/'+this.id]);
 
   }
+
+  reservationHistory(){
+    this.router.navigate(['/cottage-reservation-history/'+this.id]);
+
+  }
   
 }
