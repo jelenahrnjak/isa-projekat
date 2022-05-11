@@ -128,7 +128,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1233, '5', '10-05-2022 12:00', 7, 130, false, '05-10-2022', 125, false, false);
+	VALUES (1233, '5', '05-05-2022 12:00', 7, 130, false, '10-05-2022', 125, false, false);
 
 INSERT INTO public.rules(id, content, cottage_id, deleted)
 	VALUES (25, 'No smoking', 111, false);
@@ -226,7 +226,9 @@ INSERT INTO public.reservations(
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented)
 	VALUES (3, false, 139, 35, false , false);
-
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented)
+	VALUES (4, false, 1233, 35, false , false);
 
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);

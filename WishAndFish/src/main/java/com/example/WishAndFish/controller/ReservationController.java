@@ -37,4 +37,13 @@ public class ReservationController {
         }
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
+
+    @RequestMapping(value="getAllByBoat/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ReservationDTO>> getAllByBoat(@PathVariable Long id) {
+        List<ReservationDTO> ret = this.reservationService.getAllByBoat(id);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
 }

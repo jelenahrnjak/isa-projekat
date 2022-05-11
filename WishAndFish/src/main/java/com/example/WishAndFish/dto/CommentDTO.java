@@ -14,4 +14,5 @@ public class CommentDTO {
     private Boolean bad;
     private Boolean came;
     private String client;
+    private Long reservationID;
 }

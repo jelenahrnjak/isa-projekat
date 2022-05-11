@@ -49,4 +49,9 @@ export class BoatSidebarComponent implements OnInit {
   editInfo(){
     this.router.navigate(['/edit-boat-basic-info/'+this.id]);
   }
+
+  reservationHistory(){
+    this.router.navigate(['/boat-reservation-history/'+this.id]);
+
+  }
 }

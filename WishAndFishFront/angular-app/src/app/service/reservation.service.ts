@@ -17,4 +17,11 @@ export class ReservationService {
         return reservations;
       }));   
     }
+
+    getAllByBoat(id) {
+      return this.apiService.get(this.config.reservation_url + `/getAllByBoat/${id}`, id)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
 }

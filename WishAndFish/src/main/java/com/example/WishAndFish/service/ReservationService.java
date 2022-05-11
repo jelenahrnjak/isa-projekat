@@ -42,13 +42,30 @@ public class ReservationService {
     public List<ReservationDTO> getAllByCottage(Long id){
         List<ReservationDTO> ret = new ArrayList<>();
         for(Reservation r: reservationRepository.findAll()){
-            if(id.equals(r.getAppointment().getCottage().getId())){
-                if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
-                    r.setFinished(true);
+            if(r.getAppointment().getCottage() != null){
+                if(id.equals(r.getAppointment().getCottage().getId())){
+                    if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
+                        r.setFinished(true);
+                    }
+                    ret.add(new ReservationDTO(r));
                 }
-                ret.add(new ReservationDTO(r));
             }
         }
        return ret;
+    }
+
+    public List<ReservationDTO> getAllByBoat(Long id){
+        List<ReservationDTO> ret = new ArrayList<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(id.equals(r.getAppointment().getBoat().getId())){
+                    if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
+                        r.setFinished(true);
+                    }
+                    ret.add(new ReservationDTO(r));
+                }
+            }
+        }
+        return ret;
     }
 }

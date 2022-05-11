@@ -5,6 +5,7 @@ import com.example.WishAndFish.dto.CommentDTO;
 import com.example.WishAndFish.model.Comment;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.service.CommentService;
+import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

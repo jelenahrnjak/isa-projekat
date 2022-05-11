@@ -1,3 +1,4 @@
+import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
 import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-basic-info/edit-boat-basic-info.component';
 import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-free-appointments-boat/show-free-appointments-boat.component';
@@ -142,13 +143,14 @@ const routes: Routes = [
   {
     path:'edit-boat-basic-info/:id',
     component: EditBoatBasicInfoComponent,
-  }
-
-  ,
-
+  },
   {
     path:'cottage-reservation-history/:id',
     component: CottageReservationHistoryComponent,
+  },
+  {
+    path:'boat-reservation-history/:id',
+    component: BoatReservationHistoryComponent,
   }
 
 ];

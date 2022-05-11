@@ -55,6 +55,7 @@ import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-
 import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-basic-info/edit-boat-basic-info.component';
 import { AgmCoreModule } from '@agm/core';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
+import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { CottageReservationHistoryComponent } from './components/cottage-owner/c
     AddBoatActionComponent,
     ShowFreeAppointmentsBoatComponent,
     EditBoatBasicInfoComponent,
-    CottageReservationHistoryComponent, 
+    CottageReservationHistoryComponent,
+    BoatReservationHistoryComponent, 
   ],
   imports: [
     BrowserModule,
