@@ -45,7 +45,7 @@
                 </label>
             </div>
 
-            <input [disabled]="!clientCame" [(ngModel)]="comment.content" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter comment">
+            <input [disabled]="!clientCame" [(ngModel)]="comment.content" (change)="comments($event)" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter comment">
             
             <div  class="form-check" style="margin-top: 2%; margin-bottom: 2%;">
                 <input [disabled]="!clientCame" [checked]="this.comment.bad" class="form-check-input" (change)="bad($event)" type="checkbox" value="" id="flexCheckDefault">
