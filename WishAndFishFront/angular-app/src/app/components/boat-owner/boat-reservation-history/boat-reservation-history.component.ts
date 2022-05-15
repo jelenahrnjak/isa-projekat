@@ -42,10 +42,23 @@ export class BoatReservationHistoryComponent implements OnInit {
       this.clientCame = false;
       this.comment.came = false;
       this.validComment = true
+      this.comment.content = ""
     }
     else if ($event.target.checked === false) {
       this.clientCame = true;
       this.comment.came = true;
+      if(this.comment.content !== ""){
+        this.validComment = true;
+      }else{
+        this.validComment = false;
+      }
+    }
+  }
+
+  comments($event){
+    console.log($event)
+    if(this.comment.content !== ""){
+      this.validComment = true;
     }
   }
 
