@@ -110,6 +110,10 @@ public class CottageService {
                 cottage.setCottageOwner(c);
             }
         }
+        cottage.setCoverImage(newCottage.getCoverImage());
+        cottage.setNumberOfRooms(newCottage.getNumberOfRooms());
+        cottage.setBedsPerRoom(newCottage.getBedsPerRoom());
+        
         return this.cottageRepository.save(cottage);
     }
 
