@@ -9,7 +9,7 @@ export class Cottage {
     constructor(
         public id: number = 0,
         public rating: number = 0,
-        public pricePerDay: number = 0,
+        public pricePerDay:string = '',
         public name: string = '',
         public address: Address = new Address(),
         public cottageOwner: CottageOwner = [],
@@ -22,10 +22,10 @@ export class Cottage {
         public images: Image[] = [],
         public appointments: Appointment[] = [],
         public deleted: boolean = false,
-        public numberOfRooms:  number = 0,
-        public bedsPerRoom:  number = 0,
+        public numberOfRooms:  string = '',
+        public bedsPerRoom:  string = '',
         public price : number = 0,
-        public maximumPeople : number = 0,
+        public maximumPeople : string = '',
         public isSubscribed : boolean = false
       ) {}
 }
