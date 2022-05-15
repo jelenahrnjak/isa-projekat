@@ -24,6 +24,6 @@ public class AddBoatDTO {
     private Double pricePerHour;
     private String ownerEmail;
     private String cancellationConditions;
-
+    private String coverImage;
 
 }

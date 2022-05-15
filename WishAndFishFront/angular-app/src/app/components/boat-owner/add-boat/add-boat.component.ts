@@ -22,6 +22,7 @@ export class AddBoatComponent implements OnInit {
   notification: DisplayMessage;
   returnUrl: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  selectedFile = null;
 
   constructor(private userService: UserService,
     private authService: AuthService,
@@ -88,7 +89,8 @@ export class AddBoatComponent implements OnInit {
           "countryName" : this.form.get('countryName').value    
       },
       "ownerEmail" : localStorage.getItem("user"),
-      "cancellationConditions" : this.form.get('cancellationConditions').value
+      "cancellationConditions" : this.form.get('cancellationConditions').value,
+      "coverImage": this.selectedFile
   }
 
   this.boatService.addBoat(boat)
@@ -102,6 +104,8 @@ export class AddBoatComponent implements OnInit {
     console.log(boat);
 
   }
-
+  selectImage(event){
+    this.selectedFile = event.target.files[0].name;
+  }
 
 }
