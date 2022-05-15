@@ -42,31 +42,28 @@ export class AddBoatComponent implements OnInit {
 
     
     this.form = this.formBuilder.group({ 
-      name: [''],
-      type: [''],
-      price: [''],
-      length: [''],
-      engineNumber : [''],
-      enginePower : [''],
-      maxSpeed : [''],
-      description : [''],
-      capacity : [''],
-      pricePerHour : [''],
-      street: [''],
-      streetNumber : [''],
-      postalCode : [''],
-      longitude : [''],
-      latitude : [''],
-      cityName : [''],
-      countryName : [''],
-      cancellationConditions: ['']
+      name: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      type: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      price: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      length: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      engineNumber : ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      enginePower : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      maxSpeed : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      description : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      capacity : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+      // pricePerHour : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+      street: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      streetNumber : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      postalCode : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      longitude : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+      latitude : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+      cityName : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      countryName : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+      cancellationConditions: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
     })
   }
 
   onSubmit() {
-    /**
-     * Innocent until proven guilty
-     */
     this.notification = undefined;
     var boat = { 
       "name" : this.form.get('name').value,
@@ -93,17 +90,20 @@ export class AddBoatComponent implements OnInit {
       "coverImage": this.selectedFile
   }
 
-  this.boatService.addBoat(boat)
-  .subscribe(data => {
-    this.router.navigate([this.returnUrl]);
-  },
-    error => {
-      console.log('Add boat error');
-     
-    });
-    console.log(boat);
-
+  if(this.form.valid){
+      this.boatService.addBoat(boat)
+    .subscribe(data => {
+      this.router.navigate([this.returnUrl]);
+    },
+      error => {
+        console.log('Add boat error');
+      
+      });
+      console.log(boat);
   }
+  
+  }
+
   selectImage(event){
     this.selectedFile = event.target.files[0].name;
   }
