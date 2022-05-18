@@ -220,7 +220,7 @@ public class CottageService {
     private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
 
         for(Appointment a : appointments){
-            if(a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+            if(a.getReserved() || a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
                 continue;
             }
             if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){

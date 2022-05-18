@@ -88,6 +88,7 @@ export class AppoitmentSearchComponent implements OnInit {
     }
 
     search(){ 
+      this.message = null; 
       if(this.selectedEntity == 1 && (this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
         this.message = 'You must enter start and end date!'
         return 
@@ -96,9 +97,7 @@ export class AppoitmentSearchComponent implements OnInit {
       if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
         this.message =  'You must enter start date, start time and how many hours you want to stay!'
         return 
-      } 
-
-      this.message = null; 
+      }  
 
       this.searchDTO.name = this.form.get('name').value
       this.searchDTO.address = this.form.get('address').value
