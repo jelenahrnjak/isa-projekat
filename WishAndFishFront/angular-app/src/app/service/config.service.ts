@@ -21,9 +21,19 @@ export class ConfigService {
   private _appointment_url = this._api_url + '/appointments';
   private _navigation_equipment_url = this._api_url + '/navigationEquipments';
   private _fishing_equipment_url = this._api_url + '/fishingEquipments';
+  private _reservation_url = this._api_url + '/reservations';
+  private _comment_url = this._api_url + '/comments';
 
   get additional_services_url(): string{
     return this._additional_services_url;
+  }
+
+  get comment_url(): string{
+    return this._comment_url;
+  }
+
+  get reservation_url(): string{
+    return this._reservation_url;
   }
 
   get fishing_equipment_url(): string{

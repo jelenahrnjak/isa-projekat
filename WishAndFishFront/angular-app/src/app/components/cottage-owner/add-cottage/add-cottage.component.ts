@@ -24,6 +24,7 @@ export class AddCottageComponent implements OnInit {
   form: FormGroup;
   formAdress : FormGroup;
   notification: DisplayMessage;
+  selectedFile = null;
 
   returnUrl: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -45,16 +46,19 @@ export class AddCottageComponent implements OnInit {
 
 
       this.form = this.formBuilder.group({ 
-        name: [''],
-        description: [''],
-        price: [''],
-        street: [''],
-        streetNumber : [''],
-        postalCode : [''],
-        longitude : [''],
-        latitude : [''],
-        cityName : [''],
-        countryName : ['']
+        name: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        description : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        rooms: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+        beds: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+        price: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
+        street: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        streetNumber : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        postalCode : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        longitude : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+        latitude : ['',Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])],
+        cityName : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+        countryName : ['', Validators.compose([Validators.required, Validators.minLength(0)])],
+       
       })
   }
 
@@ -74,13 +78,12 @@ export class AddCottageComponent implements OnInit {
 
 
   onSubmit() {
-    /**
-     * Innocent until proven guilty
-     */
     this.notification = undefined;
     var Cottage = { 
       "name" : this.form.get('name').value,
       "description" : this.form.get('description').value,
+      "numberOfRooms" :  this.form.get('rooms').value,
+      "bedsPerRoom":  this.form.get('beds').value,
       "price" : this.form.get('price').value,
       "address" : {
           "street" : this.form.get('street').value,
@@ -92,19 +95,27 @@ export class AddCottageComponent implements OnInit {
           "countryName" : this.form.get('countryName').value    
       },
       "ownerEmail" : localStorage.getItem("user"),
+      "coverImage": this.selectedFile
 
   }
 
-  this.cottageService.addCottage(Cottage)
-  .subscribe(data => {
-    this.router.navigate([this.returnUrl]);
-  },
-    error => {
-      console.log('Add cottage error');
-     
-    });
-    console.log(Cottage);
+  if(this.form.valid){
 
+    this.cottageService.addCottage(Cottage)
+    .subscribe(data => {
+      this.router.navigate([this.returnUrl]);
+    },
+      error => {
+        console.log('Add cottage error');
+      
+      });
+      console.log(Cottage);
+    }
+  }
+
+
+  selectImage(event){
+    this.selectedFile = event.target.files[0].name;
   }
 
 }

@@ -140,7 +140,7 @@
     <!-- Buttons -->
     <div style="justify-content: space-between;  flex-direction: row;  display: flex;">
         <button type="submit" class="btn btn-primary" (click)= "cancel()">Cancel</button> 
-        <button type="submit" class="btn btn-primary" (click)= "submit()">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="invalid" (click)= "submit()">Submit</button>
     </div>
     <!-- Buttons -->
 

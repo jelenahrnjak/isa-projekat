@@ -1,0 +1,12 @@
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<!-- <agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map> -->
+
+<div class="mapouter">
+    <div class="gmap_canvas">
+        <iframe width="600" height="500" id="gmap_canvas" [src]="src" frameborder="0" scrolling="yes" marginheight="80" marginwidth="0"></iframe>
+    </div>
+</div>

@@ -128,6 +128,7 @@ public class BoatService {
                 boat.setBoatOwner(b);
             }
         }
+        boat.setCoverImage(newBoat.getCoverImage());
         this.boatRepository.save(boat);
         return newBoat;
     }

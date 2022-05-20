@@ -182,11 +182,15 @@
 </div>
 <!-- Additional services -->
 
-<!-- Appointments -->
+<!-- Map -->
 <div *ngIf="ifOwner()" class="container row" style="margin-left: 215px;">
-    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Appointments</h1>
+    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Our address</h1>
     <hr class="mt-2 mb-5">
-
+    <div class="mapouter" style="width: 99%;">
+        <div class="gmap_canvas">
+            <iframe width="99%" height="500" id="gmap_canvas" [src]="src" frameborder="0" scrolling="yes"></iframe>
+        </div>
+    </div>
 </div>
 </div>
 
