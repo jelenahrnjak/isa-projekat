@@ -29,6 +29,11 @@ public class AdditionalServiceController {
         return this.additionalServiceService.getAllByBoat(id);
     }
 
+    @RequestMapping(value="/getAllByAdventure/{id}", method = RequestMethod.GET)
+    public List<AdditionalServicesDTO> getAllByAdventure(@PathVariable Long id) {
+        return this.additionalServiceService.getAllByAdventure(id);
+    }
+
     @DeleteMapping(value="/deleteAdditionalServices/{id}")
     //@PreAuthorize("hasRole('COTTAGE_OWNER')") //moze i boat_owner
     public ResponseEntity<Long> deleteAdditionalServices(@PathVariable Long id) {

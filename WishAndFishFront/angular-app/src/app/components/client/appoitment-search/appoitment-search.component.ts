@@ -6,7 +6,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { CottageService } from 'src/app/service/cottage.service';
 import { BoatService } from 'src/app/service/boat.service'; 
-import { AdventureService } from 'src/app/service/adventure.service';
+import { AdventureService } from 'src/app/service/adventure.service'; 
+import { AdditionalServicesService } from 'src/app/service/additional-services.service';
+import { additionalService } from 'src/app/model/additional-service.model';
 
 interface DisplayMessage {
   msgType: string;
@@ -30,7 +32,8 @@ export class AppoitmentSearchComponent implements OnInit {
     private route: ActivatedRoute,
     private cottageService: CottageService, 
     private boatService : BoatService,
-    private adventureService: AdventureService,  
+    private adventureService: AdventureService,
+    private additionalServicesService : AdditionalServicesService ,
     private formBuilder: FormBuilder) { }
 
     selectedEntity = 0;   
@@ -48,6 +51,8 @@ export class AppoitmentSearchComponent implements OnInit {
     minDate: Date = new Date();
     minDateMax : Date = new Date(); 
     message = "Please select enetity and then choose criteria.";
+    additionalServices : additionalService[] = [];
+    totalPrice : number = 0;
  
     ngOnInit() {
     
@@ -80,11 +85,15 @@ export class AppoitmentSearchComponent implements OnInit {
 
     checkDates(){
 
-      if(this.form.get('startDate').value > this.form.get('endDate').value){
+      if(this.form.get('startDate').value >= this.form.get('endDate').value){
         this.form.get('endDate').setValue("")
 
       }
-      this.minDateMax = this.form.get('startDate').value
+
+      var currenttimestamp = (new Date(this.form.get('startDate').value)).getTime(); 
+      var onedayaftertimestamp=currenttimestamp+(86400000);//1 day=86400000 ms; 
+
+      this.minDateMax = new Date(onedayaftertimestamp) 
     }
 
     search(){ 
@@ -145,8 +154,40 @@ export class AppoitmentSearchComponent implements OnInit {
       this.items = []
     }
 
-    details(id){
+    addServices(id, price){
 
+      if(this.selectedEntity == 1){       
+
+        var Time = new Date(this.searchDTO.endDate).getTime() - new Date(this.searchDTO.startDate).getTime(); 
+        var Days = Time / (1000 * 3600 * 24); //Diference in Days
+
+        this.totalPrice = price * Days
+
+        this.additionalServicesService.findAdditionalServices(id).subscribe((data : any) => {
+          this.additionalServices = data;
+        });
+         
+      }else if(this.selectedEntity == 2){
+        this.totalPrice = price * this.searchDTO.hours
+        this.additionalServicesService.findAdditionalServicesBoat(id).subscribe((data : any) => {
+          this.additionalServices = data;
+        }); 
+
+      }else if(this.selectedEntity == 3){
+        this.totalPrice = price * this.searchDTO.hours
+        this.additionalServicesService.findAdditionalServicesAdventure(id).subscribe((data : any) => {
+          this.additionalServices = data;
+        });
+      }
+ 
+    }
+
+    reserve(){
+      this.additionalServices.forEach(i=>{
+        if(i.isSelected){
+          console.log(i.name)
+        }
+      })
     }
 
     changeSorting(){

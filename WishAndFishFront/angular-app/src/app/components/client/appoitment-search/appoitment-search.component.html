@@ -67,10 +67,52 @@
                 <li *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
                 <li *ngIf="selectedEntity == 3" style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
                 <li class="list-group-item">
-                  <button class="small-btn" (click)="details(c.id)">Details</button>  
+                  <button class="small-btn" (click)="addServices(c.id, c.price)" data-toggle="modal" data-target="#addService">Add services</button>  
                 </li>
                 </ul>   
         </div>
     </div>
     
-    </div>
+    </div> 
+</div>
+
+<!-- Modal for adding new additional service -->
+<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content"  style="width: 200ch;" >
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Select additional services you want to add to the reservation</h5>
+      </div>
+         
+      <div  class="container">
+          <table class="table" style="width: 590px;"> 
+
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 30%;">Name</th>
+                    <th scope="col" style="width: 30%;">Price</th> 
+                    <th scope="col" style="width: 30%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let a of additionalServices; let i=index;">
+                    <td>{{a.name}}</td>
+                    <td>{{a.price}}</td> 
+                    <td><input type="radio" [value]="true" [(ngModel)]="a.isSelected"  [name]='i+1'> </td>
+                </tr>   
+            </tbody>
+            <tfoot>  
+              <tr>
+                  <td></td>
+                  <td>Price</td> 
+                  <td>{{ totalPrice }}</td>
+              </tr>   
+            </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="reserve()">Make reservation</button>
+      </div>
+  </div>
+  </div>

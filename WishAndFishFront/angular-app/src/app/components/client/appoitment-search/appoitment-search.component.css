@@ -124,4 +124,6 @@ input[type=number] {
  
 .small-btn:hover {
   background-color: #283593;
-}
+} 
+  
+::ng-deep .cdk-overlay-container {     z-index:2000; }
