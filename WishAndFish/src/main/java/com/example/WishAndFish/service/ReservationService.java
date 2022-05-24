@@ -2,6 +2,7 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
+import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.Reservation;
@@ -64,6 +65,17 @@ public class ReservationService {
                     }
                     ret.add(new ReservationDTO(r));
                 }
+            }
+        }
+        return ret;
+    }
+
+    public List<ReservationDTO> search(SearchClientDTO dto){
+        List<ReservationDTO> ret = new ArrayList<>();
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()) ){
+                ret.add(new ReservationDTO(r));
             }
         }
         return ret;
