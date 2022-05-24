@@ -89,16 +89,16 @@
 
             <thead>
                 <tr>
-                    <th scope="col" style="width: 30%;">Name</th>
-                    <th scope="col" style="width: 30%;">Price</th> 
-                    <th scope="col" style="width: 30%;"></th>
+                    <th scope="col" style="width: 40%;">Name</th>
+                    <th scope="col" style="width: 40%;">Price</th> 
+                    <th scope="col" style="width: 10%;"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor = "let a of additionalServices; let i=index;">
                     <td>{{a.name}}</td>
                     <td>{{a.price}}</td> 
-                    <td><input type="radio" [value]="true" [(ngModel)]="a.isSelected"  [name]='i+1'> </td>
+                    <td><input type="checkbox" [(ngModel)]="a.isSelected" [value]="!a.isSelected" (change)="changedService(a.price, a.isSelected)" [name]='i+1'> </td>
                 </tr>   
             </tbody>
             <tfoot>  

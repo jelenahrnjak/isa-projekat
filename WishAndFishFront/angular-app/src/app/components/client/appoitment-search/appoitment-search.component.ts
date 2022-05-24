@@ -107,6 +107,7 @@ export class AppoitmentSearchComponent implements OnInit {
         this.message =  'You must enter start date, start time and how many hours you want to stay!'
         return 
       }  
+      this.message = null
 
       this.searchDTO.name = this.form.get('name').value
       this.searchDTO.address = this.form.get('address').value
@@ -120,12 +121,18 @@ export class AppoitmentSearchComponent implements OnInit {
         this.searchDTO.endDate = this.form.get('endDate').value;
         this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
+          if(this.items.length == 0 ){
+            this.message = "There are no apoitments for this criteria :("
+          }
         }); 
       }else if(this.selectedEntity == 2){
         this.searchDTO.startTime = this.form.get('startTime').value;
         this.searchDTO.hours = this.form.get('hours').value; 
         this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
+          if(this.items.length == 0 ){
+            this.message = "There are no apoitments for this criteria :("
+          }
         }); 
 
       }else if(this.selectedEntity == 3){ 
@@ -133,12 +140,12 @@ export class AppoitmentSearchComponent implements OnInit {
         this.searchDTO.hours = this.form.get('hours').value; 
         this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
+          if(this.items.length == 0 ){
+            this.message = "There are no apoitments for this criteria :("
+          }
         }); 
     }
     
-      if(this.items.length == 0 ){
-        this.message = "There are no apoitments for this criteria :("
-      }
   }
 
     clear(){
@@ -188,6 +195,17 @@ export class AppoitmentSearchComponent implements OnInit {
           console.log(i.name)
         }
       })
+    }
+     
+    changedService(price : number, isSelected){
+      
+      var change = Number(price)
+      if(isSelected){
+        this.totalPrice = this.totalPrice + change
+      }else{
+        this.totalPrice = this.totalPrice - change
+      }
+ 
     }
 
     changeSorting(){
