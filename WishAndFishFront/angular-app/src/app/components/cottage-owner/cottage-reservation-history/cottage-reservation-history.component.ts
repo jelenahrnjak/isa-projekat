@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { CommentService } from './../../../service/comment.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -22,11 +23,17 @@ export class CottageReservationHistoryComponent implements OnInit {
     "bad": false,
     "came": true
   }
+  form: FormGroup;
 
+  dto = {
+    "criteria": "",
+    "id": -1
+  }
   constructor(private route: ActivatedRoute,
     private router: Router,
     private http : HttpClient,
     private reservationService: ReservationService,
+    private formBuilder: FormBuilder,
     private commentService: CommentService
     ) { }
 
@@ -39,6 +46,10 @@ export class CottageReservationHistoryComponent implements OnInit {
       this.reservations = data;
       console.log(this.reservations)
       });
+
+      this.form = this.formBuilder.group({  
+        name: [''],         
+      }) 
   }
 
   came($event){
@@ -108,6 +119,24 @@ export class CottageReservationHistoryComponent implements OnInit {
 
   findClient(email){
     this.comment.client = email
+  }
+
+
+  clear(){
+    this.form.reset();
+        
+    this.reservationService.getAllByCottage(this.id).subscribe((data : any) => {
+      this.reservations = data;
+      console.log(this.reservations)
+      });
+  }
+
+  search(){
+    this.dto.criteria = this.form.get('name').value
+    this.dto.id = this.id
+    this.reservationService.searchCottage(this.dto).subscribe((data : any) => { 
+      this.reservations = data; 
+    });
   }
 
 }

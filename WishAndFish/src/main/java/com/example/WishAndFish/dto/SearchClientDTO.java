@@ -11,5 +11,5 @@ import javax.persistence.SecondaryTable;
 public class SearchClientDTO {
 
     private String criteria;
-
+    private Long id;
 }

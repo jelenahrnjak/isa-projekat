@@ -56,4 +56,13 @@ public class ReservationController {
         }
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
+
+    @RequestMapping(value="searchCottage", method = RequestMethod.GET)
+    public ResponseEntity<List<ReservationDTO>> searchCottage(SearchClientDTO dto) {
+        List<ReservationDTO> ret = this.reservationService.searchCottage(dto);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
 }

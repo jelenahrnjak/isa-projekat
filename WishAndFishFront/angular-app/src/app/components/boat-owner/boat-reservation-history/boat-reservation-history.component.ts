@@ -25,7 +25,8 @@ export class BoatReservationHistoryComponent implements OnInit {
   form: FormGroup;
 
   dto = {
-    "criteria": ""
+    "criteria": "",
+    "id": -1
   }
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -59,6 +60,7 @@ export class BoatReservationHistoryComponent implements OnInit {
 
   search(){
     this.dto.criteria = this.form.get('name').value
+    this.dto.id = this.id
     this.reservationService.search(this.dto).subscribe((data : any) => { 
       this.reservations = data; 
     });

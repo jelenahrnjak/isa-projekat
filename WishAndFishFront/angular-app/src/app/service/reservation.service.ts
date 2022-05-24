@@ -32,4 +32,12 @@ export class ReservationService {
         return reservations;
       }));
     }
+
+    searchCottage(data:any){ 
+      console.log(data)
+      return this.apiService.get(this.config.reservation_url + `/searchCottage`, data)
+      .pipe(map(reservations => {   
+        return reservations;
+      }));
+    }
 }

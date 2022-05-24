@@ -74,8 +74,23 @@ public class ReservationService {
         List<ReservationDTO> ret = new ArrayList<>();
 
         for(Reservation r: reservationRepository.findAll()){
-            if(r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()) ){
-                ret.add(new ReservationDTO(r));
+            if(r.getAppointment().getBoat() != null){
+                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase())) ){
+                    ret.add(new ReservationDTO(r));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public List<ReservationDTO> searchCottage(SearchClientDTO dto){
+        List<ReservationDTO> ret = new ArrayList<>();
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(dto.getId().equals(r.getAppointment().getCottage().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase())) ){
+                    ret.add(new ReservationDTO(r));
+                }
             }
         }
         return ret;
