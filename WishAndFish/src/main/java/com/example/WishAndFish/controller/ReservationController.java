@@ -2,6 +2,7 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
+import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,24 @@ public class ReservationController {
     @RequestMapping(value="getAllByBoat/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<ReservationDTO>> getAllByBoat(@PathVariable Long id) {
         List<ReservationDTO> ret = this.reservationService.getAllByBoat(id);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
+
+    @RequestMapping(value="search", method = RequestMethod.GET)
+    public ResponseEntity<List<ReservationDTO>> search(SearchClientDTO dto) {
+        List<ReservationDTO> ret = this.reservationService.search(dto);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
+
+    @RequestMapping(value="searchCottage", method = RequestMethod.GET)
+    public ResponseEntity<List<ReservationDTO>> searchCottage(SearchClientDTO dto) {
+        List<ReservationDTO> ret = this.reservationService.searchCottage(dto);
         if(ret == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

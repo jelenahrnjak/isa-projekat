@@ -24,4 +24,20 @@ export class ReservationService {
         return reservations;
       }));   
     }
+
+    search(data:any){ 
+      console.log(data)
+      return this.apiService.get(this.config.reservation_url + `/search`, data)
+      .pipe(map(reservations => {   
+        return reservations;
+      }));
+    }
+
+    searchCottage(data:any){ 
+      console.log(data)
+      return this.apiService.get(this.config.reservation_url + `/searchCottage`, data)
+      .pipe(map(reservations => {   
+        return reservations;
+      }));
+    }
 }
