@@ -24,6 +24,9 @@ export class BoatReservationHistoryComponent implements OnInit {
   }
   form: FormGroup;
 
+  dto = {
+    "criteria": ""
+  }
   constructor(private route: ActivatedRoute,
     private router: Router,
     private http : HttpClient,
@@ -54,6 +57,12 @@ export class BoatReservationHistoryComponent implements OnInit {
       });
   }
 
+  search(){
+    this.dto.criteria = this.form.get('name').value
+    this.reservationService.search(this.dto).subscribe((data : any) => { 
+      this.reservations = data; 
+    });
+  }
 
   came($event){
     if ($event.target.checked === true) {

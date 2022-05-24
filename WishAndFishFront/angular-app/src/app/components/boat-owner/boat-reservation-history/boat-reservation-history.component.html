@@ -4,7 +4,7 @@
     <form (ngSubmit)="search()" [formGroup]="form">
         <div class="input-group rounded" style="margin: 10px; margin-left: 50px; margin-top: 30px;"> 
           <input type="text" formControlName="name" class="input-border big" placeholder="Search by client (name/email)"/>     
-          <button class="btn" style="margin-left: 1%;" >Clear</button>  
+          <button class="btn" style="margin-left: 1%;" (click)="clear()">Clear</button>  
           <button class=" btn" style="margin-left: 1%;" type="submit">Search</button>
         
         </div> 

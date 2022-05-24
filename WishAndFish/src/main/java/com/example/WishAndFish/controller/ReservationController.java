@@ -49,7 +49,7 @@ public class ReservationController {
     }
 
     @RequestMapping(value="search", method = RequestMethod.GET)
-    public ResponseEntity<List<ReservationDTO>> search(@RequestBody SearchClientDTO dto) {
+    public ResponseEntity<List<ReservationDTO>> search(SearchClientDTO dto) {
         List<ReservationDTO> ret = this.reservationService.search(dto);
         if(ret == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
