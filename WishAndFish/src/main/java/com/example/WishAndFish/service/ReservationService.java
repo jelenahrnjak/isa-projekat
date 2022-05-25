@@ -1,6 +1,7 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.ClientDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.model.Boat;
@@ -93,6 +94,21 @@ public class ReservationService {
                 }
             }
         }
+        return ret;
+    }
+
+
+    public List<ClientDTO> getAllAvailableClientsBoat(Long id){
+        List<ClientDTO> ret = new ArrayList<ClientDTO>();
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(id.equals(r.getAppointment().getBoat().getId()) && r.getAppointment().getStartDate().isBefore(LocalDateTime.now()) && r.getAppointment().getEndDate().isAfter(LocalDateTime.now())){
+                    ret.add(new ClientDTO(r.getClient()));
+                }
+            }
+        }
+
         return ret;
     }
 }

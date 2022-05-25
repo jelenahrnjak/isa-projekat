@@ -1,6 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.ClientDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.service.ReservationService;
@@ -72,4 +73,18 @@ public class ReservationController {
         }
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
+
+
+    @RequestMapping(value="/getAllAvailableClientsBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<List<ClientDTO>> getAllAvailableClientsBoat(@PathVariable Long id) {
+        List<ClientDTO> ret =  this.reservationService.getAllAvailableClientsBoat(id);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }
+    }
+
 }
