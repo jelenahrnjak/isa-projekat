@@ -81,11 +81,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/boats/search").permitAll()
                 .antMatchers("/api/adventures").permitAll()
                 .antMatchers("/api/adventures/search").permitAll()
-                .antMatchers("/api/users/{email}").permitAll()
+                //.antMatchers("/api/users/{email}").permitAll()
                 .antMatchers("/api/users/requestDeleting").permitAll()
 
                 //Kristina:
-                .antMatchers("/api/cottageOwner/**").permitAll()
+                //.antMatchers("/api/cottageOwner/**").permitAll()
                 .antMatchers("/api/cottages/**").permitAll()
                 .antMatchers("/api/boatOwner/**").permitAll()
                 .antMatchers("/api/boats/**").permitAll()

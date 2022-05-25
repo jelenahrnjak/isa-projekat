@@ -38,22 +38,22 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 
         // 1. Preuzimanje JWT tokena iz zahteva
         String authToken = tokenUtils.getToken(request);
-
+        System.out.println("token: " + authToken);
         try {
 
             if (authToken != null) {
 
                 // 2. Citanje korisnickog imena iz tokena
                 username = tokenUtils.getEmailFromToken(authToken);
-
+                System.out.println("email:" + username);
                 if (username != null) {
 
                     // 3. Preuzimanje korisnika na osnovu username-a
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
+                    System.out.println("korisnik: " + userDetails);
                     // 4. Provera da li je prosledjeni token validan
                     if (tokenUtils.validateToken(authToken, userDetails)) {
-
+                        System.out.println("token validan");
                         // 5. Kreiraj autentifikaciju
                         TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                         authentication.setToken(authToken);
