@@ -137,13 +137,29 @@ export class BoatDetailsComponent implements OnInit {
     });
     }
 
+    addCoverImageBoat(path){
+      this.imageDto.path = path;
+      this.imageDto.cottageId = this.id;
+   
+        console.log(this.imageDto.path)
+        this.imageService.addCoverImageBoat(this.imageDto).subscribe(() =>{
+  
+        });      
+        window.location.reload();
+      
+
+    }
+
     selectImage(event){
+      console.log(this.imageDto)
+    
       this.selectedFile = event.target.files[0].name;
     }
   
     addImage(){
       this.imageDto.path = this.selectedFile;
       this.imageDto.cottageId = this.id;
+      console.log(this.imageDto.path)
       this.imageService.addImageBoat(this.imageDto).subscribe(() =>{
   
       });      
