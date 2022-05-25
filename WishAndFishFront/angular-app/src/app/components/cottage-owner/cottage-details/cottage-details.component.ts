@@ -217,6 +217,11 @@ todayDate:Date = new Date();
         this.startDate = "";
         this.endDate = ""
       });
+
+      this.startTime = "";
+      this.endTime = "";
+      this.startDate = "";
+      this.endDate = ""
   }
    }
   

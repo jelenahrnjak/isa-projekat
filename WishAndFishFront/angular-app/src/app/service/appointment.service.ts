@@ -43,7 +43,9 @@ export class AppointmentService {
     return this.apiService.post(this.config.appointment_url + `/editAvailability`, dto)
     .pipe(map((appointment) => {
       console.log('Creating appointment success:');
-    }));  
+    }))
+    .pipe(catchError(error => this.checkError(error)));
+  
   }
 
   addApointment(appoitment: Appointment) {
