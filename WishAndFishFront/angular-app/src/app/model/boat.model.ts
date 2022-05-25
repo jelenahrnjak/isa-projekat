@@ -23,6 +23,7 @@ export class Boat {
         public enginePower: string = '',
         public maxSpeed: string = '',
         public capacity: string = '',
+        public price : number = 0,
 
 
       ) {}

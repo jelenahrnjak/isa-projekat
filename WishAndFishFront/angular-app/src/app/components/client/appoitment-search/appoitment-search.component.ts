@@ -251,21 +251,6 @@ export class AppoitmentSearchComponent implements OnInit {
       }
   
     }
-
-    changeSorting(){
-
-      if(this.form.get('sorting').value == 1){ 
-  
-        this.items.sort(function(a, b) { 
-          return a.price - b.price;})
-  
-      }else{ 
-  
-        this.items.sort(function(a, b) {
-  
-          return b.rating - a.rating  })
-      }
-  
-    }
+ 
 
 }

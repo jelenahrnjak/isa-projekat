@@ -234,7 +234,7 @@ public class BoatService {
                 b.setDescription(editedBoat.getDescription());
                 b.setCapacity(editedBoat.getCapacity());
                 b.setCancellationConditions(editedBoat.getCancellationConditions());
-                b.setPricePerHour(editedBoat.getPricePerHour());
+                b.setPricePerDay(editedBoat.getPricePerHour());
                 boatRepository.save(b);
                 return b;
             }
