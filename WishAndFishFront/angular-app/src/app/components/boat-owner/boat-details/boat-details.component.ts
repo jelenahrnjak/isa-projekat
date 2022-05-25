@@ -181,7 +181,25 @@ export class BoatDetailsComponent implements OnInit {
       });
       }
 
+      
+      deleteNavigationEquipment(id){
+      console.log(id)
+  
+      this.navigationEquipmentService.deleteNavigationEquipment(id)
+      .subscribe(data => {
+        window.location.reload();
+      });
+      }
+
+      deleteFishingEquipment(id){
+        console.log(id)
     
+        this.fishingEquipmensService.deleteFishingEquipment(id)
+        .subscribe(data => {
+          window.location.reload();
+        });
+        }
+
   addRule(){
     this.newRule.id = this.id;
     this.ruleService.addRuleBoat(this.newRule).subscribe(() =>{

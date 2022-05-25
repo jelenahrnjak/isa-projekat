@@ -26,4 +26,13 @@ export class FishingEquipmentService {
        console.log('Adding equipment success: ' + path);
      }));;
    }
+
+   
+  
+   deleteFishingEquipment(id){
+    return this.apiService.delete(this.config.fishing_equipment_url + `/deleteFishingEquipment/${id}`, id)
+  .pipe(map(() => {
+    console.log('Deleting FishingEquipment success');
+  }));   
+}
 }

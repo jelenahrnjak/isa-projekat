@@ -210,7 +210,7 @@
                 <tr *ngFor = "let a of navigationEquipments">
                     <td>{{a.name}}</td>
                     <td *ngIf="ifOwner()">
-                        <button class="btn btn-primary" type="submit" (click)="deleteServices(a.id)">Delete</button>
+                        <button class="btn btn-primary" type="submit" (click)="deleteNavigationEquipment(a.id)">Delete</button>
                     </td>
                 </tr>   
             </tbody>
@@ -237,7 +237,7 @@
                 <tr *ngFor = "let r of fishingEquipments">
                     <td>{{r.name}}</td>
                     <td *ngIf="ifOwner()">
-                        <button class="btn btn-primary" type="submit" (click)="deleteRule(r.id)">Delete</button>
+                        <button class="btn btn-primary" type="submit" (click)="deleteFishingEquipment(r.id)">Delete</button>
                     </td> 
                 </tr>   
             </tbody>

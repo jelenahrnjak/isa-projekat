@@ -36,4 +36,11 @@ public class FishingEquipmentController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
+
+    @DeleteMapping(value="/deleteFishingEquipment/{id}")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Long> deleteFishingEquipment(@PathVariable Long id) {
+        return this.fishingEquipmentService.deleteFishingEquipment(id);
+    }
+
 }
