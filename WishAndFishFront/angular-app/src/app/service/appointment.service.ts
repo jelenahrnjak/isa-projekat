@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiService, ConfigService } from '.';
-import {map} from 'rxjs/operators';   
+import { map, catchError } from 'rxjs/operators';   
 import { HttpHeaders } from '@angular/common/http';
 import { Appointment } from '../model/appointment';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +57,18 @@ export class AppointmentService {
     return this.apiService.post(this.config.appointment_url + `/editAvailabilityBoat`, dto)
     .pipe(map((appointment) => {
       console.log('Creating appointment success:');
-    }));  
+    }))
+    .pipe(catchError(error => this.checkError(error)));
+ 
+  }
+
+  private checkError(error: any): any {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "There is a reservation in the selected period, you can't select it!" //error.error.message,
+    })
+    return throwError(error);
   }
 
   addNewAction(dto){

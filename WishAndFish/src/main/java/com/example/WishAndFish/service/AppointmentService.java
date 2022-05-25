@@ -31,6 +31,9 @@ public class AppointmentService {
     private ClientRepository clientRepository;
 
     @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -73,6 +76,16 @@ public class AppointmentService {
 
 
     public Appointment editAvailability(AvailabilityDTO dto){
+
+        LocalDateTime end = findDate(dto.getEndDate());
+        LocalDateTime start = findDate(dto.getStartDate());
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getStartDate().isAfter(start)){
+                return null;
+            }
+        }
+
         Appointment a = new Appointment();
         a.setDeleted(false);
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
@@ -86,13 +99,23 @@ public class AppointmentService {
     }
 
     public Appointment editAvailabilityBoat(AvailabilityDTO dto){
+
+        LocalDateTime end = findDate(dto.getEndDate());
+        LocalDateTime start = findDate(dto.getStartDate());
+
+        for(Reservation r: reservationRepository.findAll()){
+            if((r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getStartDate().isAfter(start)) || (r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getEndDate().isAfter(end))){
+                return null;
+            }
+        }
+
         Appointment a = new Appointment();
         a.setDeleted(false);
         a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
         a.setIsAction(false);
         a.setStartDate(findDate(dto.getStartDate()));
         a.setEndDate(findDate(dto.getEndDate()));
-        a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
+        a.setDuration(Duration.between(start, end));
         a.setReserved(false);
         this.appointmentRepository.save(a);
         return a;

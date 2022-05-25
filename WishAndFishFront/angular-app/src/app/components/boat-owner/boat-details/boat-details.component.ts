@@ -288,12 +288,17 @@ export class BoatDetailsComponent implements OnInit {
           "endDate": end  + " " + this.endTime
         }
         this.appointmentService.editAvailabilityBoat(dto).subscribe((data : any) => {
-          // console.log(data)
+          console.log(data)
           this.startTime = "";
           this.endTime = "";
           this.startDate = "";
           this.endDate = ""
         });
+
+        this.startTime = "";
+        this.endTime = "";
+        this.startDate = "";
+        this.endDate = ""
       }
     
     }
