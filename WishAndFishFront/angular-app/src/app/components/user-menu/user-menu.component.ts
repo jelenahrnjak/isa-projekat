@@ -21,7 +21,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   isClient(){
-    if(localStorage.getItem('role') === 'CLIENT' && localStorage.getItem('user') !== null){
+    if(localStorage.getItem('role') === 'ROLE_CLIENT' && localStorage.getItem('user') !== null){
       return true;
     }else{
       return false;

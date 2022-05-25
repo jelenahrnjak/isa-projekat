@@ -99,7 +99,7 @@ todayDate:Date = new Date();
       });
 
     
-    if(this.userRole === 'CLIENT'){
+    if(this.userRole === 'ROLE_CLIENT'){
       this.clientService.checkSubscription(this.id, 'cottage').subscribe((data:boolean) =>{
         this.cottage.isSubscribed = data; 
       })
@@ -226,7 +226,7 @@ todayDate:Date = new Date();
   //  }
   
    ifOwner(){
-    if(this.userRole === 'COTTAGE_OWNER'){
+    if(this.userRole === 'ROLE_COTTAGE_OWNER'){
       return true;
     }
     return false;

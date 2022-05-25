@@ -74,7 +74,7 @@ export class CottageComponent implements OnInit {
     this.searchDTO.rating = this.form.get('rating').value
     this.searchDTO.price = this.form.get('price').value 
 
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.cottageService.searchClient(this.searchDTO).subscribe((data : any) => { 
         this.cottages = data; 
       });
@@ -90,7 +90,7 @@ export class CottageComponent implements OnInit {
     
     this.form.get('sorting').setValue(0)
     this.cottages = []
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.cottageService.getAllClient().subscribe((data : any) => {
         this.cottages = data;
         console.dir(data)

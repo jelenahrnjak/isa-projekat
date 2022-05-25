@@ -109,7 +109,7 @@ export class BoatDetailsComponent implements OnInit {
         this.fishingEquipments = data;
         });
 
-    if(this.userRole === 'CLIENT'){
+    if(this.userRole === 'ROLE_CLIENT'){
       this.clientService.checkSubscription(this.id, 'boat').subscribe((data:boolean) =>{
         this.boat.isSubscribed = data; 
       })
@@ -120,7 +120,7 @@ export class BoatDetailsComponent implements OnInit {
 
   
   ifOwner(){
-    if(this.userRole === 'BOAT_OWNER'){
+    if(this.userRole === 'ROLE_BOAT_OWNER'){
       return true;
     }
     return false;

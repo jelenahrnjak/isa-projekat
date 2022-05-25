@@ -7,9 +7,9 @@
     <div class="bg-image d-flex justify-content-center align-items-center background-image-color">
         <div class="background-image" [style.background-image]="userImage"> </div>
         <h1 class="mb-0 background-image-text">{{cottage.name}}</h1>      
-        <button *ngIf="userRole === 'CLIENT' && !cottage.isSubscribed"class="btn btn-primary mb-0 " 
+        <button *ngIf="userRole === 'ROLE_CLIENT' && !cottage.isSubscribed"class="btn btn-primary mb-0 " 
         style="margin-left: 3%;" (click)="subscribe()">Subscribe</button>
-        <button *ngIf="userRole === 'CLIENT' && cottage.isSubscribed" class="btn btn-primary mb-0 "
+        <button *ngIf="userRole === 'ROLE_CLIENT' && cottage.isSubscribed" class="btn btn-primary mb-0 "
         style="margin-left: 3%;" (click)="unsubscribe()">Unsubscribe</button>
         
     </div>

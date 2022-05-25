@@ -99,7 +99,7 @@ export class AdminSignUpComponent implements OnInit {
         "cityName" : this.form.get('cityName').value,
         "countryName" : this.form.get('countryName').value 
       },
-      "roleName" : "ADMIN",
+      "roleName" : "ROLE_ADMIN",
       "reasonForRegistration" : ""
   }
 

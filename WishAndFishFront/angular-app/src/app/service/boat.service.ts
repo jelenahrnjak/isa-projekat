@@ -69,6 +69,7 @@ export class BoatService {
   }
 
   findBoat(id) {
+    console.log(localStorage.getItem("role"))
     return this.apiService.get(this.config.boat_url+ `/findBoat/${id}`, id)
     .pipe(map(cottage => {
       return cottage;

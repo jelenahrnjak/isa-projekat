@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -48,32 +49,32 @@ public class CottageController {
     }
 
     @PostMapping(value = "/addCottage")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public Cottage addCottage(@RequestBody AddCottageDTO newCottage) {
         return this.cottageService.addCottage(newCottage);
     }
 
     @DeleteMapping(value = "/deleteCottage/{id}")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteCottage(@PathVariable Long id) {
         return this.cottageService.deleteCottage(id);
     }
 
 
     @RequestMapping(value = "/findCottage/{id}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public Cottage findCottage(@PathVariable Long id) {
         return this.cottageService.findCottage(id);
     }
 
     @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public EditCottageDTO editBasicInfo(@RequestBody EditCottageDTO editedCottage) {
         return this.cottageService.editBasicInfo(editedCottage);
     }
 
     @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
 
         return this.cottageService.searchAppointments(data);

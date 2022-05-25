@@ -8,6 +8,7 @@ import com.example.WishAndFish.service.NavigationEquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public class NavigationEquipmentController {
     NavigationEquipmentService navigationEquipmentService;
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<NavigationEquipmentDTO> getAllByBoat(@PathVariable Long id) {
         return this.navigationEquipmentService.getAllByBoat(id);
     }
 
     @RequestMapping(value="/addNavigationEquipment", method = RequestMethod.POST)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<NavigationEquipment> addNavigationEquipment(@RequestBody NavigationEquipmentDTO dto) {
         NavigationEquipment ne = this.navigationEquipmentService.addNavigationEquipment(dto);
         if(ne!=null){

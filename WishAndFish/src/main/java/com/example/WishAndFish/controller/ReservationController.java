@@ -7,6 +7,7 @@ import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,17 +21,20 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @RequestMapping(value="", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER') || hasAuthority('ROLE_CLIENT')")
     public List<ReservationDTO> getAll() {
         return this.reservationService.findAll();
     }
 
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER') || hasAuthority('ROLE_CLIENT')")
     public ReservationDTO getById(@PathVariable Long id) {
         return this.reservationService.getById(id);
     }
 
     @RequestMapping(value="getAllByCottage/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<List<ReservationDTO>> getAllByCottage(@PathVariable Long id) {
         List<ReservationDTO> ret = this.reservationService.getAllByCottage(id);
         if(ret == null){
@@ -40,6 +44,7 @@ public class ReservationController {
     }
 
     @RequestMapping(value="getAllByBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<List<ReservationDTO>> getAllByBoat(@PathVariable Long id) {
         List<ReservationDTO> ret = this.reservationService.getAllByBoat(id);
         if(ret == null){
@@ -49,6 +54,7 @@ public class ReservationController {
     }
 
     @RequestMapping(value="search", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<List<ReservationDTO>> search(SearchClientDTO dto) {
         List<ReservationDTO> ret = this.reservationService.search(dto);
         if(ret == null){
@@ -58,6 +64,7 @@ public class ReservationController {
     }
 
     @RequestMapping(value="searchCottage", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<List<ReservationDTO>> searchCottage(SearchClientDTO dto) {
         List<ReservationDTO> ret = this.reservationService.searchCottage(dto);
         if(ret == null){
