@@ -37,4 +37,10 @@ public class NavigationEquipmentController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
+
+    @DeleteMapping(value="/deleteNavigationEquipment/{id}")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Long> deleteNavigationEquipment(@PathVariable Long id) {
+        return this.navigationEquipmentService.deleteNavigationEquipment(id);
+    }
 }

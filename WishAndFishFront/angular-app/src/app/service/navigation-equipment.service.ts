@@ -26,4 +26,12 @@ export class NavigationEquipmentService {
       console.log('Adding equipment success: ' + path);
     }));;
   }
+
+  
+  deleteNavigationEquipment(id){
+    return this.apiService.delete(this.config.navigation_equipment_url + `/deleteNavigationEquipment/${id}`, id)
+  .pipe(map(() => {
+    console.log('Deleting NavigationEquipment success');
+  }));   
+}
 }

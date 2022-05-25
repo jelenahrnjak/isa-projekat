@@ -3,11 +3,14 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.NavigationEquipmentDTO;
 import com.example.WishAndFish.dto.RuleDTO;
 import com.example.WishAndFish.model.Boat;
+import com.example.WishAndFish.model.FishingEquipment;
 import com.example.WishAndFish.model.NavigationEquipment;
 import com.example.WishAndFish.model.Rule;
 import com.example.WishAndFish.repository.BoatRepository;
 import com.example.WishAndFish.repository.NavigationEquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,5 +51,17 @@ public class NavigationEquipmentService {
             }
         }
         return null;
+    }
+
+
+    public ResponseEntity<Long> deleteNavigationEquipment(Long id){
+        for(NavigationEquipment r: navigationEquipmentRepository.findAll()){
+            if(r.getId() == id) {
+                r.setDeleted(true);
+                this.navigationEquipmentRepository.save(r);
+                return new ResponseEntity<>(id, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
     }
 }
