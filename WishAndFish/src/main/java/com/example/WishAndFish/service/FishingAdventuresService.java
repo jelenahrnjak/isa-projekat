@@ -139,6 +139,7 @@ public class FishingAdventuresService {
         AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons());
 
 
+
         List<FishingAdventure> adventures = search(adventure);
         List<FishingAdventureDTO> ret = new ArrayList<>();
 
@@ -157,6 +158,7 @@ public class FishingAdventuresService {
 
         for(Appointment a : appointments){
             if(a.getReserved() || a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+
                 continue;
             }
             if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){

@@ -100,6 +100,7 @@ export class AppoitmentSearchComponent implements OnInit {
     search(){ 
       this.message = null; 
       if((this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
+
         this.message = 'You must enter start and end date!'
         return 
       }
@@ -126,15 +127,14 @@ export class AppoitmentSearchComponent implements OnInit {
             this.message = "There are no apoitments for this criteria :("
           }
         }); 
-      }else if(this.selectedEntity == 2){  
+      }else if(this.selectedEntity == 2){   
         this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
           if(this.items.length == 0 ){
             this.message = "There are no apoitments for this criteria :("
           }
-        }); 
-
-      }else if(this.selectedEntity == 3){   
+        });  
+      }else if(this.selectedEntity == 3){    
         this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
           if(this.items.length == 0 ){
@@ -142,7 +142,6 @@ export class AppoitmentSearchComponent implements OnInit {
           }
         }); 
     }
-    
   }
 
     clear(){
@@ -156,8 +155,7 @@ export class AppoitmentSearchComponent implements OnInit {
       this.form.reset() 
       this.form.get('sorting').setValue(0)
       this.items = []
-    }
-
+    } 
     addServices(id, price){
       this.currentEntity = id
 
@@ -193,7 +191,7 @@ export class AppoitmentSearchComponent implements OnInit {
       })
 
       var startDate = this.searchDTO.startDate 
-      var endDate = this.searchDTO.endDate 
+      var endDate = this.searchDTO.endDate  
 
       var appoitment = new Appointment(startDate, endDate, this.searchDTO.maxPersons, this.totalPrice, null, true, false, this.additionalServices, this.currentEntity, this.selectedEntity )
   
@@ -236,6 +234,22 @@ export class AppoitmentSearchComponent implements OnInit {
         this.totalPrice = this.totalPrice - change
       }
  
+    }
+
+    changeSorting(){
+
+      if(this.form.get('sorting').value == 1){ 
+  
+        this.items.sort(function(a, b) { 
+          return a.price - b.price;})
+  
+      }else{ 
+  
+        this.items.sort(function(a, b) {
+  
+          return b.rating - a.rating  })
+      }
+  
     }
 
     changeSorting(){

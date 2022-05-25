@@ -45,4 +45,13 @@ export class BoatSidebarComponent implements OnInit {
     this.router.navigate(['/show-free-appointments-boat/'+this.id]);
 
   }
+
+  editInfo(){
+    this.router.navigate(['/edit-boat-basic-info/'+this.id]);
+  }
+
+  reservationHistory(){
+    this.router.navigate(['/boat-reservation-history/'+this.id]);
+
+  }
 }

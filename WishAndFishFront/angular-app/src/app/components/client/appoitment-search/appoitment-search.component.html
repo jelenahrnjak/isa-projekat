@@ -25,6 +25,7 @@
           min="{{minDate | date:'yyyy-MM-dd' }}" (change)="checkDates()" onfocus="(this.type='date')"/>  
       <input type="text" class="input-border" formControlName="endDate"  
           min="{{minDateMax | date:'yyyy-MM-dd' }}" placeholder="Check out" onfocus="(this.type='date')" [disabled]="!this.form.get('startDate')"/>  
+
       <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Number of guests"/>  
     </div>
     <div style=" margin-left:10%; margin-top: 1%;">   
@@ -64,6 +65,7 @@
                 <li *ngIf="selectedEntity == 3" style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
                 <li class="list-group-item">
                   <button class="small-btn" (click)="addServices(c.id, c.price)" data-toggle="modal" data-target="#addService">Add services</button>  
+
                 </li>
                 </ul>   
         </div>

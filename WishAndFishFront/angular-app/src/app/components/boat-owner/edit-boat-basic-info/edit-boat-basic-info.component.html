@@ -1,0 +1,201 @@
+<div style="overflow: hidden">
+    <app-boat-sidebar></app-boat-sidebar>
+  
+  
+  <div style="margin-left: 25ch; height: 87%;" class="inner">
+    <!-- Left info -->
+      <form>
+          <div class="form-group" class="center">
+              <label style="margin-bottom: 10px;">Name:</label>
+              <input
+              style="font-weight: bold;"
+              type="text"
+              class="form-control"
+              [(ngModel)]="this.boat.name" name="name"
+              />
+          </div>
+          <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Type:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.type" name="type"
+
+            />
+        </div>
+          <div class="form-group" class="center">
+              <label style="margin-bottom: 10px;">Description:</label>
+              <input
+              style="font-weight: bold;"
+              type="text"
+              class="form-control"
+              [(ngModel)]="this.boat.description" name="description"
+              />
+          </div>
+          <div class="form-group" class="center">
+              <label style="margin-bottom: 10px;">Cancellation conditions:</label>
+              <input
+              style="font-weight: bold;"
+              type="text"
+              class="form-control"
+              [(ngModel)]="this.boat.cancellationConditions" name="cancellationConditions"
+  
+              />
+          </div>
+  
+          <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Price per hour:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.pricePerHour" name="pricePerHour"
+    
+            />
+          </div>
+          <div class="form-group" class="center">
+              <label style="margin-bottom: 10px;">Length:</label>
+              <input
+              style="font-weight: bold;"
+              type="text"
+              class="form-control"
+              [(ngModel)]="this.boat.length" name="length"
+  
+              />
+          </div>
+          
+          <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Engine number:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.engineNumber" name="engineNumber"
+  
+            />
+        </div>
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Engine power:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.enginePower" name="enginePower"
+  
+            />
+        </div>
+        <div class="form-group" class="center">
+            <label style="margin-bottom: 10px;">Max speed:</label>
+            <input
+            style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.maxSpeed" name="maxSpeed"
+  
+            />
+        </div>
+      </form>
+    <!-- Left info -->
+  
+  
+  
+    <!-- Right info -->
+  
+    <form> 
+      <div class="form-group" class="center">
+        <label style="margin-bottom: 10px;">Capacity:</label>
+        <input
+        style="font-weight: bold;"
+        type="text"
+        class="form-control"
+        [(ngModel)]="this.boat.capacity" name="capacity"
+  
+        />
+      </div>
+      <div class="form-group" class="center">
+        <label style="margin-bottom: 10px;">Street:</label>
+        <input
+        style="font-weight: bold;"
+        type="text"
+        class="form-control"
+        [(ngModel)]="this.boat.address.street" name="street"
+  
+        />
+      </div>
+      <div class="form-group" class="center">
+        <label style="margin-bottom: 10px;">Street number:</label>
+        <input
+        style="font-weight: bold;"
+        type="text"
+        class="form-control"
+        [(ngModel)]="this.boat.address.streetNumber" name="streetNumber"
+  
+        />
+      </div>
+      <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">Postal code:</label>
+          <input
+          style="font-weight: bold;"
+          type="text"
+          class="form-control"
+          [(ngModel)]="this.boat.address.postalCode" name="postalCode"
+  
+          />
+      </div>   
+      <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">Longitude:</label>
+          <input
+          style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.address.longitude" name="longitude"
+  
+          />
+      </div>
+      <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">Latitude:</label>
+          <input
+          style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.address.latitude" name="latitude"
+  
+          />
+      </div>
+  
+      <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">City name:</label>
+          <input
+          style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.address.cityName" name="cityName"
+  
+          />
+      </div>
+  
+      <div class="form-group" class="center">
+          <label style="margin-bottom: 10px;">Country name:</label>
+          <input
+          style="font-weight: bold;"
+            type="text"
+            class="form-control"
+            [(ngModel)]="this.boat.address.countryName" name="countryName"
+  
+          />
+      </div>
+  
+        
+      <!-- Buttons -->
+      <div style="justify-content: space-between;  flex-direction: row;  display: flex;">
+          <button type="submit" class="btn btn-primary" (click)= "cancel()">Cancel</button> 
+          <button type="submit" class="btn btn-primary" (click)= "submit()">Submit</button>
+      </div>
+      <!-- Buttons -->
+  
+    </form>
+  <!-- Right info -->
+  
+  </div>
+  

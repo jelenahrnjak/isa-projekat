@@ -6,8 +6,8 @@ export class Address {
         public postalCode: string = '',
         public cityName: string = '',
         public countryName: string = '',
-        public longitude: number = 0,
-        public latitude: number = 0,
+        public longitude: string = '',
+        public latitude: string = '',
 
       ) {}
 }

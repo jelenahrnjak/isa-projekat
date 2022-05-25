@@ -110,6 +110,10 @@ public class CottageService {
                 cottage.setCottageOwner(c);
             }
         }
+        cottage.setCoverImage(newCottage.getCoverImage());
+        cottage.setNumberOfRooms(newCottage.getNumberOfRooms());
+        cottage.setBedsPerRoom(newCottage.getBedsPerRoom());
+
         return this.cottageRepository.save(cottage);
     }
 
@@ -221,6 +225,7 @@ public class CottageService {
 
         for(Appointment a : appointments){
             if(a.getReserved() || a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+
                 continue;
             }
             if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){

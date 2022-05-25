@@ -52,6 +52,10 @@ import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-
 import { BoatSidebarComponent } from './components/boat-owner/boat-sidebar/boat-sidebar.component';
 import { AddBoatActionComponent } from './components/boat-owner/add-boat-action/add-boat-action.component';
 import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-free-appointments-boat/show-free-appointments-boat.component';
+import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-basic-info/edit-boat-basic-info.component';
+import { AgmCoreModule } from '@agm/core';
+import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
+import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +93,10 @@ import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-
     BoatDetailsComponent,
     BoatSidebarComponent,
     AddBoatActionComponent,
-    ShowFreeAppointmentsBoatComponent, 
+    ShowFreeAppointmentsBoatComponent,
+    EditBoatBasicInfoComponent,
+    CottageReservationHistoryComponent,
+    BoatReservationHistoryComponent, 
   ],
   imports: [
     BrowserModule,
@@ -99,6 +106,12 @@ import { ShowFreeAppointmentsBoatComponent } from './components/boat-owner/show-
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAIJe9K-7u1ejWxpCH_X7cIJoaiJIlmf8Y'   // za google maps
+  }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBZDx6ISSPAxZfodnJrb5AhMD5omR9CcWg',
+    // })
   ],
   providers: [ 
     {

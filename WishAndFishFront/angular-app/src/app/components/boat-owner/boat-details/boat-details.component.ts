@@ -60,7 +60,7 @@ export class BoatDetailsComponent implements OnInit {
   endDate: String | any;
   startTime: any;
   endTime: any;
-
+  src
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -82,7 +82,8 @@ export class BoatDetailsComponent implements OnInit {
       this.boat = data;
       // this.userImage = this.sanitizer.bypassSecurityTrustStyle('url(assets/Images/' + data.coverImage +')');
       this.userImage = 'url(assets/Images/' + data.coverImage +')';
-      console.log(this.userImage)
+      this.src = "https://maps.google.com/maps?q=" + this.boat.address.latitude + "," + this.boat.address.longitude +"&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
     });
 
 
@@ -113,6 +114,7 @@ export class BoatDetailsComponent implements OnInit {
         this.boat.isSubscribed = data; 
       })
     }
+
   }
 
 

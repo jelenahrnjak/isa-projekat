@@ -16,5 +16,8 @@ public class AddCottageDTO {
     private AddressDTO address;
     private Double price;
     private String ownerEmail;
+    private String coverImage;
+    private Integer numberOfRooms;
+    private Integer bedsPerRoom;
 
 }
