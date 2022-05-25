@@ -59,7 +59,7 @@ export class BoatsComponent implements OnInit {
     this.searchDTO.rating = this.form.get('rating').value
     this.searchDTO.price = this.form.get('price').value
 
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.boatService.searchClient(this.searchDTO).subscribe((data : any) => { 
       this.boats = data; 
     }); 
@@ -74,7 +74,7 @@ export class BoatsComponent implements OnInit {
     this.form.reset();
   
     this.form.get('sorting').setValue(0)
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.boatService.getAllClient().subscribe((data : any) => {
         this.boats = data;
       }); 

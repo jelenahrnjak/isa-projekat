@@ -8,6 +8,7 @@ import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,25 +41,26 @@ public class BoatController {
     }
 
     @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BoatDTO> searchClient(@PathVariable String email, BoatDTO dto) {
         return this.boatService.searchClient(dto,email);
     }
 
     @PostMapping(value="/addBoat")
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public AddBoatDTO addBoat(@RequestBody AddBoatDTO newBoat) {
         return this.boatService.addBoat(newBoat);
     }
 
     @DeleteMapping(value="/deleteBoat/{id}")
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> deleteBoat(@PathVariable Long id) {
         return this.boatService.deleteBoat(id);
     }
 
 
     @RequestMapping(value = "/findBoat/{id}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<BoatDetailDTO> findBoat(@PathVariable Long id) {
         BoatDetailDTO b = this.boatService.findBoat(id);
 
@@ -69,7 +71,7 @@ public class BoatController {
     }
  
     @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Boat> editBasicInfo(@RequestBody EditBoatDTO editedBoat) {
         Boat b = this.boatService.editBasicInfo(editedBoat);
         if(b != null){
@@ -80,8 +82,8 @@ public class BoatController {
     }
   
     @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
-    public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){ 
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){
         return this.boatService.searchAppointments(data);
     }
 

@@ -58,7 +58,7 @@ export class InstructorsComponent implements OnInit {
     this.searchDTO.price = this.form.get('price').value 
     this.searchDTO.instructor = this.form.get('instructor').value
 
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.adventureService.searchClient(this.searchDTO).subscribe((data : any) => { 
         this.adventures = data; 
       });
@@ -75,7 +75,7 @@ export class InstructorsComponent implements OnInit {
     
     this.form.get('sorting').setValue(0)
     
-    if(localStorage.getItem('role') === 'CLIENT'){ 
+    if(localStorage.getItem('role') === 'ROLE_CLIENT'){ 
       this.adventureService.getAllClient().subscribe((data : any) => {
         this.adventures = data;
       });

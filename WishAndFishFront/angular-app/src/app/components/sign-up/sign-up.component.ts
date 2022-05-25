@@ -125,7 +125,7 @@ export class SignUpComponent implements OnInit {
   }
 
   changeRole(value){
-    if(value != "CLIENT"){
+    if(value != "ROLE_CLIENT"){
       this.showReasonForRegistry = true;
     }
     else{

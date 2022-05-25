@@ -27,7 +27,7 @@ public class ClientController {
     private ClientService clientService;
 
     @RequestMapping(value = "/subscribeToCottage", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> subscribeToCottage(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -41,7 +41,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/unsubscribeFromCottage", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> unsubscribeFromCottage(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -55,7 +55,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/subscribeToBoat", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> subscribeToBoat(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -69,7 +69,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/unsubscribeFromBoat", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> unsubscribeFromBoat(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -84,7 +84,7 @@ public class ClientController {
 
     @RequestMapping(value = "/subscribeToAdventure", method = RequestMethod.PUT,
             produces = "application/json")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> subscribeToAdventure(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -99,7 +99,7 @@ public class ClientController {
 
     @RequestMapping(value = "/unsubscribeFromAdventure", method = RequestMethod.PUT,
             produces = "application/json")
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<String> unsubscribeFromAdventure(@RequestBody SubscriptionDTO data) {
 
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -113,7 +113,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/checkSubscription/{type}/{id}/{email}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public boolean checkSubscription(@PathVariable String type,@PathVariable Long id,@PathVariable String email) {
 
         if (type.equals("boat")) {
@@ -127,19 +127,19 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/cottageSubscriptions/{email}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<CottageDTO> getAllCottagesSubscriptions(@PathVariable String email) {
         return clientService.getAllCottagesSubscriptions(email);
     }
 
     @RequestMapping(value = "/boatSubscriptions/{email}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BoatDTO> getAllBoatsSubscriptions(@PathVariable String email) {
         return clientService.getAllBoatsSubscriptions(email);
     }
 
     @RequestMapping(value = "/adventureSubscriptions/{email}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<FishingAdventureDTO> getAllAdventuresSubscriptions(@PathVariable String email) {
         return clientService.getAllAdventuresSubscriptions(email);
     }

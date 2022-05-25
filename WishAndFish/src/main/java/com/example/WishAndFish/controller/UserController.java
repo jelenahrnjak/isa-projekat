@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.WishAndFish.service.UserService;
 
@@ -18,9 +19,8 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-
-@RestController
 @RequestMapping(value = "api/users")
+@RestController
 @CrossOrigin()
 public class UserController {
 
@@ -45,6 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
 

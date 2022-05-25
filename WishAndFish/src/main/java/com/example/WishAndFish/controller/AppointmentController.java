@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -24,39 +25,39 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public List<AppointmentDTO> getAllByCottage(@PathVariable Long id) {
         List<AppointmentDTO> list = this.appointmentService.getAllByCottage(id);
         return list;
     }
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<AppointmentDTO> getAllByBoat(@PathVariable Long id) {
         List<AppointmentDTO> list = this.appointmentService.getAllByBoat(id);
         return list;
     }
 
     @DeleteMapping(value="/deleteAppointment/{id}")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> deleteAppointment(@PathVariable Long id) {
         return this.appointmentService.deleteAppointment(id);
     }
 
     @PostMapping(value="/editAvailability")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public Appointment editAvailability(@RequestBody AvailabilityDTO dto) {
         return this.appointmentService.editAvailability(dto);
     }
 
     @PostMapping(value="/editAvailabilityBoat")
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public Appointment editAvailabilityBoat(@RequestBody AvailabilityDTO dto) {
         return this.appointmentService.editAvailabilityBoat(dto);
     }
 
     @RequestMapping(value="/addNewAction", method = RequestMethod.POST)
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<?> addNewAction(@RequestBody AddActionDTO dto) throws MessagingException {
         Appointment added = this.appointmentService.addNewAction(dto);
         if(added == null){
@@ -67,7 +68,7 @@ public class AppointmentController {
 
 
     @RequestMapping(value="/addNewActionBoat", method = RequestMethod.POST)
-    //@PreAuthorize("hasRole('BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<?> addNewActionBoat(@RequestBody AddActionDTO dto) throws MessagingException {
         Appointment added = this.appointmentService.addNewActionBoat(dto);
         if(added == null){

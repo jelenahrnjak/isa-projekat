@@ -9,6 +9,7 @@ import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +22,7 @@ public class CommentController {
 
 
     @PostMapping(value = "/addCommentToClient")
-    //@PreAuthorize("hasRole('COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Comment> addCommentToClient(@RequestBody CommentDTO comment) {
         Comment c = this.commentService.addCommentToClient(comment);
         if(c == null){

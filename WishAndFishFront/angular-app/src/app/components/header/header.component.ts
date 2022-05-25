@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   }
  
   clientOrUnregistered(){
-    if(localStorage.getItem('role') === 'CLIENT' || !this.hasSignedIn()){
+    if(localStorage.getItem('role') === 'ROLE_CLIENT' || !this.hasSignedIn()){
       return true;
     }else{
       return false;
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     
   isClient() {
     let role = localStorage.getItem("role");
-    if (role == "CLIENT" && this.hasSignedIn()){
+    if (role == "ROLE_CLIENT" && this.hasSignedIn()){
       return true;
     }
     return false;
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
   isAdmin() {
     let role = localStorage.getItem("role");
-    if (role == "ADMIN" && this.hasSignedIn()){
+    if (role == "ROLE_ADMIN" && this.hasSignedIn()){
       return true;
     }
     return false;
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
 
   isCottageOwner() {
     let role = localStorage.getItem("role");
-    if (role == "COTTAGE_OWNER" && this.hasSignedIn()){
+    if (role == "ROLE_COTTAGE_OWNER" && this.hasSignedIn()){
       return true;
     }
     return false;
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
 
   isBoatOwner() {
     let role = localStorage.getItem("role");
-    if (role == "BOAT_OWNER" && this.hasSignedIn()){
+    if (role == "ROLE_BOAT_OWNER" && this.hasSignedIn()){
       return true;
     }
     return false;
@@ -67,13 +67,13 @@ export class HeaderComponent implements OnInit {
   home() {
     let role = localStorage.getItem("role");
     switch (role) { 
-      case "COTTAGE_OWNER":
+      case "ROLE_COTTAGE_OWNER":
         this.router.navigate(['/cottage-owner']);
 		    break 
-      case "CLIENT":
+      case "ROLE_CLIENT":
         this.router.navigate(['/client']);
         break 
-      case "BOAT_OWNER":
+      case "ROLE_BOAT_OWNER":
         this.router.navigate(['/my-boats']);
         break;
       default:

@@ -167,7 +167,7 @@ export class UserProfileComponent implements OnInit {
 
   isClient() {
     let role = localStorage.getItem("role");
-    if (role == "CLIENT"){
+    if (role == "ROLE_CLIENT"){
       return true;
     }
     return false;
