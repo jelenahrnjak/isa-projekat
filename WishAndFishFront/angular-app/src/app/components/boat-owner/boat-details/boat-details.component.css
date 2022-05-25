@@ -96,6 +96,18 @@
     text-align: center;
   }
 
+  .dlt-img-btn2 {
+    position: absolute;
+    top: 4%;
+    right: 5.6%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+
 
   .buttons-wrapper {
     position: relative;

@@ -44,6 +44,26 @@ public class ImageController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value="/addCoverImageBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<String> addCoverImageBoat(@RequestBody AddCottageImageDTO dto) {
+        String path =  this.imageService.addCoverImageBoat(dto);
+        if(path != null){
+            return new ResponseEntity<>(path, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value="/addCoverImageCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<String> addCoverImageCottage(@RequestBody AddCottageImageDTO dto) {
+        String path =  this.imageService.addCoverImageCottage(dto);
+        if(path != null){
+            return new ResponseEntity<>(path, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @DeleteMapping(value="/deleteImage/{path}")
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> deleteImage(@PathVariable String path) {

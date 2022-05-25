@@ -25,6 +25,23 @@ export class ImageService {
     }));;
   }
 
+  public addCoverImageBoat(imageDto){
+    console.log(imageDto)
+    return this.apiService.post(this.config.image_url + `/addCoverImageBoat`, imageDto)
+    .pipe(map(path => {
+      console.log('Adding boat cover image success: ' + path);
+    }));;
+  }
+
+  
+  public addCoverImageCottage(imageDto){
+    console.log(imageDto)
+    return this.apiService.post(this.config.image_url + `/addCoverImageCottage`, imageDto)
+    .pipe(map(path => {
+      console.log('Adding cottage cover image success: ' + path);
+    }));;
+  }
+
   public deleteImage(path){
     return this.apiService.delete(this.config.image_url + `/deleteImage/${path}`, path)
     .pipe(map((path) => {

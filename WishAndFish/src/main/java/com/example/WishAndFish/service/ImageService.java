@@ -49,9 +49,47 @@ public class ImageService {
         return dto.getPath();
     }
 
+    public String addCoverImageBoat(AddCottageImageDTO dto){
+        for(Boat b: this.boatRepository.findAll()){
+            if(dto.getCottageId().equals(b.getId())){
+                Image image = new Image(dto.getPath());
+                image.setBoat(b);
+                b.setCoverImage(dto.getPath());
+                this.boatRepository.save(b);
+                this.imageRepository.save(image);
+            }
+        }
+        return dto.getPath();
+    }
 
+    public String addCoverImageCottage(AddCottageImageDTO dto){
+        for(Cottage b: this.cottageRepository.findAll()){
+            if(dto.getCottageId().equals(b.getId())){
+                Image image = new Image(dto.getPath());
+                image.setCottage(b);
+                b.setCoverImage(dto.getPath());
+                this.cottageRepository.save(b);
+                this.imageRepository.save(image);
+            }
+        }
+        return dto.getPath();
+    }
     public ResponseEntity<Long> deleteImage(String path){
         System.out.println(path);
+        for(Cottage c: cottageRepository.findAll()){
+            if(c.getCoverImage().equals(path)){
+                c.setCoverImage("");
+                cottageRepository.save(c);
+            }
+        }
+
+        for(Boat b: boatRepository.findAll()){
+            if(b.getCoverImage().equals(path)){
+                b.setCoverImage("");
+                boatRepository.save(b);
+            }
+        }
+
         for(Image i: imageRepository.findAll()){
             if(i.getPath().equals(path)){
                 i.setDeleted(true);
@@ -59,6 +97,8 @@ public class ImageService {
                 return new ResponseEntity<>(i.getId(), HttpStatus.OK);
             }
         }
+
+
 
         return new ResponseEntity<>(-1L, HttpStatus.NOT_FOUND);
     }

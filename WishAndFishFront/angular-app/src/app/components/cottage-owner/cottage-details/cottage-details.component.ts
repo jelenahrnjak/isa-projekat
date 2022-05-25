@@ -160,6 +160,20 @@ todayDate:Date = new Date();
       });
       }
   
+
+      addCoverImageCottage(path){
+        this.imageDto.path = path;
+        this.imageDto.cottageId = this.id;
+     
+          console.log(this.imageDto.path)
+          this.imageService.addCoverImageCottage(this.imageDto).subscribe(() =>{
+    
+          });      
+          window.location.reload();
+        
+  
+      }
+      
   addService(){
 
     var letters = /[a-zA-Z]/;
