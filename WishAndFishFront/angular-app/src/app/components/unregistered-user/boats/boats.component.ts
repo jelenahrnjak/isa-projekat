@@ -126,8 +126,8 @@ export class BoatsComponent implements OnInit {
 
     if(this.form.get('sorting').value == 1){ 
 
-      this.boats.sort(function(a, b) { 
-        return a.pricePerHour - b.pricePerHour;})
+      this.boats.sort(function(a, b) {  
+        return a.price - b.price;}) 
 
     }else{ 
 

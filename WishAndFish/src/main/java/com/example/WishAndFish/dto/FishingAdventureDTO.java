@@ -30,7 +30,7 @@ public class FishingAdventureDTO {
         this.description = f.getDescription();
         this.address = f.getAddress().toString();
         this.rating = Double.toString(f.getRating());
-        this.price = Double.toString(f.getPricePerHour());
+        this.price = Double.toString(f.getPricePerDay());
         this.coverImage = f.getCoverImage();
         this.instructor = f.getFishingInstructor().getName() + " " + f.getFishingInstructor().getSurname();
         this.instructorEmail = f.getFishingInstructor().getEmail();

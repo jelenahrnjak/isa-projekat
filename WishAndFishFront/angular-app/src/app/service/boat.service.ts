@@ -49,7 +49,6 @@ export class BoatService {
     .pipe(map(boats => {   
       return boats;
     }));
-
   }
 
   addBoat(boat) {

@@ -28,7 +28,7 @@ public class BoatDTO {
         this.description = b.getDescription();
         this.address= b.getAddress().toString();
         this.rating = Double.toString(b.getRating());
-        this.price = Double.toString(b.getPricePerHour());
+        this.price = Double.toString(b.getPricePerDay());
         this.coverImage = b.getCoverImage();
         this.maximumPeople = b.getCapacity();
 

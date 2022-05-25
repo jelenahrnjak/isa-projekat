@@ -48,7 +48,7 @@
             <b>{{c.name}}</b>
             </li>
             <li style="height: 70px;" class="list-group-item">{{c.address}}</li>
-            <li style="height: 70px;" class="list-group-item">Price per hour: {{c.price}}€</li>  
+            <li style="height: 70px;" class="list-group-item">Price per day: {{c.price}}€</li>  
             <li    class="list-group-item">Maximum people: {{c.maximumPeople}}</li>  
             <li style="height: 70px;" *ngIf="c.rating !== 0" class="list-group-item">Average rating: {{c.rating}}</li>
             <li style="height: 70px;" *ngIf="c.rating === 0" class="list-group-item">The boat currently does not have any ratings.</li> 
@@ -81,7 +81,7 @@
               </li>
               <li   class="list-group-item">Instructor: {{c.instructor}}</li>  
               <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
-              <li    class="list-group-item">Price per hour: {{c.price}}€</li>   
+              <li    class="list-group-item">Price per day: {{c.price}}€</li>   
               <li    class="list-group-item">Maximum people: {{c.maximumPeople}}</li>  
               <li style="height: 70px;" *ngIf="c.rating !== 0" class="list-group-item">Average rating: {{c.rating}}</li>
               <li style="height: 70px;" *ngIf="c.rating === 0" class="list-group-item">The adventure currently does not have any ratings.</li> 

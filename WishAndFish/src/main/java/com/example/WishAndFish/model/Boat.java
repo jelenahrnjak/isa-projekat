@@ -60,8 +60,8 @@ public class Boat {
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Rule> rules = new HashSet<>();
 
-    @Column(name = "price_per_hour", unique = false)
-    private Double pricePerHour;
+    @Column(name = "price_per_day", unique = false)
+    private Double pricePerDay;
 
     @OneToMany(mappedBy = "boat", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<NavigationEquipment> navigationEquipments = new HashSet<>();
@@ -92,7 +92,7 @@ public class Boat {
         this.numberOfRatings = 0;
     }
 
-    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerHour, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
+    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerDay, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -107,7 +107,7 @@ public class Boat {
         this.images = images;
         this.appointments = appointments;
         this.rules = rules;
-        this.pricePerHour = pricePerHour;
+        this.pricePerDay = pricePerDay;
         this.navigationEquipments = navigationEquipments;
         this.fishingEquipments = fishingEquipments;
         this.cancellationConditions = cancellationConditions;
@@ -119,7 +119,7 @@ public class Boat {
     }
 
 
-    public Boat(String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double pricePerHour) {
+    public Boat(String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double pricePerDay) {
         this.name = name;
         this.type = type;
         this.length = length;
@@ -133,7 +133,7 @@ public class Boat {
         this.images = null;
         this.appointments = null;
         this.rules = null;
-        this.pricePerHour = pricePerHour;
+        this.pricePerDay = pricePerDay;
         this.navigationEquipments = null;
         this.fishingEquipments = null;
         this.cancellationConditions = null;
