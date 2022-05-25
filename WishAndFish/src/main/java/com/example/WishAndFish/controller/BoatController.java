@@ -1,8 +1,8 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.dto.*;  
 import com.example.WishAndFish.model.Boat;
-import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.model.Cottage; 
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.BoatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class BoatController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
+ 
     @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Boat> editBasicInfo(@RequestBody EditBoatDTO editedBoat) {

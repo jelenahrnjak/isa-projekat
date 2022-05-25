@@ -17,17 +17,15 @@
       <input type="text" class="input-border" formControlName="name" placeholder="Search by name"/>  
       <input type="text" class="input-border" formControlName="address" placeholder="Search by address"/>  
       <input type="number" step="0.01" min="0.0" max="5.0" class="input-border" formControlName="rating" placeholder="Minimal rating"/>  
-      <input *ngIf="selectedEntity == 1" type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per day"/>  
-      <input *ngIf="selectedEntity != 1" type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per hour"/> 
+      <input type="number" step="0.01" min="0.0"class="input-border" formControlName="price" placeholder="Maximum price per day"/>   
         
     </div>
     <div class="input-group rounded" style="margin: 10px; margin-left: 3%;  margin-top: 1%;"> 
       <input class="input-border" formControlName="startDate"  placeholder="Check in"
           min="{{minDate | date:'yyyy-MM-dd' }}" (change)="checkDates()" onfocus="(this.type='date')"/>  
-      <input *ngIf="selectedEntity == 1" type="text" class="input-border" formControlName="endDate"  
+      <input type="text" class="input-border" formControlName="endDate"  
           min="{{minDateMax | date:'yyyy-MM-dd' }}" placeholder="Check out" onfocus="(this.type='date')" [disabled]="!this.form.get('startDate')"/>  
-      <input *ngIf="selectedEntity != 1" type="text" class="input-border" formControlName="startTime" placeholder="Start time" onfocus="(this.type='time')"/>
-      <input *ngIf="selectedEntity != 1" type="number" class="input-border" formControlName="hours" placeholder="Number of hours"/>  
+
       <input type="number" min="1" max="16" class="input-border" formControlName="guests" placeholder="Number of guests"/>  
     </div>
     <div style=" margin-left:10%; margin-top: 1%;">   
@@ -58,8 +56,7 @@
                 </li>
                 <li *ngIf="selectedEntity == 3" class="list-group-item">Instructor: {{c.instructor}}</li>  
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
-                <li *ngIf="selectedEntity == 1" style="height: 70px; text-align: center;" class="list-group-item">Price per day: {{c.price}}€</li>  
-                <li *ngIf="selectedEntity != 1" style="height: 70px; text-align: center;" class="list-group-item">Price per hour: {{c.price}}€</li>  
+                <li style="height: 70px; text-align: center;" class="list-group-item">Price per day: {{c.price}}€</li>    
                 <li class="list-group-item">Maximum people: {{c.maximumPeople}}</li>  
                 <li style="height: 70px;" *ngIf="c.rating != '0.0'" class="list-group-item">Average rating: {{c.rating}}</li>
                 <li style="height: 70px;" *ngIf="c.rating == '0.0'" class="list-group-item">There is currently no ratings.</li> 
@@ -67,10 +64,53 @@
                 <li *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
                 <li *ngIf="selectedEntity == 3" style="height: 70px;" class="list-group-item">Contact instrustor on:<br> {{c.instructorEmail}}</li> 
                 <li class="list-group-item">
-                  <button class="small-btn" (click)="details(c.id)">Details</button>  
+                  <button class="small-btn" (click)="addServices(c.id, c.price)" data-toggle="modal" data-target="#addService">Add services</button>  
+
                 </li>
                 </ul>   
         </div>
     </div>
     
-    </div>
+    </div> 
+</div>
+
+<!-- Modal for adding new additional service -->
+<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content"  style="width: 200ch;" >
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Select additional services you want to add to the reservation</h5>
+      </div>
+         
+      <div  class="container">
+          <table class="table" style="width: 590px;"> 
+
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 40%;">Name</th>
+                    <th scope="col" style="width: 40%;">Price</th> 
+                    <th scope="col" style="width: 10%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let a of additionalServices; let i=index;">
+                    <td>{{a.name}}</td>
+                    <td>{{a.price}}</td> 
+                    <td><input type="checkbox" [(ngModel)]="a.isSelected" [value]="!a.isSelected" (change)="changedService(a.price, a.isSelected)" [name]='i+1'> </td>
+                </tr>   
+            </tbody>
+            <tfoot>  
+              <tr>
+                  <td></td>
+                  <td>Price</td> 
+                  <td>{{ totalPrice }}</td>
+              </tr>   
+            </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="reserve()">Make reservation</button>
+      </div>
+  </div>
+  </div>

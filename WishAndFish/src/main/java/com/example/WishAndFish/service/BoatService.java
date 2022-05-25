@@ -37,11 +37,11 @@ public class BoatService {
     public List<BoatDTO> findAll() {
 
         List<BoatDTO> ret = new ArrayList<>();
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(!b.isDeleted()){
                 ret.add(new BoatDTO(b));}
 
-        };
+        }
 
         return ret;
     }
@@ -49,13 +49,13 @@ public class BoatService {
     public List<BoatDTO> findAllClient(String email) {
 
         List<BoatDTO> ret = new ArrayList<>();
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             BoatDTO boat = new BoatDTO(b);
             boat.setIsSubscribed(clientService.checkBoatExistence(email, b.getId()));
             if(!b.isDeleted()){
                 ret.add(boat);}
 
-        };
+        }
 
         return ret;
     }
@@ -85,7 +85,7 @@ public class BoatService {
         }catch (Exception e){
             System.out.println("Error with parsing price");
         }
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(checkBoatForSearch(b,dto,rating, price) && !b.isDeleted()){
                 ret.add(b);}
         }
@@ -95,7 +95,7 @@ public class BoatService {
 
     private boolean checkBoatForSearch(Boat b, BoatDTO dto,double rating, double price){
 
-        return checkStrings(b.getName(), dto.getName()) && checkStrings(b.getAddress().toString(), dto.getAddress()) && checkRating(b.getRating(), rating) && checkPrice(b.getPricePerHour(), price);
+        return checkStrings(b.getName(), dto.getName()) && checkStrings(b.getAddress().toString(), dto.getAddress()) && checkRating(b.getRating(), rating) && checkPrice(b.getPricePerDay(), price);
     }
 
     private boolean checkStrings(String boat, String search){
@@ -119,7 +119,7 @@ public class BoatService {
                 newBoat.getAddress().getLongitude(),newBoat.getAddress().getLatitude());
 
         Boat boat = new Boat(newBoat.getName(),newBoat.getType(),newBoat.getLength(),newBoat.getEngineNumber(), newBoat.getEnginePower(), newBoat.getMaxSpeed(), address,
-                newBoat.getDescription(),newBoat.getCapacity(), newBoat.getPricePerHour());
+                newBoat.getDescription(),newBoat.getCapacity(), newBoat.getPricePerDay());
         boat.setCancellationConditions(newBoat.getCancellationConditions());
         User user = this.userRepository.findByEmail(newBoat.getOwnerEmail());
 
@@ -166,7 +166,7 @@ public class BoatService {
         }catch (Exception e){
             System.out.println("Error with parsing price");
         }
-        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(Boat b : boatRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             BoatDTO boat = new BoatDTO(b);
             boat.setIsSubscribed(clientService.checkBoatExistence(email, b.getId()));
             if(checkBoatForSearch(b,dto,rating, price) && !b.isDeleted()){
@@ -213,8 +213,7 @@ public class BoatService {
 
 
         return boat;
-    }
-
+    } 
 
     public Boat editBasicInfo(EditBoatDTO editedBoat){
         for (Boat b: boatRepository.findAll()){
@@ -235,7 +234,7 @@ public class BoatService {
                 b.setDescription(editedBoat.getDescription());
                 b.setCapacity(editedBoat.getCapacity());
                 b.setCancellationConditions(editedBoat.getCancellationConditions());
-                b.setPricePerHour(editedBoat.getPricePerHour());
+                b.setPricePerDay(editedBoat.getPricePerHour());
                 boatRepository.save(b);
                 return b;
             }
@@ -246,7 +245,7 @@ public class BoatService {
     public List<BoatDTO> searchAppointments(AppointmentSearchDTO criteria){
 
         BoatDTO boat = new BoatDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
-        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getStartTime(), criteria.getHours(), criteria.getMaxPersons());
+        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons()); 
 
 
         List<Boat> boats = search(boat);
@@ -266,7 +265,8 @@ public class BoatService {
     private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
 
         for(Appointment a : appointments){
-            if(a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+            if(a.getReserved() || a.isDeleted() || a.getIsAction() || (criteria.getMaxPersons()!=null && criteria.getMaxPersons() > a.getMaxPersons())){
+
                 continue;
             }
             if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){
@@ -280,5 +280,4 @@ public class BoatService {
 
         return false;
     }
-
 }

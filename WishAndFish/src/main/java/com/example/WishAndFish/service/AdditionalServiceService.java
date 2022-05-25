@@ -129,4 +129,16 @@ public class AdditionalServiceService {
         }
         return ret;
     }
+
+    public List<AdditionalServicesDTO> getAllByAdventure(Long id){
+        List<AdditionalServicesDTO> ret = new ArrayList<>();
+        for(AdditionalService as: additionalServiceRepository.findAll()){
+            if(as.getFishingAdventure() != null){
+                if((id.equals(as.getFishingAdventure().getId()) && !as.getDeleted())){
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
+        }
+        return ret;
+    }
 }

@@ -41,7 +41,7 @@ export class AddBoatComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/my-boats';
 
     
-    this.form = this.formBuilder.group({ 
+    this.form = this.formBuilder.group({  
       name: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
       type: ['', Validators.compose([Validators.required, Validators.minLength(0)])],
       price: ['' ,Validators.compose([Validators.required, Validators.min(0), Validators.pattern('([0-9]+)$')])],
@@ -74,7 +74,7 @@ export class AddBoatComponent implements OnInit {
       "maxSpeed" : this.form.get('maxSpeed').value,
       "description" : this.form.get('description').value,
       "capacity" : this.form.get('capacity').value,
-      "pricePerHour" : this.form.get('price').value,
+      "pricePerDay" : this.form.get('price').value,
 
       "address" : {
           "street" : this.form.get('street').value,
