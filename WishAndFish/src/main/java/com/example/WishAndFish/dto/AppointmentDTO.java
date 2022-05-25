@@ -64,16 +64,5 @@ public class AppointmentDTO {
         this.maxPersons = maxPersons;
     }
 
-    public AppointmentDTO(String startDate, String startTime, Integer hours, Integer maxPersons){
-
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate start = LocalDate.parse(startDate);
-        LocalTime time = LocalTime.parse(startTime);
-
-        this.startDate = start.atTime(time);
-        this.maxPersons = maxPersons;
-        this.endDate = start.atTime(time).plusHours(hours);
-    }
 
 }

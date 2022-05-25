@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { ApiService, ConfigService } from '.';
 import {map} from 'rxjs/operators';   
 import { HttpHeaders } from '@angular/common/http';
+import { Appointment } from '../model/appointment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
+
 
   constructor(private apiService: ApiService,
     private config: ConfigService) { }
@@ -38,6 +40,13 @@ export class AppointmentService {
   editAvailability(dto){
     return this.apiService.post(this.config.appointment_url + `/editAvailability`, dto)
     .pipe(map((appointment) => {
+      console.log('Creating appointment success:');
+    }));  
+  }
+
+  addApointment(appoitment: Appointment) {
+    return this.apiService.post(this.config.appointment_url + `/addAppintment`, appoitment)
+    .pipe(map((data) => {
       console.log('Creating appointment success:');
     }));  
   }

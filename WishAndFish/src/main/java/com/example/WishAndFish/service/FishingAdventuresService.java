@@ -30,7 +30,7 @@ public class FishingAdventuresService {
     public List<FishingAdventureDTO> findAll() {
 
         List<FishingAdventureDTO> ret = new ArrayList<>();
-        for(FishingAdventure f : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(FishingAdventure f : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(!f.isDeleted()){
                 ret.add(new FishingAdventureDTO(f));}
         };
@@ -63,7 +63,7 @@ public class FishingAdventuresService {
         }catch (Exception e){
             System.out.println("Error with parsing price");
         }
-        for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             if(checkAdventureForSearch(a,dto,rating, price) && !a.isDeleted()){
                 ret.add(a);}
         }
@@ -73,7 +73,7 @@ public class FishingAdventuresService {
 
     private boolean checkAdventureForSearch(FishingAdventure c, FishingAdventureDTO dto, double rating, double price){
 
-        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getFishingInstructor().getName(), dto.getInstructor()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerHour(), price);
+        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getFishingInstructor().getName(), dto.getInstructor()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerDay(), price);
     }
 
     private boolean checkStrings(String adventure, String search){
@@ -94,7 +94,7 @@ public class FishingAdventuresService {
     public List<FishingAdventureDTO> findAllClient(String email) {
 
         List<FishingAdventureDTO> ret = new ArrayList<>();
-        for(FishingAdventure c : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(FishingAdventure c : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             FishingAdventureDTO adventure = new FishingAdventureDTO(c);
             adventure.setIsSubscribed(clientService.checkAdventureExistence(email, c.getId()));
             if(!c.isDeleted()){
@@ -121,7 +121,7 @@ public class FishingAdventuresService {
         }catch (Exception e){
             System.out.println("Error with parsing price");
         }
-        for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerHour")))){
+        for(FishingAdventure a : fishingAdventureRepository.findAll((Sort.by(Sort.Direction.ASC, "pricePerDay")))){
             FishingAdventureDTO adventure = new FishingAdventureDTO(a);
             adventure.setIsSubscribed(clientService.checkAdventureExistence(email, a.getId()));
 
@@ -136,7 +136,7 @@ public class FishingAdventuresService {
     public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO criteria){
 
         FishingAdventureDTO adventure = new FishingAdventureDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
-        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getStartTime(), criteria.getHours(), criteria.getMaxPersons());
+        AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons());
 
 
         List<FishingAdventure> adventures = search(adventure);

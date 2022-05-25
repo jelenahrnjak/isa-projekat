@@ -31,7 +31,7 @@ public class BoatDetailDTO {
     private Double averageGrade;
     private List<ImageDTO> images = new ArrayList<>();
     private List<RuleDTO> rules = new ArrayList<>();
-    private Double pricePerHour;
+    private Double pricePerDay;
     private List<NavigationEquipmentDTO> navigationEquipments = new ArrayList<>();
     private List<FishingEquipmentDTO> fishingEquipments = new ArrayList<>();
     private String cancellationConditions;
@@ -52,7 +52,7 @@ public class BoatDetailDTO {
         this.description = b.getDescription();
         this.capacity = b.getCapacity();
         this.averageGrade = b.getAverageGrade();
-        this.pricePerHour = b.getPricePerHour();
+        this.pricePerDay = b.getPricePerDay();
         this.coverImage = b.getCoverImage();
         this.numberOfRatings = b.getNumberOfRatings();
         this.rating = b.getRating();

@@ -116,10 +116,10 @@ INSERT INTO APPOINTMENTS(
 	VALUES (141, '5', '10-05-2022', 7, 130, false, '05-10-2022', 111, false, false);
 
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings, deleted, cancellation_conditions)
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_day, type, address_id, boat_owner_id, rating, number_of_ratings, deleted, cancellation_conditions)
 	VALUES (123, 4.9, 5, 'boat1.jpg', 'Super', 3, 100, 15, 120, 'Yachta', 20, 'Deck boat', 303, 75, 4.3, 123, false, 'Free');
 INSERT INTO BOATS(
-	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_hour, type, address_id, boat_owner_id, rating, number_of_ratings,deleted, cancellation_conditions)
+	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_day, type, address_id, boat_owner_id, rating, number_of_ratings,deleted, cancellation_conditions)
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 5.0 , 31, false, '10% of the reservation price');
 
 INSERT INTO APPOINTMENTS(
@@ -128,7 +128,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1236, '5', '10-05-2022 12:00', 7, 130, false, '05-10-2022', 125, false, false);
+	VALUES (1236, '5', '05-30-2022 12:00', 7, 130, false, '05-10-2022', 125, false, false);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
@@ -171,10 +171,10 @@ INSERT INTO public.appointment_additional_services(additional_service_id, appoin
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
 	VALUES (907, 133);
 
-INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id, capacity)
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_day, rating, address_id, fishing_instructor_id, capacity)
 	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55, 10);
 
-INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_hour, rating, address_id, fishing_instructor_id,capacity)
+INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_day, rating, address_id, fishing_instructor_id,capacity)
 	VALUES (101, 'adventure2.jpg', 'Go with me and find pink fish!', false, 'Pink fishing', 0, 10, 0, 500, 55, 5);
 
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)

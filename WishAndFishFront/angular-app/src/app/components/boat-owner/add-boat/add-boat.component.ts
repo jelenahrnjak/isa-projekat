@@ -50,7 +50,7 @@ export class AddBoatComponent implements OnInit {
       maxSpeed : [''],
       description : [''],
       capacity : [''],
-      pricePerHour : [''],
+      pricePerDay : [''],
       street: [''],
       streetNumber : [''],
       postalCode : [''],
@@ -76,7 +76,7 @@ export class AddBoatComponent implements OnInit {
       "maxSpeed" : this.form.get('maxSpeed').value,
       "description" : this.form.get('description').value,
       "capacity" : this.form.get('capacity').value,
-      "pricePerHour" : this.form.get('price').value,
+      "pricePerDay" : this.form.get('price').value,
 
       "address" : {
           "street" : this.form.get('street').value,

@@ -36,8 +36,8 @@ public class FishingAdventure {
     @Column(name="coverImage", nullable = false, unique = false)
     private String coverImage;
 
-    @Column(name = "price_per_hour", unique = false, nullable = false)
-    private Double pricePerHour;
+    @Column(name = "price_per_day", unique = false, nullable = false)
+    private Double pricePerDay;
 
     @Column(name = "description", unique = false, nullable = true)
     private String description;

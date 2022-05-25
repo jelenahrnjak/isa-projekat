@@ -8,7 +8,10 @@ import { CottageService } from 'src/app/service/cottage.service';
 import { BoatService } from 'src/app/service/boat.service'; 
 import { AdventureService } from 'src/app/service/adventure.service'; 
 import { AdditionalServicesService } from 'src/app/service/additional-services.service';
-import { additionalService } from 'src/app/model/additional-service.model';
+import { АdditionalService } from 'src/app/model/additional-service.model';
+import { Appointment } from '../../../model/appointment';
+import { AppointmentService } from '../../../service/appointment.service' 
+import { error } from 'util';
 
 interface DisplayMessage {
   msgType: string;
@@ -34,7 +37,8 @@ export class AppoitmentSearchComponent implements OnInit {
     private boatService : BoatService,
     private adventureService: AdventureService,
     private additionalServicesService : AdditionalServicesService ,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private appointmentService : AppointmentService) { }
 
     selectedEntity = 0;   
     searchDTO = {
@@ -44,16 +48,15 @@ export class AppoitmentSearchComponent implements OnInit {
       "price" : "", 
       "startDate" : new Date(),
       "endDate" : new Date(),
-      "maxPersons" : 0,
-      "startTime" : "",
-      "hours" : 0
+      "maxPersons" : 0, 
     } 
     minDate: Date = new Date();
     minDateMax : Date = new Date(); 
     message = "Please select enetity and then choose criteria.";
-    additionalServices : additionalService[] = [];
+    additionalServices : АdditionalService[] = [];
     totalPrice : number = 0;
- 
+    currentEntity : number = 0;
+
     ngOnInit() {
     
       this.form = this.formBuilder.group({  
@@ -63,9 +66,7 @@ export class AppoitmentSearchComponent implements OnInit {
         price: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  ,
         startDate : ['',Validators.compose([Validators.required])],
         endDate : ['',Validators.compose([Validators.required])],
-        guests : [''],
-        startTime : ['',Validators.compose([Validators.required])],
-        hours : ['',Validators.compose([Validators.required, Validators.pattern('([0-9]+)$')])],
+        guests : [''], 
         sorting : ['']
          
       })  
@@ -98,15 +99,15 @@ export class AppoitmentSearchComponent implements OnInit {
 
     search(){ 
       this.message = null; 
-      if(this.selectedEntity == 1 && (this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
+      if((this.form.get('startDate').invalid || this.form.get('endDate').invalid)){  
         this.message = 'You must enter start and end date!'
         return 
       }
 
-      if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
-        this.message =  'You must enter start date, start time and how many hours you want to stay!'
-        return 
-      }  
+      // if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
+      //   this.message =  'You must enter start date, start time and how many hours you want to stay!'
+      //   return 
+      // }  
       this.message = null
 
       this.searchDTO.name = this.form.get('name').value
@@ -115,19 +116,17 @@ export class AppoitmentSearchComponent implements OnInit {
       this.searchDTO.price = this.form.get('price').value 
       
       this.searchDTO.startDate = this.form.get('startDate').value; 
+      this.searchDTO.endDate = this.form.get('endDate').value;
       this.searchDTO.maxPersons = this.form.get('guests').value; 
 
       if(this.selectedEntity == 1){ 
-        this.searchDTO.endDate = this.form.get('endDate').value;
         this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
           if(this.items.length == 0 ){
             this.message = "There are no apoitments for this criteria :("
           }
         }); 
-      }else if(this.selectedEntity == 2){
-        this.searchDTO.startTime = this.form.get('startTime').value;
-        this.searchDTO.hours = this.form.get('hours').value; 
+      }else if(this.selectedEntity == 2){  
         this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
           if(this.items.length == 0 ){
@@ -135,9 +134,7 @@ export class AppoitmentSearchComponent implements OnInit {
           }
         }); 
 
-      }else if(this.selectedEntity == 3){ 
-        this.searchDTO.startTime = this.form.get('startTime').value;
-        this.searchDTO.hours = this.form.get('hours').value; 
+      }else if(this.selectedEntity == 3){   
         this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
           if(this.items.length == 0 ){
@@ -162,26 +159,25 @@ export class AppoitmentSearchComponent implements OnInit {
     }
 
     addServices(id, price){
+      this.currentEntity = id
 
-      if(this.selectedEntity == 1){       
+      var Time = new Date(this.searchDTO.endDate).getTime() - new Date(this.searchDTO.startDate).getTime(); 
+      var Days = Time / (1000 * 3600 * 24); //Diference in Days
 
-        var Time = new Date(this.searchDTO.endDate).getTime() - new Date(this.searchDTO.startDate).getTime(); 
-        var Days = Time / (1000 * 3600 * 24); //Diference in Days
+      this.totalPrice = price * Days
 
-        this.totalPrice = price * Days
+      if(this.selectedEntity == 1){     
 
         this.additionalServicesService.findAdditionalServices(id).subscribe((data : any) => {
           this.additionalServices = data;
         });
          
-      }else if(this.selectedEntity == 2){
-        this.totalPrice = price * this.searchDTO.hours
+      }else if(this.selectedEntity == 2){ 
         this.additionalServicesService.findAdditionalServicesBoat(id).subscribe((data : any) => {
           this.additionalServices = data;
         }); 
 
-      }else if(this.selectedEntity == 3){
-        this.totalPrice = price * this.searchDTO.hours
+      }else if(this.selectedEntity == 3){ 
         this.additionalServicesService.findAdditionalServicesAdventure(id).subscribe((data : any) => {
           this.additionalServices = data;
         });
@@ -195,7 +191,41 @@ export class AppoitmentSearchComponent implements OnInit {
           console.log(i.name)
         }
       })
-    }
+
+      var startDate = this.searchDTO.startDate 
+      var endDate = this.searchDTO.endDate 
+
+      var appoitment = new Appointment(startDate, endDate, this.searchDTO.maxPersons, this.totalPrice, null, true, false, this.additionalServices, this.currentEntity, this.selectedEntity )
+  
+      this.appointmentService.addApointment(appoitment)
+      .subscribe(
+        result => { 
+          alert('success')
+        },
+        error => {
+          alert('error')
+        },
+        () => {
+          // 'onCompleted' callback.
+          // No errors, route to new page here
+        }
+      );
+
+    } 
+
+  toStartTime(timeString, date : string){
+    var timeTokens = timeString.split(':');
+    var dateTokens = date.split('-')
+    return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]) , timeTokens[0], timeTokens[1], 0); 
+    
+  }
+
+  toEndTime(timeString, date : string){
+    var timeTokens = timeString.split(':');
+    var dateTokens = date.split('-') 
+    return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]), Number(timeTokens[0]) , timeTokens[1], 0);  
+    
+  }
      
     changedService(price : number, isSelected){
       
