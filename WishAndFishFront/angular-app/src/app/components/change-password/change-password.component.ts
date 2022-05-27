@@ -69,7 +69,7 @@ export class ChangePasswordComponent implements OnInit {
       },
       (err) => {  
         this.submitted = false; 
-        this.form.reset
+        this.form.reset()
         this.notification = {msgType: 'error', msgBody: 'Passwords are not equal or wrong old password.'};
       } 
     ) 
