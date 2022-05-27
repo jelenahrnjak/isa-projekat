@@ -1,3 +1,4 @@
+import { CottageService } from './../../../service/cottage.service';
 import { takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ReservationService } from './../../../service/reservation.service';
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class CottageReportComponent implements OnInit {
 
-  constructor(private reservationService: ReservationService,private route: ActivatedRoute) { }
+  constructor(private reservationService: ReservationService,private route: ActivatedRoute, private cottageService: CottageService) { }
   title = 'angular8chartjs';
   canvas: any;
   ctx: any;
@@ -26,6 +27,7 @@ export class CottageReportComponent implements OnInit {
 
  }
  totalPerWeek = 0;
+ rating = 0.0
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
@@ -60,6 +62,11 @@ export class CottageReportComponent implements OnInit {
     //report per month
     this.reportPerMonth("2022");
     });
+
+
+    this.cottageService.findCottage(this.id).subscribe((data) => {
+      this.rating = data.rating
+    })
   }
 
   reportPerMonth(year){
