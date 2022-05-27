@@ -33,5 +33,6 @@ public class Reservation {
     private Boolean finished;
 
     @Column(name = "commented")
-    private Boolean commented; 
+    private Boolean commented;
+
 }

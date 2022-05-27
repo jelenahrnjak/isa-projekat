@@ -20,18 +20,19 @@ public class AdditionalServiceController {
     private AdditionalServiceService additionalServiceService;
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_CLIENT')")
     public List<AdditionalServicesDTO> getAllByCottage(@PathVariable Long id) {
         return this.additionalServiceService.getAllByCottage(id);
     }
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER') || hasAuthority('ROLE_CLIENT')")
     public List<AdditionalServicesDTO> getAllByBoat(@PathVariable Long id) {
         return this.additionalServiceService.getAllByBoat(id);
     }
 
     @RequestMapping(value="/getAllByAdventure/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<AdditionalServicesDTO> getAllByAdventure(@PathVariable Long id) {
         return this.additionalServiceService.getAllByAdventure(id);
     }

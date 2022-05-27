@@ -1,11 +1,14 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.CreateReservationDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO;
+import com.example.WishAndFish.model.Appointment;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.Reservation;
+import com.example.WishAndFish.repository.AppointmentRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class ReservationService {
 
     @Autowired
     private CottageRepository cottageRepository;
+
+    @Autowired
+    AppointmentService appointmentService;
 
     public List<ReservationDTO> findAll() {
 
@@ -94,5 +100,17 @@ public class ReservationService {
             }
         }
         return ret;
+    }
+
+    public boolean createReservation(CreateReservationDTO dto) {
+
+        Appointment appointment =  this.appointmentService.createReservation(dto);
+
+        if(this.appointmentService == null){
+            return false;
+        }
+
+
+        return true;
     }
 }

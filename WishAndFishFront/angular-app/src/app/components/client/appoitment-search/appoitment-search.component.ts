@@ -10,8 +10,9 @@ import { AdventureService } from 'src/app/service/adventure.service';
 import { AdditionalServicesService } from 'src/app/service/additional-services.service';
 import { АdditionalService } from 'src/app/model/additional-service.model';
 import { Appointment } from '../../../model/appointment';
-import { AppointmentService } from '../../../service/appointment.service' 
+import { ReservationService } from '../../../service/reservation.service' 
 import { error } from 'util';
+import { Reservation } from '../../../model/reservation.model';
 
 interface DisplayMessage {
   msgType: string;
@@ -38,7 +39,7 @@ export class AppoitmentSearchComponent implements OnInit {
     private adventureService: AdventureService,
     private additionalServicesService : AdditionalServicesService ,
     private formBuilder: FormBuilder,
-    private appointmentService : AppointmentService) { }
+    private reservationService : ReservationService) { }
 
     selectedEntity = 0;   
     searchDTO = {
@@ -192,10 +193,11 @@ export class AppoitmentSearchComponent implements OnInit {
 
       var startDate = this.searchDTO.startDate 
       var endDate = this.searchDTO.endDate  
-
-      var appoitment = new Appointment(startDate, endDate, this.searchDTO.maxPersons, this.totalPrice, null, true, false, this.additionalServices, this.currentEntity, this.selectedEntity )
   
-      this.appointmentService.addApointment(appoitment)
+      var reservation = new Reservation(localStorage.getItem('user'),startDate,endDate,this.totalPrice, false, this.getSelectedAdditionalServices(),  this.selectedEntity, this.currentEntity)
+   
+       
+      this.reservationService.createReservation(reservation)
       .subscribe(
         result => { 
           alert('success')
@@ -210,6 +212,18 @@ export class AppoitmentSearchComponent implements OnInit {
       );
 
     } 
+
+  getSelectedAdditionalServices(){
+    let arr : АdditionalService[] = [];
+
+    for (var val of this.additionalServices) {
+      if(val.isSelected){
+        arr.push(val)
+      }
+    }
+
+    return arr
+  }
 
   toStartTime(timeString, date : string){
     var timeTokens = timeString.split(':');

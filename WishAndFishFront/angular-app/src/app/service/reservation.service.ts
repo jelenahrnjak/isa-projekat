@@ -2,6 +2,8 @@ import { ApiService } from './api.service';
 import { ConfigService } from './config.service';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Appointment } from '../model/appointment';
+import { Reservation } from '../model/reservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,12 @@ export class ReservationService {
       .pipe(map(reservations => {   
         return reservations;
       }));
+    }
+
+    createReservation(appointment: Reservation) {
+      return this.apiService.post(this.config.reservation_url + `/createReservation`, appointment)
+      .pipe(map((data) => {
+        console.log('Creating appointment success:');
+      }));  
     }
 }

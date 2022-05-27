@@ -94,10 +94,11 @@ todayDate:Date = new Date();
       this.rules = data;
       });
 
+    if(this.ifOwner()){
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
       });
-
+    }
     
     if(this.userRole === 'ROLE_CLIENT'){
       this.clientService.checkSubscription(this.id, 'cottage').subscribe((data:boolean) =>{

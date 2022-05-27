@@ -30,6 +30,7 @@ public class BoatController {
     }
 
     @RequestMapping(value="/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BoatDTO> getAllClients(@PathVariable String email) {
         return this.boatService.findAllClient(email);
     }
@@ -60,7 +61,7 @@ public class BoatController {
 
 
     @RequestMapping(value = "/findBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<BoatDetailDTO> findBoat(@PathVariable Long id) {
         BoatDetailDTO b = this.boatService.findBoat(id);
 

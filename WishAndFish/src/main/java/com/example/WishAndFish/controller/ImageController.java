@@ -23,7 +23,7 @@ public class ImageController {
     private final Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public List<ImageDTO> getAllByCottage(@PathVariable Long id) {
         return this.imageService.getAllByCottage(id);
     }
@@ -71,7 +71,7 @@ public class ImageController {
     }
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<ImageDTO> getAllByBoat(@PathVariable Long id) {
         return this.imageService.getAllByBoat(id);
     }
