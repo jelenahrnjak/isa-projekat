@@ -221,22 +221,22 @@ INSERT INTO public.fishing_equipment(
 
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (1, false, 133, 35, false , false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (1111, false, 133, 35, false , false, 500);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (2, false, 140, 35, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (2222, false, 140, 35, false, false, 250);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (3, false, 139, 35, false , false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (3333, false, 139, 35, false , false, 400);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (4, false, 1233, 35, false , false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (4444, false, 1233, 35, false , false, 300);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (5, false, 1232, 35, false , false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (5555, false, 1232, 35, false , false, 200);
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

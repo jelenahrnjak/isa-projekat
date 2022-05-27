@@ -4,17 +4,17 @@ import com.example.WishAndFish.dto.BoatDTO;
 import com.example.WishAndFish.dto.CreateReservationDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO;
-import com.example.WishAndFish.model.Appointment;
-import com.example.WishAndFish.model.Boat;
-import com.example.WishAndFish.model.Cottage;
-import com.example.WishAndFish.model.Reservation;
+import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AppointmentRepository;
+import com.example.WishAndFish.repository.ClientRepository;
 import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,12 @@ public class ReservationService {
 
     @Autowired
     AppointmentService appointmentService;
+
+    @Autowired
+    ClientRepository clientRepository;
+
+    @Autowired
+    EmailService emailService;
 
     public List<ReservationDTO> findAll() {
 
@@ -102,14 +108,34 @@ public class ReservationService {
         return ret;
     }
 
-    public boolean createReservation(CreateReservationDTO dto) {
+    @Transactional
+    public boolean createReservation(CreateReservationDTO dto) throws MessagingException {
 
-        Appointment appointment =  this.appointmentService.createReservation(dto);
+        Client client = clientRepository.findByEmail(dto.getUser());
 
-        if(this.appointmentService == null){
+        if(client == null || client.isBlocked() || client.isDeleted()){
             return false;
         }
 
+        Appointment appointment =  this.appointmentService.createReservation(dto);
+
+        if(appointment == null){
+            return false;
+        }
+
+        return addReservationToClient(client, appointment);
+    }
+
+    private boolean addReservationToClient(Client client, Appointment appointment) throws MessagingException {
+
+        Reservation reservation = new Reservation(client, appointment);
+        Reservation ret = reservationRepository.save(reservation);
+
+        if(ret == null){
+            return false;
+        }
+
+        emailService.sendEmailForNewReservation(client.getEmail(), ret);
 
         return true;
     }

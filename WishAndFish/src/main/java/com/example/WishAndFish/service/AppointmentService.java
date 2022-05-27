@@ -174,22 +174,15 @@ public class AppointmentService {
         return a;
     }
 
-    public Appointment createReservation(CreateReservationDTO dto) {
 
-        Appointment appointment = findAppointment(dto);
-
-        return null;
-
-    }
-
-    public  Appointment findAppointment(CreateReservationDTO dto){
+    public  Appointment createReservation(CreateReservationDTO dto){
 
         Set<Appointment> appointments = new HashSet<>();
 
         if(dto.getEntity() == 1){
 
             Cottage cottage = cottageRepository.findById(dto.getEntityId()).orElseGet(null);
-            if(cottage == null){
+            if(cottage == null || cottage.isDeleted()){
                 return null;
             }
             appointments = cottage.getAppointments();
@@ -197,7 +190,7 @@ public class AppointmentService {
         }else if(dto.getEntity() == 2){
 
             Boat boat = boatRepository.findById(dto.getEntityId()).orElseGet(null);
-            if(boat == null){
+            if(boat == null || boat.isDeleted()){
                 return null;
             }
             appointments = boat.getAppointments();
@@ -205,7 +198,7 @@ public class AppointmentService {
         }else if(dto.getEntity() == 3){
 
             FishingAdventure adventure = fishingAdventureRepository.findById(dto.getEntityId()).orElseGet(null);
-            if(adventure == null){
+            if(adventure == null || adventure.isDeleted()){
                 return null;
             }
             appointments = adventure.getAppointments();
@@ -228,7 +221,8 @@ public class AppointmentService {
 
         getBeforeAppointment(appointment, dto);
         getAfterAppointment(appointment,dto);
-        return editAppointmentForReservation(appointment,dto.getStartDate(), dto.getEndDate());
+        appointment.setPrice(dto.getTotalPrice());
+        return editAppointmentForReservation(appointment,dto);
 
     }
 
@@ -276,17 +270,33 @@ public class AppointmentService {
         return null;
     }
 
-    public Appointment editAppointmentForReservation(Appointment appointment, LocalDateTime start, LocalDateTime end){
+    public Appointment editAppointmentForReservation(Appointment appointment, CreateReservationDTO dto){
 
         for(Appointment a : appointmentRepository.findAll()){
             if(a.getId() == appointment.getId()){
                 a.setReserved(true);
-                a.setStartDate(start);
-                a.setEndDate(end);
+                a.setStartDate(dto.getStartDate());
+                a.setEndDate(dto.getEndDate());
+                a.setPrice(dto.getTotalPrice());
+                a.setAdditionalServices(mapAdditionalServices(dto.getAdditionalServices()));
                 this.appointmentRepository.save(a);
                 return a;
             }
         }
         return null;
+    }
+
+    private Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices) {
+
+        Set<AdditionalService> ret = new HashSet<>();
+
+        for(AdditionalServicesDTO a : additionalServices){
+            AdditionalService mapped = additionalServiceRepository.findById(a.getId()).orElseGet(null);
+            if(mapped != null){
+                ret.add(mapped);
+            }
+        }
+
+        return ret;
     }
 }

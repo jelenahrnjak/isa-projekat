@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -79,7 +80,7 @@ public class ReservationController {
 
     @RequestMapping(value="createReservation", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public ResponseEntity<Boolean> createReservation(@RequestBody CreateReservationDTO reservation) {
+    public ResponseEntity<Boolean> createReservation(@RequestBody CreateReservationDTO reservation) throws MessagingException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start = LocalDate.parse(reservation.getStart());
