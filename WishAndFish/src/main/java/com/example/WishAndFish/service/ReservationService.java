@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.plaf.ScrollPaneUI;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,6 +155,25 @@ public class ReservationService {
 
         return map;
     }
+
+    public Integer getNumberofReservationWeeklyCottage(WeekReportDTO dto){
+        Integer n = 0;
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(r.getAppointment().getStartDate().isAfter(findDate(dto.getStartDate())) && r.getAppointment().getStartDate().isBefore(findDate(dto.getEndDate()))){
+                    n++;
+                }
+            }
+        }
+
+        return n;
+    }
+
+    private LocalDateTime findDate(String start){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(start, formatter);
+    }
+
 
     private Integer countReservationPerMonthCottage(String month, Integer year, Long id){
         Integer n = 0;

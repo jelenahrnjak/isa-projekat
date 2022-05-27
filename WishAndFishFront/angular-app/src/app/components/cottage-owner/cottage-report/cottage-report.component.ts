@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { ReservationService } from './../../../service/reservation.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,8 @@ export class CottageReportComponent implements OnInit {
   ctx: any;
   id;
   myChart: any;
+  startDate: String | any;
+  endDate: String | any;
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
@@ -97,6 +100,27 @@ export class CottageReportComponent implements OnInit {
     console.log($event.target.value)
     this.myChart.destroy();
     this.reportPerMonth($event.target.value);
+
+  }
+
+
+  selectDays(){
+
+    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+
+    start = start + " 00:00"
+    end = end + " 00:00"
+
+    var dto = {
+      "id": this.id,
+      "startDate": start,
+      "endDate": end
+    }
+
+    this.reservationService.getNumberofReservationWeeklyCottage(dto).subscribe((data : any) => {
+      console.log(data)
+    })
 
   }
 
