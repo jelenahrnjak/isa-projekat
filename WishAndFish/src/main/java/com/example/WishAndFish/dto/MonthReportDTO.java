@@ -12,5 +12,5 @@ import lombok.Setter;
 public class MonthReportDTO {
 
     private Long id;
-    private String month;
+    private String year;
 }

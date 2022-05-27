@@ -34,7 +34,7 @@ export class AuthService {
       'email': user.username,
       'password': user.password
     };
-
+    console.log(body)
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
         this.logged = true;

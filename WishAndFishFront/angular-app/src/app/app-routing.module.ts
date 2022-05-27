@@ -1,3 +1,4 @@
+import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
 import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-basic-info/edit-boat-basic-info.component';
@@ -151,6 +152,10 @@ const routes: Routes = [
   {
     path:'boat-reservation-history/:id',
     component: BoatReservationHistoryComponent,
+  },
+  {
+    path:'cottage-report/:id',
+    component: CottageReportComponent,
   }
 
 ];

@@ -85,10 +85,22 @@ public class ReservationController {
         }
     }
 
-    @RequestMapping(value="/getNumberofReservationMonthlyCottage/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value="/getNumberofReservationMonthlyCottage/{id}", method = RequestMethod.GET)
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@PathVariable Long id) {
+//        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(id);
+//        if(n == null){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        else {
+//            return new ResponseEntity<>(n, HttpStatus.OK);
+//        }
+//    }
+
+    @RequestMapping(value="/getNumberofReservationMonthlyCottage", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
-    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@PathVariable Long id) {
-        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(id);
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@RequestBody MonthReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(dto);
         if(n == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

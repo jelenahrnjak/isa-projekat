@@ -113,12 +113,26 @@ public class ReservationService {
     }
 
 
-    public Map<String, Integer> getNumberofReservationMonthlyCottage(Long id){
+//    public Map<String, Integer> getNumberofReservationMonthlyCottage(Long id){
+//        Map<String,Integer> map=new HashMap<>();
+//        for(Reservation r: reservationRepository.findAll()){
+//            if(r.getAppointment().getCottage() != null){
+//                if(!map.containsKey(r.getAppointment().getStartDate().getMonth().toString())){
+//                    Integer n = countReservationPerMonthCottage(r.getAppointment().getStartDate().getMonth().toString(), id);
+//                    map.put(r.getAppointment().getStartDate().getMonth().toString(), n);
+//                }
+//            }
+//        }
+//
+//        return map;
+//    }
+
+    public Map<String, Integer> getNumberofReservationMonthlyCottage(MonthReportDTO dto){
         Map<String,Integer> map=new HashMap<>();
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getCottage() != null){
                 if(!map.containsKey(r.getAppointment().getStartDate().getMonth().toString())){
-                    Integer n = countReservationPerMonthCottage(r.getAppointment().getStartDate().getMonth().toString(), id);
+                    Integer n = countReservationPerMonthCottage(r.getAppointment().getStartDate().getMonth().toString(), Integer.parseInt(dto.getYear()), dto.getId());
                     map.put(r.getAppointment().getStartDate().getMonth().toString(), n);
                 }
             }
@@ -141,13 +155,13 @@ public class ReservationService {
         return map;
     }
 
-    private Integer countReservationPerMonthCottage(String month, Long id){
+    private Integer countReservationPerMonthCottage(String month, Integer year, Long id){
         Integer n = 0;
 
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getCottage() != null){
                 System.out.println("mjesec: " + r.getAppointment().getStartDate().getMonth());
-                if(id.equals(r.getAppointment().getCottage().getId()) && r.getAppointment().getStartDate().getMonth().toString().equals(month)){
+                if(id.equals(r.getAppointment().getCottage().getId()) && r.getAppointment().getStartDate().getMonth().toString().equals(month) && r.getAppointment().getStartDate().getYear() == year){
                     n++;
                 }
             }
