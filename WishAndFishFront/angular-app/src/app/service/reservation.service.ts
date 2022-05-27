@@ -46,6 +46,14 @@ export class ReservationService {
       }));   
     }
 
+    getNumberofReservationSpecificWeekCottage(dto){
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationSpecificWeekCottage`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     getNumberofReservationYearlyCottage(id) {
       return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyCottage/${id}`, id)
       .pipe(map(reservations => {

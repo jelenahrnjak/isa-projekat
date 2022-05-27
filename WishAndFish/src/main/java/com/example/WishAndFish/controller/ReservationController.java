@@ -135,4 +135,17 @@ public class ReservationController {
     }
 
 
+    @RequestMapping(value="/getNumberofReservationSpecificWeekCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<String, Integer>> getNumberofReservationSpecificWeekCottage(@RequestBody WeekReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationSpecificWeekCottage(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
 }

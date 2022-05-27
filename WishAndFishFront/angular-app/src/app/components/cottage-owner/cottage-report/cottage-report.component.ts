@@ -1,8 +1,10 @@
+import { takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ReservationService } from './../../../service/reservation.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as Chart from 'chart.js'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cottage-report',
@@ -17,27 +19,34 @@ export class CottageReportComponent implements OnInit {
   ctx: any;
   id;
   myChart: any;
+  myChartWeek: any
   startDate: String | any;
   endDate: String | any;
+  myVar : Record<string, number> = {
+
+ }
+ totalPerWeek = 0;
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     //report per year
     this.reservationService.getNumberofReservationYearlyCottage(this.id).subscribe((data : any) => {
     console.log(data)
-    
+    let keys = Object.keys(data)
+    let values = Object.values(data)
     this.canvas = document.getElementById('myChartYear');
     this.ctx = this.canvas.getContext('2d');
     let myChartYear = new Chart(this.ctx, {
       type: 'bar',
       data: {
-          labels: ["2021", "2022"],
+          labels: keys,
           datasets: [{
               label: '# of Reservations',
-              data: [data["2021"] , data["2022"]],
+              data: values,
               backgroundColor: [
                   'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)'
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(54, 100, 235, 1)'
               ],
               borderWidth: 1
           }]
@@ -55,7 +64,8 @@ export class CottageReportComponent implements OnInit {
 
   reportPerMonth(year){
     this.reservationService.getNumberofReservationMonthlyCottage(this.id, year).subscribe((data : any) => {
-      console.log(data)
+     
+
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
     //this.myChart.destroy();
@@ -96,6 +106,35 @@ export class CottageReportComponent implements OnInit {
     
   }
 
+
+  reportPerWeek(data){
+    this.myVar = data;
+    let first = Object.keys(data)
+    let values = Object.values(data)
+    this.canvas = document.getElementById('myChartWeek');
+    this.ctx = this.canvas.getContext('2d');
+    //this.myChart.destroy();
+    this.myChartWeek = new Chart(this.ctx, {
+      type: 'bar',
+      data: {
+          labels: first,
+          datasets: [{
+              label: '# of Reservations',
+              data: values,
+              backgroundColor: 
+                  'rgba(255, 99, 132, 1)',
+              
+              borderWidth: 1
+          }]
+      },
+      options: {
+        responsive: false,
+        display:true
+      }
+    });
+  }
+
+
   selectYear($event){
     console.log($event.target.value)
     this.myChart.destroy();
@@ -106,22 +145,53 @@ export class CottageReportComponent implements OnInit {
 
   selectDays(){
 
-    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
-    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
-
-    start = start + " 00:00"
-    end = end + " 00:00"
-
-    var dto = {
-      "id": this.id,
-      "startDate": start,
-      "endDate": end
+    if(this.startDate == undefined || this.endDate == undefined){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Select dates!',
+      }) 
     }
+    else{
+      var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+      var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+  
+     
+  
+      if(start >= end){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Start date is greater or equal then end date!',
+        }) 
+      }
+      else{
+        start = start + " 00:00"
+        end = end + " 00:00"
+    
+        var dto = {
+          "id": this.id,
+          "startDate": start,
+          "endDate": end
+        }
 
-    this.reservationService.getNumberofReservationWeeklyCottage(dto).subscribe((data : any) => {
-      console.log(data)
-    })
+        this.reservationService.getNumberofReservationSpecificWeekCottage(dto).subscribe((data : any) => {
 
+
+          this.reservationService.getNumberofReservationWeeklyCottage(dto).subscribe((data : any) => {
+            this.totalPerWeek = data
+          })
+
+          console.log(data)
+          if(this.myChartWeek !== undefined){
+            this.myChartWeek.destroy();
+          }
+          this.reportPerWeek(data)
+        })
+      }
+  
+    }
+    
   }
 
 }

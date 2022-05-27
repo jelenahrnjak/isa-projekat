@@ -169,6 +169,40 @@ public class ReservationService {
         return n;
     }
 
+
+    public Map<String, Integer>getNumberofReservationSpecificWeekCottage(WeekReportDTO dto){
+        Map<String, Integer> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getCottage() != null) {
+                    if (!ret.containsKey(start.toString().substring(0,10))) {
+                        Integer n = countReservationPerSelectedWeekCottage(start, dto.getId());
+                        ret.put(start.toString().substring(0,10), n);
+                    }
+                }
+            }
+            start = start.plusDays(1);
+
+        }
+        System.out.println("IZASLO");
+        return  ret;
+    }
+
+    private Integer countReservationPerSelectedWeekCottage(LocalDateTime date, Long id){
+        Integer n = 0;
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getCottage().getId())){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
     private LocalDateTime findDate(String start){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(start, formatter);
