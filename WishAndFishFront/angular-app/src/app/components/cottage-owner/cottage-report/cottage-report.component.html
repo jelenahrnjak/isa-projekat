@@ -1,0 +1,42 @@
+<app-sidebar></app-sidebar>
+
+<div style="margin-left: 250px;">
+
+    <div>
+        <h5 style="text-align: center;">Cottage report:</h5><br>
+        <h5>Rating: {{rating}}</h5><br><br>
+
+        <h5>Number of reservations per year: </h5><br>
+        <canvas id="myChartYear" width="1200" height="400"></canvas>
+    </div>
+    <div>
+        <br><h5>Number of reservations per month: </h5><br>
+        <label>Select year:</label>
+        <select class="form-select" aria-label="Default select example" (change)="selectYear($event)">
+            <option value="2021">2021</option>
+            <option selected value="2022">2022</option>
+        </select>
+        <canvas id="myChart" width="1200" height="400"></canvas>
+    </div>
+    <div>
+        <br><h5>Number of reservations per week: </h5><br>
+        <label style="margin-bottom: 10px;">Start date:</label>
+        <mat-form-field appearance="fill" style="margin-left: 3%">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+        </mat-form-field>
+        <label style="margin-bottom: 10px; margin-left: 2%;">End date:</label>
+        <mat-form-field appearance="fill" style="margin-left: 3%; ">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker2" [min]="startDate" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 ></mat-datepicker>
+        </mat-form-field>
+        <button class="btn btn-primary" style="margin-left: 2%;" (click)="selectDays()">Select</button><br>
+        <strong>Total in selected period: {{totalPerWeek}}</strong>
+
+        <canvas id="myChartWeek" width="1200" height="400"></canvas>
+    </div>
+</div>

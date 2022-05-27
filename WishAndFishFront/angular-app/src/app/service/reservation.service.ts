@@ -1,3 +1,4 @@
+import { PortalModule } from '@angular/cdk/portal';
 import { ApiService } from './api.service';
 import { ConfigService } from './config.service';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,41 @@ export class ReservationService {
 
     getAllByBoat(id) {
       return this.apiService.get(this.config.reservation_url + `/getAllByBoat/${id}`, id)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    getNumberofReservationMonthlyCottage(id, year) {
+      var dto = {
+        "id": id,
+        "year": year
+      }
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationMonthlyCottage`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    getNumberofReservationWeeklyCottage(dto) {
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationWeeklyCottage`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    getNumberofReservationSpecificWeekCottage(dto){
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationSpecificWeekCottage`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    getNumberofReservationYearlyCottage(id) {
+      return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyCottage/${id}`, id)
       .pipe(map(reservations => {
         return reservations;
       }));   
