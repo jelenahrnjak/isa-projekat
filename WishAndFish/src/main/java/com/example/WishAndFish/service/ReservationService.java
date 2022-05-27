@@ -1,9 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.ClientDTO;
-import com.example.WishAndFish.dto.ReservationDTO;
-import com.example.WishAndFish.dto.SearchClientDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage;
 import com.example.WishAndFish.model.Reservation;
@@ -13,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.ScrollPaneUI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReservationService {
@@ -110,5 +110,62 @@ public class ReservationService {
         }
 
         return ret;
+    }
+
+
+    public Map<String, Integer> getNumberofReservationMonthlyCottage(Long id){
+        Map<String,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(!map.containsKey(r.getAppointment().getStartDate().getMonth().toString())){
+                    Integer n = countReservationPerMonthCottage(r.getAppointment().getStartDate().getMonth().toString(), id);
+                    map.put(r.getAppointment().getStartDate().getMonth().toString(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
+    public Map<Integer,Integer> getNumberofReservationYearlyCottage(Long id){
+        Map<Integer,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null) {
+                if (!map.containsKey(r.getAppointment().getStartDate().getYear())) {
+                    Integer n = countReservationPerYearCottage(r.getAppointment().getStartDate().getYear(), id);
+                    map.put(r.getAppointment().getStartDate().getYear(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
+    private Integer countReservationPerMonthCottage(String month, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                System.out.println("mjesec: " + r.getAppointment().getStartDate().getMonth());
+                if(id.equals(r.getAppointment().getCottage().getId()) && r.getAppointment().getStartDate().getMonth().toString().equals(month)){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
+    private Integer countReservationPerYearCottage(Integer year, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(id.equals(r.getAppointment().getCottage().getId()) && r.getAppointment().getStartDate().getYear() == year){
+                    n++;
+                }
+            }
+        }
+
+        return n;
     }
 }

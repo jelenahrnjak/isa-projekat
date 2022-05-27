@@ -1,9 +1,6 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.ClientDTO;
-import com.example.WishAndFish.dto.ReservationDTO;
-import com.example.WishAndFish.dto.SearchClientDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/reservations")
@@ -84,6 +82,31 @@ public class ReservationController {
         }
         else {
             return new ResponseEntity<>(ret, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getNumberofReservationMonthlyCottage/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@PathVariable Long id) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+    @RequestMapping(value="/getNumberofReservationYearlyCottage/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyCottage(@PathVariable Long id) {
+        Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyCottage(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
         }
     }
 
