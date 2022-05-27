@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AppointmentService {
@@ -38,6 +41,9 @@ public class AppointmentService {
 
     @Autowired
     BoatRepository boatRepository;
+
+    @Autowired
+    FishingAdventureRepository fishingAdventureRepository;
 
     public List<AppointmentDTO> getAllByCottage(Long id){
         List<AppointmentDTO> ret = new ArrayList<>();
@@ -191,4 +197,129 @@ public class AppointmentService {
         return a;
     }
 
+
+    public  Appointment createReservation(CreateReservationDTO dto){
+
+        Set<Appointment> appointments = new HashSet<>();
+
+        if(dto.getEntity() == 1){
+
+            Cottage cottage = cottageRepository.findById(dto.getEntityId()).orElseGet(null);
+            if(cottage == null || cottage.isDeleted()){
+                return null;
+            }
+            appointments = cottage.getAppointments();
+
+        }else if(dto.getEntity() == 2){
+
+            Boat boat = boatRepository.findById(dto.getEntityId()).orElseGet(null);
+            if(boat == null || boat.isDeleted()){
+                return null;
+            }
+            appointments = boat.getAppointments();
+
+        }else if(dto.getEntity() == 3){
+
+            FishingAdventure adventure = fishingAdventureRepository.findById(dto.getEntityId()).orElseGet(null);
+            if(adventure == null || adventure.isDeleted()){
+                return null;
+            }
+            appointments = adventure.getAppointments();
+
+        }
+
+
+        return reserveEntity(appointments, dto);
+
+    }
+
+    private Appointment reserveEntity(Set<Appointment> appointments, CreateReservationDTO dto) {
+
+        Long appointmentId = checkAvailability(appointments, dto);
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseGet(null);
+
+        if(appointment == null){
+            return  null;
+        }
+
+        getBeforeAppointment(appointment, dto);
+        getAfterAppointment(appointment,dto);
+        appointment.setPrice(dto.getTotalPrice());
+        return editAppointmentForReservation(appointment,dto);
+
+    }
+
+    private Appointment getBeforeAppointment(Appointment appointment, CreateReservationDTO dto) {
+
+        if(dto.getStartDate().isAfter(appointment.getStartDate())){
+            Appointment newAppointment = new Appointment(appointment);
+            newAppointment.setEndDate(dto.getStartDate().with(LocalTime.of(12, 0)));
+            newAppointment.setReserved(false);
+            appointmentRepository.save(newAppointment);
+            return newAppointment;
+        }
+
+        return null;
+    }
+
+    private Appointment getAfterAppointment(Appointment appointment, CreateReservationDTO dto) {
+
+        if(appointment.getEndDate().isAfter(dto.getEndDate())){
+            Appointment newAppointment = new Appointment(appointment);
+            newAppointment.setStartDate(dto.getEndDate().with(LocalTime.of(14, 0)));
+            newAppointment.setReserved(false);
+            appointmentRepository.save(newAppointment);
+            return newAppointment;
+        }
+        return null;
+    }
+ 
+    private Long checkAvailability(Set<Appointment> appointments, CreateReservationDTO criteria) {
+
+        for(Appointment a : appointments){
+            if(a.getReserved() || a.isDeleted() || a.getIsAction()){
+
+                continue;
+            }
+            if(a.getStartDate().toLocalDate().isAfter(criteria.getStartDate().toLocalDate())){
+                continue;
+            }
+            if(a.getEndDate().toLocalDate().isBefore(criteria.getEndDate().toLocalDate())){
+                continue;
+            }
+            return a.getId();
+        }
+
+        return null;
+    }
+
+    public Appointment editAppointmentForReservation(Appointment appointment, CreateReservationDTO dto){
+
+        for(Appointment a : appointmentRepository.findAll()){
+            if(a.getId() == appointment.getId()){
+                a.setReserved(true);
+                a.setStartDate(dto.getStartDate());
+                a.setEndDate(dto.getEndDate());
+                a.setPrice(dto.getTotalPrice());
+                a.setAdditionalServices(mapAdditionalServices(dto.getAdditionalServices()));
+                this.appointmentRepository.save(a);
+                return a;
+            }
+        }
+        return null;
+    }
+
+    private Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices) {
+
+        Set<AdditionalService> ret = new HashSet<>();
+
+        for(AdditionalServicesDTO a : additionalServices){
+            AdditionalService mapped = additionalServiceRepository.findById(a.getId()).orElseGet(null);
+            if(mapped != null){
+                ret.add(mapped);
+            }
+        }
+
+        return ret;
+    }
 }

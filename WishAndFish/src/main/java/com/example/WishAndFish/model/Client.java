@@ -25,6 +25,11 @@ public class Client extends User{
 
     @ManyToMany(targetEntity = FishingAdventure.class, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<FishingAdventure> adventureSubscriptions;
+
+
+    @Column(name = "blocked", nullable = false)
+    private boolean blocked;
+
 }
 
 

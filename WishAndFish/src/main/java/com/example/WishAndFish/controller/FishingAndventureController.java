@@ -6,6 +6,7 @@ import com.example.WishAndFish.dto.FishingAdventureDTO;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.FishingAdventuresService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class FishingAndventureController {
 
 
     @RequestMapping(value="/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<FishingAdventureDTO> getAllClients(@PathVariable String email) {
         return this.fishingAdventuresService.findAllClient(email);
     }
@@ -39,12 +41,13 @@ public class FishingAndventureController {
     }
 
     @RequestMapping(value="/search/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<FishingAdventureDTO> searchClient(@PathVariable String email, FishingAdventureDTO dto) {
         return this.fishingAdventuresService.searchClient(dto, email);
     }
 
     @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
-    //@PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO data){
 
         return this.fishingAdventuresService.searchAppointments(data);

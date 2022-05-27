@@ -8,10 +8,10 @@ import { CottageService } from 'src/app/service/cottage.service';
 import { BoatService } from 'src/app/service/boat.service'; 
 import { AdventureService } from 'src/app/service/adventure.service'; 
 import { AdditionalServicesService } from 'src/app/service/additional-services.service';
-import { АdditionalService } from 'src/app/model/additional-service.model';
-import { Appointment } from '../../../model/appointment';
-import { AppointmentService } from '../../../service/appointment.service' 
-import { error } from 'util';
+import { АdditionalService } from 'src/app/model/additional-service.model'; 
+import { ReservationService } from '../../../service/reservation.service'  
+import { Reservation } from '../../../model/reservation.model';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -38,7 +38,7 @@ export class AppoitmentSearchComponent implements OnInit {
     private adventureService: AdventureService,
     private additionalServicesService : AdditionalServicesService ,
     private formBuilder: FormBuilder,
-    private appointmentService : AppointmentService) { }
+    private reservationService : ReservationService) { }
 
     selectedEntity = 0;   
     searchDTO = {
@@ -104,11 +104,7 @@ export class AppoitmentSearchComponent implements OnInit {
         this.message = 'You must enter start and end date!'
         return 
       }
-
-      // if(this.selectedEntity != 1 && (this.form.get('startDate').invalid || this.form.get('startTime').invalid || this.form.get('hours').invalid)){  
-      //   this.message =  'You must enter start date, start time and how many hours you want to stay!'
-      //   return 
-      // }  
+ 
       this.message = null
 
       this.searchDTO.name = this.form.get('name').value
@@ -123,26 +119,26 @@ export class AppoitmentSearchComponent implements OnInit {
       if(this.selectedEntity == 1){ 
         this.cottageService.searchAppointments(this.searchDTO).subscribe((data : any) => {
           this.items = data;
-          if(this.items.length == 0 ){
-            this.message = "There are no apoitments for this criteria :("
-          }
         }); 
       }else if(this.selectedEntity == 2){   
         this.boatService.searchAppointments(this.searchDTO).subscribe((data : any) => {
-          this.items = data;
-          if(this.items.length == 0 ){
-            this.message = "There are no apoitments for this criteria :("
-          }
+          this.items = data; 
         });  
       }else if(this.selectedEntity == 3){    
         this.adventureService.searchAppointments(this.searchDTO).subscribe((data : any) => {
-          this.items = data;
-          if(this.items.length == 0 ){
-            this.message = "There are no apoitments for this criteria :("
-          }
+          this.items = data; 
         }); 
+      }  
+
+      setTimeout(() => 
+      { 
+        if(this.items.length == 0 ){
+          this.message = "There are no apoitments for this criteria :("
+        }
+      },
+      1300);
     }
-  }
+ 
 
     clear(){
       this.form.reset();
@@ -169,7 +165,7 @@ export class AppoitmentSearchComponent implements OnInit {
         this.additionalServicesService.findAdditionalServices(id).subscribe((data : any) => {
           this.additionalServices = data;
         });
-         
+          
       }else if(this.selectedEntity == 2){ 
         this.additionalServicesService.findAdditionalServicesBoat(id).subscribe((data : any) => {
           this.additionalServices = data;
@@ -180,7 +176,7 @@ export class AppoitmentSearchComponent implements OnInit {
           this.additionalServices = data;
         });
       }
- 
+
     }
 
     reserve(){
@@ -193,37 +189,62 @@ export class AppoitmentSearchComponent implements OnInit {
       var startDate = this.searchDTO.startDate 
       var endDate = this.searchDTO.endDate  
 
-      var appoitment = new Appointment(startDate, endDate, this.searchDTO.maxPersons, this.totalPrice, null, true, false, this.additionalServices, this.currentEntity, this.selectedEntity )
-  
-      this.appointmentService.addApointment(appoitment)
+      var reservation = new Reservation(localStorage.getItem('user'),startDate,endDate,this.totalPrice, false, this.getSelectedAdditionalServices(),  this.selectedEntity, this.currentEntity)
+    
+        
+      this.reservationService.createReservation(reservation)
       .subscribe(
         result => { 
-          alert('success')
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'A confirmation email with details has been sent to your email address.',
+          })  
         },
         error => {
-          alert('error')
-        },
-        () => {
-          // 'onCompleted' callback.
-          // No errors, route to new page here
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong. Please try again.',
+          })  
         }
       );
 
+      this.selectedEntity = 0; 
+      this.form.reset() 
+      this.message = "Please select enetity and then choose criteria.";
+      this.additionalServices = [];
+      this.totalPrice = 0;
+      this.currentEntity = 0;
+      this.items = []
+
     } 
 
-  toStartTime(timeString, date : string){
-    var timeTokens = timeString.split(':');
-    var dateTokens = date.split('-')
-    return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]) , timeTokens[0], timeTokens[1], 0); 
-    
-  }
+    getSelectedAdditionalServices(){
+      let arr : АdditionalService[] = [];
 
-  toEndTime(timeString, date : string){
-    var timeTokens = timeString.split(':');
-    var dateTokens = date.split('-') 
-    return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]), Number(timeTokens[0]) , timeTokens[1], 0);  
-    
-  }
+      for (var val of this.additionalServices) {
+        if(val.isSelected){
+          arr.push(val)
+        }
+      }
+
+      return arr
+    }
+
+    toStartTime(timeString, date : string){
+      var timeTokens = timeString.split(':');
+      var dateTokens = date.split('-')
+      return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]) , timeTokens[0], timeTokens[1], 0); 
+      
+    }
+
+    toEndTime(timeString, date : string){
+      var timeTokens = timeString.split(':');
+      var dateTokens = date.split('-') 
+      return new Date(Number(dateTokens[0]) ,Number(dateTokens[1]) -1 ,Number(dateTokens[2]), Number(timeTokens[0]) , timeTokens[1], 0);  
+      
+    }
      
     changedService(price : number, isSelected){
       

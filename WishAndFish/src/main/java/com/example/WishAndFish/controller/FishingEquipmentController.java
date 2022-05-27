@@ -21,7 +21,7 @@ public class FishingEquipmentController {
     FishingEquipmentService fishingEquipmentService;
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<FishingEquipmentDTO> getAllByBoat(@PathVariable Long id) {
         return this.fishingEquipmentService.getAllByBoat(id);
     }

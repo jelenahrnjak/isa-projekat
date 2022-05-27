@@ -91,4 +91,21 @@ public class Appointment {
         this.setDeleted(false);
         this.setReserved(false);
     }
+
+    public Appointment(Appointment a){
+        this.startDate = a.getStartDate();
+        this.endDate = a.getEndDate();
+        this.expirationDate = a.getExpirationDate();
+        this.maxPersons = a.getMaxPersons();
+        this.price = a.getPrice();
+        this.duration = a.getDuration();
+        this.reserved = a.getReserved();
+        this.deleted = a.isDeleted();
+        this.isAction = a.getIsAction();
+        this.cottage = a.getCottage();
+        this.boat = a.getBoat();
+        this.fishingAdventure = a.getFishingAdventure();
+        this.additionalServices = a.getAdditionalServices();
+
+    }
 }

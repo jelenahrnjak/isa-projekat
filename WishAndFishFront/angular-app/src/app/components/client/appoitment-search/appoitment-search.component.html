@@ -52,7 +52,7 @@
                 <img :src="assets/Images/{{c.coverImage}}" class="card-img-top" sty alt="Missing image">
                 <ul class="list-group list-group-flush">
                 <li class = "list-group-item">
-                <b>{{c.name}}</b>
+                <strong>{{c.name}}</strong>
                 </li>
                 <li *ngIf="selectedEntity == 3" class="list-group-item">Instructor: {{c.instructor}}</li>  
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
@@ -79,12 +79,15 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content"  style="width: 200ch;" >
       <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Select additional services you want to add to the reservation</h5>
+          <h5 *ngIf="additionalServices.length != 0" class="modal-title" id="exampleModalLongTitle">
+            Select additional services you want to add to the reservation</h5>
+          <h5 *ngIf="additionalServices.length == 0" class="modal-title" id="exampleModalLongTitle">
+            There is no additional services for this reservation</h5>
       </div>
          
       <div  class="container">
-          <table class="table" style="width: 590px;"> 
-
+          <table class="table" style="width: 590px;" *ngIf="additionalServices.length != 0"> 
+            <caption>New reservation</caption>
             <thead>
                 <tr>
                     <th scope="col" style="width: 40%;">Name</th>
@@ -96,17 +99,32 @@
                 <tr *ngFor = "let a of additionalServices; let i=index;">
                     <td>{{a.name}}</td>
                     <td>{{a.price}}</td> 
-                    <td><input type="checkbox" [(ngModel)]="a.isSelected" [value]="!a.isSelected" (change)="changedService(a.price, a.isSelected)" [name]='i+1'> </td>
+                    <td><input type="checkbox" [(ngModel)]="a.isSelected" [value]="!a.isSelected" (change)="changedService(a.price, a.isSelected)" [name]='i+1'> </td> 
                 </tr>   
             </tbody>
             <tfoot>  
               <tr>
                   <td></td>
-                  <td>Price</td> 
-                  <td>{{ totalPrice }}</td>
+                  <td>Total price</td> 
+                  <td>{{ totalPrice }}€</td>
               </tr>   
             </tfoot>
         </table>
+        <table class="table" style="width: 590px;" *ngIf="additionalServices.length == 0">  
+          <caption>New reservation</caption>
+          <thead>
+            <tr>
+                <th scope="col" style="width: 1%;"></th> 
+            </tr>
+        </thead>
+          <tfoot>  
+            <tr>
+                <td></td>
+                <td>Total price</td> 
+                <td>{{ totalPrice }}€</td>
+            </tr>   
+          </tfoot>
+      </table>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,6 +1,8 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
+import com.example.WishAndFish.model.AdditionalService;
+import com.example.WishAndFish.model.Reservation;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 @Service
 public class EmailService {
@@ -90,5 +94,95 @@ public class EmailService {
         helper.setText("Hello " + user.getName() + " " + user.getSurname() + text + cottageName, true);
         javaMailSender.send(mail);
 
+    }
+
+    public void sendEmailForNewReservation(String userEmail, Reservation reservation) throws MessagingException {
+
+        User user = userRepository.findByEmail(userEmail);
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail);
+        helper.setTo(userEmail);
+        helper.setFrom(env.getProperty("spring.mail.username"));
+        helper.setSubject("Reservation confirmed");
+
+        String name = getNameOfProperty(reservation);
+        String address= getAddressOfProperty(reservation);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        String startDate = reservation.getAppointment().getStartDate().format(DateTimeFormatter
+                .ofLocalizedDate(FormatStyle.FULL));
+        String endDate = reservation.getAppointment().getEndDate().format(DateTimeFormatter
+                .ofLocalizedDate(FormatStyle.FULL));
+
+        String startTime = reservation.getAppointment().getStartDate().format(dateTimeFormatter);
+        String endTime = reservation.getAppointment().getEndDate().format(dateTimeFormatter);
+
+        String additionalServices = getAdditionalServices(reservation);
+        String price = reservation.getTotalPrice().toString() + "€";
+
+
+        String text = ", we want to thank you for your reservation! Here are some details: <br>" +
+                "Reservation in: " + name + "<br>Address: " + address + "<br> Start date and time: " +
+                startDate + " at " + startTime + "<br> End date and time: " + endDate + " at " + endTime +
+                "<br>Additional services: " + additionalServices + "<br><br>Total price: " + price +
+                "<br><br> Wish&Fish wishes you a pleasant vacation and great fun! :)";
+
+
+
+        helper.setText("Hello " + user.getName() + " " + user.getSurname() + text, true);
+        javaMailSender.send(mail);
+
+    }
+
+    private String getAdditionalServices(Reservation reservation) {
+        String ret = "";
+        for(AdditionalService a : reservation.getAppointment().getAdditionalServices()){
+            ret = ret + a.getName() + " (" + a.getPrice() + "€)" + ", ";
+        }
+        if(ret.equals("")){
+            ret = " There is no additional services for this reservation";
+        }else{
+            ret.trim();
+            ret = ret.substring(0, ret.length() -1);
+        }
+
+        return ret;
+    }
+
+    private String getNameOfProperty(Reservation reservation){
+        if(reservation.getAppointment().getCottage()!=null){
+
+            return reservation.getAppointment().getCottage().getName();
+
+        }else if(reservation.getAppointment().getBoat() != null){
+
+            return reservation.getAppointment().getBoat().getName();
+
+        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+
+            return reservation.getAppointment().getFishingAdventure().getName();
+
+        }
+
+        return "";
+    }
+
+    private String getAddressOfProperty(Reservation reservation){
+        if(reservation.getAppointment().getCottage()!=null){
+
+            return reservation.getAppointment().getCottage().getAddress().toString();
+
+        }else if(reservation.getAppointment().getBoat() != null){
+
+            return reservation.getAppointment().getBoat().getAddress().toString();
+
+        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+
+            return reservation.getAppointment().getFishingAdventure().getAddress().toString();
+
+        }
+
+        return "";
     }
 }

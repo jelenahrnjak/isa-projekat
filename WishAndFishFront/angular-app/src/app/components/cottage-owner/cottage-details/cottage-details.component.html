@@ -89,14 +89,17 @@
         <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel">
             <div class="carousel-inner" >
                 <div class="carousel-item active">
-                    <img src= "assets/Images/{{cottage.coverImage}}" class="d-block w-100" alt="...">
-                    <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(cottage.coverImage)>Delete photo</button>
+                    <img src= "assets/Images/{{cottage.coverImage}}" class="d-block w-100" alt="missing cover image">
+                    <button *ngIf="ifOwner() && cottage.coverImage !== ''" class="btn btn-primary dlt-img-btn" (click)=deleteImage(cottage.coverImage)>Delete cover photo</button>
+
                 </div>
 
                 
                 <div class="carousel-item"  *ngFor="let img of images;">
                     <img src="assets/Images/{{img.path}}" class="d-block w-100" alt="...">
                     <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(img.path)>Delete photo</button>
+                    <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn2" (click)=addCoverImageCottage(img.path)>Add as cover photo</button>
+
                 </div>
             </div>
 
@@ -183,7 +186,7 @@
 <!-- Additional services -->
 
 <!-- Map -->
-<div *ngIf="ifOwner()" class="container row" style="margin-left: 215px;">
+<div class="container row" style="margin-left: 215px;">
     <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Our address</h1>
     <hr class="mt-2 mb-5">
     <div class="mapouter" style="width: 99%;">

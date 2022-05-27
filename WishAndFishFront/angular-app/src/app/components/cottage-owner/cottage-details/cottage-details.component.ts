@@ -94,10 +94,11 @@ todayDate:Date = new Date();
       this.rules = data;
       });
 
+    if(this.ifOwner()){
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
       });
-
+    }
     
     if(this.userRole === 'ROLE_CLIENT'){
       this.clientService.checkSubscription(this.id, 'cottage').subscribe((data:boolean) =>{
@@ -160,6 +161,20 @@ todayDate:Date = new Date();
       });
       }
   
+
+      addCoverImageCottage(path){
+        this.imageDto.path = path;
+        this.imageDto.cottageId = this.id;
+     
+          console.log(this.imageDto.path)
+          this.imageService.addCoverImageCottage(this.imageDto).subscribe(() =>{
+    
+          });      
+          window.location.reload();
+        
+  
+      }
+      
   addService(){
 
     var letters = /[a-zA-Z]/;

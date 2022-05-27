@@ -33,5 +33,20 @@ public class Reservation {
     private Boolean finished;
 
     @Column(name = "commented")
-    private Boolean commented; 
+    private Boolean commented;
+
+    @Column(name = "total_price", unique = false, nullable = false)
+    private Double totalPrice;
+
+    public Reservation(Client client, Appointment appointment){
+
+        this.client = client;
+        this.appointment = appointment;
+        this.canceled = false;
+        this.finished = false;
+        this.commented = false;
+        this.totalPrice = appointment.getPrice();
+
+    }
+
 }

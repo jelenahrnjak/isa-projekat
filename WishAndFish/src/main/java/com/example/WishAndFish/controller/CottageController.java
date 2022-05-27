@@ -34,11 +34,13 @@ public class CottageController {
     }
 
     @RequestMapping(value = "/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<CottageDTO> getAllClients(@PathVariable String email) {
         return this.cottageService.findAllClient(email);
     }
 
     @RequestMapping(value = "/search/client/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<CottageDTO> searchClient(@PathVariable String email,  CottageDTO data) {
         return this.cottageService.searchClient(data, email);
     }
@@ -62,7 +64,7 @@ public class CottageController {
 
 
     @RequestMapping(value = "/findCottage/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public Cottage findCottage(@PathVariable Long id) {
         return this.cottageService.findCottage(id);
     }

@@ -15,7 +15,8 @@
                 <button *ngIf="userRole === 'ROLE_CLIENT' && !boat.isSubscribed"class="btn btn-primary mb-0 " 
                 style="margin-left: 3%;" (click)="subscribe()">Subscribe</button>
                 <button *ngIf="userRole === 'ROLE_CLIENT' && boat.isSubscribed" class="btn btn-primary mb-0 "
-                style="margin-left: 3%;" (click)="unsubscribe()">Unsubscribe</button>          
+                style="margin-left: 3%;" (click)="unsubscribe()">Unsubscribe</button>
+                      
             </div>
             
             <!-- Background image -->
@@ -77,6 +78,7 @@
             <button *ngIf="ifOwner()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 Add photo
             </button>
+          
             
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -95,6 +97,7 @@
                 </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Carousel -->
@@ -102,14 +105,16 @@
             <div id="carouselExampleControls" class="carousel slide w-100" data-bs-ride="carousel">
                 <div class="carousel-inner" >
                     <div class="carousel-item active">
-                        <img src= "assets/Images/{{boat.coverImage}}" class="d-block w-100" alt="...">
-                        <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(boat.coverImage)>Delete photo</button>
+                        <img src= "assets/Images/{{boat.coverImage}}" class="d-block w-100" alt="missing cover image">
+                        <button *ngIf="ifOwner() && boat.coverImage !== ''" class="btn btn-primary dlt-img-btn" (click)=deleteImage(boat.coverImage)>Delete photo</button>
                     </div>
 
                     
-                    <div class="carousel-item"  *ngFor="let img of images;">
+                    <div class="carousel-item" *ngFor="let img of images;">
                         <img src="assets/Images/{{img.path}}" class="d-block w-100" alt="...">
                         <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn" (click)=deleteImage(img.path)>Delete photo</button>
+                        <button *ngIf="ifOwner()" class="btn btn-primary dlt-img-btn2" (click)=addCoverImageBoat(img.path)>Add as cover photo</button>
+
                     </div>
                 </div>
 
@@ -247,7 +252,7 @@
 </div>
 <!-- Equipments --> 
 <!-- Map -->
-<div *ngIf="ifOwner()" class="container row" style="max-width: 100%;">
+<div  class="container row" style="max-width: 100%;">
     <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Our address</h1>
     <hr class="mt-2 mb-5">
     <div class="mapouter" style="width: 100%;">

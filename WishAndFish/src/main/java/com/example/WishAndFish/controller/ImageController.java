@@ -23,7 +23,7 @@ public class ImageController {
     private final Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public List<ImageDTO> getAllByCottage(@PathVariable Long id) {
         return this.imageService.getAllByCottage(id);
     }
@@ -44,6 +44,26 @@ public class ImageController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value="/addCoverImageBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<String> addCoverImageBoat(@RequestBody AddCottageImageDTO dto) {
+        String path =  this.imageService.addCoverImageBoat(dto);
+        if(path != null){
+            return new ResponseEntity<>(path, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value="/addCoverImageCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<String> addCoverImageCottage(@RequestBody AddCottageImageDTO dto) {
+        String path =  this.imageService.addCoverImageCottage(dto);
+        if(path != null){
+            return new ResponseEntity<>(path, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @DeleteMapping(value="/deleteImage/{path}")
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> deleteImage(@PathVariable String path) {
@@ -51,7 +71,7 @@ public class ImageController {
     }
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<ImageDTO> getAllByBoat(@PathVariable Long id) {
         return this.imageService.getAllByBoat(id);
     }
