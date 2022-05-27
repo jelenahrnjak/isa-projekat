@@ -8,10 +8,10 @@ import { CottageService } from 'src/app/service/cottage.service';
 import { BoatService } from 'src/app/service/boat.service'; 
 import { AdventureService } from 'src/app/service/adventure.service'; 
 import { AdditionalServicesService } from 'src/app/service/additional-services.service';
-import { АdditionalService } from 'src/app/model/additional-service.model';
-import { Appointment } from '../../../model/appointment';
-import { AppointmentService } from '../../../service/appointment.service' 
-import { error } from 'util';
+import { АdditionalService } from 'src/app/model/additional-service.model'; 
+import { ReservationService } from '../../../service/reservation.service'  
+import { Reservation } from '../../../model/reservation.model';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -38,7 +38,7 @@ export class AppoitmentSearchComponent implements OnInit {
     private adventureService: AdventureService,
     private additionalServicesService : AdditionalServicesService ,
     private formBuilder: FormBuilder,
-    private appointmentService : AppointmentService) { }
+    private reservationService : ReservationService) { }
 
     selectedEntity = 0;   
     searchDTO = {
@@ -192,24 +192,49 @@ export class AppoitmentSearchComponent implements OnInit {
 
       var startDate = this.searchDTO.startDate 
       var endDate = this.searchDTO.endDate  
-
-      var appoitment = new Appointment(startDate, endDate, this.searchDTO.maxPersons, this.totalPrice, null, true, false, this.additionalServices, this.currentEntity, this.selectedEntity )
   
-      this.appointmentService.addApointment(appoitment)
+      var reservation = new Reservation(localStorage.getItem('user'),startDate,endDate,this.totalPrice, false, this.getSelectedAdditionalServices(),  this.selectedEntity, this.currentEntity)
+   
+       
+      this.reservationService.createReservation(reservation)
       .subscribe(
         result => { 
-          alert('success')
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'A confirmation email with details has been sent to your email address.',
+          })  
         },
         error => {
-          alert('error')
-        },
-        () => {
-          // 'onCompleted' callback.
-          // No errors, route to new page here
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong. Please try again.',
+          })  
         }
       );
 
+      this.selectedEntity = 0; 
+      this.form.reset() 
+      this.message = "Please select enetity and then choose criteria.";
+      this.additionalServices = [];
+      this.totalPrice = 0;
+      this.currentEntity = 0;
+      this.items = []
+
     } 
+
+  getSelectedAdditionalServices(){
+    let arr : АdditionalService[] = [];
+
+    for (var val of this.additionalServices) {
+      if(val.isSelected){
+        arr.push(val)
+      }
+    }
+
+    return arr
+  }
 
   toStartTime(timeString, date : string){
     var timeTokens = timeString.split(':');

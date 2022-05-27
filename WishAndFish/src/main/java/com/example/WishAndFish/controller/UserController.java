@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/{email}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER') || hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<UserDTO> getUser(@PathVariable String email){
         User u = userService.findByEmail(email);
 

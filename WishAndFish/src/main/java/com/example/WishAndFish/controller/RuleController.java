@@ -21,13 +21,13 @@ public class RuleController {
 
 
     @RequestMapping(value="/getAllByCottage/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public List<RuleDTO> getAllByCottage(@PathVariable Long id) {
         return this.ruleService.getAllByCottage(id);
     }
 
     @RequestMapping(value="/getAllByBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+//    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public List<RuleDTO> getAllByBoat(@PathVariable Long id) {
         return this.ruleService.getAllByBoat(id);
     }

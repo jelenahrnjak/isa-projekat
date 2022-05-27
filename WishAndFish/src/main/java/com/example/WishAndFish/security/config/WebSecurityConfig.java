@@ -83,6 +83,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/adventures/search").permitAll()
                 //.antMatchers("/api/users/{email}").permitAll()
                 .antMatchers("/api/users/requestDeleting").permitAll()
+                .antMatchers("/api/boats/findBoat/{id}").permitAll()
+                .antMatchers("/api/cottages/findCottage/{id}").permitAll()
+                .antMatchers("/api/images/getAllByCottage/{id}").permitAll()
+                .antMatchers("/api/images/getAllByBoat/{id}").permitAll()
+                .antMatchers("/api/navigationEquipments/getAllByBoat/{id}").permitAll()
+                .antMatchers("/api/fishingEquipments/getAllByBoat/{id}").permitAll()
+                .antMatchers("/api/rules/getAllByBoat/{id}").permitAll()
+                .antMatchers("/api/rules/getAllByCottage/{id}").permitAll()
+                .antMatchers("/api/additionalServices/getAllByBoat/{id}").permitAll()
+                .antMatchers("/api/additionalServices/getAllByCottage/{id}").permitAll()
 
                 //Kristina:
                 //.antMatchers("/api/cottageOwner/**").permitAll()

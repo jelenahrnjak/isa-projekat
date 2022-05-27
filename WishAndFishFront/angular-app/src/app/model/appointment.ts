@@ -9,9 +9,7 @@ export class Appointment {
         public duration: any,
         public reserved: boolean,
         public isAction: boolean,
-        public additionalServices: АdditionalService[],
-        public entityId : number = 0,
-        public entity : number = 0, 
+        public additionalServices: АdditionalService[], 
       ) {}
       
 }

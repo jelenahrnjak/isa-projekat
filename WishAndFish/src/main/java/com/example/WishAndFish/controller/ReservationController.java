@@ -1,6 +1,7 @@
 package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.CreateReservationDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.service.ReservationService;
@@ -10,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -71,5 +76,22 @@ public class ReservationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
+
+    @RequestMapping(value="createReservation", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public ResponseEntity<Boolean> createReservation(@RequestBody CreateReservationDTO reservation) throws MessagingException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(reservation.getStart());
+        LocalDate end = LocalDate.parse(reservation.getEnd());
+
+        reservation.setStartDate(start.atTime(LocalTime.of(14, 0)));
+        reservation.setEndDate(end.atTime(LocalTime.of(12, 0)));
+
+        if(this.reservationService.createReservation(reservation)){
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
