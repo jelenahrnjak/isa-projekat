@@ -161,4 +161,27 @@ public class ReservationService {
         return ret;
     }
 
+    public List<BookingHistoryDTO> getUpcomingReservations(String email) {
+
+        Client client = clientRepository.findByEmail(email);
+
+        if (client == null || client.isDeleted() || client.isBlocked()) {
+            return null;
+        }
+
+        return getUpcomingReservationsForClient(client.getId());
+    }
+
+    private List<BookingHistoryDTO> getUpcomingReservationsForClient(Long client) {
+
+        List<BookingHistoryDTO> ret = new ArrayList<>();
+
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getStartDate().isAfter(LocalDateTime.now())) {
+                ret.add(new BookingHistoryDTO(r));
+            }
+        }
+
+        return ret;
+    }
 }

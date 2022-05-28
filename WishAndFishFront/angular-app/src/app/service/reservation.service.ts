@@ -56,4 +56,11 @@ export class ReservationService {
       return this.apiService.get(this.config.reservation_url + `/booking-history/${email}`) 
     
     }
+
+    getUpcomingReservations() {
+
+      var email = localStorage.getItem('user');
+      return this.apiService.get(this.config.reservation_url + `/upcoming-reservations/${email}`) 
+    
+    }
 }

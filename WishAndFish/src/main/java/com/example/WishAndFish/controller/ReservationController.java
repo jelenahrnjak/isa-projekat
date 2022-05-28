@@ -97,4 +97,10 @@ public class ReservationController {
     public List<BookingHistoryDTO> getBookingHistory(@PathVariable String email) {
         return reservationService.getBookingHistory(email);
     }
+
+    @RequestMapping(value = "/upcoming-reservations/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public List<BookingHistoryDTO> getUpcomingReservations(@PathVariable String email) {
+        return reservationService.getUpcomingReservations(email);
+    }
 }
