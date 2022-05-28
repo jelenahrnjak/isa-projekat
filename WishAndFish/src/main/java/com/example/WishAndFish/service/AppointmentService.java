@@ -3,6 +3,7 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -136,11 +137,19 @@ public class AppointmentService {
 
 
     public Appointment addNewAction(AddActionDTO dto) throws MessagingException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
+        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+        for(Reservation r: reservationRepository.findAll()){
+            if(start.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())){
+                return null;
+            }
+        }
+
         Appointment a = new Appointment();
         a.setIsAction(true);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        a.setStartDate(LocalDateTime.parse(dto.getStartDate(), formatter));
-        a.setEndDate(LocalDateTime.parse(dto.getEndDate(), formatter));
+        a.setStartDate(start);
+        a.setEndDate(end);
         a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
@@ -153,7 +162,7 @@ public class AppointmentService {
             additionalServiceRepository.save(add);
             //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
         }
-//        appointmentRepository.save(a);
+
 
         for(Client c: clientRepository.findAll()){
             for(Cottage cot: c.getCottageSubscriptions()){

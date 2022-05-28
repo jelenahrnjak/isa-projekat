@@ -67,7 +67,7 @@ export class AppointmentService {
   }
 
   addNewAction(dto){
-    console.log("evo me ")
+    console.log(dto)
     const loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -75,7 +75,9 @@ export class AppointmentService {
     return this.apiService.post(this.config.appointment_url + `/addNewAction`, JSON.stringify(dto), loginHeaders)
     .pipe(map(() => {
       console.log('Adding action success');
-    }));
+    }))
+    .pipe(catchError(error => this.checkError(error)));
+
   }
 
   addNewActionBoat(dto){

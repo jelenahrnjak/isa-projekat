@@ -50,6 +50,7 @@ public class AppointmentController {
         return this.appointmentService.editAvailability(dto);
     }
 
+
     @PostMapping(value="/editAvailabilityBoat")
     @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Appointment> editAvailabilityBoat(@RequestBody AvailabilityDTO dto) {
