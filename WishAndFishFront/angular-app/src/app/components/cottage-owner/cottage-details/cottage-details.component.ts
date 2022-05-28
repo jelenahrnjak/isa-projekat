@@ -204,7 +204,7 @@ todayDate:Date = new Date();
   }
 
   editAvailability(){
-    console.log(this.startTime + " " + this.endDate)
+    console.log(this.startDate + " " + this.endDate)
 
 
     var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
@@ -232,11 +232,6 @@ todayDate:Date = new Date();
         this.startDate = "";
         this.endDate = ""
       });
-
-      this.startTime = "";
-      this.endTime = "";
-      this.startDate = "";
-      this.endDate = ""
   }
    }
   
