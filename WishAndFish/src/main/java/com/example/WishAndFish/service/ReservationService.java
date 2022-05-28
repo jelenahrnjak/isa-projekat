@@ -238,6 +238,27 @@ public class ReservationService {
     }
 
 
+    public Map<String, Integer>getNumberofReservationSpecificWeekBoat(WeekReportDTO dto){
+        Map<String, Integer> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    //if (!ret.containsKey(start.toString().substring(0,10))) { //ne udje za sledeci start ovde jer postoji vec u mapi sa 0
+                    Integer n = countReservationPerSelectedWeekBoat(start, dto.getId());
+                    ret.put(start.toString().substring(0,10), n);
+                    //}
+                }
+            }
+            start = start.plusDays(1);
+        }
+        System.out.println("IZASLO");
+        return  ret;
+    }
+
+
     public Map<String, Double>getIncomeInSpecificPeriod(WeekReportDTO dto){
         Map<String, Double> ret = new HashMap<>();
         LocalDateTime start = findDate(dto.getStartDate());
@@ -280,6 +301,19 @@ public class ReservationService {
         }
         return n;
     }
+
+    private Integer countReservationPerSelectedWeekBoat(LocalDateTime date, Long id){
+        Integer n = 0;
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getBoat().getId())){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
 
     private LocalDateTime findDate(String start){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

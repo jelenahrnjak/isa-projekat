@@ -182,6 +182,19 @@ public class ReservationController {
     }
 
 
+    @RequestMapping(value="/getNumberofReservationSpecificWeekBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String, Integer>> getNumberofReservationSpecificWeekBoat(@RequestBody WeekReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationSpecificWeekBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
     @RequestMapping(value="/getIncomeInSpecificPeriod", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Map<String, Double>> getIncomeInSpecificPeriod(@RequestBody WeekReportDTO dto) {

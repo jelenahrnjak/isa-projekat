@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { BoatService } from './../../../service/boat.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from './../../../service/reservation.service';
@@ -136,4 +137,84 @@ ifOwner(){
   }
   return false;
  }
+
+ 
+ reportPerWeek(data){
+  this.myVar = data;
+  let first = Object.keys(data)
+  let values = Object.values(data)
+  this.canvas = document.getElementById('myChartWeek');
+  this.ctx = this.canvas.getContext('2d');
+  //this.myChart.destroy();
+  this.myChartWeek = new Chart(this.ctx, {
+    type: 'bar',
+    data: {
+        labels: first,
+        datasets: [{
+            label: '# of Reservations',
+            data: values,
+            backgroundColor: 
+                'rgba(255, 99, 132, 1)',
+            
+            borderWidth: 1
+        }]
+    },
+    options: {
+      responsive: false,
+      display:true
+    }
+  });
+}
+
+ selectDays(){
+
+  if(this.startDate == undefined || this.endDate == undefined){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Select dates!',
+    }) 
+  }
+  else{
+    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+
+   
+
+    if(start >= end){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Start date is greater or equal then end date!',
+      }) 
+    }
+    else{
+      start = start + " 14:00"
+      end = end + " 12:00"
+  
+      var dto = {
+        "id": this.id,
+        "startDate": start,
+        "endDate": end
+      }
+
+      this.reservationService.getNumberofReservationSpecificWeekBoat(dto).subscribe((data : any) => {
+
+
+        // this.reservationService.getNumberofReservationWeeklyCottage(dto).subscribe((data : any) => {
+        //   this.totalPerWeek = data
+        // })
+
+        console.log(data)
+        if(this.myChartWeek !== undefined){
+          this.myChartWeek.destroy();
+        }
+        this.reportPerWeek(data)
+      })
+    }
+
+  }
+  
+}
+
 }
