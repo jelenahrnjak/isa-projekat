@@ -4,6 +4,7 @@ export class BookingHistory{
         public image : string,
         public start: string,
         public end: string, 
+        public owner : string,
         public totalPrice: number,  
         public isAction: boolean,
         public additionalServices: string,

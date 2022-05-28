@@ -1,7 +1,6 @@
 package com.example.WishAndFish.dto;
 
-import com.example.WishAndFish.model.AdditionalService;
-import com.example.WishAndFish.model.Reservation;
+import com.example.WishAndFish.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,7 @@ public class BookingHistoryDTO {
     private String image;
     private String start;
     private String end;
+    private String owner;
     private Double totalPrice;
     private Boolean isAction;
     private String additionalServices;
@@ -45,6 +45,26 @@ public class BookingHistoryDTO {
         this.address = getAddressOfProperty(r);
         this.commentedOwner = r.getCommentedOwner();
         this.commentedEntity = r.getCommentedEntity();
+        this.owner = getOwnerOfProperty(r);
+    }
+
+    private String getOwnerOfProperty(Reservation r) {
+
+        if(r.getAppointment().getCottage()!=null){
+            CottageOwner owner = r.getAppointment().getCottage().getCottageOwner();
+            return owner.getName() + " " + owner.getSurname();
+
+        }else if(r.getAppointment().getBoat() != null){
+            BoatOwner owner = r.getAppointment().getBoat().getBoatOwner();
+            return owner.getName() + " " + owner.getSurname();
+
+        }else if(r.getAppointment().getFishingAdventure()!=null){
+            FishingInstructor owner = r.getAppointment().getFishingAdventure().getFishingInstructor();
+            return owner.getName() + " " + owner.getSurname();
+
+        }
+
+        return "";
     }
 
     public String getDateWithTime(LocalDateTime date){

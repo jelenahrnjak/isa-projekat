@@ -39,6 +39,7 @@ export class ReservationViewComponent implements OnInit {
 
     this.reservationService.getBookingHistory().subscribe((data : BookingHistory[]) => {  
         for (var val of data) {  
+          console.dir(val)
           if(val.type == 'cottage'){ 
             this.cottages.push(val)
             

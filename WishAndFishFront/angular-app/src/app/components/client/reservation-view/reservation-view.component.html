@@ -16,12 +16,13 @@
                 <strong>{{c.name}}</strong>
                 </li>
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 70px;" *ngIf="!c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 70px;" *ngIf="c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
+                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
+                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li> 
                 <li class="list-group-item"> 
                     <!-- <button class="small-btn" (click)="unsubscribeCottage(c.id)">Unsubscribe</button>   -->
                 </li> 
@@ -48,12 +49,13 @@
                 <strong>{{c.name}}</strong>
                 </li>
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 70px;" *ngIf="!c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 70px;" *ngIf="c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
+                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
+                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
                 <li class="list-group-item"> 
                 <!-- <button class="small-btn" (click)="unsubscribeBoat(c.id)">Unsubscribe</button>   -->
                 </li> 
@@ -80,12 +82,13 @@
                 <strong>{{c.name}}</strong>
                 </li>
                 <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 70px;" *ngIf="!c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 70px;" *ngIf="c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
+                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
+                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
                 <li class="list-group-item"> 
                 <li class="list-group-item"> 
                     <!-- <button class="small-btn" (click)="unsubscribeAdventure(c.id)">Unsubscribe</button>   -->
