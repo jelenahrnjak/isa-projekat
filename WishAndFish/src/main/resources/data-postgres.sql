@@ -256,15 +256,14 @@ INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
 	VALUES (4444, false, 1233, 35, false , false, 300, false, false);
 INSERT INTO public.reservations( 
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity) 
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (5, false, 1232, 35, false , false, 150);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (5, false, 1232, 35, false , false, 150, false,false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (55, false, 999, 35, false , false, 100);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (55, false, 999, 35, false , false, 100, false,false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (555, false, 9999, 35, false , false, 100); 
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (555, false, 9999, 35, false , false, 100, false,false);
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);
