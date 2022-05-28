@@ -118,10 +118,36 @@ public class ReservationController {
     }
 
 
+
+    @RequestMapping(value="/getNumberofReservationMonthlyBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyBoat(@RequestBody MonthReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
     @RequestMapping(value="/getNumberofReservationYearlyCottage/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyCottage(@PathVariable Long id) {
         Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyCottage(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getNumberofReservationYearlyBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyBoat(@PathVariable Long id) {
+        Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyBoat(id);
         if(n == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -156,6 +182,19 @@ public class ReservationController {
     }
 
 
+    @RequestMapping(value="/getNumberofReservationSpecificWeekBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String, Integer>> getNumberofReservationSpecificWeekBoat(@RequestBody WeekReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationSpecificWeekBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
     @RequestMapping(value="/getIncomeInSpecificPeriod", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Map<String, Double>> getIncomeInSpecificPeriod(@RequestBody WeekReportDTO dto) {
@@ -168,6 +207,17 @@ public class ReservationController {
         }
     }
 
+    @RequestMapping(value="/getIncomeInSpecificPeriodBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String, Double>> getIncomeInSpecificPeriodBoat(@RequestBody WeekReportDTO dto) {
+        Map<String,Double> n =  this.reservationService.getIncomeInSpecificPeriodBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
 
 
     @RequestMapping(value="createReservation", method = RequestMethod.POST)

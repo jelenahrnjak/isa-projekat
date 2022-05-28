@@ -57,6 +57,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
+import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { CottageReportComponent } from './components/cottage-owner/cottage-repor
     EditBoatBasicInfoComponent,
     CottageReservationHistoryComponent,
     BoatReservationHistoryComponent,
-    CottageReportComponent, 
+    CottageReportComponent,
+    BoatReportComponent, 
   ],
   imports: [
     BrowserModule,

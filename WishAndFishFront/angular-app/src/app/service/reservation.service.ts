@@ -40,6 +40,18 @@ export class ReservationService {
       }));   
     }
 
+    getNumberofReservationMonthlyBoat(id, year) {
+      var dto = {
+        "id": id,
+        "year": year
+      }
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationMonthlyBoat`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     getNumberofReservationWeeklyCottage(dto) {
       console.log(dto)
       return this.apiService.post(this.config.reservation_url + `/getNumberofReservationWeeklyCottage`, dto)
@@ -56,6 +68,14 @@ export class ReservationService {
       }));   
     }
 
+    getNumberofReservationSpecificWeekBoat(dto){
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationSpecificWeekBoat`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     getNumberofReservationYearlyCottage(id) {
       return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyCottage/${id}`, id)
       .pipe(map(reservations => {
@@ -63,8 +83,23 @@ export class ReservationService {
       }));   
     }
 
+    getNumberofReservationYearlyBoat(id) {
+      return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyBoat/${id}`, id)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     getIncomeInSpecificPeriod(dto) {
       return this.apiService.post(this.config.reservation_url + `/getIncomeInSpecificPeriod`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    
+    getIncomeInSpecificPeriodBoat(dto) {
+      return this.apiService.post(this.config.reservation_url + `/getIncomeInSpecificPeriodBoat`, dto)
       .pipe(map(reservations => {
         return reservations;
       }));   

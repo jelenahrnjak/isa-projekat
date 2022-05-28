@@ -160,12 +160,41 @@ public class ReservationService {
         return map;
     }
 
+    public Map<String, Integer> getNumberofReservationMonthlyBoat(MonthReportDTO dto){
+        Map<String,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(!map.containsKey(r.getAppointment().getStartDate().getMonth().toString())){
+                    Integer n = countReservationPerMonthBoat(r.getAppointment().getStartDate().getMonth().toString(), Integer.parseInt(dto.getYear()), dto.getId());
+                    map.put(r.getAppointment().getStartDate().getMonth().toString(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
     public Map<Integer,Integer> getNumberofReservationYearlyCottage(Long id){
         Map<Integer,Integer> map=new HashMap<>();
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getCottage() != null) {
                 if (!map.containsKey(r.getAppointment().getStartDate().getYear())) {
                     Integer n = countReservationPerYearCottage(r.getAppointment().getStartDate().getYear(), id);
+                    map.put(r.getAppointment().getStartDate().getYear(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
+
+    public Map<Integer,Integer> getNumberofReservationYearlyBoat(Long id){
+        Map<Integer,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null) {
+                if (!map.containsKey(r.getAppointment().getStartDate().getYear())) {
+                    Integer n = countReservationPerYearBoat(r.getAppointment().getStartDate().getYear(), id);
                     map.put(r.getAppointment().getStartDate().getYear(), n);
                 }
             }
@@ -209,6 +238,27 @@ public class ReservationService {
     }
 
 
+    public Map<String, Integer>getNumberofReservationSpecificWeekBoat(WeekReportDTO dto){
+        Map<String, Integer> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    //if (!ret.containsKey(start.toString().substring(0,10))) { //ne udje za sledeci start ovde jer postoji vec u mapi sa 0
+                    Integer n = countReservationPerSelectedWeekBoat(start, dto.getId());
+                    ret.put(start.toString().substring(0,10), n);
+                    //}
+                }
+            }
+            start = start.plusDays(1);
+        }
+        System.out.println("IZASLO");
+        return  ret;
+    }
+
+
     public Map<String, Double>getIncomeInSpecificPeriod(WeekReportDTO dto){
         Map<String, Double> ret = new HashMap<>();
         LocalDateTime start = findDate(dto.getStartDate());
@@ -218,6 +268,23 @@ public class ReservationService {
             for (Reservation r : reservationRepository.findAll()) {
                 if (r.getAppointment().getCottage() != null) {
                     Double n = countIncome(start, dto.getId());
+                    ret.put(start.toString().substring(0,10), n);
+                }
+            }
+            start = start.plusDays(1);
+        }
+        return  ret;
+    }
+
+    public Map<String, Double>getIncomeInSpecificPeriodBoat(WeekReportDTO dto){
+        Map<String, Double> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    Double n = countIncomeBoat(start, dto.getId());
                     ret.put(start.toString().substring(0,10), n);
                 }
             }
@@ -240,6 +307,20 @@ public class ReservationService {
         return income;
     }
 
+    private Double countIncomeBoat(LocalDateTime date, Long id){
+        Double income = 0.0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getBoat().getId())){
+                    income += r.getTotalPrice();
+                }
+            }
+        }
+
+        return income;
+    }
+
     private Integer countReservationPerSelectedWeekCottage(LocalDateTime date, Long id){
         Integer n = 0;
         for(Reservation r: reservationRepository.findAll()){
@@ -251,6 +332,19 @@ public class ReservationService {
         }
         return n;
     }
+
+    private Integer countReservationPerSelectedWeekBoat(LocalDateTime date, Long id){
+        Integer n = 0;
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getBoat().getId())){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
 
     private LocalDateTime findDate(String start){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -272,6 +366,20 @@ public class ReservationService {
         return n;
     }
 
+    private Integer countReservationPerMonthBoat(String month, Integer year, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                System.out.println("mjesec: " + r.getAppointment().getStartDate().getMonth());
+                if(id.equals(r.getAppointment().getBoat().getId()) && r.getAppointment().getStartDate().getMonth().toString().equals(month) && r.getAppointment().getStartDate().getYear() == year){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
     private Integer countReservationPerYearCottage(Integer year, Long id){
         Integer n = 0;
 
@@ -285,6 +393,21 @@ public class ReservationService {
 
         return n;
     }
+
+    private Integer countReservationPerYearBoat(Integer year, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(id.equals(r.getAppointment().getBoat().getId()) && r.getAppointment().getStartDate().getYear() == year){
+                    n++;
+                }
+            }
+        }
+
+        return n;
+    }
+
     @Transactional
     public boolean createReservation(CreateReservationDTO dto) throws MessagingException {
 
