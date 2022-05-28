@@ -75,10 +75,10 @@ public class Appointment {
 //    private Set<AdditionalService> additionalServices = new HashSet<>();
 
 
-    @ManyToMany(mappedBy = "appointments")
-    //@ManyToMany(mappedBy = "appointments", fetch = FetchType.EAGER, targetEntity = AdditionalService.class, cascade = CascadeType.MERGE)
-    @JsonIgnore
-    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
+//    @ManyToMany(mappedBy = "appointments")
+//    //@ManyToMany(mappedBy = "appointments", fetch = FetchType.EAGER, targetEntity = AdditionalService.class, cascade = CascadeType.MERGE)
+//    @JsonIgnore
+//    private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 
 
     public Cottage getCottage() {
@@ -107,7 +107,7 @@ public class Appointment {
         this.cottage = a.getCottage();
         this.boat = a.getBoat();
         this.fishingAdventure = a.getFishingAdventure();
-        this.additionalServices = a.getAdditionalServices();
+//        this.additionalServices = a.getAdditionalServices();
 
     }
 }
