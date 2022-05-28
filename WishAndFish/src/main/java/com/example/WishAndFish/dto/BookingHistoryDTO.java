@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public class BookingHistoryDTO {
     public Boolean commentedOwner;
     public Boolean commentedEntity;
 
-    public BookingHistoryDTO(Reservation r) {
+    public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
         this.id = r.getId();
         this.image = getImage(r);
@@ -39,7 +40,7 @@ public class BookingHistoryDTO {
         this.end = getDateWithTime(r.getAppointment().getEndDate());
         this.totalPrice = r.getTotalPrice();
         this.isAction = r.getAppointment().getIsAction();
-        this.additionalServices = getAdditionalServices(r);
+        this.additionalServices = getAdditionalServices(services);
         this.type = getTypeOfProperty(r);
         this.name = getNameOfProperty(r);
         this.address = getAddressOfProperty(r);
@@ -152,14 +153,14 @@ public class BookingHistoryDTO {
         return "";
     }
 
-    private String getAdditionalServices(Reservation reservation) {
+    private String getAdditionalServices(List<AdditionalServicesDTO> services) {
 
-        if(reservation.getAppointment().getAdditionalServices() == null){
+        if(services == null){
             return "There is no additional services for this reservation";
         }
 
         String ret = "";
-        for(AdditionalService a : reservation.getAppointment().getAdditionalServices()){
+        for(AdditionalServicesDTO a : services){
             ret = ret + a.getName() + " (" + a.getPrice() + "€)" + ", ";
         }
         if(ret.equals("")){

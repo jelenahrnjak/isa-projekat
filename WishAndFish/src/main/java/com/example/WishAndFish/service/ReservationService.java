@@ -29,6 +29,9 @@ public class ReservationService {
     AppointmentService appointmentService;
 
     @Autowired
+    AdditionalServiceService additionalServiceService;
+
+    @Autowired
     ClientRepository clientRepository;
 
     @Autowired
@@ -154,7 +157,7 @@ public class ReservationService {
 
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
-                ret.add(new BookingHistoryDTO(r));
+                ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
 
@@ -178,7 +181,7 @@ public class ReservationService {
 
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getStartDate().isAfter(LocalDateTime.now())) {
-                ret.add(new BookingHistoryDTO(r));
+                ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
 

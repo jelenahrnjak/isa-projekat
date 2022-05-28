@@ -30,6 +30,7 @@ import { AppoitmentSearchComponent } from './components/client/appoitment-search
 import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
 import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
 import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
+import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
 
 const routes: Routes = [
   {
@@ -156,8 +157,11 @@ const routes: Routes = [
   {
     path: 'booking-history',
     component: ReservationViewComponent,
+  },
+  {
+    path: 'upcoming-reservations',
+    component: UpcomingReservationsComponent,
   }
-
 ];
 
 @NgModule({

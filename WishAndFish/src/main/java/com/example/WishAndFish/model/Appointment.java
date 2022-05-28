@@ -75,8 +75,8 @@ public class Appointment {
 //    private Set<AdditionalService> additionalServices = new HashSet<>();
 
 
-    //@ManyToMany(mappedBy = "appointments")
-    @ManyToMany(mappedBy = "appointments", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "appointments")
+    //@ManyToMany(mappedBy = "appointments", fetch = FetchType.EAGER, targetEntity = AdditionalService.class, cascade = CascadeType.MERGE)
     @JsonIgnore
     private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 

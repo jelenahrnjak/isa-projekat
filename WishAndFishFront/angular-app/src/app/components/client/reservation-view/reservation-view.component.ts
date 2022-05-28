@@ -38,8 +38,7 @@ export class ReservationViewComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; 
 
     this.reservationService.getBookingHistory().subscribe((data : BookingHistory[]) => {  
-        for (var val of data) {  
-          console.dir(val)
+        for (var val of data) {   
           if(val.type == 'cottage'){ 
             this.cottages.push(val)
             
