@@ -63,6 +63,13 @@ export class ReservationService {
       }));   
     }
 
+    getIncomeInSpecificPeriod(dto) {
+      return this.apiService.post(this.config.reservation_url + `/getIncomeInSpecificPeriod`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     search(data:any){ 
       console.log(data)
       return this.apiService.get(this.config.reservation_url + `/search`, data)

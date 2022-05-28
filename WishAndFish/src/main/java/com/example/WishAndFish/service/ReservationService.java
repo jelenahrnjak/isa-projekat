@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.plaf.ScrollPaneUI;
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
@@ -195,17 +196,48 @@ public class ReservationService {
         while(start.isBefore(end) || start.isEqual(end)) {
             for (Reservation r : reservationRepository.findAll()) {
                 if (r.getAppointment().getCottage() != null) {
-                    if (!ret.containsKey(start.toString().substring(0,10))) {
+                    //if (!ret.containsKey(start.toString().substring(0,10))) { //ne udje za sledeci start ovde jer postoji vec u mapi sa 0
                         Integer n = countReservationPerSelectedWeekCottage(start, dto.getId());
                         ret.put(start.toString().substring(0,10), n);
-                    }
+                    //}
                 }
             }
             start = start.plusDays(1);
-
         }
         System.out.println("IZASLO");
         return  ret;
+    }
+
+
+    public Map<String, Double>getIncomeInSpecificPeriod(WeekReportDTO dto){
+        Map<String, Double> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getCottage() != null) {
+                    Double n = countIncome(start, dto.getId());
+                    ret.put(start.toString().substring(0,10), n);
+                }
+            }
+            start = start.plusDays(1);
+        }
+        return  ret;
+    }
+
+    private Double countIncome(LocalDateTime date, Long id){
+        Double income = 0.0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getCottage().getId())){
+                    income += r.getTotalPrice();
+                }
+            }
+        }
+
+        return income;
     }
 
     private Integer countReservationPerSelectedWeekCottage(LocalDateTime date, Long id){
