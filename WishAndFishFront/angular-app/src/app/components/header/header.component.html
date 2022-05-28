@@ -20,9 +20,10 @@
             <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="/reservation">
                 <span>New reservation</span>
             </button>
-            <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="#!">
+            <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="upcoming-reservations">
                 <span>My reservations</span>
             </button>
+            
             <button *ngIf="isClient()" [matMenuTriggerFor]="offer" class="greeting-button" mat-icon-button
             mat-ripple style="margin-right: 30px;">
             <span>Offer</span>
@@ -31,13 +32,11 @@
                 <app-offer-menu></app-offer-menu>
             </mat-menu>
 
-            <button *ngIf="isClient()" [matMenuTriggerFor]="history" class="greeting-button" mat-icon-button
+            <button *ngIf="isClient()"  class="greeting-button" mat-icon-button routerLink="booking-history" 
                 mat-ripple style="margin-right: 90px;">
                 <span>Booking history</span>
             </button> 
-            <mat-menu #history [overlapTrigger]="false" class="app-header-userMenu" yposition="below">
-                <app-history-menu></app-history-menu>
-            </mat-menu>
+            
             <!---->
 
             <!--COTTAGE OWNER-->

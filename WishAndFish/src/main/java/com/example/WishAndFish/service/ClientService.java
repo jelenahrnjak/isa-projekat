@@ -1,12 +1,10 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.BookingHistoryDTO;
 import com.example.WishAndFish.dto.CottageDTO;
 import com.example.WishAndFish.dto.FishingAdventureDTO;
-import com.example.WishAndFish.model.Boat;
-import com.example.WishAndFish.model.Client;
-import com.example.WishAndFish.model.Cottage;
-import com.example.WishAndFish.model.FishingAdventure;
+import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.BoatRepository;
 import com.example.WishAndFish.repository.ClientRepository;
 import com.example.WishAndFish.repository.CottageRepository;
@@ -235,4 +233,5 @@ public class ClientService {
         return ret;
 
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Reservation;
@@ -28,6 +29,9 @@ public class EmailService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AdditionalServiceService additionalServiceService;
 
     public void sendMailForVerfication(User user, String url) throws MessagingException, UnsupportedEncodingException {
 
@@ -137,7 +141,7 @@ public class EmailService {
 
     private String getAdditionalServices(Reservation reservation) {
         String ret = "";
-        for(AdditionalService a : reservation.getAppointment().getAdditionalServices()){
+        for(AdditionalServicesDTO a : additionalServiceService.getAllByAppointment(reservation.getAppointment().getId())){
             ret = ret + a.getName() + " (" + a.getPrice() + "€)" + ", ";
         }
         if(ret.equals("")){

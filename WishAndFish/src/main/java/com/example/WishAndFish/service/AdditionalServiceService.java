@@ -28,11 +28,11 @@ public class AdditionalServiceService {
     @Autowired
     private BoatRepository boatRepository;
 
-    public List<AdditionalServicesDTO> getAllByCottage(Long id){
+    public List<AdditionalServicesDTO> getAllByCottage(Long id) {
         List<AdditionalServicesDTO> ret = new ArrayList<>();
-        for(AdditionalService as: additionalServiceRepository.findAll()){
-            if(as.getCottage() != null){
-                if((id.equals(as.getCottage().getId()) && !as.getDeleted())){
+        for (AdditionalService as : additionalServiceRepository.findAll()) {
+            if (as.getCottage() != null) {
+                if ((id.equals(as.getCottage().getId()) && !as.getDeleted())) {
                     ret.add(new AdditionalServicesDTO(as));
                 }
             }
@@ -41,10 +41,9 @@ public class AdditionalServiceService {
     }
 
 
-
-    public ResponseEntity<Long> deleteAdditionalServices(Long id){
-        for(AdditionalService as: additionalServiceRepository.findAll()){
-            if(as.getId() == id) {
+    public ResponseEntity<Long> deleteAdditionalServices(Long id) {
+        for (AdditionalService as : additionalServiceRepository.findAll()) {
+            if (as.getId() == id) {
                 as.setDeleted(true);
                 this.additionalServiceRepository.save(as);
                 return new ResponseEntity<>(id, HttpStatus.OK);
@@ -53,9 +52,9 @@ public class AdditionalServiceService {
         return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
     }
 
-    public AdditionalService addAdditionalService(AdditionalServicesDTO dto){
-        for(Cottage c: this.cottageRepository.findAll()){
-            if(dto.getId().equals(c.getId())){
+    public AdditionalService addAdditionalService(AdditionalServicesDTO dto) {
+        for (Cottage c : this.cottageRepository.findAll()) {
+            if (dto.getId().equals(c.getId())) {
                 AdditionalService as = new AdditionalService();
                 as.setName(dto.getName());
                 as.setPrice(dto.getPrice());
@@ -68,9 +67,9 @@ public class AdditionalServiceService {
         return null;
     }
 
-    public AdditionalService addAdditionalServiceBoat(AdditionalServicesDTO dto){
-        for(Boat b: this.boatRepository.findAll()){
-            if(dto.getId().equals(b.getId())){
+    public AdditionalService addAdditionalServiceBoat(AdditionalServicesDTO dto) {
+        for (Boat b : this.boatRepository.findAll()) {
+            if (dto.getId().equals(b.getId())) {
                 AdditionalService as = new AdditionalService();
                 as.setName(dto.getName());
                 as.setPrice(dto.getPrice());
@@ -97,32 +96,31 @@ public class AdditionalServiceService {
 //    }
 
 
-
-    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id){
+    public List<AdditionalServicesDTO> findAdditionalServicesForAppointment(Long id) {
         List<AdditionalServicesDTO> ret = new ArrayList<>();
-        for(AdditionalService as: this.additionalServiceRepository.findAll()){
+        for (AdditionalService as : this.additionalServiceRepository.findAll()) {
 //            if(as.getAppointment() != null){
 //                if(id.equals(as.getAppointment().getId())){
 //                    ret.add(new AdditionalServicesDTO(as));
 //                }
 //            }
 
-           for(Appointment app: as.getAppointments()){
-               if (id.equals(app.getId()) && !as.getDeleted()) {
-                   ret.add(new AdditionalServicesDTO(as));
-               }
-           }
+            for (Appointment app : as.getAppointments()) {
+                if (id.equals(app.getId()) && !as.getDeleted()) {
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
 
         }
         return ret;
     }
 
 
-    public List<AdditionalServicesDTO> getAllByBoat(Long id){
+    public List<AdditionalServicesDTO> getAllByBoat(Long id) {
         List<AdditionalServicesDTO> ret = new ArrayList<>();
-        for(AdditionalService as: additionalServiceRepository.findAll()){
-            if(as.getBoat() != null){
-                if((id.equals(as.getBoat().getId()) && !as.getDeleted())){
+        for (AdditionalService as : additionalServiceRepository.findAll()) {
+            if (as.getBoat() != null) {
+                if ((id.equals(as.getBoat().getId()) && !as.getDeleted())) {
                     ret.add(new AdditionalServicesDTO(as));
                 }
             }
@@ -130,11 +128,24 @@ public class AdditionalServiceService {
         return ret;
     }
 
-    public List<AdditionalServicesDTO> getAllByAdventure(Long id){
+    public List<AdditionalServicesDTO> getAllByAdventure(Long id) {
         List<AdditionalServicesDTO> ret = new ArrayList<>();
-        for(AdditionalService as: additionalServiceRepository.findAll()){
-            if(as.getFishingAdventure() != null){
-                if((id.equals(as.getFishingAdventure().getId()) && !as.getDeleted())){
+        for (AdditionalService as : additionalServiceRepository.findAll()) {
+            if (as.getFishingAdventure() != null) {
+                if ((id.equals(as.getFishingAdventure().getId()) && !as.getDeleted())) {
+                    ret.add(new AdditionalServicesDTO(as));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public List<AdditionalServicesDTO> getAllByAppointment(Long appointment) {
+
+        List<AdditionalServicesDTO> ret = new ArrayList<>();
+        for (AdditionalService as : additionalServiceRepository.findAll()) {
+            for (Appointment a : as.getAppointments()) {
+                if (a.getId() == appointment) {
                     ret.add(new AdditionalServicesDTO(as));
                 }
             }

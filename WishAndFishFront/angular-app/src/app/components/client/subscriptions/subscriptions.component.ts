@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators'; 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
-import { CottageService } from 'src/app/service/cottage.service';
+import { takeUntil } from 'rxjs/operators';  
+import { Subject } from 'rxjs/Subject'; 
 import { ClientService } from 'src/app/service/client.service';
 import { Cottage } from 'src/app/model/cottage';
 import { Boat } from 'src/app/model/boat.model';

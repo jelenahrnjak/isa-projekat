@@ -35,8 +35,7 @@ import { BoatsComponent } from './components/unregistered-user/boats/boats.compo
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
 import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
-import { ClientHomeComponent } from './components/client/client-home/client-home.component';
-import { HistoryMenuComponent } from './components/client/history-menu/history-menu.component';
+import { ClientHomeComponent } from './components/client/client-home/client-home.component'; 
 import { OfferMenuComponent } from './components/client/offer-menu/offer-menu.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
 import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-options-menu/cottage-options-menu.component';
@@ -56,6 +55,8 @@ import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-ba
 import { AgmCoreModule } from '@agm/core';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
+import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
+import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
@@ -80,8 +81,7 @@ import { BoatReportComponent } from './components/boat-owner/boat-report/boat-re
     InstructorsComponent,
     MyBoatsComponent,
     AddBoatComponent,
-    ClientHomeComponent,
-    HistoryMenuComponent,
+    ClientHomeComponent, 
     OfferMenuComponent,
     CottageDetailsComponent,
     CottageOptionsMenuComponent,
@@ -98,9 +98,11 @@ import { BoatReportComponent } from './components/boat-owner/boat-report/boat-re
     ShowFreeAppointmentsBoatComponent,
     EditBoatBasicInfoComponent,
     CottageReservationHistoryComponent,
-    BoatReservationHistoryComponent,
+    BoatReservationHistoryComponent, 
+    ReservationViewComponent,
+    UpcomingReservationsComponent,  
     CottageReportComponent,
-    BoatReportComponent, 
+    BoatReportComponent,  
   ],
   imports: [
     BrowserModule,

@@ -33,11 +33,11 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
        	VALUES (303, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
 
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (55, false, 'jelenahrnjak99@gmail.com', true, null, 30,  'Jelena', 'jelena', '0607363683',1510, 'Hrnjak', 100, 5, null);
+	VALUES (55, false, 'jelenahrnjak99+1@gmail.com', true, null, 30,  'Jelena', 'jelena', '0607363683',1510, 'Hrnjak', 100, 5, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (50, false, 'stojic.kris@gmail.com', true, null, 20, 'Kristina', 'kris', '0643515864', 900, 'Stojić', 200, 3, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (35, false, 'dusansisarica@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
+	VALUES (35, false, 'jelenahrnjak99@gmail.com', true, null, 10, 'Dušan', 'dusanglup', '0617294870', 0, 'Šišarica', 300, 1, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (40, false, 'urossisarica@gmail.com', true, null, 10, 'Uroš', 'urosuros', '0612345678', 0, 'Šišarica', 301, 2, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
@@ -45,7 +45,7 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (75, false, 'markomarko@gmail.com', true, null, 20, 'Marko', 'marko', '0643515864', 900, 'Markovic', 200, 4, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
-	VALUES (95, false, 'jovana@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
+	VALUES (95, false, 'jelenahrnjak99+123@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
 
 INSERT INTO CLIENT(id, blocked)
     VALUES(35, false);
@@ -227,22 +227,36 @@ INSERT INTO public.fishing_equipment(
 	VALUES (101, 'Udica', 125, false );
 
 
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (1111, '5', '10-03-2021 12:00', 7, 750, true, '09-29-2021 14:00', 125, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (1111, false, 133, 35, false , false, 500);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (1113, false, 1111, 35, true , false, 750, false, false);
+
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (906, 1111);
+
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (907, 1111);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (2222, false, 140, 35, false, false, 250);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (1111, false, 133, 35, false , false, 500, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (3333, false, 139, 35, false , false, 400);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (2222, false, 140, 35, false, false, 250, false, false);
+
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+--	VALUES (3333, false, 139, 35, false , false, 400, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (4444, false, 1233, 35, false , false, 300);
-INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (4444, false, 1233, 35, false , false, 300, false, false);
+INSERT INTO public.reservations( 
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity) 
 	id, canceled, appointment_id, client_id, finished, commented ,total_price)
 	VALUES (5, false, 1232, 35, false , false, 150);
 INSERT INTO public.reservations(
@@ -250,7 +264,7 @@ INSERT INTO public.reservations(
 	VALUES (55, false, 999, 35, false , false, 100);
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (555, false, 9999, 35, false , false, 100);
+	VALUES (555, false, 9999, 35, false , false, 100); 
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

@@ -92,4 +92,5 @@ export class ClientService {
     return this.apiService.get(this.config.client_url + `/adventureSubscriptions/${email}`) 
   
   }
+ 
 }

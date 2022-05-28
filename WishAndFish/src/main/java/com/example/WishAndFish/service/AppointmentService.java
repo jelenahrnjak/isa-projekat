@@ -301,21 +301,23 @@ public class AppointmentService {
                 a.setStartDate(dto.getStartDate());
                 a.setEndDate(dto.getEndDate());
                 a.setPrice(dto.getTotalPrice());
-                a.setAdditionalServices(mapAdditionalServices(dto.getAdditionalServices()));
-                this.appointmentRepository.save(a);
-                return a;
+                Appointment newAppointment = this.appointmentRepository.save(a);
+                mapAdditionalServices(dto.getAdditionalServices(), newAppointment);
+                return newAppointment;
             }
         }
         return null;
     }
 
-    private Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices) {
+    private Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices, Appointment appointment) {
 
         Set<AdditionalService> ret = new HashSet<>();
 
         for(AdditionalServicesDTO a : additionalServices){
             AdditionalService mapped = additionalServiceRepository.findById(a.getId()).orElseGet(null);
             if(mapped != null){
+                mapped.getAppointments().add(appointment);
+                additionalServiceRepository.save(mapped);
                 ret.add(mapped);
             }
         }
