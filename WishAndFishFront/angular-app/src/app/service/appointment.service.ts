@@ -61,7 +61,7 @@ export class AppointmentService {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "There is a reservation in the selected period, you can't select it!" //error.error.message,
+      text: "There is a reservation in the selected period (or it is already free), you can't select it!" //error.error.message,
     })
     return throwError(error);
   }

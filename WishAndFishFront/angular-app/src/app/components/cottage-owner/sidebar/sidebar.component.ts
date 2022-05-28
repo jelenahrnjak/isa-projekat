@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import Swal from 'sweetalert2';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,6 +22,8 @@ export class SidebarComponent implements OnInit {
   startTime: any;
   endTime: any;
   id: any;
+  todayDate:Date = new Date();
+
   constructor(private route: ActivatedRoute,
     private cottageService: CottageService,
     private sanitizer : DomSanitizer,
@@ -34,7 +37,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
-
+    this.startTime = "14:00"
+    this.endTime = "12:00"
   }
 
   addAction(){
@@ -68,36 +72,50 @@ export class SidebarComponent implements OnInit {
 
   editAvailability(){
     console.log(this.startDate + " " + this.endDate)
+    console.log(this.startTime + " " + this.endTime)
 
+    if(this.startDate != undefined || this.endDate != undefined){
+      console.log("uslo")
+      var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+      var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+   
+  
+      if(this.startDate >= this.endDate){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Start date is greater or equal then end date!',
+        }) 
+      }
+     else{
+      var dto = {
+        "id": this.id,
+        "startDate": start + " " + this.startTime,
+        "endDate": end  + " " + this.endTime
+      }
+  
+      this.appointmentService.editAvailability(dto).subscribe((data : any) => {
+          // console.log(data)
+          this.startTime = "";
+          this.endTime = "";
+          this.startDate = "";
+          this.endDate = ""
+        });
+        setTimeout(() => {window.location.reload()}, 2000); 
 
-    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
-    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
- 
-
-    if(start >= end){
+    }
+    }
+    else{
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Start date is greater or equal then end date!',
+        text: 'Select all dates!',
       }) 
     }
-   else{
-    var dto = {
-      "id": this.id,
-      "startDate": start + " " + this.startTime,
-      "endDate": end  + " " + this.endTime
+
     }
+   
 
-    this.appointmentService.editAvailability(dto).subscribe((data : any) => {
-        // console.log(data)
-        this.startTime = "";
-        this.endTime = "";
-        this.startDate = "";
-        this.endDate = ""
-      });
-  }
-
-  window.location.reload()
-   }
+    
   
 }
