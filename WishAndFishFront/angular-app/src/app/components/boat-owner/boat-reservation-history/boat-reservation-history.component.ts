@@ -61,8 +61,13 @@ export class BoatReservationHistoryComponent implements OnInit {
   search(){
     this.dto.criteria = this.form.get('name').value
     this.dto.id = this.id
+
+    console.log(this.dto)
+
     this.reservationService.search(this.dto).subscribe((data : any) => { 
       this.reservations = data; 
+      console.log(this.reservations)
+
     });
   }
 

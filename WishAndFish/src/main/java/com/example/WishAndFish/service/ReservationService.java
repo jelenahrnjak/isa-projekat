@@ -101,6 +101,9 @@ public class ReservationService {
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getBoat() != null) {
                 if (dto.getId().equals(r.getAppointment().getBoat().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
+                    if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
+                        r.setFinished(true);
+                    }
                     ret.add(new ReservationDTO(r));
                 }
             }
@@ -114,6 +117,9 @@ public class ReservationService {
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getCottage() != null) {
                 if (dto.getId().equals(r.getAppointment().getCottage().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
+                    if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
+                        r.setFinished(true);
+                    }
                     ret.add(new ReservationDTO(r));
                 }
             }
