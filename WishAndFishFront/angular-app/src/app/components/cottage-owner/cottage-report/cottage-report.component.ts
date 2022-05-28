@@ -50,12 +50,15 @@ export class CottageReportComponent implements OnInit {
                   'rgba(54, 162, 235, 1)',
                   'rgba(54, 100, 235, 1)'
               ],
-              borderWidth: 1
-          }]
+              borderWidth: 1,
+
+          }],
       },
+
       options: {
         responsive: false,
-        display:true
+        display:true,
+
       }
     });
     
@@ -173,8 +176,8 @@ export class CottageReportComponent implements OnInit {
         }) 
       }
       else{
-        start = start + " 00:00"
-        end = end + " 00:00"
+        start = start + " 14:00"
+        end = end + " 12:00"
     
         var dto = {
           "id": this.id,

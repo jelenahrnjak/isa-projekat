@@ -82,24 +82,24 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 --special action
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (135, '2', '12-02-2022', 7, 130, true, '10-02-2022', 111, false, true);
+	VALUES (135, '2', '12-02-2022 12:00', 7, 130, true, '10-02-2022 14:00', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (133, '5', '05-30-2021', 7, 130, false, '05-05-2021', 111, false, true);
+	VALUES (133, '5', '05-30-2021 12:00', 7, 130, false, '05-05-2021 14:00', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (134, '5', '04-30-2022', 7, 130, false, '04-15-2022', 111, false, true);
+	VALUES (134, '5', '04-30-2022 12:00', 7, 130, false, '04-15-2022 14:00', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (137, '5', '04-30-2022', 7, 130, false, '04-10-2022', 111, false, true);
+	VALUES (137, '5', '04-12-2022 12:00', 7, 130, false, '04-10-2022 14:00', 111, false, true);
 
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (138, '5', '04-30-2022', 7, 130, false, '04-10-2022', 111, false, true);
+	VALUES (138, '5', '04-30-2022 12:00', 7, 130, false, '04-10-2022 14:00', 111, false, true);
 
 --normal
 
@@ -109,7 +109,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (140, '5', '03-05-2022 12:00', 7, 130, false, '02-10-2022 14:00', 111, false, false);
+	VALUES (140, '5', '01-05-2022 12:00', 7, 130, false, '01-02-2022 14:00', 111, false, false);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
@@ -124,8 +124,8 @@ INSERT INTO BOATS(
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 5.0 , 31, false, '10% of the reservation price');
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1232, '5', '10-05-2022 12:00', 7, 130, false, '05-10-2022 14:00', 125, false, true);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (1232, '5', '10-05-2022 12:00', 7, 130, false, '05-10-2022 14:00', 111, false, true);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
@@ -136,8 +136,8 @@ INSERT INTO APPOINTMENTS(
 	VALUES (1233, '5', '10-05-2022 12:00', 7, 130, false, '05-10-2022 14:00', 123, false, false);
 
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (999, '5', '02-02-2022 12:00', 7, 130, false, '01-01-2022', 123, false, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (999, '5', '02-02-2022 12:00', 7, 130, false, '01-01-2022 14:00', 111, false, false);
 
 
 INSERT INTO public.rules(id, content, cottage_id, deleted)
@@ -240,13 +240,12 @@ INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price)
 	VALUES (4444, false, 1233, 35, false , false, 300);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (5, false, 1232, 35, false , false);
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented)
-	VALUES (55, false, 999, 35, false , false);
 	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (5555, false, 1232, 35, false , false, 200);
+	VALUES (5, false, 1232, 35, false , false, 150);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price)
+	VALUES (55, false, 999, 35, false , false, 100);
+
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);
