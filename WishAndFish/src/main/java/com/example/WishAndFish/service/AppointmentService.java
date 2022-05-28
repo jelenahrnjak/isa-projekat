@@ -49,7 +49,7 @@ public class AppointmentService {
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getCottage() != null){
-                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
                     ret.add(new AppointmentDTO(as));
                 }
             }
