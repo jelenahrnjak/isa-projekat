@@ -139,8 +139,8 @@ INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
 	VALUES (999, '5', '02-02-2022 12:00', 7, 130, false, '01-01-2022 14:00', 111, false, false);
 INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (9999, '5', '02-03-2022 12:00', 7, 130, false, '01-02-2022 14:00', 111, false, false);
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (9999, '5', '02-03-2021 12:00', 7, 130, false, '01-02-2021 14:00', 123, false, false);
 
 
 INSERT INTO public.rules(id, content, cottage_id, deleted)

@@ -160,12 +160,41 @@ public class ReservationService {
         return map;
     }
 
+    public Map<String, Integer> getNumberofReservationMonthlyBoat(MonthReportDTO dto){
+        Map<String,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(!map.containsKey(r.getAppointment().getStartDate().getMonth().toString())){
+                    Integer n = countReservationPerMonthBoat(r.getAppointment().getStartDate().getMonth().toString(), Integer.parseInt(dto.getYear()), dto.getId());
+                    map.put(r.getAppointment().getStartDate().getMonth().toString(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
     public Map<Integer,Integer> getNumberofReservationYearlyCottage(Long id){
         Map<Integer,Integer> map=new HashMap<>();
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getCottage() != null) {
                 if (!map.containsKey(r.getAppointment().getStartDate().getYear())) {
                     Integer n = countReservationPerYearCottage(r.getAppointment().getStartDate().getYear(), id);
+                    map.put(r.getAppointment().getStartDate().getYear(), n);
+                }
+            }
+        }
+
+        return map;
+    }
+
+
+    public Map<Integer,Integer> getNumberofReservationYearlyBoat(Long id){
+        Map<Integer,Integer> map=new HashMap<>();
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null) {
+                if (!map.containsKey(r.getAppointment().getStartDate().getYear())) {
+                    Integer n = countReservationPerYearBoat(r.getAppointment().getStartDate().getYear(), id);
                     map.put(r.getAppointment().getStartDate().getYear(), n);
                 }
             }
@@ -272,6 +301,20 @@ public class ReservationService {
         return n;
     }
 
+    private Integer countReservationPerMonthBoat(String month, Integer year, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                System.out.println("mjesec: " + r.getAppointment().getStartDate().getMonth());
+                if(id.equals(r.getAppointment().getBoat().getId()) && r.getAppointment().getStartDate().getMonth().toString().equals(month) && r.getAppointment().getStartDate().getYear() == year){
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
     private Integer countReservationPerYearCottage(Integer year, Long id){
         Integer n = 0;
 
@@ -285,6 +328,21 @@ public class ReservationService {
 
         return n;
     }
+
+    private Integer countReservationPerYearBoat(Integer year, Long id){
+        Integer n = 0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(id.equals(r.getAppointment().getBoat().getId()) && r.getAppointment().getStartDate().getYear() == year){
+                    n++;
+                }
+            }
+        }
+
+        return n;
+    }
+
     @Transactional
     public boolean createReservation(CreateReservationDTO dto) throws MessagingException {
 

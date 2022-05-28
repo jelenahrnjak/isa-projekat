@@ -118,10 +118,36 @@ public class ReservationController {
     }
 
 
+
+    @RequestMapping(value="/getNumberofReservationMonthlyBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyBoat(@RequestBody MonthReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
     @RequestMapping(value="/getNumberofReservationYearlyCottage/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyCottage(@PathVariable Long id) {
         Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyCottage(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getNumberofReservationYearlyBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyBoat(@PathVariable Long id) {
+        Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyBoat(id);
         if(n == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

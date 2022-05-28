@@ -1,0 +1,29 @@
+<div>
+    <div *ngIf="ifOwner()">
+        <app-boat-sidebar></app-boat-sidebar>
+    </div>
+
+
+    <div [ngStyle]="{'margin-left': (ifOwner()) ? '25ch' : '0'}"> 
+
+        <div>
+            <h5 style="text-align: center;">Boat report:</h5><br>
+            <h5>Rating: {{rating}}</h5><br><br>
+    
+            <h5>Number of reservations per year: </h5><br>
+            <canvas id="myChartYear" width="1200" height="400"></canvas>
+        </div>
+
+        <div>
+            <br><h5>Number of reservations per month: </h5><br>
+            <label>Select year:</label>
+            <select class="form-select" aria-label="Default select example" (change)="selectYear($event)">
+                <option value="2021">2021</option>
+                <option selected value="2022">2022</option>
+            </select>
+            <canvas id="myChart" width="1200" height="400"></canvas>
+        </div>
+
+    </div>
+
+</div>

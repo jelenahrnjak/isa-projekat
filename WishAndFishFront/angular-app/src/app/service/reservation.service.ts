@@ -40,6 +40,18 @@ export class ReservationService {
       }));   
     }
 
+    getNumberofReservationMonthlyBoat(id, year) {
+      var dto = {
+        "id": id,
+        "year": year
+      }
+      console.log(dto)
+      return this.apiService.post(this.config.reservation_url + `/getNumberofReservationMonthlyBoat`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     getNumberofReservationWeeklyCottage(dto) {
       console.log(dto)
       return this.apiService.post(this.config.reservation_url + `/getNumberofReservationWeeklyCottage`, dto)
@@ -58,6 +70,13 @@ export class ReservationService {
 
     getNumberofReservationYearlyCottage(id) {
       return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyCottage/${id}`, id)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
+    getNumberofReservationYearlyBoat(id) {
+      return this.apiService.get(this.config.reservation_url + `/getNumberofReservationYearlyBoat/${id}`, id)
       .pipe(map(reservations => {
         return reservations;
       }));   
