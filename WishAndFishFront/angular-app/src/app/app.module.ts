@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 import {AngularMaterialModule} from './angular-material/angular-material.module'; 
+import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap'; 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -111,7 +112,8 @@ import { BoatReportComponent } from './components/boat-owner/boat-report/boat-re
     NoopAnimationsModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, 
+    NgbRatingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAIJe9K-7u1ejWxpCH_X7cIJoaiJIlmf8Y'   // za google maps
   }),

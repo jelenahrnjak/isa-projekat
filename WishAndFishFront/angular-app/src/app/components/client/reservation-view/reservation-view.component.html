@@ -20,11 +20,10 @@
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
-                <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li> 
-                <li class="list-group-item"> 
-                    <!-- <button class="small-btn" (click)="unsubscribeCottage(c.id)">Unsubscribe</button>   -->
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
+                <li class="list-group-item" style="height: 70px;">  
+                    <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
+                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
             </ul> 
         </div>
@@ -53,11 +52,10 @@
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
-                <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
-                <li class="list-group-item"> 
-                <!-- <button class="small-btn" (click)="unsubscribeBoat(c.id)">Unsubscribe</button>   -->
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
+                <li class="list-group-item" style="height: 70px;"> 
+                    <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
+                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)">Leave review</button>  
                 </li> 
             </ul> 
         </div>
@@ -86,12 +84,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
-                <li    class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>  
-                <li class="list-group-item"> 
-                <li class="list-group-item"> 
-                    <!-- <button class="small-btn" (click)="unsubscribeAdventure(c.id)">Unsubscribe</button>   -->
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
+ 
+                <li class="list-group-item" style="height: 70px;"> 
+                    <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
+                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)">Leave review</button>  
                 </li> 
             </ul>  
         </div>
@@ -99,3 +96,49 @@
     </div>
 
 </div> 
+
+
+<!-- Modal for adding new review -->
+<div class="modal fade" id="addReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add review</h5>
+        </div>
+
+        <div class="dropdown" style="margin-left: 25%; margin-top: 1rem;">
+            <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" [(ngModel)]="newReview.isOwner">
+                <option [value]=null selected disabled>Leaving review for?</option>
+                <option  [value] = true [disabled]="ownerCommented">{{owner}}</option>
+            <option [value]= false [disabled]="propertyCommented">{{property}}</option> 
+            </select>
+            
+          </div>
+
+        <div  class="container mb-3" >
+        <ngb-rating [max]="5" [(rate)]="newReview.rate" [formControl]="ctrl" style="margin-left: 21%;">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star"  [class.filled]="fill === 100">&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+          <div class="form-text small">
+            <div *ngIf="ctrl.valid" class="text-success">Thanks!</div>
+            <div *ngIf="ctrl.invalid" class="text-danger">Please rate us</div>
+          </div>
+          <hr> 
+
+          <label>Rate: <b>{{newReview.rate}}</b></label>
+        </div>
+
+        <div  class="container">
+                <!-- <label for="exampleInputEmail1" class="col" style="width: 25px;">Name:</label> -->
+                <input [(ngModel)]="newReview.comment" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please leave your review"> <br> 
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="newReview.rate == 0 || newReview.comment == '' || newReview.isOwner == null" (click)="sendReview()" data-dismiss="modal">Send review</button>
+        </div>
+    </div>
+    </div>
+</div>

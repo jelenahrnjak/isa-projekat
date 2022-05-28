@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators'; 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl,  Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject'; 
 import { ClientService } from 'src/app/service/client.service';
 import { ReservationService } from 'src/app/service/reservation.service';
@@ -9,6 +9,7 @@ import { Cottage } from 'src/app/model/cottage';
 import { Boat } from 'src/app/model/boat.model';
 import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
 import { BookingHistory } from '../../../model/booking-history.model';
+import { Review } from '../../../model/review.model';
 
 @Component({
   selector: 'app-reservation-view',
@@ -28,29 +29,52 @@ export class ReservationViewComponent implements OnInit {
   cottages: BookingHistory[] = [];  
   boats: BookingHistory[] = [];  
   adventures: BookingHistory[] = [];  
-  
+  allData : BookingHistory[] = [];
+
   showCottages = true;
   showBoats = true;
   showAdventures = true;
+  newReview : Review = new Review(0,false,0,"");
+  currentReservation : BookingHistory; 
+  owner : string = "";
+  property : string = "";
+  ownerCommented : boolean;
+  propertyCommented : boolean;
+
+  ctrl = new FormControl(null, Validators.required);
+
+  toggle() {
+    if (this.ctrl.disabled) {
+      this.ctrl.enable();
+    } else {
+      this.ctrl.disable();
+    }
+  }
 
   ngOnInit() {
   
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; 
 
-    this.reservationService.getBookingHistory().subscribe((data : BookingHistory[]) => {  
-        for (var val of data) {   
-          if(val.type == 'cottage'){ 
-            this.cottages.push(val)
-            
-          }else if(val.type == 'boat'){
-            this.boats.push(val)
-          }else if(val.type == 'adventure'){ 
-            this.adventures.push(val)
-          }
-          
-        }
-    }); 
+    this.resetHistory()
 
+  }
+
+  resetHistory(){
+
+    this.reservationService.getBookingHistory().subscribe((data : BookingHistory[]) => {  
+      this.allData = data;
+      for (var val of data) {   
+        if(val.type == 'cottage'){ 
+          this.cottages.push(val)
+          
+        }else if(val.type == 'boat'){
+          this.boats.push(val)
+        }else if(val.type == 'adventure'){ 
+          this.adventures.push(val)
+        }
+        
+      }
+    }); 
   }
 
   viewCottages() {
@@ -64,5 +88,32 @@ export class ReservationViewComponent implements OnInit {
   viewAdventures() {
     this.showAdventures = !this.showAdventures;
   }
+  
 
+  openReview(reservation){  
+    this.newReview = new Review(reservation,null,0,""); 
+    this.ctrl = new FormControl(null, Validators.required);
+    
+    for (var val of this.allData) { 
+      if(val.id == reservation){
+        this.owner = val.owner;
+        this.property = val.name;
+        this.ownerCommented = val.commentedOwner;
+        this.propertyCommented = val.commentedEntity;
+      }   
+    }
+    
+  } 
+
+  sendComplaintForOwner(id){
+
+  }
+
+  sendComplaintForEntity(){
+    
+  }
+
+  sendReview(){ 
+    alert('poslato')
+  }
 }
