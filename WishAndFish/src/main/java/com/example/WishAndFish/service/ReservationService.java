@@ -103,6 +103,8 @@ public class ReservationService {
                 if (dto.getId().equals(r.getAppointment().getBoat().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
+                        reservationRepository.save(r);
+
                     }
                     ret.add(new ReservationDTO(r));
                 }
@@ -119,6 +121,7 @@ public class ReservationService {
                 if (dto.getId().equals(r.getAppointment().getCottage().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
+                        reservationRepository.save(r);
                     }
                     ret.add(new ReservationDTO(r));
                 }
