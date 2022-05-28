@@ -97,6 +97,14 @@ export class ReservationService {
       }));   
     }
 
+    
+    getIncomeInSpecificPeriodBoat(dto) {
+      return this.apiService.post(this.config.reservation_url + `/getIncomeInSpecificPeriodBoat`, dto)
+      .pipe(map(reservations => {
+        return reservations;
+      }));   
+    }
+
     search(data:any){ 
       console.log(data)
       return this.apiService.get(this.config.reservation_url + `/search`, data)

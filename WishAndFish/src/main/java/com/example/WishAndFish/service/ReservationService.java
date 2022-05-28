@@ -276,12 +276,43 @@ public class ReservationService {
         return  ret;
     }
 
+    public Map<String, Double>getIncomeInSpecificPeriodBoat(WeekReportDTO dto){
+        Map<String, Double> ret = new HashMap<>();
+        LocalDateTime start = findDate(dto.getStartDate());
+        LocalDateTime end = findDate(dto.getEndDate());
+
+        while(start.isBefore(end) || start.isEqual(end)) {
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    Double n = countIncomeBoat(start, dto.getId());
+                    ret.put(start.toString().substring(0,10), n);
+                }
+            }
+            start = start.plusDays(1);
+        }
+        return  ret;
+    }
+
     private Double countIncome(LocalDateTime date, Long id){
         Double income = 0.0;
 
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getCottage() != null){
                 if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getCottage().getId())){
+                    income += r.getTotalPrice();
+                }
+            }
+        }
+
+        return income;
+    }
+
+    private Double countIncomeBoat(LocalDateTime date, Long id){
+        Double income = 0.0;
+
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(r.getAppointment().getStartDate().isEqual(date) && id.equals(r.getAppointment().getBoat().getId())){
                     income += r.getTotalPrice();
                 }
             }
