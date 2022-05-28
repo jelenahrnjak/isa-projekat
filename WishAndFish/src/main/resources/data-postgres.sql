@@ -146,10 +146,10 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (1, '2', '05-05-2022 12:00', 7, 135, false, '05-01-2022 14:00', 110, false, false);
+	VALUES (113, '2', '05-05-2022 12:00', 7, 135, false, '05-01-2022 14:00', 110, false, false);
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (2, '2', '05-15-2022 12:00', 7, 135, false, '05-10-2022 14:00', 110, false, false);
+	VALUES (233, '2', '05-15-2022 12:00', 7, 135, false, '05-10-2022 14:00', 110, false, false);
 
 
 

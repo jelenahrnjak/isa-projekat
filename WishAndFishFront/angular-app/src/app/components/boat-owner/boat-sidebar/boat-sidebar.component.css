@@ -94,3 +94,5 @@
     cursor: pointer;
   }
 /* sidebar */
+
+::ng-deep .cdk-overlay-container {     z-index:2000; }

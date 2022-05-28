@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import Swal from 'sweetalert2';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-sidebar',
@@ -102,7 +101,10 @@ export class SidebarComponent implements OnInit {
           this.endDate = ""
         });
         setTimeout(() => {window.location.reload()}, 2000); 
-
+        this.startTime = "";
+        this.endTime = "";
+        this.startDate = "";
+        this.endDate = ""
     }
     }
     else{

@@ -7,6 +7,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BoatService } from 'src/app/service/boat.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-boat-sidebar',
@@ -15,6 +17,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoatSidebarComponent implements OnInit {
   id: any;
+  startDate: String | any;
+  endDate: String | any;
+  startTime: any;
+  endTime: any;
+  todayDate:Date = new Date();
 
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
@@ -28,7 +35,8 @@ export class BoatSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
-
+    this.startTime = "14:00"
+    this.endTime = "12:00"
   }
 
   home(){
@@ -59,4 +67,52 @@ export class BoatSidebarComponent implements OnInit {
     this.router.navigate(['/boat-report/'+this.id]);
 
   }
+
+
+  editAvailability(){
+    console.log(this.startDate + " " + this.endDate)
+    console.log(this.startTime + " " + this.endTime)
+
+    if(this.startDate != undefined || this.endDate != undefined){
+      console.log("uslo")
+      var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+      var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+   
+  
+      if(this.startDate >= this.endDate){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Start date is greater or equal then end date!',
+        }) 
+      }
+     else{
+      var dto = {
+        "id": this.id,
+        "startDate": start + " " + this.startTime,
+        "endDate": end  + " " + this.endTime
+      }
+  
+      this.appointmentService.editAvailabilityBoat(dto).subscribe((data : any) => {
+          // console.log(data)
+          this.startTime = "";
+          this.endTime = "";
+          this.startDate = "";
+          this.endDate = ""
+          setTimeout(() => {window.location.reload()}, 3000); 
+
+        });
+
+    }
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Select all dates!',
+      }) 
+    }
+
+    }
+   
 }

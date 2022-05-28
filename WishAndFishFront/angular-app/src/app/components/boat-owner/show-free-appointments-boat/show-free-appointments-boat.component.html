@@ -10,7 +10,11 @@
                         <li style="height: 70px;" class="list-group-item">Duration: {{a.startDate}} - {{a.endDate}}</li>  
     
                         <li style="height: 70px;" class="list-group-item">Max persons: {{a.maxPersons}}</li>  
-                        <li style="height: 70px;" class="list-group-item">Price: {{a.price}}</li> 
+                        <li *ngIf="a.isAction" style="height: 70px;" class="list-group-item">Total price: {{a.price}}</li> 
+                        <li *ngIf="!a.isAction" style="height: 70px;" class="list-group-item">Price per day: {{a.price}}</li> 
+
+                        <li style="height: 70px;" class="list-group-item">Action: {{a.isAction}}</li> 
+
                         <li class="list-group-item">
                             <button  class="btn-white btn-primary"  data-toggle="modal" data-target="#addService" (click)="findAdditionalService(a.id)">Additional services</button> 
                             &nbsp;&nbsp;&nbsp;
