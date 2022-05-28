@@ -10,6 +10,7 @@ import { Boat } from 'src/app/model/boat.model';
 import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
 import { BookingHistory } from '../../../model/booking-history.model';
 import { Review } from '../../../model/review.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reservation-view',
@@ -34,7 +35,7 @@ export class ReservationViewComponent implements OnInit {
   showCottages = true;
   showBoats = true;
   showAdventures = true;
-  newReview : Review = new Review(0,false,0,"");
+  newReview : Review = new Review(0,false,0,"", localStorage.getItem('user'));
   currentReservation : BookingHistory; 
   owner : string = "";
   property : string = "";
@@ -60,6 +61,10 @@ export class ReservationViewComponent implements OnInit {
   }
 
   resetHistory(){
+    this.allData = [];
+    this.cottages = [];
+    this.boats = [];
+    this.adventures = [];
 
     this.reservationService.getBookingHistory().subscribe((data : BookingHistory[]) => {  
       this.allData = data;
@@ -91,7 +96,7 @@ export class ReservationViewComponent implements OnInit {
   
 
   openReview(reservation){  
-    this.newReview = new Review(reservation,null,0,""); 
+    this.newReview = new Review(reservation,null,0,"", localStorage.getItem('user')); 
     this.ctrl = new FormControl(null, Validators.required);
     
     for (var val of this.allData) { 
@@ -114,6 +119,28 @@ export class ReservationViewComponent implements OnInit {
   }
 
   sendReview(){ 
-    alert('poslato')
+ 
+    this.reservationService.addReview(this.newReview)
+    .subscribe(
+      result => { 
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Thank you for you feedback!',
+        })   
+ 
+        this.resetHistory();
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong. Please try again.',
+        })  
+ 
+        this.resetHistory();
+      }
+    );
   }
+ 
 }

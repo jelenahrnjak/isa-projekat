@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Appointment } from '../model/appointment';
 import { Reservation } from '../model/reservation.model';
+import { Review } from '../model/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -124,7 +125,7 @@ export class ReservationService {
     createReservation(reservation: Reservation) {
       return this.apiService.post(this.config.reservation_url + `/createReservation`, reservation)
       .pipe(map((data) => {
-        console.log('Creating appointment success:');
+        console.log('Creating reservation success:');
       }));  
     }
 
@@ -141,4 +142,12 @@ export class ReservationService {
       return this.apiService.get(this.config.reservation_url + `/upcoming-reservations/${email}`) 
     
     }
+
+    addReview(review: Review) {
+      return this.apiService.post(this.config.reservation_url + `/addReview`, review)
+      .pipe(map((data) => {
+        console.log('Adding review success:');
+      }));  
+    }
+
 }

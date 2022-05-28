@@ -1,9 +1,10 @@
 export class Review {
     constructor(
-        public reservationId : number = 0,
+        public reservationID : number = 0,
         public isOwner : boolean,
         public rate: number = 0, 
-        public comment: string,   
+        public content: string,   
+        public client : string,
       ) {}
       
 }

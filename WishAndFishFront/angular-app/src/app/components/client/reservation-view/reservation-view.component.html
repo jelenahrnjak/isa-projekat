@@ -53,9 +53,9 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
-                <li class="list-group-item" style="height: 70px;"> 
+                <li class="list-group-item" style="height: 70px;">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
-                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)">Leave review</button>  
+                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
             </ul> 
         </div>
@@ -86,9 +86,9 @@
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
  
-                <li class="list-group-item" style="height: 70px;"> 
+                <li class="list-group-item" style="height: 70px;">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
-                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)">Leave review</button>  
+                    <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
             </ul>  
         </div>
@@ -107,10 +107,10 @@
         </div>
 
         <div class="dropdown" style="margin-left: 25%; margin-top: 1rem;">
-            <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" [(ngModel)]="newReview.isOwner">
-                <option [value]=null selected disabled>Leaving review for?</option>
-                <option  [value] = true [disabled]="ownerCommented">{{owner}}</option>
-            <option [value]= false [disabled]="propertyCommented">{{property}}</option> 
+            <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" [(ngModel)]="newReview.isOwner" >
+                <option [ngValue]=null selected disabled>Leaving review for?</option>
+                <option  [ngValue] = true [disabled]="ownerCommented">{{owner}}</option>
+                <option [ngValue]= false [disabled]="propertyCommented">{{property}}</option> 
             </select>
             
           </div>
@@ -132,12 +132,12 @@
 
         <div  class="container">
                 <!-- <label for="exampleInputEmail1" class="col" style="width: 25px;">Name:</label> -->
-                <input [(ngModel)]="newReview.comment" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please leave your review"> <br> 
+                <input [(ngModel)]="newReview.content" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please leave your review"> <br> 
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" [disabled]="newReview.rate == 0 || newReview.comment == '' || newReview.isOwner == null" (click)="sendReview()" data-dismiss="modal">Send review</button>
+            <button type="button" class="btn btn-primary" [disabled]="newReview.rate == 0 || newReview.content == '' || newReview.isOwner == null" (click)="sendReview()" data-dismiss="modal">Send review</button>
         </div>
     </div>
     </div>
