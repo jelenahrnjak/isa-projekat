@@ -100,6 +100,8 @@ public class AppointmentService {
         a.setEndDate(findDate(dto.getEndDate()));
         a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
         a.setReserved(false);
+        a.setPrice(cottageRepository.findById(dto.getId()).orElseGet(null).getPricePerDay());
+        a.setMaxPersons(cottageRepository.findById(dto.getId()).orElseGet(null).getNumberOfRooms() * cottageRepository.findById(dto.getId()).orElseGet(null).getBedsPerRoom());
         this.appointmentRepository.save(a);
         return a;
     }
