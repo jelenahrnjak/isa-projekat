@@ -148,7 +148,7 @@ public class EmailService {
             ret = " There is no additional services for this reservation";
         }else{
             ret.trim();
-            ret = ret.substring(0, ret.length() -1);
+            ret = ret.substring(0, ret.length() -2);
         }
 
         return ret;
