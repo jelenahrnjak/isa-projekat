@@ -163,6 +163,8 @@ const routes: Routes = [
   {
     path: 'upcoming-reservations',
     component: UpcomingReservationsComponent, 
+  },
+  {
     path:'cottage-report/:id',
     component: CottageReportComponent,
   },
