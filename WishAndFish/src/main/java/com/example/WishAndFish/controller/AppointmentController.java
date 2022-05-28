@@ -46,9 +46,15 @@ public class AppointmentController {
 
     @PostMapping(value="/editAvailability")
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
-    public Appointment editAvailability(@RequestBody AvailabilityDTO dto) {
-        return this.appointmentService.editAvailability(dto);
+    public ResponseEntity<Appointment> editAvailability(@RequestBody AvailabilityDTO dto) {
+        Appointment a = this.appointmentService.editAvailability(dto);
+        if(a == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
 
     @PostMapping(value="/editAvailabilityBoat")
     @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")

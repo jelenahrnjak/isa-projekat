@@ -61,13 +61,13 @@ export class AppointmentService {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "There is a reservation in the selected period, you can't select it!" //error.error.message,
+      text: "There is a reservation in the selected period (or it is already free), you can't select it!" //error.error.message,
     })
     return throwError(error);
   }
 
   addNewAction(dto){
-    console.log("evo me ")
+    console.log(dto)
     const loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -75,7 +75,9 @@ export class AppointmentService {
     return this.apiService.post(this.config.appointment_url + `/addNewAction`, JSON.stringify(dto), loginHeaders)
     .pipe(map(() => {
       console.log('Adding action success');
-    }));
+    }))
+    .pipe(catchError(error => this.checkError(error)));
+
   }
 
   addNewActionBoat(dto){

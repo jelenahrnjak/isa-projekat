@@ -3,6 +3,7 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class AppointmentService {
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getCottage() != null){
-                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
                     ret.add(new AppointmentDTO(as));
                 }
             }
@@ -61,7 +62,7 @@ public class AppointmentService {
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getBoat() != null){
-                if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted() && as.getIsAction()){
+                if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted()){
                     ret.add(new AppointmentDTO(as));
                 }
             }
@@ -86,22 +87,76 @@ public class AppointmentService {
         LocalDateTime end = findDate(dto.getEndDate());
         LocalDateTime start = findDate(dto.getStartDate());
 
+        //ako postoji rezervacija u tom periodu
         for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getStartDate().isAfter(start)){
-                return null;
+            if(r.getAppointment().getCottage() != null){
+                if(dto.getId().equals(r.getAppointment().getCottage().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
+                    return null;
+                }
+                else if(r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)){
+                    return null;
+                }
             }
         }
 
+        //ako postoji vec slobodan termin u tom periodu
+        for(Appointment a: appointmentRepository.findAll()){
+            if(a.getCottage() != null){
+                if(dto.getId().equals(a.getCottage().getId()) && ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate())) || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())))){
+                    return null;
+                }
+                else if(a.getStartDate().isAfter(start) && a.getEndDate().isBefore(end)){
+                    return null;
+                }
+            }
+        }
+
+
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return sameStart;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return sameEnd;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return sameStart;
+        }
         Appointment a = new Appointment();
-        a.setDeleted(false);
-        a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
-        a.setIsAction(false);
-        a.setStartDate(findDate(dto.getStartDate()));
-        a.setEndDate(findDate(dto.getEndDate()));
-        a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
-        a.setReserved(false);
-        this.appointmentRepository.save(a);
+            a.setDeleted(false);
+            a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
+            a.setIsAction(false);
+            a.setStartDate(findDate(dto.getStartDate()));
+            a.setEndDate(findDate(dto.getEndDate()));
+            a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
+            a.setReserved(false);
+            a.setPrice(cottageRepository.findById(dto.getId()).orElseGet(null).getPricePerDay());
+            a.setMaxPersons(cottageRepository.findById(dto.getId()).orElseGet(null).getNumberOfRooms() * cottageRepository.findById(dto.getId()).orElseGet(null).getBedsPerRoom());
+            this.appointmentRepository.save(a);
+
+
         return a;
+
     }
 
     public Appointment editAvailabilityBoat(AvailabilityDTO dto){
@@ -109,22 +164,86 @@ public class AppointmentService {
         LocalDateTime end = findDate(dto.getEndDate());
         LocalDateTime start = findDate(dto.getStartDate());
 
+        //ako postoji rezervacija u tom periodu
         for(Reservation r: reservationRepository.findAll()){
-            if((r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getStartDate().isAfter(start)) || (r.getAppointment().getStartDate().isBefore(end) && r.getAppointment().getEndDate().isAfter(end))){
-                return null;
+            if(r.getAppointment().getBoat() != null){
+                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
+                    return null;
+                }
+                else if(r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)){
+                    return null;
+                }
             }
         }
 
+        //ako postoji vec slobodan termin u tom periodu
+        for(Appointment a: appointmentRepository.findAll()){
+            if(a.getBoat() != null){
+                if(dto.getId().equals(a.getBoat().getId()) && ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate())) || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())))){
+                    return null;
+                }
+                else if(a.getStartDate().isAfter(start) && a.getEndDate().isBefore(end)){
+                    return null;
+                }
+            }
+        }
+
+
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return sameStart;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return sameEnd;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return sameStart;
+        }
         Appointment a = new Appointment();
         a.setDeleted(false);
         a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
         a.setIsAction(false);
         a.setStartDate(findDate(dto.getStartDate()));
         a.setEndDate(findDate(dto.getEndDate()));
-        a.setDuration(Duration.between(start, end));
+        a.setDuration(Duration.between(findDate(dto.getStartDate()), findDate(dto.getEndDate())));
         a.setReserved(false);
+        a.setPrice(boatRepository.findById(dto.getId()).orElseGet(null).getPricePerDay());
+        a.setMaxPersons(boatRepository.findById(dto.getId()).orElseGet(null).getCapacity());
         this.appointmentRepository.save(a);
+
+
         return a;
+
+//        Appointment a = new Appointment();
+//        a.setDeleted(false);
+//        a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
+//        a.setIsAction(false);
+//        a.setStartDate(findDate(dto.getStartDate()));
+//        a.setEndDate(findDate(dto.getEndDate()));
+//        a.setDuration(Duration.between(start, end));
+//        a.setReserved(false);
+//        this.appointmentRepository.save(a);
+//        return a;
     }
 
     private LocalDateTime findDate(String start){
@@ -134,11 +253,21 @@ public class AppointmentService {
 
 
     public Appointment addNewAction(AddActionDTO dto) throws MessagingException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
+        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getCottage() != null){
+                if(start.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()) && dto.getId().equals(r.getAppointment().getCottage().getId())){
+                    return null;
+                }
+            }
+        }
+
         Appointment a = new Appointment();
         a.setIsAction(true);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        a.setStartDate(LocalDateTime.parse(dto.getStartDate(), formatter));
-        a.setEndDate(LocalDateTime.parse(dto.getEndDate(), formatter));
+        a.setStartDate(start);
+        a.setEndDate(end);
         a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());
@@ -151,7 +280,7 @@ public class AppointmentService {
             additionalServiceRepository.save(add);
             //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
         }
-//        appointmentRepository.save(a);
+
 
         for(Client c: clientRepository.findAll()){
             for(Cottage cot: c.getCottageSubscriptions()){
@@ -166,11 +295,21 @@ public class AppointmentService {
 
 
     public Appointment addNewActionBoat(AddActionDTO dto) throws MessagingException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
+        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+        for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(start.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()) && dto.getId().equals(r.getAppointment().getBoat().getId())){
+                    return null;
+                }
+            }
+        }
+
         Appointment a = new Appointment();
         a.setIsAction(true);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        a.setStartDate(LocalDateTime.parse(dto.getStartDate(), formatter));
-        a.setEndDate(LocalDateTime.parse(dto.getEndDate(), formatter));
+        a.setStartDate(start);
+        a.setEndDate(end);
         a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
         a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
         a.setMaxPersons(dto.getMaxPersons());

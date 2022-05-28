@@ -114,8 +114,9 @@ export class AddActionComponent implements OnInit {
       "additionalServices": this.selectedServices
     }
     this.appointmentService.addNewAction(dto).subscribe((data) =>{
+      this.router.navigate(['/show-free-appointments/'+this.id]);
+
     });      
-    this.router.navigate(['/show-free-appointments/'+this.id]);
   }
 
 }
