@@ -241,9 +241,9 @@ INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
 	VALUES (2222, false, 140, 35, false, false, 250, false, false);
 
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (3333, false, 139, 35, false , false, 400, false, false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+--	VALUES (3333, false, 139, 35, false , false, 400, false, false);
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
 	VALUES (4444, false, 1233, 35, false , false, 300, false, false);

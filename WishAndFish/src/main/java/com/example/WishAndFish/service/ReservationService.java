@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +157,7 @@ public class ReservationService {
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
         for (Reservation r : reservationRepository.findAll()) {
-            if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
+            if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -178,9 +179,15 @@ public class ReservationService {
     private List<BookingHistoryDTO> getUpcomingReservationsForClient(Long client) {
 
         List<BookingHistoryDTO> ret = new ArrayList<>();
+        System.out.println("***********************************************************");
+        System.out.println(LocalDateTime.now());
+        System.out.println("***********************************************************");
+        System.out.println(LocalDate.now());
 
         for (Reservation r : reservationRepository.findAll()) {
-            if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getStartDate().isAfter(LocalDateTime.now())) {
+            System.out.println("***********************************************************");
+            System.out.println(r.getAppointment().getStartDate());
+            if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }

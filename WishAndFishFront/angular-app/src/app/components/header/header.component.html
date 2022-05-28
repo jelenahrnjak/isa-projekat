@@ -21,7 +21,7 @@
                 <span>New reservation</span>
             </button>
             <button *ngIf="isClient()" style="margin-right: 10px;" mat-button mat-ripple routerLink="upcoming-reservations">
-                <span>Upcoming reservations</span>
+                <span>My reservations</span>
             </button>
             
             <button *ngIf="isClient()" [matMenuTriggerFor]="offer" class="greeting-button" mat-icon-button
