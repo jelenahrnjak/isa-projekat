@@ -1,6 +1,10 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.*;
+import com.example.WishAndFish.dto.*; 
+import com.example.WishAndFish.dto.BoatDTO;
+import com.example.WishAndFish.dto.CreateReservationDTO;
+import com.example.WishAndFish.dto.ReservationDTO;
+import com.example.WishAndFish.dto.SearchClientDTO; 
 import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/reservations")
@@ -75,6 +80,146 @@ public class ReservationController {
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
 
+  
+    @RequestMapping(value="/getAllAvailableClientsBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<List<ClientDTO>> getAllAvailableClientsBoat(@PathVariable Long id) {
+        List<ClientDTO> ret =  this.reservationService.getAllAvailableClientsBoat(id);
+        if(ret == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }
+    }
+
+//    @RequestMapping(value="/getNumberofReservationMonthlyCottage/{id}", method = RequestMethod.GET)
+//    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+//    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@PathVariable Long id) {
+//        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(id);
+//        if(n == null){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        else {
+//            return new ResponseEntity<>(n, HttpStatus.OK);
+//        }
+//    }
+
+    @RequestMapping(value="/getNumberofReservationMonthlyCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyCottage(@RequestBody MonthReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyCottage(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+
+    @RequestMapping(value="/getNumberofReservationMonthlyBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String,Integer>> getNumberofReservationMonthlyBoat(@RequestBody MonthReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationMonthlyBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+    @RequestMapping(value="/getNumberofReservationYearlyCottage/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyCottage(@PathVariable Long id) {
+        Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyCottage(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getNumberofReservationYearlyBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<Integer,Integer>> getNumberofReservationYearlyBoat(@PathVariable Long id) {
+        Map<Integer,Integer>  n =  this.reservationService.getNumberofReservationYearlyBoat(id);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getNumberofReservationWeeklyCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Integer> getNumberofReservationWeeklyCottage(@RequestBody WeekReportDTO dto) {
+        Integer n =  this.reservationService.getNumberofReservationWeeklyCottage(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+    @RequestMapping(value="/getNumberofReservationSpecificWeekCottage", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<String, Integer>> getNumberofReservationSpecificWeekCottage(@RequestBody WeekReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationSpecificWeekCottage(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+    @RequestMapping(value="/getNumberofReservationSpecificWeekBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String, Integer>> getNumberofReservationSpecificWeekBoat(@RequestBody WeekReportDTO dto) {
+        Map<String,Integer> n =  this.reservationService.getNumberofReservationSpecificWeekBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
+    @RequestMapping(value="/getIncomeInSpecificPeriod", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public ResponseEntity<Map<String, Double>> getIncomeInSpecificPeriod(@RequestBody WeekReportDTO dto) {
+        Map<String,Double> n =  this.reservationService.getIncomeInSpecificPeriod(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value="/getIncomeInSpecificPeriodBoat", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public ResponseEntity<Map<String, Double>> getIncomeInSpecificPeriodBoat(@RequestBody WeekReportDTO dto) {
+        Map<String,Double> n =  this.reservationService.getIncomeInSpecificPeriodBoat(dto);
+        if(n == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(n, HttpStatus.OK);
+        }
+    }
+
+
     @RequestMapping(value="createReservation", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public ResponseEntity<Boolean> createReservation(@RequestBody CreateReservationDTO reservation) throws MessagingException {
@@ -91,7 +236,7 @@ public class ReservationController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
+ 
     @RequestMapping(value = "/booking-history/{email}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BookingHistoryDTO> getBookingHistory(@PathVariable String email) {
@@ -102,5 +247,5 @@ public class ReservationController {
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BookingHistoryDTO> getUpcomingReservations(@PathVariable String email) {
         return reservationService.getUpcomingReservations(email);
-    }
+    } 
 }

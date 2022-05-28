@@ -57,6 +57,8 @@ import { CottageReservationHistoryComponent } from './components/cottage-owner/c
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
 import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
+import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
+import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
 @NgModule({
   declarations: [
@@ -96,9 +98,11 @@ import { UpcomingReservationsComponent } from './components/client/upcoming-rese
     ShowFreeAppointmentsBoatComponent,
     EditBoatBasicInfoComponent,
     CottageReservationHistoryComponent,
-    BoatReservationHistoryComponent,
+    BoatReservationHistoryComponent, 
     ReservationViewComponent,
-    UpcomingReservationsComponent, 
+    UpcomingReservationsComponent,  
+    CottageReportComponent,
+    BoatReportComponent,  
   ],
   imports: [
     BrowserModule,
