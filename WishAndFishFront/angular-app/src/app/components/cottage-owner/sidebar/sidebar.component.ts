@@ -95,14 +95,10 @@ export class SidebarComponent implements OnInit {
   
       this.appointmentService.editAvailability(dto).subscribe((data : any) => {
           // console.log(data)
-          this.startTime = "";
-          this.endTime = "";
           this.startDate = "";
           this.endDate = ""
         });
         setTimeout(() => {window.location.reload()}, 2000); 
-        this.startTime = "";
-        this.endTime = "";
         this.startDate = "";
         this.endDate = ""
     }

@@ -95,14 +95,13 @@ export class BoatSidebarComponent implements OnInit {
   
       this.appointmentService.editAvailabilityBoat(dto).subscribe((data : any) => {
           // console.log(data)
-          this.startTime = "";
-          this.endTime = "";
           this.startDate = "";
           this.endDate = ""
-          setTimeout(() => {window.location.reload()}, 3000); 
+          setTimeout(() => {window.location.reload()}, 2000); 
 
         });
-
+        this.startDate = "";
+        this.endDate = ""
     }
     }
     else{
