@@ -74,7 +74,9 @@ public class Appointment {
 //    @JsonManagedReference
 //    private Set<AdditionalService> additionalServices = new HashSet<>();
 
-    @ManyToMany(mappedBy = "appointments")
+
+    //@ManyToMany(mappedBy = "appointments")
+    @ManyToMany(mappedBy = "appointments", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<AdditionalService> additionalServices = new HashSet<AdditionalService>();
 

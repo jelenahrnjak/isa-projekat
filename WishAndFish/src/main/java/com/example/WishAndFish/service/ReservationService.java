@@ -1,9 +1,6 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.CreateReservationDTO;
-import com.example.WishAndFish.dto.ReservationDTO;
-import com.example.WishAndFish.dto.SearchClientDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.AppointmentRepository;
 import com.example.WishAndFish.repository.ClientRepository;
@@ -40,39 +37,24 @@ public class ReservationService {
     public List<ReservationDTO> findAll() {
 
         List<ReservationDTO> ret = new ArrayList<>();
-        for(Reservation r : reservationRepository.findAll()){
-                ret.add(new ReservationDTO(r));
+        for (Reservation r : reservationRepository.findAll()) {
+            ret.add(new ReservationDTO(r));
         }
         return ret;
     }
 
-    public ReservationDTO getById(Long id){
+    public ReservationDTO getById(Long id) {
         Reservation r = reservationRepository.findById(id).orElse(null);
         return new ReservationDTO(r);
     }
 
 
-    public List<ReservationDTO> getAllByCottage(Long id){
+    public List<ReservationDTO> getAllByCottage(Long id) {
         List<ReservationDTO> ret = new ArrayList<>();
-        for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getCottage() != null){
-                if(id.equals(r.getAppointment().getCottage().getId())){
-                    if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
-                        r.setFinished(true);
-                    }
-                    ret.add(new ReservationDTO(r));
-                }
-            }
-        }
-       return ret;
-    }
-
-    public List<ReservationDTO> getAllByBoat(Long id){
-        List<ReservationDTO> ret = new ArrayList<>();
-        for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getBoat() != null){
-                if(id.equals(r.getAppointment().getBoat().getId())){
-                    if(r.getAppointment().getEndDate().isBefore(LocalDateTime.now())){
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getAppointment().getCottage() != null) {
+                if (id.equals(r.getAppointment().getCottage().getId())) {
+                    if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
                     }
                     ret.add(new ReservationDTO(r));
@@ -82,12 +64,14 @@ public class ReservationService {
         return ret;
     }
 
-    public List<ReservationDTO> search(SearchClientDTO dto){
+    public List<ReservationDTO> getAllByBoat(Long id) {
         List<ReservationDTO> ret = new ArrayList<>();
-
-        for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getBoat() != null){
-                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase())) ){
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getAppointment().getBoat() != null) {
+                if (id.equals(r.getAppointment().getBoat().getId())) {
+                    if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
+                        r.setFinished(true);
+                    }
                     ret.add(new ReservationDTO(r));
                 }
             }
@@ -95,12 +79,25 @@ public class ReservationService {
         return ret;
     }
 
-    public List<ReservationDTO> searchCottage(SearchClientDTO dto){
+    public List<ReservationDTO> search(SearchClientDTO dto) {
         List<ReservationDTO> ret = new ArrayList<>();
 
-        for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getCottage() != null){
-                if(dto.getId().equals(r.getAppointment().getCottage().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase())  || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase())) ){
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getAppointment().getBoat() != null) {
+                if (dto.getId().equals(r.getAppointment().getBoat().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
+                    ret.add(new ReservationDTO(r));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public List<ReservationDTO> searchCottage(SearchClientDTO dto) {
+        List<ReservationDTO> ret = new ArrayList<>();
+
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getAppointment().getCottage() != null) {
+                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && (r.getClient().getName().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getSurname().toLowerCase().contains(dto.getCriteria().toLowerCase()) || r.getClient().getEmail().toLowerCase().contains(dto.getCriteria().toLowerCase()))) {
                     ret.add(new ReservationDTO(r));
                 }
             }
@@ -113,13 +110,13 @@ public class ReservationService {
 
         Client client = clientRepository.findByEmail(dto.getUser());
 
-        if(client == null || client.isBlocked() || client.isDeleted()){
+        if (client == null || client.isBlocked() || client.isDeleted()) {
             return false;
         }
 
-        Appointment appointment =  this.appointmentService.createReservation(dto);
+        Appointment appointment = this.appointmentService.createReservation(dto);
 
-        if(appointment == null){
+        if (appointment == null) {
             return false;
         }
 
@@ -131,7 +128,7 @@ public class ReservationService {
         Reservation reservation = new Reservation(client, appointment);
         Reservation ret = reservationRepository.save(reservation);
 
-        if(ret == null){
+        if (ret == null) {
             return false;
         }
 
@@ -139,4 +136,29 @@ public class ReservationService {
 
         return true;
     }
+
+    public List<BookingHistoryDTO> getBookingHistory(String email) {
+
+        Client client = clientRepository.findByEmail(email);
+
+        if (client == null || client.isDeleted() || client.isBlocked()) {
+            return null;
+        }
+
+        return getHistoryForClient(client.getId());
+    }
+
+    private List<BookingHistoryDTO> getHistoryForClient(Long client) {
+
+        List<BookingHistoryDTO> ret = new ArrayList<>();
+
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getClient().getId() == client && !r.getCanceled() && r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
+                ret.add(new BookingHistoryDTO(r));
+            }
+        }
+
+        return ret;
+    }
+
 }

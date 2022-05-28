@@ -1,9 +1,6 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.CreateReservationDTO;
-import com.example.WishAndFish.dto.ReservationDTO;
-import com.example.WishAndFish.dto.SearchClientDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -93,5 +90,11 @@ public class ReservationController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/booking-history/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public List<BookingHistoryDTO> getBookingHistory(@PathVariable String email) {
+        return reservationService.getBookingHistory(email);
     }
 }

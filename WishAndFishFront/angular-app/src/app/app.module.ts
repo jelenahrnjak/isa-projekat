@@ -35,8 +35,7 @@ import { BoatsComponent } from './components/unregistered-user/boats/boats.compo
 import { InstructorsComponent } from './components/unregistered-user/instructors/instructors.component';
 import { MyBoatsComponent } from './components/boat-owner/my-boats/my-boats.component';
 import { AddBoatComponent } from './components/boat-owner/add-boat/add-boat.component';
-import { ClientHomeComponent } from './components/client/client-home/client-home.component';
-import { HistoryMenuComponent } from './components/client/history-menu/history-menu.component';
+import { ClientHomeComponent } from './components/client/client-home/client-home.component'; 
 import { OfferMenuComponent } from './components/client/offer-menu/offer-menu.component';
 import { CottageDetailsComponent } from './components/cottage-owner/cottage-details/cottage-details.component';
 import { CottageOptionsMenuComponent } from './components/cottage-owner/cottage-options-menu/cottage-options-menu.component';
@@ -56,6 +55,7 @@ import { EditBoatBasicInfoComponent } from './components/boat-owner/edit-boat-ba
 import { AgmCoreModule } from '@agm/core';
 import { CottageReservationHistoryComponent } from './components/cottage-owner/cottage-reservation-history/cottage-reservation-history.component';
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
+import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 
 @NgModule({
   declarations: [
@@ -78,8 +78,7 @@ import { BoatReservationHistoryComponent } from './components/boat-owner/boat-re
     InstructorsComponent,
     MyBoatsComponent,
     AddBoatComponent,
-    ClientHomeComponent,
-    HistoryMenuComponent,
+    ClientHomeComponent, 
     OfferMenuComponent,
     CottageDetailsComponent,
     CottageOptionsMenuComponent,
@@ -96,7 +95,8 @@ import { BoatReservationHistoryComponent } from './components/boat-owner/boat-re
     ShowFreeAppointmentsBoatComponent,
     EditBoatBasicInfoComponent,
     CottageReservationHistoryComponent,
-    BoatReservationHistoryComponent, 
+    BoatReservationHistoryComponent,
+    ReservationViewComponent, 
   ],
   imports: [
     BrowserModule,

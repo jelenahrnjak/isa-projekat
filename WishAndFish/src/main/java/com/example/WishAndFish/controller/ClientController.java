@@ -143,4 +143,5 @@ public class ClientController {
     public List<FishingAdventureDTO> getAllAdventuresSubscriptions(@PathVariable String email) {
         return clientService.getAllAdventuresSubscriptions(email);
     }
+
 }

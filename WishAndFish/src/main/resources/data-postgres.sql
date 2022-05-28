@@ -219,24 +219,37 @@ INSERT INTO public.fishing_equipment(
 	VALUES (101, 'Udica', 125, false );
 
 
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (1111, '5', '10-03-2021 12:00', 7, 750, true, '09-29-2021 14:00', 125, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (1111, false, 133, 35, false , false, 500);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (1113, false, 1111, 35, true , false, 750, false, false);
+
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (906, 1111);
+
+INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+	VALUES (907, 1111);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (2222, false, 140, 35, false, false, 250);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (1111, false, 133, 35, false , false, 500, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (3333, false, 139, 35, false , false, 400);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (2222, false, 140, 35, false, false, 250, false, false);
+
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (4444, false, 1233, 35, false , false, 300);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (3333, false, 139, 35, false , false, 400, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price)
-	VALUES (5555, false, 1232, 35, false , false, 200);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (4444, false, 1233, 35, false , false, 300, false, false);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (5555, false, 1232, 35, false , false, 200, false, false);
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

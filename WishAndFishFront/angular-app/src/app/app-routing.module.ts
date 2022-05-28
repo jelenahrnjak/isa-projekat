@@ -29,6 +29,7 @@ import { ShowFreeAppointmentsComponent } from './components/cottage-owner/show-f
 import { AppoitmentSearchComponent } from './components/client/appoitment-search/appoitment-search.component';
 import { SubscriptionsComponent } from './components/client/subscriptions/subscriptions.component';
 import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
+import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 
 const routes: Routes = [
   {
@@ -151,6 +152,10 @@ const routes: Routes = [
   {
     path:'boat-reservation-history/:id',
     component: BoatReservationHistoryComponent,
+  },
+  {
+    path: 'booking-history',
+    component: ReservationViewComponent,
   }
 
 ];
