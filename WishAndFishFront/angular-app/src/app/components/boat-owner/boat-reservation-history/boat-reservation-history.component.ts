@@ -247,7 +247,7 @@ export class BoatReservationHistoryComponent implements OnInit{
           
           this.startDate = "",
           this.endDate = ""
-          window.location.reload()
+          setTimeout(() => {window.location.reload()}, 2000); 
         },
         error => {
           Swal.fire({
@@ -256,7 +256,9 @@ export class BoatReservationHistoryComponent implements OnInit{
             text: 'Something went wrong. Please try again.',
           })  
           this.startDate = "",
-          this.endDate = ""
+          this.endDate = "",
+          setTimeout(() => {window.location.reload()}, 2000); 
+
         }
       );
     }
