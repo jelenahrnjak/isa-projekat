@@ -1,4 +1,6 @@
 <div class="bottom">
+  
+    <div *ngIf="penalties < 3" >
     
     <div class="dropdown" style="margin-left: 30%; margin-top: 1rem; width: 180rem; ">
         <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;"
@@ -72,6 +74,15 @@
     </div>
     
     </div> 
+  </div>
+
+  <div *ngIf="penalties >= 3">
+    <div  style="margin: 9.5ch; font-size: 40px; text-align: center; ">
+      <label style="color: red;">Currently, you have 3 or more penalties and your booking is disabled. 
+        <br> Penalties are cleared on the 1st of the month and reservations will be made available to you then.
+      </label>
+  </div>
+  </div>
 </div>
 
 <!-- Modal for adding new additional service -->
