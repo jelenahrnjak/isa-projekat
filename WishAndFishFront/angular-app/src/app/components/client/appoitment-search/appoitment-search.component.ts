@@ -188,7 +188,7 @@ export class AppoitmentSearchComponent implements OnInit {
 
       var startDate = this.searchDTO.startDate 
       var endDate = this.searchDTO.endDate  
-
+      console.log(startDate)
       var reservation = new Reservation(localStorage.getItem('user'),startDate,endDate,this.totalPrice, false, this.getSelectedAdditionalServices(),  this.selectedEntity, this.currentEntity)
     
         
