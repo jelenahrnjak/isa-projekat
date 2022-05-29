@@ -156,8 +156,9 @@ export class BoatReservationHistoryComponent implements OnInit{
         "reservationID": ""
       } 
       this.clientCame = true  
+      window.location.reload()
+
     })
-    window.location.reload()
     console.log(this.clientCame)
 
   }
