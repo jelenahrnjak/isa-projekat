@@ -11,6 +11,7 @@ import com.example.WishAndFish.repository.CottageRepository;
 import com.example.WishAndFish.repository.FishingAdventureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -251,5 +252,12 @@ public class ClientService {
         }
 
         return client.getPenalties();
+    }
+
+    public void clearPenalties() {
+        for(Client c : clientRepository.findAll()){
+            c.setPenalties(0);
+            clientRepository.save(c);
+        }
     }
 }
