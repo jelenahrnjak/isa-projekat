@@ -25,6 +25,10 @@
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
+                <li class="list-group-item" style="height: 70px;">  
+                    <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
+                    <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
+                </li> 
             </ul> 
         </div>
     
@@ -56,6 +60,10 @@
                 <li class="list-group-item" style="height: 70px;">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
+                </li> 
+                <li class="list-group-item" style="height: 70px;">  
+                    <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
+                    <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
                 </li> 
             </ul> 
         </div>
@@ -89,6 +97,10 @@
                 <li class="list-group-item" style="height: 70px;">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
+                </li> 
+                <li class="list-group-item" style="height: 70px;">  
+                    <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
+                    <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
                 </li> 
             </ul>  
         </div>
@@ -130,14 +142,45 @@
           <label>Rate: <strong>{{newReview.rate}}</strong></label>
         </div>
 
-        <div  class="container">
-                <!-- <label for="exampleInputEmail1" class="col" style="width: 25px;">Name:</label> -->
+        <div  class="container"> 
                 <input [(ngModel)]="newReview.content" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please leave your review"> <br> 
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" [disabled]="newReview.rate == 0 || newReview.content == '' || newReview.isOwner == null" (click)="sendReview()" data-dismiss="modal">Send review</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- Modal for adding new complaint -->
+<div class="modal fade" id="addComplaint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Let us know what happened. We are here for you and we are trying to improve our services!</h5>
+        </div>
+        
+        <div class="dropdown" style="margin-left: 25%; margin-top: 1rem;">
+            <select class="btn2 btn-secondary dropdown-toggle"  style="text-align: center;" [(ngModel)]="newReview.isOwner" >
+                <option [ngValue]=null selected disabled>Leaving complaint for?</option>
+                <option  [ngValue] = true [disabled]="ownerComplaint">{{owner}}</option>
+                <option [ngValue]= false [disabled]="propertyComplaint">{{property}}</option> 
+            </select>
+            
+        </div>
+
+        <hr>
+  
+        <div  class="container"> 
+                <input [(ngModel)]="newReview.content" type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="What was wrong?"> <br> 
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="newReview.content == '' || newReview.isOwner == null" (click)="sendComplaint()" data-dismiss="modal">Send</button>
         </div>
     </div>
     </div>

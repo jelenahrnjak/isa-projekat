@@ -41,6 +41,8 @@ export class ReservationViewComponent implements OnInit {
   property : string = "";
   ownerCommented : boolean;
   propertyCommented : boolean;
+  ownerComplaint : boolean;
+  propertyComplaint : boolean;
 
   ctrl = new FormControl(null, Validators.required);
 
@@ -105,22 +107,41 @@ export class ReservationViewComponent implements OnInit {
         this.property = val.name;
         this.ownerCommented = val.commentedOwner;
         this.propertyCommented = val.commentedEntity;
+        this.ownerComplaint = val.complaintOwner;
+        this.propertyComplaint = val.complaintEntity;
       }   
     }
     
-  } 
-
-  sendComplaintForOwner(id){
-
-  }
-
-  sendComplaintForEntity(){
-    
-  }
+  }  
 
   sendReview(){ 
  
     this.reservationService.addReview(this.newReview)
+    .subscribe(
+      result => { 
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Thank you for you feedback!',
+        })   
+ 
+        this.resetHistory();
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong. Please try again.',
+        })  
+ 
+        this.resetHistory();
+      }
+    );
+  }
+
+  sendComplaint(){ 
+ 
+    this.reservationService.addComplaint(this.newReview)
     .subscribe(
       result => { 
         Swal.fire({

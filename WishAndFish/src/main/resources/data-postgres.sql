@@ -243,8 +243,8 @@ INSERT INTO APPOINTMENTS(
 	VALUES (1111, '5', '10-03-2021 12:00', 7, 750, true, '09-29-2021 14:00', 125, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (1113, false, 1111, 35, true , false, 750, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (1113, false, 1111, 35, true , false, 750, false, false, false, false);
 
 INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
 	VALUES (906, 1111);
@@ -253,28 +253,28 @@ INSERT INTO public.appointment_additional_services(additional_service_id, appoin
 	VALUES (907, 1111);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (1111, false, 133, 35, false , false, 500, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (1111, false, 133, 35, false , false, 500, false, false, false, false);
 
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (2222, false, 140, 35, false, false, 250, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (2222, false, 140, 35, false, false, 250,  false, false, false, false);
 
 --INSERT INTO public.reservations(
 --	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
 --	VALUES (3333, false, 139, 35, false , false, 400, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (4444, false, 1233, 35, false , false, 300, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (4444, false, 1233, 35, false , false, 300,  false, false, false, false);
 INSERT INTO public.reservations( 
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (5, false, 1232, 35, false , false, 150, false,false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (5, false, 1232, 35, false , false, 150,  false, false, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (55, false, 999, 35, false , false, 100, false,false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (55, false, 999, 35, false , false, 100,  false, false, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (555, false, 9999, 35, false , false, 100, false,false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (555, false, 9999, 35, false , false, 100,  false, false, false, false);
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

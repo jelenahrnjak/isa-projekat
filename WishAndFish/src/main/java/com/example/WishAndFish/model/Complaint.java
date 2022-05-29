@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reviews")
-public class Review {
+@Table(name = "complaints")
+public class Complaint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,6 @@ public class Review {
 
     @Column(name = "content")
     private String content;
-
-    @Column(name = "rating")
-    private Integer rating;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "client_id")
@@ -41,9 +39,8 @@ public class Review {
     @Column(name = "isReviewed", nullable = false)
     private boolean isReviewed;
 
-    public Review(String content, Integer rating, Client client, Long reservation, boolean isForOwner){
+    public Complaint(String content, Client client, Long reservation, boolean isForOwner){
         this.content = content;
-        this.rating = rating;
         this.client = client;
         this.reservationId = reservation;
         this.date = LocalDateTime.now();

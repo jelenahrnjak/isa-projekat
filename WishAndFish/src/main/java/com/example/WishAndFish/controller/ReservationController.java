@@ -248,4 +248,15 @@ public class ReservationController {
         return new ResponseEntity<>(true, HttpStatus.OK);
 
     }
+
+    @RequestMapping(value = "/addComplaint", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public ResponseEntity<Boolean> addComplaint(@RequestBody CommentDTO dto) {
+
+        if (!this.reservationService.addComplaint(dto)) {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
+
+    }
 }

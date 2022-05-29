@@ -30,10 +30,7 @@ import java.util.Map;
 public class ReservationService {
 
     @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
-    private CottageRepository cottageRepository;
+    ReservationRepository reservationRepository;
 
     @Autowired
     AppointmentService appointmentService;
@@ -49,6 +46,9 @@ public class ReservationService {
 
     @Autowired
     ReviewRepository reviewRepository;
+
+    @Autowired
+    ComplaintRepository complaintRepository;
 
 
     public List<ReservationDTO> findAll() {
@@ -460,7 +460,7 @@ public class ReservationService {
 
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
-        for (Reservation r : reservationRepository.findAll()) {
+        for (Reservation r : sortedHistory()) {
             if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
@@ -484,7 +484,7 @@ public class ReservationService {
 
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
-        for (Reservation r :  reservationRepository.findAll()) {
+        for (Reservation r :  sortedReservations()) {
             System.out.println(r.getAppointment().getStartDate());
             if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
@@ -525,4 +525,81 @@ public class ReservationService {
     }
 
 
+    public List<Reservation> sortedReservations(){
+
+        List<Reservation> ret = new ArrayList<>();
+        List<Reservation> allReservations = reservationRepository.findAll();
+
+        if(allReservations.size() < 2){
+            return allReservations;
+        }
+
+        ret.add(allReservations.get(0));
+
+        for (int i = 1; i < allReservations.size() ; i++) {
+            if(ret.get(i - 1).getAppointment().getStartDate().isBefore(allReservations.get(i).getAppointment().getStartDate())){
+                ret.add(allReservations.get(i));
+            }else{
+                Reservation pom = ret.get(i-1);
+                ret.set(i-1, allReservations.get(i));
+                ret.add(pom);
+            }
+        }
+
+        return ret;
+    }
+
+    public List<Reservation> sortedHistory(){
+
+        List<Reservation> ret = new ArrayList<>();
+        List<Reservation> allReservations = reservationRepository.findAll();
+
+        if(allReservations.size() < 2){
+            return allReservations;
+        }
+
+        ret.add(allReservations.get(0));
+
+        for (int i = 1; i < allReservations.size() ; i++) {
+            if(allReservations.get(i).getAppointment().getStartDate().isBefore(ret.get(i-1).getAppointment().getStartDate())){
+                ret.add(allReservations.get(i));
+            }else{
+                Reservation pom = ret.get(i-1);
+                ret.set(i-1, allReservations.get(i));
+                ret.add(pom);
+            }
+        }
+
+        return ret;
+    }
+
+    public boolean addComplaint(CommentDTO dto) {
+
+        Client client = clientRepository.findByEmail(dto.getClient());
+        Reservation reservation = reservationRepository.findById(dto.getReservationID()).orElseGet(null);
+
+        if(client == null || client.isBlocked() || reservation == null){
+            return false;
+        }
+
+        if((reservation.getComplaintEntity() && !dto.getIsOwner()) || (reservation.getComplaintOwner() && dto.getIsOwner())){
+            return false;
+        }
+
+        if(dto.getIsOwner()){
+
+            reservation.setComplaintOwner(Boolean.TRUE);
+        }else{
+
+            reservation.setComplaintEntity(Boolean.TRUE);
+        }
+
+        Reservation newReservation = this.reservationRepository.save(reservation);
+
+        Complaint newComplaint = new Complaint(dto.getContent(), client, newReservation.getId(), dto.getIsOwner());
+
+        this.complaintRepository.save(newComplaint);
+
+        return true;
+    }
 }
