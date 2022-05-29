@@ -29,7 +29,7 @@
                         </li> 
                         <li *ngIf="!r.finished" style="height: 100px;" class="list-group-item">
                             Adding comment will be enabled after the reservation expires!
-                            <br><button class="btn btn-primary">Create new reservation</button>
+                            <br><button class="btn btn-primary" data-toggle="modal" data-target="#addReservation" (click)="findClient(r.client.email, r.id)">Create new reservation</button>
                         </li> 
                          
                         <li *ngIf="r.commented" style="height: 70px;" class="list-group-item">
@@ -76,5 +76,116 @@
     </div>
 </div>
 <!-- Modal for adding comment to the client -->
+
+
+
+
+
+<!-- Modal for adding new reservation -->
+<div class="modal fade" id="addReservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">New reservation</h5>
+
+        </div>
+           
+        <div  class="container modal-body">
+            <div class="form-check" style="margin-top: 2%; margin-bottom: 2%;">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Client email: {{client}}
+                </label>
+            </div>
+        
+            <label style="margin-bottom: 10px; margin-left: 5%;">Start date:</label>
+            <mat-form-field appearance="fill" style="margin-left: 7%; width: 70%;">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="todayDate" (dateChange)="calculatePriceStart($event)" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field>
+
+            <div class="row">
+                <label class="col" style="margin-bottom: 10px; margin-left: 5%; max-width: 22%;">Start time:</label>
+                <div class="col">
+                    <input disabled type="time" id="form3Example1q" class="form-control" style="width: 97%;" [(ngModel)]="startTime"/>
+                </div>
+            </div>
+
+            <br>
+            <label style="margin-bottom: 10px; margin-left: 5%;">End date:</label>
+            <mat-form-field appearance="fill" style="margin-left: 8.5%; width: 70%;">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker1" [min]="startDate" (dateChange)="calculatePrice($event)" >
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <div class="row">
+                <label class="col" style="margin-bottom: 10px; margin-left: 5%; max-width: 22%;">End time:</label>
+                <div class="col">
+                    <input disabled type="time" id="form3Example1q" class="form-control" style="width: 97%;" [(ngModel)]="endTime"/>
+                    <br>
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-left:2%">
+                <h6 *ngIf="additionalServices.length != 0" class="modal-title" id="exampleModalLongTitle" style="margin-top: 3%;">
+                    Select additional services you want to add to the reservation</h6>
+                <h6 *ngIf="additionalServices.length == 0" class="modal-title" id="exampleModalLongTitle" >
+                    There is no additional services for this reservation</h6>
+            </div>
+
+            <div  class="container"  style="margin-left:2%">
+                <table class="table" style="width: 410px;" *ngIf="additionalServices.length != 0"> 
+                  <caption>New reservation</caption>
+                  <thead>
+                      <tr>
+                          <th scope="col" style="width: 40%;">Name</th>
+                          <th scope="col" style="width: 40%;">Price</th> 
+                          <th scope="col" style="width: 10%;"></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor = "let a of additionalServices; let i=index;">
+                          <td>{{a.name}}</td>
+                          <td>{{a.price}}</td> 
+                          <td><input type="checkbox" [(ngModel)]="a.isSelected" [value]="!a.isSelected" (change)="changedService(a.price, a.isSelected)" [name]='i+1'> </td> 
+                      </tr>   
+                  </tbody>
+                  <tfoot>  
+                    <tr>
+                        <td></td>
+                        <td>Total price</td> 
+                        <td>{{ totalPrice }}€</td>
+                    </tr>   
+                  </tfoot>
+              </table>
+              <table class="table" style="width: 590px;" *ngIf="additionalServices.length == 0">  
+                <caption>New reservation</caption>
+                <thead>
+                  <tr>
+                      <th scope="col" style="width: 1%;"></th> 
+                  </tr>
+              </thead>
+                <tfoot>  
+                  <tr>
+                      <td></td>
+                      <td>Total price</td> 
+                      <td>{{ totalPrice }}€</td>
+                  </tr>   
+                </tfoot>
+            </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="reserve()">Make reservation</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal for adding new reservation -->
 
 </div>

@@ -122,11 +122,13 @@ export class ReservationService {
     }
 
     createReservation(reservation: Reservation) {
+      console.log(reservation)
       return this.apiService.post(this.config.reservation_url + `/createReservation`, reservation)
       .pipe(map((data) => {
         console.log('Creating appointment success:');
       }));  
     }
+    
 
     getBookingHistory() {
 
