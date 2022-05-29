@@ -27,8 +27,8 @@ public class Client extends User{
     private Set<FishingAdventure> adventureSubscriptions;
 
 
-    @Column(name = "blocked", nullable = false)
-    private boolean blocked;
+    @Column(name = "penalties", nullable = false)
+    private Integer penalties;
 
 }
 

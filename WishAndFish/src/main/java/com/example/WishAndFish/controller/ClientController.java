@@ -144,4 +144,15 @@ public class ClientController {
         return clientService.getAllAdventuresSubscriptions(email);
     }
 
+    @RequestMapping(value = "/addPenaltyToClient", method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Boolean> addPenaltyToClient(@RequestBody String email) {
+
+        if (clientService.addPenaltyToClient(email) != null) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+    }
+
 }

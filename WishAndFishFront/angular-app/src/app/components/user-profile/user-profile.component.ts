@@ -147,18 +147,20 @@ export class UserProfileComponent implements OnInit {
       this.refreshFormBefore()
     }else{ 
     this.notification = undefined; 
-      this.userService.requestDeleting(this.reason).subscribe(() => { 
+      this.userService.requestDeleting(this.reason).subscribe(
+        result => { 
         this.deleting = false;
         this.existRequest = true; 
         this.refreshFormBefore()
         
-      })
-      err => {    
+        },
+        error => { 
         this.refreshFormBefore() 
         this.deleting = false;
         this.notification = {msgType: 'error', msgBody: 'Request already exists. Your answer will be sent to your email.'};
-      } 
+      });
     }
+ 
   }
  
   deletingChange(){
