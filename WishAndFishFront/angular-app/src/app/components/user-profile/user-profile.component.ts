@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, UserService } from '../../service';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { ClientService } from '../../service/client.service';
 
 interface DisplayMessage {
   msgType: string;
@@ -33,10 +34,12 @@ export class UserProfileComponent implements OnInit {
   notification: DisplayMessage; 
   returnUrl: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  penalties : number = 0;
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private clientService : ClientService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder) { }
@@ -71,8 +74,14 @@ export class UserProfileComponent implements OnInit {
     }); 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.refreshFormBefore(); 
-  }
 
+    if(this.isClient()){
+      this.clientService.getPenalties().subscribe((data : number) => {
+        this.penalties = data; 
+      })
+    }
+  }
+ 
   refreshForm(){
     this.userService.getUser().subscribe((data : any) => {
       this.user = data
@@ -147,18 +156,20 @@ export class UserProfileComponent implements OnInit {
       this.refreshFormBefore()
     }else{ 
     this.notification = undefined; 
-      this.userService.requestDeleting(this.reason).subscribe(() => { 
+      this.userService.requestDeleting(this.reason).subscribe(
+        result => { 
         this.deleting = false;
         this.existRequest = true; 
         this.refreshFormBefore()
         
-      })
-      err => {    
+        },
+        error => { 
         this.refreshFormBefore() 
         this.deleting = false;
         this.notification = {msgType: 'error', msgBody: 'Request already exists. Your answer will be sent to your email.'};
-      } 
+      });
     }
+ 
   }
  
   deletingChange(){

@@ -8,6 +8,7 @@ import { CottageService } from 'src/app/service/cottage.service';
 import { BoatService } from 'src/app/service/boat.service'; 
 import { AdventureService } from 'src/app/service/adventure.service'; 
 import { AdditionalServicesService } from 'src/app/service/additional-services.service';
+import { ClientService } from 'src/app/service/client.service';
 import { АdditionalService } from 'src/app/model/additional-service.model'; 
 import { ReservationService } from '../../../service/reservation.service'  
 import { Reservation } from '../../../model/reservation.model';
@@ -36,6 +37,7 @@ export class AppoitmentSearchComponent implements OnInit {
     private cottageService: CottageService, 
     private boatService : BoatService,
     private adventureService: AdventureService,
+    private clientService : ClientService,
     private additionalServicesService : AdditionalServicesService ,
     private formBuilder: FormBuilder,
     private reservationService : ReservationService) { }
@@ -56,8 +58,13 @@ export class AppoitmentSearchComponent implements OnInit {
     additionalServices : АdditionalService[] = [];
     totalPrice : number = 0;
     currentEntity : number = 0;
+    penalties = 0;
 
     ngOnInit() {
+ 
+      this.clientService.getPenalties().subscribe((data : number) => {
+        this.penalties = data; 
+      }) 
     
       this.form = this.formBuilder.group({  
         name: [''],

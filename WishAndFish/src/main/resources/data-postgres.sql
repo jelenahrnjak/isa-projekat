@@ -46,16 +46,13 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (75, false, 'markomarko@gmail.com', true, null, 20, 'Marko', 'marko', '0643515864', 900, 'Markovic', 200, 4, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (95, false, 'jelenahrnjak99+123@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
-
-
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (36, false, 'jovanjovanovic@gmail.com', true, null, 10, 'Jovan', 'jovan', '064352658', 0, 'Jovanovic', 300, 1, null);
-
-
-INSERT INTO CLIENT(id, blocked)
-    VALUES(35, false);
-INSERT INTO CLIENT(id, blocked)
-    VALUES(36, false);
+ 
+INSERT INTO CLIENT(id, penalties)
+    VALUES(35, 1);
+INSERT INTO CLIENT(id, penalties)
+    VALUES(36, 0);
 
 INSERT INTO COTTAGE_OWNER(id)
 	VALUES (50);

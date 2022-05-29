@@ -48,7 +48,8 @@
                     </mat-form-field> 
                 </div>
              
-            </div><br>
+            </div>
+            <br>
             <button [disabled]="!form.valid" color="primary" mat-raised-button type="submit">Submit</button>
             <br>
             <button (click)="changeForm()" color="primary" mat-raised-button >Cancel</button> 
@@ -87,6 +88,8 @@
                     <p *ngIf="pointsNeeded>0">Missing points to the next level: {{pointsNeeded}} </p> 
                 
             </div>
+            
+
             <div class="col-6 col-md-3" *ngIf="deleting">  
                 <br><br><br><br><br>  
                     <label>Reason for deleting account: </label>
@@ -95,8 +98,12 @@
                  <button color="primary" mat-raised-button (click)="requestDeletion()" >Send</button><br>
                 <button color="primary" mat-raised-button (click)="deletingChange()" >Cancel</button>
         </div>
+            </div><br>
+            <div *ngIf="isClient()">
+                <label *ngIf="penalties == 0" style="font-size: 16px; color: green;"><strong> You don't have any penalties</strong></label>
+                <label *ngIf="penalties != 0" style="font-size: 18px;"><strong> Number of penalties: <label style="color: red;">{{penalties}}</label></strong></label>
             </div>
-            <br><br>
+            <br> 
             <button (click)="changeForm()" color="primary" mat-raised-button>Edit</button>  
             <br> 
             <label *ngIf="existRequest">Request for deleting account sent! Answer will be sent to your email.</label>

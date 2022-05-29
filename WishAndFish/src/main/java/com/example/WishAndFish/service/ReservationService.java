@@ -427,7 +427,7 @@ public class ReservationService {
 
         Client client = clientRepository.findByEmail(dto.getUser());
 
-        if (client == null || client.isBlocked() || client.isDeleted()) {
+        if (client == null || client.getPenalties() >= 3 || client.isDeleted()) {
             return false;
         }
 
@@ -458,7 +458,7 @@ public class ReservationService {
 
         Client client = clientRepository.findByEmail(email);
 
-        if (client == null || client.isDeleted() || client.isBlocked()) {
+        if (client == null || client.isDeleted()) {
             return null;
         }
 
@@ -482,7 +482,7 @@ public class ReservationService {
 
         Client client = clientRepository.findByEmail(email);
 
-        if (client == null || client.isDeleted() || client.isBlocked()) {
+        if (client == null || client.isDeleted()) {
             return null;
         }
 
@@ -508,7 +508,7 @@ public class ReservationService {
         Client client = clientRepository.findByEmail(dto.getClient());
         Reservation reservation = reservationRepository.findById(dto.getReservationID()).orElseGet(null);
 
-        if(client == null || client.isBlocked() || reservation == null){
+        if(client == null  || reservation == null){
             return false;
         }
 
@@ -587,7 +587,7 @@ public class ReservationService {
         Client client = clientRepository.findByEmail(dto.getClient());
         Reservation reservation = reservationRepository.findById(dto.getReservationID()).orElseGet(null);
 
-        if(client == null || client.isBlocked() || reservation == null){
+        if(client == null || reservation == null){
             return false;
         }
 

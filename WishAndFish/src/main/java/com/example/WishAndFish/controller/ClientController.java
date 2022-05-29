@@ -6,10 +6,13 @@ import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/clients")
 @CrossOrigin()
+@Configuration
+@EnableScheduling
 public class ClientController {
 
     @Autowired
@@ -144,4 +149,29 @@ public class ClientController {
         return clientService.getAllAdventuresSubscriptions(email);
     }
 
+    @RequestMapping(value = "/addPenaltyToClient", method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Boolean> addPenaltyToClient(@RequestBody String email) {
+
+        if (clientService.addPenaltyToClient(email) != null) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/getPenalties/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public Integer getPenalties(@PathVariable String email) {
+
+        return clientService.getPenalties(email);
+    }
+
+    @RequestMapping(value = "/clearPenalties", method = RequestMethod.GET)
+//    @Scheduled(cron="0 0 0 1 1/1 *")
+//    @Scheduled(cron="0 15,30,45 * ? * *")
+    @Scheduled(cron = "0 0 12 1 * ?")
+    public void clearPenalties() {
+        clientService.clearPenalties();
+    }
 }

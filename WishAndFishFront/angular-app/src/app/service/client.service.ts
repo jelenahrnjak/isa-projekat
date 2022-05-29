@@ -92,5 +92,12 @@ export class ClientService {
     return this.apiService.get(this.config.client_url + `/adventureSubscriptions/${email}`) 
   
   }
+
+  getPenalties() {
+
+    var email = localStorage.getItem('user');
+    return this.apiService.get(this.config.client_url + `/getPenalties/${email}`) 
+  
+  }
  
 }
