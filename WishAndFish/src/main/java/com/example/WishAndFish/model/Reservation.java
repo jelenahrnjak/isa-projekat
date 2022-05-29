@@ -45,6 +45,12 @@ public class Reservation {
     @Column(name = "commented_entity")
     private Boolean commentedEntity;
 
+    @Column(name = "complaint_owner")
+    private Boolean complaintOwner;
+
+    @Column(name = "complaint_entity")
+    private Boolean complaintEntity;
+
 
     public Reservation(Client client, Appointment appointment){
 
@@ -55,6 +61,8 @@ public class Reservation {
         this.commented = false;
         this.commentedEntity = false;
         this.commentedOwner = false;
+        this.complaintEntity = false;
+        this.complaintOwner = false;
         this.totalPrice = appointment.getPrice();
 
     }

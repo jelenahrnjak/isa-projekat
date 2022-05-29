@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -31,6 +32,9 @@ public class BookingHistoryDTO {
     public String address;
     public Boolean commentedOwner;
     public Boolean commentedEntity;
+    public Boolean complaintOwner;
+    public Boolean complaintEntity;
+    public Boolean inProgress;
 
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
@@ -46,7 +50,15 @@ public class BookingHistoryDTO {
         this.address = getAddressOfProperty(r);
         this.commentedOwner = r.getCommentedOwner();
         this.commentedEntity = r.getCommentedEntity();
+        this.complaintOwner = r.getComplaintOwner();
+        this.complaintEntity = r.getComplaintEntity();
         this.owner = getOwnerOfProperty(r);
+
+        if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){
+            this.inProgress = true;
+        }else{
+            this.inProgress = false;
+        }
     }
 
     private String getOwnerOfProperty(Reservation r) {
@@ -167,7 +179,7 @@ public class BookingHistoryDTO {
             ret = " There is no additional services for this reservation";
         }else{
             ret.trim();
-            ret = ret.substring(0, ret.length() -1);
+            ret = ret.substring(0, ret.length() -2);
         }
 
         return ret;

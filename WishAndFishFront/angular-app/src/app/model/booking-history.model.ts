@@ -13,7 +13,9 @@ export class BookingHistory{
         public address: string,
         public commentedOwner : boolean,
         public commentedEntity : boolean,
-
+        public complaintOwner : boolean,
+        public complaintEntity : boolean,
+        public inProgress : boolean = false,
       ) {}
       
 }
