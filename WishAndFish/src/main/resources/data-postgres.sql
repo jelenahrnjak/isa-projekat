@@ -46,9 +46,13 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (75, false, 'markomarko@gmail.com', true, null, 20, 'Marko', 'marko', '0643515864', 900, 'Markovic', 200, 4, null);
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (95, false, 'jelenahrnjak99+123@gmail.com', true, null, 20, 'Jovana', 'jovana', '0623526598', 900, 'Petrovic', 200, 3, null);
-
+INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
+	VALUES (36, false, 'jovanjovanovic@gmail.com', true, null, 10, 'Jovan', 'jovan', '064352658', 0, 'Jovanovic', 300, 1, null);
+ 
 INSERT INTO CLIENT(id, penalties)
     VALUES(35, 1);
+INSERT INTO CLIENT(id, penalties)
+    VALUES(36, 0);
 
 INSERT INTO COTTAGE_OWNER(id)
 	VALUES (50);
@@ -273,8 +277,9 @@ INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
 	VALUES (55, false, 999, 35, false , false, 100,  false, false, false, false);
 INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (555, false, 9999, 35, false , false, 100,  false, false, false, false);
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+	VALUES (555, false, 9999, 36, false , false, 100, false,false);
+
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);

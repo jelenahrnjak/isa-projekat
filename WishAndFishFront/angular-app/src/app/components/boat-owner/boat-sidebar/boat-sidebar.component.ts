@@ -77,7 +77,7 @@ export class BoatSidebarComponent implements OnInit {
       console.log("uslo")
       var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
       var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
-   
+      console.log(start)
   
       if(this.startDate >= this.endDate){
         Swal.fire({
