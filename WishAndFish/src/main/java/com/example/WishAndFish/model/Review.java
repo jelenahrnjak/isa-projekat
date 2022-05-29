@@ -29,7 +29,7 @@ public class Review {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column(name = "reservation_id", nullable = false, unique = true)
+    @Column(name = "reservation_id", nullable = false)
     private Long reservationId;
 
     @Column(name = "date", nullable = false)

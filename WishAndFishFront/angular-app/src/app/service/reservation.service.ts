@@ -150,4 +150,11 @@ export class ReservationService {
       }));  
     }
 
+    addComplaint(review: Review) {
+      return this.apiService.post(this.config.reservation_url + `/addComplaint`, review)
+      .pipe(map((data) => {
+        console.log('Adding review success:');
+      }));  
+    }
+
 }

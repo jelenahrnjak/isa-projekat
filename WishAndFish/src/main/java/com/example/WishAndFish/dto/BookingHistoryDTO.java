@@ -32,6 +32,8 @@ public class BookingHistoryDTO {
     public String address;
     public Boolean commentedOwner;
     public Boolean commentedEntity;
+    public Boolean complaintOwner;
+    public Boolean complaintEntity;
     public Boolean inProgress;
 
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
@@ -48,6 +50,8 @@ public class BookingHistoryDTO {
         this.address = getAddressOfProperty(r);
         this.commentedOwner = r.getCommentedOwner();
         this.commentedEntity = r.getCommentedEntity();
+        this.complaintOwner = r.getComplaintOwner();
+        this.complaintEntity = r.getComplaintEntity();
         this.owner = getOwnerOfProperty(r);
 
         if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){

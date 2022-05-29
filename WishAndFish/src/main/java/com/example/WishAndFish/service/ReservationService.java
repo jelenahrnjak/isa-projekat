@@ -30,10 +30,7 @@ import java.util.Map;
 public class ReservationService {
 
     @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
-    private CottageRepository cottageRepository;
+    ReservationRepository reservationRepository;
 
     @Autowired
     AppointmentService appointmentService;
@@ -49,6 +46,9 @@ public class ReservationService {
 
     @Autowired
     ReviewRepository reviewRepository;
+
+    @Autowired
+    ComplaintRepository complaintRepository;
 
 
     public List<ReservationDTO> findAll() {
@@ -571,5 +571,35 @@ public class ReservationService {
         }
 
         return ret;
+    }
+
+    public boolean addComplaint(CommentDTO dto) {
+
+        Client client = clientRepository.findByEmail(dto.getClient());
+        Reservation reservation = reservationRepository.findById(dto.getReservationID()).orElseGet(null);
+
+        if(client == null || client.isBlocked() || reservation == null){
+            return false;
+        }
+
+        if((reservation.getComplaintEntity() && !dto.getIsOwner()) || (reservation.getComplaintOwner() && dto.getIsOwner())){
+            return false;
+        }
+
+        if(dto.getIsOwner()){
+
+            reservation.setComplaintOwner(Boolean.TRUE);
+        }else{
+
+            reservation.setComplaintEntity(Boolean.TRUE);
+        }
+
+        Reservation newReservation = this.reservationRepository.save(reservation);
+
+        Complaint newComplaint = new Complaint(dto.getContent(), client, newReservation.getId(), dto.getIsOwner());
+
+        this.complaintRepository.save(newComplaint);
+
+        return true;
     }
 }
