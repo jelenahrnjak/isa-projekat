@@ -65,4 +65,8 @@ export class UpcomingReservationsComponent implements OnInit {
     this.showAdventures = !this.showAdventures;
   }
 
+  cancelReservation(id){
+
+  }
+
 }

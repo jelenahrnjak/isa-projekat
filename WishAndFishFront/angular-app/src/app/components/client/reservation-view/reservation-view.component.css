@@ -112,14 +112,70 @@ input[type=number] {
   font-size: 16px;  
   cursor: pointer;
   border-radius: 10px;
-  width : 42%;
-  max-width: 42%;
-  min-width: 42%;
+  height: 30px;
+  width : 70%;
+  max-width: 70%;
+  min-width: 70%;
   margin-left: 3%;
   margin-right: 3%;
+  margin-top: 3%;
   
 }
  
 .small-btn:hover {
   background-color: #283593;
+}
+
+.small-btn-red {
+  background-color:  #DB3341;
+  border: none;  
+  color: white;    
+  font-size: 16px;  
+  cursor: pointer;
+  border-radius: 10px;
+  height: 30px;
+  width : 70%;
+  max-width: 70%;
+  min-width: 70%;
+  margin-left: 3%;
+  margin-right: 3%;
+  
+}
+ 
+.small-btn-red:hover {
+  background-color: #A82530;
+}
+
+::ng-deep .cdk-overlay-container {     z-index:2000; } 
+
+.star {
+  font-size: 4rem;
+  color: #F8E47E;
+}
+.filled {
+  color: #FFD60A;
+}
+.bad {
+  color: #deb0b0;
+}
+.filled.bad {
+  color: #ff1e1e;
+}
+
+.checked {
+  color: orange;
+}
+
+.btn2 {
+  background-color:  #3F51B5;
+  border: 3px outset rgba(0, 0, 0, 0.226);
+  color: white; 
+  padding: 3px 3px;  
+  font-size: 14px;  
+  cursor: pointer;
+  border-radius: 10px;
+  width : 15rem;
+  max-width: 15rem;
+  min-width: 15rem;
+
 }

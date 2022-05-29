@@ -15,4 +15,6 @@ public class CommentDTO {
     private Boolean came;
     private String client;
     private Long reservationID;
+    private Integer rate;
+    private Boolean isOwner;
 }

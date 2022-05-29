@@ -9,10 +9,7 @@ import com.example.WishAndFish.dto.CreateReservationDTO;
 import com.example.WishAndFish.dto.ReservationDTO;
 import com.example.WishAndFish.dto.SearchClientDTO; 
 import com.example.WishAndFish.model.*;
-import com.example.WishAndFish.repository.AppointmentRepository;
-import com.example.WishAndFish.repository.ClientRepository;
-import com.example.WishAndFish.repository.CottageRepository;
-import com.example.WishAndFish.repository.ReservationRepository;
+import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -49,6 +46,10 @@ public class ReservationService {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    ReviewRepository reviewRepository;
+
 
     public List<ReservationDTO> findAll() {
 
@@ -482,13 +483,8 @@ public class ReservationService {
     private List<BookingHistoryDTO> getUpcomingReservationsForClient(Long client) {
 
         List<BookingHistoryDTO> ret = new ArrayList<>();
-        System.out.println("***********************************************************");
-        System.out.println(LocalDateTime.now());
-        System.out.println("***********************************************************");
-        System.out.println(LocalDate.now());
 
-        for (Reservation r : reservationRepository.findAll()) {
-            System.out.println("***********************************************************");
+        for (Reservation r :  reservationRepository.findAll()) {
             System.out.println(r.getAppointment().getStartDate());
             if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
@@ -497,4 +493,36 @@ public class ReservationService {
 
         return ret;
     }
+
+    public boolean addReview(CommentDTO dto) {
+
+        Client client = clientRepository.findByEmail(dto.getClient());
+        Reservation reservation = reservationRepository.findById(dto.getReservationID()).orElseGet(null);
+
+        if(client == null || client.isBlocked() || reservation == null){
+            return false;
+        }
+
+        if((reservation.getCommentedEntity() && !dto.getIsOwner()) || (reservation.getCommentedOwner() && dto.getIsOwner())){
+            return false;
+        }
+
+        if(dto.getIsOwner()){
+
+            reservation.setCommentedOwner(Boolean.TRUE);
+        }else{
+
+            reservation.setCommentedEntity(Boolean.TRUE);
+        }
+
+        Reservation newReservation = this.reservationRepository.save(reservation);
+
+        Review newReview = new Review(dto.getContent(), dto.getRate(), client, newReservation.getId(), dto.getIsOwner());
+
+        this.reviewRepository.save(newReview);
+
+        return true;
+    }
+
+
 }
