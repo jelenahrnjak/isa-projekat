@@ -28,6 +28,12 @@ public class Comment {
     @Column(name = "came")
     private Boolean came;
 
+    @Column(name = "approved")
+    private Boolean approved;
+
+    @Column(name = "addPenalty")
+    private Boolean addPenalty;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "client_id")
     private Client client;

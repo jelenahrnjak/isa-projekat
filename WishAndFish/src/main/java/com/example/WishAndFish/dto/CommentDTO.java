@@ -17,4 +17,6 @@ public class CommentDTO {
     private Long reservationID;
     private Integer rate;
     private Boolean isOwner;
+    private Boolean approved;
+
 }
