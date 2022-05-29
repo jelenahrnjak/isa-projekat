@@ -155,4 +155,10 @@ public class ClientController {
         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/getPenalties/{email}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public Integer getPenalties(@PathVariable String email) {
+
+        return clientService.getPenalties(email);
+    }
 }

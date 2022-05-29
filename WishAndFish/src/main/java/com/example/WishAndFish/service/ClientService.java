@@ -243,4 +243,13 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
+    public Integer getPenalties(String email) {
+
+        Client client = clientRepository.findByEmail(email);
+        if(client == null){
+            return -1;
+        }
+
+        return client.getPenalties();
+    }
 }
