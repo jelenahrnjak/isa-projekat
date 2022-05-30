@@ -127,7 +127,7 @@ input[type=number] {
 }
 
 .small-btn-red {
-  background-color:  #283593;
+  background-color:  #3F51B5;
   border: none;  
   color: white;    
   font-size: 16px;  
@@ -144,7 +144,7 @@ input[type=number] {
 }
  
 .small-btn-red:hover {
-  background-color: #A82530;
+  background-color: #283593;
 }
 
 ::ng-deep .cdk-overlay-container {     z-index:2000; } 

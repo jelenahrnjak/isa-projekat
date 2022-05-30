@@ -1,4 +1,4 @@
-<div class="bottom"> 
+<div *ngIf="penalties < 3" class="bottom"> 
 
     <h1>Cottages 
         <button class="staticIcon" (click)="viewCottages()" mat-icon-button>
@@ -19,11 +19,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item">Total price: <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price:&nbsp; </strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
                     &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
                 <li class="list-group-item" style="height: 70px;">  
-                    <button class="small-btn-red" (click)="current = c.id" data-toggle="modal" data-target="#reserve">Book now</button>  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul> 
         </div>
@@ -51,11 +51,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item">Total price: <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
                     &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>   
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
                 <li class="list-group-item" style="height: 70px;">  
-                    <button class="small-btn-red" (click)="current = c.id" data-toggle="modal" data-target="#reserve">Book now</button>  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul> 
         </div>
@@ -83,11 +83,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item">Total price: <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
                     &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>    
                 <li class="list-group-item" style="height: 70px;">  
-                    <button class="small-btn-red" (click)="current = c.id" data-toggle="modal" data-target="#reserve">Book now</button>  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul>  
         </div>
@@ -102,16 +102,18 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Add review</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to book {{name}}?</h5>
         </div> 
  
-        <div  class="container"> 
-                <input type="text" class="form-control col" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please leave your review"> <br> 
-
+        <div class="modal-body" style="margin-left: 20%;"> 
+            <label><strong>From: </strong>{{from}}</label>
+            <label><strong>To:</strong> {{to}}</label>    
+            <label><strong>Total price: </strong> <label style="color: red;"><s>{{beforePrice}}€</s></label>
+                &nbsp; -> &nbsp; <label style="color:green">  {{totalPrice}}€</label> </label>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" >
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="reservation()" data-dismiss="modal">Submit</button>
+            <button type="button" style="margin-right: 25%;"  class="btn btn-primary" (click)="submit()" data-dismiss="modal">Submit</button>
         </div>
     </div>
     </div>

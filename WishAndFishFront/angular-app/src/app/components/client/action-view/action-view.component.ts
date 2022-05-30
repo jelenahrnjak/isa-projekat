@@ -18,7 +18,11 @@ export class ActionViewComponent implements OnInit {
   showCottages = true;
   showBoats = true;
   showAdventures = true;
-  current = 0
+  name : string = "";
+  totalPrice : number = 0;
+  beforePrice : number = 0;
+  from : string = "";
+  to : string = "";
 
   constructor(
     private clientService : ClientService,
@@ -56,7 +60,23 @@ export class ActionViewComponent implements OnInit {
     }); 
   }
 
-  reservation(id){
+  findCurrent(id){
+
+    for (var val of this.allData) {  
+      
+      if(val.id == id){ 
+        
+        this.name = val.name;
+        this.totalPrice = val.totalPrice
+        this.beforePrice = val.beforePrice
+        this.from = val.start;
+        this.to = val.end;
+        
+
+        return
+      } 
+      
+    }
     
   }
 
@@ -72,5 +92,8 @@ export class ActionViewComponent implements OnInit {
     this.showAdventures = !this.showAdventures;
   }
   
+  submit(){
+
+  }
 
 }
