@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +61,8 @@ import { ReservationViewComponent } from './components/client/reservation-view/r
 import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
+
+import { AuthguardService } from './service/authguard.service'
 
 @NgModule({
   declarations: [
@@ -133,7 +136,10 @@ import { BoatReportComponent } from './components/boat-owner/boat-report/boat-re
     ConfigService,
     AcceptRegistrationComponent,
     DialogContentExampleDialog,
-    DatePipe
+    DatePipe,
+    AuthguardService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogContentExampleDialog]

@@ -34,7 +34,12 @@ import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-
 import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
 
+import { AuthentificationGuard } from './authentification.guard'
+
 const routes: Routes = [
+
+//    canActivate:[AuthentificationGuard] OVO DODAVATI U PATH ZA SVE PUTANJE KOJIMA MOGU SVI REGISTROVANI DA PRISTUPE
+
   {
     path: '',
     component: HomeComponent,
@@ -83,6 +88,7 @@ const routes: Routes = [
   {
     path: 'boats',
     component: BoatsComponent,
+
   },
   {
     path: 'fishing',
