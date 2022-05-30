@@ -106,3 +106,9 @@
  
 
   ::ng-deep .cdk-overlay-container {     z-index:2000; }
+
+
+
+  agm-map {
+    height: 500px;
+  }

@@ -118,7 +118,7 @@ import { AuthguardService } from './service/authguard.service'
     ReactiveFormsModule, 
     NgbRatingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAIJe9K-7u1ejWxpCH_X7cIJoaiJIlmf8Y'   // za google maps
+      apiKey: 'AIzaSyCX5DQFPxHlQlEeFkkWzTJ41PU6FehGzVs'   // za google maps
   }),
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyBZDx6ISSPAxZfodnJrb5AhMD5omR9CcWg',

@@ -78,8 +78,7 @@ todayDate:Date = new Date();
       this.userImage = 'url(assets/Images/' + data.coverImage +')';
 
       console.log(this.cottage)
-      this.src = "https://maps.google.com/maps?q=" + this.cottage.address.latitude + "," + this.cottage.address.longitude +"&t=&z=13&ie=UTF8&iwloc=&output=embed"
-      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
+
     });
 
     this.imageService.findImages(this.id).subscribe((data : any) => {
