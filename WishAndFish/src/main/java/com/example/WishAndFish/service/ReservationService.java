@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.plaf.ScrollPaneUI;
 import javax.mail.MessagingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,6 +54,15 @@ public class ReservationService {
 
     @Autowired
     AppointmentRepository appointmentRepository;
+
+    @Autowired
+    CottageRepository cottageRepository;
+
+    @Autowired
+    BoatRepository boatRepository;
+
+    @Autowired
+    FishingAdventureRepository adventureRepository;
 
 
     public List<ReservationDTO> findAll() {
@@ -533,7 +544,97 @@ public class ReservationService {
 
         this.reviewRepository.save(newReview);
 
-        return true;
+        return changeRating(newReservation, newReview);
+
+    }
+
+    private boolean changeRating(Reservation r, Review review) {
+
+        Appointment a = r.getAppointment();
+
+        if(a.getCottage()!=null){
+
+            return changeCottageRating(a.getCottage(), review);
+
+        }else if(a.getBoat() != null){
+
+            return changeBoatRating(a.getBoat(), review);
+
+        }else if(a.getFishingAdventure()!=null){
+
+            return changeAdventureRating(a.getFishingAdventure(), review);
+
+        }
+
+        return false;
+
+    }
+
+    private boolean changeCottageRating(Cottage cottage, Review review) {
+
+        if(review.isForOwner()){
+
+        }else{
+            Cottage edited = cottageRepository.findById(cottage.getId()).orElseGet(null);
+            if(edited == null){
+                return false;
+            }
+
+            edited.setRating(newRating(edited.getRating(), review.getRating(), edited.getNumberOfRatings()));
+            edited.setNumberOfRatings(edited.getNumberOfRatings() + 1);
+            cottageRepository.save(edited);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean changeBoatRating(Boat boat, Review review) {
+
+        if(review.isForOwner()){
+
+        }else{
+            Boat edited = boatRepository.findById(boat.getId()).orElseGet(null);
+            if(edited == null){
+                return false;
+            }
+
+            edited.setRating(newRating(edited.getRating(), review.getRating(), edited.getNumberOfRatings()));
+            edited.setNumberOfRatings(edited.getNumberOfRatings() + 1);
+            boatRepository.save(edited);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean changeAdventureRating(FishingAdventure adventure, Review review) {
+
+        if(review.isForOwner()){
+
+        }else{
+            FishingAdventure edited = adventureRepository.findById(adventure.getId()).orElseGet(null);
+            if(edited == null){
+                return false;
+            }
+
+            edited.setRating(newRating(edited.getRating(), review.getRating(), edited.getNumberOfRatings()));
+            edited.setNumberOfRatings(edited.getNumberOfRatings() + 1);
+            adventureRepository.save(edited);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public Double newRating(Double oldRate, Integer newRate, Integer num){
+
+        Double ret = ((oldRate * num) + newRate) / (num+1);
+
+        BigDecimal bd = new BigDecimal(ret).setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
 
 

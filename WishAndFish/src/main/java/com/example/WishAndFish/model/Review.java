@@ -41,6 +41,9 @@ public class Review {
     @Column(name = "isReviewed", nullable = false)
     private boolean isReviewed;
 
+    @Column(name = "isApproved", nullable = false)
+    private boolean isApproved;
+
     public Review(String content, Integer rating, Client client, Long reservation, boolean isForOwner){
         this.content = content;
         this.rating = rating;
@@ -48,6 +51,7 @@ public class Review {
         this.reservationId = reservation;
         this.date = LocalDateTime.now();
         this.isForOwner = isForOwner;
-        this.isReviewed = false;
+        this.isReviewed = true;
+        this.isApproved = true;
     }
 }

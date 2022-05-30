@@ -39,12 +39,15 @@ public class Complaint {
     @Column(name = "isReviewed", nullable = false)
     private boolean isReviewed;
 
+    @Column(name = "isApproved", nullable = false)
+    private boolean isApproved;
+
     public Complaint(String content, Client client, Long reservation, boolean isForOwner){
         this.content = content;
         this.client = client;
         this.reservationId = reservation;
         this.date = LocalDateTime.now();
         this.isForOwner = isForOwner;
-        this.isReviewed = false;
+        this.isReviewed = true;
     }
 }
