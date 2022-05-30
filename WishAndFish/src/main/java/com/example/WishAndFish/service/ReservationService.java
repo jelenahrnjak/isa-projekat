@@ -50,6 +50,9 @@ public class ReservationService {
     @Autowired
     ComplaintRepository complaintRepository;
 
+    @Autowired
+    AppointmentRepository appointmentRepository;
+
 
     public List<ReservationDTO> findAll() {
 
@@ -613,4 +616,23 @@ public class ReservationService {
     }
 
 
+    @Transactional
+    public boolean bookAction(ActionReservationDTO dto) throws MessagingException {
+
+        Client client = clientRepository.findByEmail(dto.getClient());
+        Appointment appointment = appointmentRepository.findById(dto.getAction()).orElseGet(null);
+
+        if(client == null || client.getPenalties() >= 3 || client.isDeleted()){
+            return false;
+        }
+
+        if(appointment == null || !appointment.getIsAction() || appointment.isDeleted() || appointment.getReserved()){
+            return false;
+        }
+
+        appointment.setReserved(Boolean.TRUE);
+        appointmentRepository.save(appointment);
+
+        return addReservationToClient(client, appointment);
+    }
 }
