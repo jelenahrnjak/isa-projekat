@@ -34,38 +34,49 @@ import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-
 import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
 
+import { AuthentificationGuard } from './authentification.guard'
+import { RoleguardService as RoleGuard } from './service/roleguard.service';
+
 const routes: Routes = [
+ 
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full', 
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginComponent, 
   },
   {
     path: 'signup',
     component: SignUpComponent,
+    canActivate: [RoleGuard],  
   },
   {
     path: 'profile',
     component: UserProfileComponent,
+    canActivate:[AuthentificationGuard] //OVO DODAVATI U PATH ZA SVE PUTANJE KOJIMA MOGU SVI REGISTROVANI DA PRISTUPE
   },
   {
     path: 'changePassword',
     component: ChangePasswordComponent,
+    canActivate:[AuthentificationGuard]
   },
   {
     path: 'cottage-owner',
     component: CottageOwnerHomepageComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
   {
     path: 'accept-registration',
     component: AcceptRegistrationComponent,
   },
   {
-    path: 'cottages',
+    path: 'cottages', //svi mogu
     component: CottageComponent,
   },
   {
@@ -75,39 +86,63 @@ const routes: Routes = [
   {
     path: 'cottage-profile',
     component: CottageProfileComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
   {
     path: 'add-cottage',
     component: AddCottageComponent,
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
   {
-    path: 'boats',
+    path: 'boats',  //svi mogu
     component: BoatsComponent,
+
   },
   {
-    path: 'fishing',
+    path: 'fishing',  //svi mogu
     component: InstructorsComponent,
   },
   {
     path: 'my-boats',
     component: MyBoatsComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
   {
     path: 'add-boat',
     component: AddBoatComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
   {
     path:'client',
-    component: ClientHomeComponent,
+    component: ClientHomeComponent,    
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'   
+    }
   },
   {
     path:'cottage-details/:id',
-    component: CottageDetailsComponent,
+    component: CottageDetailsComponent, //svi mogu
   }
   ,
   {
     path:'edit-cottage-basic-info/:id',
-    component: EditCottageBasicInfoComponent,
+    component: EditCottageBasicInfoComponent,  
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
 
   {
@@ -118,59 +153,104 @@ const routes: Routes = [
   {
     path:'reservation',
     component: AppoitmentSearchComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'  
+    }
   },
 
   {
     path:'add-action/:id',
     component: AddActionComponent,
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
 
   {
     path:'subscriptions',
     component: SubscriptionsComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'  
+    }
   },
   {
     path:'boat-details/:id',
-    component: BoatDetailsComponent,
+    component: BoatDetailsComponent, //svi mogu
   },
 
   {
     path:'add-boat-action/:id',
     component: AddBoatActionComponent,
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
 
   {
     path:'show-free-appointments-boat/:id',
     component: ShowFreeAppointmentsBoatComponent,
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
 
   {
     path:'edit-boat-basic-info/:id',
     component: EditBoatBasicInfoComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
   {
     path:'cottage-reservation-history/:id',
     component: CottageReservationHistoryComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
   {
     path:'boat-reservation-history/:id',
     component: BoatReservationHistoryComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   },
   { 
     path: 'booking-history',
     component: ReservationViewComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'   
+    }
   },
   {
     path: 'upcoming-reservations',
     component: UpcomingReservationsComponent, 
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'   
+    }
   },
   {
     path:'cottage-report/:id',
     component: CottageReportComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
   {
     path:'boat-report/:id',
     component: BoatReportComponent, 
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_BOAT_OWNER'  
+    }
   }
 ];
 
