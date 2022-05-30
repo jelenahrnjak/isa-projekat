@@ -1,6 +1,7 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.CommentDTO;
+import com.example.WishAndFish.model.Client;
 import com.example.WishAndFish.model.Comment;
 import com.example.WishAndFish.model.Reservation;
 import com.example.WishAndFish.repository.ClientRepository;
@@ -22,15 +23,38 @@ public class CommentService {
 
     public Comment addCommentToClient(CommentDTO comment){
         Comment c = new Comment();
+        Client client = clientRepository.findByEmail(comment.getClient());
+
         c.setContent(comment.getContent());
         c.setCame(comment.getCame());
         c.setBadComment(comment.getBad());
-        c.setClient(clientRepository.findByEmail(comment.getClient()));
+
+        if(!comment.getCame()){
+            c.setApproved(true);
+            c.setAddPenalty(true);
+            client.setPenalties(client.getPenalties() + 1);
+            clientRepository.save(client);
+        }
+
+        //admin treba da odobri
+        if(!comment.getBad()){
+            c.setApproved(true);
+            c.setAddPenalty(false);
+        }
+        else{
+            c.setApproved(false);
+            c.setAddPenalty(true);
+        }
+
+        c.setClient(client);
         commentRepository.save(c);
 
         Reservation r = this.reservationRepository.findById(comment.getReservationID()).orElse(null);
-        r.setCommented(true);
-        reservationRepository.save(r);
+        if(r != null){
+            r.setCommented(true);
+            reservationRepository.save(r);
+        }
+
         return c;
     }
 }

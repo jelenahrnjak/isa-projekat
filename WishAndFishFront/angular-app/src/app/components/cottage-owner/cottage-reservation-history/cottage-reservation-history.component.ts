@@ -27,8 +27,8 @@ export class CottageReservationHistoryComponent implements OnInit {
     "client": "",
     "bad": false,
     "came": true,
-    "reservationID": ""
-
+    "reservationID": "",
+    "approved": true
   }
   form: FormGroup;
 
@@ -123,8 +123,9 @@ export class CottageReservationHistoryComponent implements OnInit {
 
   addComment(){
     if(!this.clientCame){
-      this.comment.content = ""
-      this.comment.bad = false
+      this.comment.content = "",
+      this.comment.bad = false,
+      this.comment.approved = false;
     }
 
     this.commentService.addComment(this.comment).subscribe(data => {
@@ -133,8 +134,8 @@ export class CottageReservationHistoryComponent implements OnInit {
         "client": "",
         "bad": false,
         "came": true,
-        "reservationID": ""
-
+        "reservationID": "",
+        "approved": true
       } 
       this.clientCame = true 
       window.location.reload() 
@@ -150,7 +151,8 @@ export class CottageReservationHistoryComponent implements OnInit {
       "client": "",
       "bad": false,
       "came": true,
-      "reservationID": ""
+      "reservationID": "",
+      "approved": true
 
     } 
     this.clientCame = true  

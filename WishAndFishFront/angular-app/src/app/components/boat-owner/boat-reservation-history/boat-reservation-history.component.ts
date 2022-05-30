@@ -26,7 +26,9 @@ export class BoatReservationHistoryComponent implements OnInit{
     "client": "",
     "bad": false,
     "came": true,
-    "reservationID": ""
+    "reservationID": "",
+    "approved": true
+
   }
   form: FormGroup;
   user = localStorage.getItem("user")
@@ -144,7 +146,8 @@ export class BoatReservationHistoryComponent implements OnInit{
   addComment(){
     if(!this.clientCame){
       this.comment.content = ""
-      this.comment.bad = false
+      this.comment.bad = false,
+      this.comment.approved = false;
     }
 
     this.commentService.addComment(this.comment).subscribe(data => {
@@ -153,7 +156,8 @@ export class BoatReservationHistoryComponent implements OnInit{
         "client": "",
         "bad": false,
         "came": true,
-        "reservationID": ""
+        "reservationID": "",
+        "approved": true
       } 
       this.clientCame = true  
       window.location.reload()
@@ -169,7 +173,9 @@ export class BoatReservationHistoryComponent implements OnInit{
       "client": "",
       "bad": false,
       "came": true,
-      "reservationID": ""
+      "reservationID": "",
+      "approved": true
+
     } 
     this.clientCame = true  
   }
