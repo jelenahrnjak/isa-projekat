@@ -25,6 +25,8 @@ public class BookingHistoryDTO {
     private String end;
     private String owner;
     private Double totalPrice;
+    private Double beforePrice;
+    private Double discount;
     private Boolean isAction;
     private String additionalServices;
     private String type;
@@ -39,20 +41,20 @@ public class BookingHistoryDTO {
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
         this.id = r.getId();
-        this.image = getImage(r);
+        this.image = getImage(r.getAppointment());
         this.start = getDateWithTime(r.getAppointment().getStartDate());
         this.end = getDateWithTime(r.getAppointment().getEndDate());
         this.totalPrice = r.getTotalPrice();
         this.isAction = r.getAppointment().getIsAction();
         this.additionalServices = getAdditionalServices(services);
-        this.type = getTypeOfProperty(r);
-        this.name = getNameOfProperty(r);
-        this.address = getAddressOfProperty(r);
+        this.type = getTypeOfProperty(r.getAppointment());
+        this.name = getNameOfProperty(r.getAppointment());
+        this.address = getAddressOfProperty(r.getAppointment());
         this.commentedOwner = r.getCommentedOwner();
         this.commentedEntity = r.getCommentedEntity();
         this.complaintOwner = r.getComplaintOwner();
         this.complaintEntity = r.getComplaintEntity();
-        this.owner = getOwnerOfProperty(r);
+        this.owner = getOwnerOfProperty(r.getAppointment());
 
         if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;
@@ -61,18 +63,40 @@ public class BookingHistoryDTO {
         }
     }
 
-    private String getOwnerOfProperty(Reservation r) {
+    public BookingHistoryDTO(Appointment r, List<AdditionalServicesDTO> services) {
 
-        if(r.getAppointment().getCottage()!=null){
-            CottageOwner owner = r.getAppointment().getCottage().getCottageOwner();
+        this.id = r.getId();
+        this.image = getImage(r);
+        this.start = getDateWithTime(r.getStartDate());
+        this.end = getDateWithTime(r.getEndDate());
+        this.totalPrice = r.getPrice();
+        this.isAction = r.getIsAction();
+        this.additionalServices = getAdditionalServices(services);
+        this.type = getTypeOfProperty(r);
+        this.name = getNameOfProperty(r);
+        this.address = getAddressOfProperty(r);
+        this.owner = getOwnerOfProperty(r);
+
+
+        if(r.getStartDate().isBefore(LocalDate.now().atTime(14,0))){
+            this.inProgress = true;
+        }else{
+            this.inProgress = false;
+        }
+    }
+
+    private String getOwnerOfProperty(Appointment a) {
+
+        if(a.getCottage()!=null){
+            CottageOwner owner = a.getCottage().getCottageOwner();
             return owner.getName() + " " + owner.getSurname();
 
-        }else if(r.getAppointment().getBoat() != null){
-            BoatOwner owner = r.getAppointment().getBoat().getBoatOwner();
+        }else if(a.getBoat() != null){
+            BoatOwner owner = a.getBoat().getBoatOwner();
             return owner.getName() + " " + owner.getSurname();
 
-        }else if(r.getAppointment().getFishingAdventure()!=null){
-            FishingInstructor owner = r.getAppointment().getFishingAdventure().getFishingInstructor();
+        }else if(a.getFishingAdventure()!=null){
+            FishingInstructor owner = a.getFishingAdventure().getFishingInstructor();
             return owner.getName() + " " + owner.getSurname();
 
         }
@@ -92,18 +116,18 @@ public class BookingHistoryDTO {
         return dateString + " at " + time;
     }
 
-    private String getImage(Reservation reservation){
-        if(reservation.getAppointment().getCottage()!=null){
+    private String getImage(Appointment a){
+        if(a.getCottage()!=null){
 
-            return reservation.getAppointment().getCottage().getCoverImage();
+            return a.getCottage().getCoverImage();
 
-        }else if(reservation.getAppointment().getBoat() != null){
+        }else if(a.getBoat() != null){
 
-            return reservation.getAppointment().getBoat().getCoverImage();
+            return a.getBoat().getCoverImage();
 
-        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+        }else if(a.getFishingAdventure()!=null){
 
-            return reservation.getAppointment().getFishingAdventure().getCoverImage();
+            return a.getFishingAdventure().getCoverImage();
 
         }
 
@@ -111,16 +135,16 @@ public class BookingHistoryDTO {
     }
 
 
-    private String getTypeOfProperty(Reservation reservation){
-        if(reservation.getAppointment().getCottage()!=null){
+    private String getTypeOfProperty(Appointment a){
+        if(a.getCottage()!=null){
 
             return "cottage";
 
-        }else if(reservation.getAppointment().getBoat() != null){
+        }else if(a.getBoat() != null){
 
             return "boat";
 
-        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+        }else if(a.getFishingAdventure()!=null){
 
             return "adventure";
 
@@ -129,36 +153,36 @@ public class BookingHistoryDTO {
         return "";
     }
 
-    private String getNameOfProperty(Reservation reservation){
-        if(reservation.getAppointment().getCottage()!=null){
+    private String getNameOfProperty(Appointment a){
+        if(a.getCottage()!=null){
 
-            return reservation.getAppointment().getCottage().getName();
+            return a.getCottage().getName();
 
-        }else if(reservation.getAppointment().getBoat() != null){
+        }else if(a.getBoat() != null){
 
-            return reservation.getAppointment().getBoat().getName();
+            return a.getBoat().getName();
 
-        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+        }else if(a.getFishingAdventure()!=null){
 
-            return reservation.getAppointment().getFishingAdventure().getName();
+            return a.getFishingAdventure().getName();
 
         }
 
         return "";
     }
 
-    private String getAddressOfProperty(Reservation reservation){
-        if(reservation.getAppointment().getCottage()!=null){
+    private String getAddressOfProperty(Appointment a){
+        if(a.getCottage()!=null){
 
-            return reservation.getAppointment().getCottage().getAddress().toString();
+            return a.getCottage().getAddress().toString();
 
-        }else if(reservation.getAppointment().getBoat() != null){
+        }else if(a.getBoat() != null){
 
-            return reservation.getAppointment().getBoat().getAddress().toString();
+            return a.getBoat().getAddress().toString();
 
-        }else if(reservation.getAppointment().getFishingAdventure()!=null){
+        }else if(a.getFishingAdventure()!=null){
 
-            return reservation.getAppointment().getFishingAdventure().getAddress().toString();
+            return a.getFishingAdventure().getAddress().toString();
 
         }
 

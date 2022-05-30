@@ -3,6 +3,7 @@ package com.example.WishAndFish.controller;
 import com.example.WishAndFish.dto.AddActionDTO;
 import com.example.WishAndFish.dto.AppointmentDTO;
 import com.example.WishAndFish.dto.AvailabilityDTO;
+import com.example.WishAndFish.dto.BookingHistoryDTO;
 import com.example.WishAndFish.model.AdditionalService;
 import com.example.WishAndFish.model.Appointment;
 import com.example.WishAndFish.service.AppointmentService;
@@ -86,6 +87,12 @@ public class AppointmentController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(added,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getActions", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public List<BookingHistoryDTO> getActions() {
+        return appointmentService.getActions();
     }
 
 }

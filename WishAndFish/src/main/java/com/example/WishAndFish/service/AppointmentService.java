@@ -5,6 +5,7 @@ import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import javax.mail.MessagingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,6 +41,9 @@ public class AppointmentService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    AdditionalServiceService additionalServiceService;
 
     @Autowired
     BoatRepository boatRepository;
@@ -508,4 +513,52 @@ public class AppointmentService {
 
         return ret;
     }
+
+    public List<BookingHistoryDTO> getActions() {
+
+        List<BookingHistoryDTO> ret = new ArrayList<>();
+
+        for (Appointment a :  appointmentRepository.findAll(Sort.by(Sort.Direction.ASC, "startDate"))) {
+
+            if (a.getIsAction() && !a.getReserved() && !a.isDeleted() && (a.getStartDate()).isAfter(LocalDateTime.now())) {
+
+                List<AdditionalServicesDTO> services = additionalServiceService.getAllByAppointment(a.getId());
+                BookingHistoryDTO action = new BookingHistoryDTO(a, services);
+                action.setBeforePrice(getBeforePriceForAction(a, services));
+                action.setDiscount((action.getBeforePrice() * 100) / action.getTotalPrice());
+                ret.add(action);
+            }
+        }
+
+        return ret;
+    }
+
+    private Double getBeforePriceForAction(Appointment a, List<AdditionalServicesDTO> services) {
+
+        Double totalPrice = 0.0;
+        Period period = Period.between(a.getStartDate().toLocalDate(), a.getEndDate().toLocalDate());
+
+        if(a.getCottage()!=null){
+
+            totalPrice += (a.getCottage().getPricePerDay() * period.getDays());
+
+        }else if(a.getBoat() != null){
+
+            totalPrice += (a.getBoat().getPricePerDay() * period.getDays());
+
+        }else if(a.getFishingAdventure()!=null){
+
+            totalPrice += (a.getFishingAdventure().getPricePerDay() * period.getDays());
+
+        }
+
+        for(AdditionalServicesDTO s : services){
+            totalPrice += Double.parseDouble(s.getPrice());
+        }
+
+
+        return totalPrice;
+
+    }
+
 }

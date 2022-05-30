@@ -214,16 +214,19 @@ export class AppoitmentSearchComponent implements OnInit {
             title: 'Oops...',
             text: 'Something went wrong. Please try again.',
           })  
+        },
+        () => {
+
+          this.selectedEntity = 0; 
+          this.form.reset() 
+          this.message = "Please select enetity and then choose criteria.";
+          this.additionalServices = [];
+          this.totalPrice = 0;
+          this.currentEntity = 0;
+          this.items = []
         }
       );
 
-      this.selectedEntity = 0; 
-      this.form.reset() 
-      this.message = "Please select enetity and then choose criteria.";
-      this.additionalServices = [];
-      this.totalPrice = 0;
-      this.currentEntity = 0;
-      this.items = []
 
     } 
 

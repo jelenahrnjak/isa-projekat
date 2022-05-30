@@ -102,4 +102,10 @@ export class AppointmentService {
     })
     return throwError(error);
   }
+
+  getActions() {
+
+    return this.apiService.get(this.config.appointment_url + `/getActions`) 
+  
+  }
 }
