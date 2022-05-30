@@ -266,32 +266,51 @@ public class AppointmentService {
             }
         }
 
-        Appointment a = new Appointment();
-        a.setIsAction(true);
-        a.setStartDate(start);
-        a.setEndDate(end);
-        a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
-        a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
-        a.setMaxPersons(dto.getMaxPersons());
-        a.setPrice(dto.getPrice());
-        appointmentRepository.save(a);
+        //ako postoji slobodan termin
+        for(Appointment free: appointmentRepository.findAll()){
+            if(free.getCottage() != null){
+                if((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getCottage().getId())){
 
-        for(Long as: dto.getAdditionalServices()){
-            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
-            add.getAppointments().add(a);
-            additionalServiceRepository.save(add);
-            //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-        }
+                    //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
+                    Appointment newApp = new Appointment(free); //treci koji se dobije
+                    newApp.setStartDate(end);
+                    newApp.setEndDate(free.getEndDate());
+                    free.setEndDate(start); //kraj prvog
+
+                    appointmentRepository.save(free);
+                    appointmentRepository.save(newApp);
 
 
-        for(Client c: clientRepository.findAll()){
-            for(Cottage cot: c.getCottageSubscriptions()){
-                if(dto.getId().equals(cot.getId())){
-                    emailService.sendEmailForNewAction(c.getEmail(), cot.getName());
+                    Appointment a = new Appointment();
+                    a.setIsAction(true);
+                    a.setStartDate(start);
+                    a.setEndDate(end);
+                    a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
+                    a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
+                    a.setMaxPersons(dto.getMaxPersons());
+                    a.setPrice(dto.getPrice());
+                    appointmentRepository.save(a);
+
+                    for(Long as: dto.getAdditionalServices()){
+                        AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+                        add.getAppointments().add(a);
+                        additionalServiceRepository.save(add);
+                        //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+                    }
+
+
+                    for(Client c: clientRepository.findAll()){
+                        for(Cottage cot: c.getCottageSubscriptions()){
+                            if(dto.getId().equals(cot.getId())){
+                                emailService.sendEmailForNewAction(c.getEmail(), cot.getName());
+                            }
+                        }
+                    }
+                    return a;
                 }
             }
         }
-        return a;
+        return null;
     }
 
 
