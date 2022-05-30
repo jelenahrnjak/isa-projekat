@@ -63,6 +63,9 @@ import { CottageReportComponent } from './components/cottage-owner/cottage-repor
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
 import { AuthguardService } from './service/authguard.service'
+import {
+  MapsAPILoader
+} from '@agm/core';
 
 @NgModule({
   declarations: [
