@@ -159,4 +159,20 @@ export class ReservationService {
       }));  
     }
 
+
+    bookAction(id : number) {
+
+      var email = localStorage.getItem('user');
+
+      const body = {
+        "client": email,
+        "action": id, 
+      }
+
+      return this.apiService.post(this.config.reservation_url + `/bookAction`, body)
+      .pipe(map((data) => {
+        console.log('Action booked successfully:');
+      }));  
+    }
+
 }

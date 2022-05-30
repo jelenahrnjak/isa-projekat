@@ -123,17 +123,17 @@ export class ReservationViewComponent implements OnInit {
           icon: 'success',
           title: 'Success!',
           text: 'Thank you for you feedback!',
-        })   
- 
-        this.resetHistory();
+        })    
       },
       error => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Something went wrong. Please try again.',
-        })  
- 
+        })   
+      },
+      () => {
+        
         this.resetHistory();
       }
     );
@@ -148,9 +148,7 @@ export class ReservationViewComponent implements OnInit {
           icon: 'success',
           title: 'Success!',
           text: 'Thank you for you feedback!',
-        })   
- 
-        this.resetHistory();
+        })    
       },
       error => {
         Swal.fire({
@@ -158,13 +156,13 @@ export class ReservationViewComponent implements OnInit {
           title: 'Oops...',
           text: 'Something went wrong. Please try again.',
         })  
- 
+  
+      },
+      () => {
+        
         this.resetHistory();
       }
     );
   }
- 
-  reservation(id){
-    
-  }
+  
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'src/app/service/client.service';
 import { AppointmentService } from 'src/app/service/appointment.service';
 import { BookingHistory } from '../../../model/booking-history.model';
+import { ReservationService } from '../../../service/reservation.service'  
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-action-view',
@@ -23,9 +25,11 @@ export class ActionViewComponent implements OnInit {
   beforePrice : number = 0;
   from : string = "";
   to : string = "";
+  currentId : number = 0;
 
   constructor(
     private clientService : ClientService,
+    private reservationService : ReservationService,
     private appointmentService : AppointmentService) { }
 
   ngOnInit() {
@@ -37,7 +41,8 @@ export class ActionViewComponent implements OnInit {
     this.resetData()
   }
 
-  resetData(){
+  resetData(){ 
+    
     this.allData = [];
     this.cottages = [];
     this.boats = [];
@@ -58,6 +63,13 @@ export class ActionViewComponent implements OnInit {
         
       }
     }); 
+
+    this.currentId = 0;
+    this.name = "";
+    this.totalPrice = 0;
+    this.beforePrice = 0;
+    this.from = "";
+    this.to = "";
   }
 
   findCurrent(id){
@@ -66,6 +78,7 @@ export class ActionViewComponent implements OnInit {
       
       if(val.id == id){ 
         
+        this.currentId = id;
         this.name = val.name;
         this.totalPrice = val.totalPrice
         this.beforePrice = val.beforePrice
@@ -94,6 +107,28 @@ export class ActionViewComponent implements OnInit {
   
   submit(){
 
+    this.reservationService.bookAction(this.currentId)
+      .subscribe(
+        result => { 
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'A confirmation email with details has been sent to your email address.',
+          })  
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong. Please try again.',
+          })  
+        },
+        () => { 
+          this.resetData()
+        }  
+      )
+      
+       
   }
 
 }
