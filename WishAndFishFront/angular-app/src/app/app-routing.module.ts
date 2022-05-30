@@ -51,7 +51,6 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignUpComponent,
-    canActivate: [RoleGuard],  
   },
   {
     path: 'profile',
@@ -148,6 +147,10 @@ const routes: Routes = [
   {
     path:'show-free-appointments/:id',
     component: ShowFreeAppointmentsComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_COTTAGE_OWNER'  
+    }
   },
 
   {
