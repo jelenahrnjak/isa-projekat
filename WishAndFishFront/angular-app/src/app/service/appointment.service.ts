@@ -88,6 +88,18 @@ export class AppointmentService {
     return this.apiService.post(this.config.appointment_url + `/addNewActionBoat`, JSON.stringify(dto), loginHeaders)
     .pipe(map(() => {
       console.log('Adding action success');
-    }));
+    }))
+    .pipe(catchError(error => this.freePeriod(error)));
+
+  }
+
+
+  private freePeriod(error: any): any {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "There is no free period in selected dates" //error.error.message,
+    })
+    return throwError(error);
   }
 }
