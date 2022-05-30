@@ -316,10 +316,11 @@ public class AppointmentService {
                 if((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getBoat().getId())){
 
                     //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
-                    free.setEndDate(start); //kraj prvog
                     Appointment newApp = new Appointment(free); //treci koji se dobije
                     newApp.setStartDate(end);
                     newApp.setEndDate(free.getEndDate());
+                    free.setEndDate(start); //kraj prvog
+
                     appointmentRepository.save(free);
                     appointmentRepository.save(newApp);
 
