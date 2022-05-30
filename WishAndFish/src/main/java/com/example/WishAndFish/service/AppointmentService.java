@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -535,18 +536,19 @@ public class AppointmentService {
     private Double getBeforePriceForAction(Appointment a, List<AdditionalServicesDTO> services) {
 
         Double totalPrice = 0.0;
+        Period period = Period.between(a.getStartDate().toLocalDate(), a.getEndDate().toLocalDate());
 
         if(a.getCottage()!=null){
 
-            totalPrice += a.getCottage().getPricePerDay();
+            totalPrice += (a.getCottage().getPricePerDay() * period.getDays());
 
         }else if(a.getBoat() != null){
 
-            totalPrice += a.getBoat().getPricePerDay();
+            totalPrice += (a.getBoat().getPricePerDay() * period.getDays());
 
         }else if(a.getFishingAdventure()!=null){
 
-            totalPrice += a.getFishingAdventure().getPricePerDay();
+            totalPrice += (a.getFishingAdventure().getPricePerDay() * period.getDays());
 
         }
 

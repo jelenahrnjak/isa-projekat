@@ -164,4 +164,7 @@ export class ReservationViewComponent implements OnInit {
     );
   }
  
+  reservation(id){
+    
+  }
 }

@@ -86,7 +86,7 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 --special action
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, true);
+	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, false);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
@@ -103,7 +103,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (138, '5', '04-30-2022 12:00', 7, 360, false, '04-10-2022 14:00', 111, false, true);
+	VALUES (138, '5', '07-30-2022 12:00', 7, 360, false, '07-10-2022 14:00', 111, false, true);
 
 --normal
 

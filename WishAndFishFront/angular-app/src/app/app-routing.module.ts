@@ -33,6 +33,7 @@ import { SubscriptionsComponent } from './components/client/subscriptions/subscr
 import { BoatDetailsComponent } from './components/boat-owner/boat-details/boat-details.component';
 import { ReservationViewComponent } from './components/client/reservation-view/reservation-view.component';
 import { UpcomingReservationsComponent } from './components/client/upcoming-reservations/upcoming-reservations.component';
+import { ActionViewComponent } from './components/client/action-view/action-view.component';
 
 import { AuthentificationGuard } from './authentification.guard'
 import { RoleguardService as RoleGuard } from './service/roleguard.service';
@@ -251,7 +252,15 @@ const routes: Routes = [
     data: { 
       expectedRole: 'ROLE_BOAT_OWNER'  
     }
-  }
+  },
+  {
+    path: 'actions',
+    component: ActionViewComponent, 
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'ROLE_CLIENT'   
+    }
+  },
 ];
 
 @NgModule({
