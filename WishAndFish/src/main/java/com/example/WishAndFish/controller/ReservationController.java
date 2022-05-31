@@ -259,4 +259,15 @@ public class ReservationController {
         return new ResponseEntity<>(true, HttpStatus.OK);
 
     }
+
+    @RequestMapping(value = "/bookAction", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public ResponseEntity<Boolean> bookAction(@RequestBody ActionReservationDTO dto) throws MessagingException {
+
+        if (!this.reservationService.bookAction(dto)) {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
+
+    }
 }

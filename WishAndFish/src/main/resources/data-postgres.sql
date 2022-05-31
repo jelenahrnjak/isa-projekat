@@ -54,14 +54,14 @@ INSERT INTO CLIENT(id, penalties)
 INSERT INTO CLIENT(id, penalties)
     VALUES(36, 0);
 
-INSERT INTO COTTAGE_OWNER(id)
-	VALUES (50);
-INSERT INTO COTTAGE_OWNER(id)
-    VALUES (95);
-INSERT INTO BOAT_OWNER(id)
-	VALUES (75);
-INSERT INTO FISHING_INSTRUCTORS(id)
-    VALUES(55);
+INSERT INTO COTTAGE_OWNER(id, number_of_ratings, rating)
+	VALUES (50, 0 , 0.0);
+INSERT INTO COTTAGE_OWNER(id, number_of_ratings, rating)
+    VALUES (95, 0 ,0.0);
+INSERT INTO BOAT_OWNER(id, number_of_ratings, rating)
+	VALUES (75, 0 ,0.0);
+INSERT INTO FISHING_INSTRUCTORS(id, number_of_ratings, rating)
+    VALUES(55, 0 ,0.0);
 
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings,cover_image,deleted, number_of_rooms, beds_per_room)
 	VALUES (110, 'Good cottage on the river', 'CotLux', 100, 400, 50,5.0,10, 'cottage1.jpg',false, 3, 2);
@@ -86,7 +86,7 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 --special action
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, true);
+	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, false);
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
@@ -103,7 +103,7 @@ INSERT INTO APPOINTMENTS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (138, '5', '04-30-2022 12:00', 7, 360, false, '04-10-2022 14:00', 111, false, true);
+	VALUES (138, '5', '07-30-2022 12:00', 7, 360, false, '07-10-2022 14:00', 111, false, true);
 
 --normal
 

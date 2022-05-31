@@ -66,6 +66,8 @@ import { AuthguardService } from './service/authguard.service'
 import {
   MapsAPILoader
 } from '@agm/core';
+import { AuthguardService } from './service/authguard.service';
+import { ActionViewComponent } from './components/client/action-view/action-view.component'; 
 
 @NgModule({
   declarations: [
@@ -109,7 +111,8 @@ import {
     ReservationViewComponent,
     UpcomingReservationsComponent,  
     CottageReportComponent,
-    BoatReportComponent,  
+    BoatReportComponent,
+    ActionViewComponent,
   ],
   imports: [
     BrowserModule,

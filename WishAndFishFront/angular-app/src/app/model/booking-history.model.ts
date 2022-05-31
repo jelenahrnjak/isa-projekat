@@ -16,6 +16,8 @@ export class BookingHistory{
         public complaintOwner : boolean,
         public complaintEntity : boolean,
         public inProgress : boolean = false,
+        public beforePrice : number,
+        public discount : number,
       ) {}
       
 }

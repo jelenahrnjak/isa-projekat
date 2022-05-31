@@ -1,0 +1,127 @@
+<div *ngIf="penalties < 3" class="bottom"> 
+
+    <h1>Cottages 
+        <button class="staticIcon" (click)="viewCottages()" mat-icon-button>
+            <mat-icon *ngIf="showCottages">expand_more</mat-icon>
+            <mat-icon *ngIf="!showCottages">expand_less</mat-icon>
+        </button>  
+    </h1>
+    <mat-divider></mat-divider>
+
+    <div class="row" *ngIf="showCottages"> 
+        <div class="card"  *ngFor="let c of cottages">
+            <img :src="assets/Images/{{c.image}}" class="card-img-top" sty alt="Missing image">
+            <ul class="list-group list-group-flush">
+                <li class = "list-group-item">
+                <strong>{{c.name}}</strong>
+                </li>
+                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price:&nbsp; </strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                    &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
+                <li class="list-group-item" style="height: 70px;">  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
+                </li> 
+            </ul> 
+        </div>
+    
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h1>Boats 
+        <button class="staticIcon" (click)="viewBoats()" mat-icon-button>
+            <mat-icon *ngIf="showBoats">expand_more</mat-icon>
+            <mat-icon *ngIf="!showBoats">expand_less</mat-icon>
+        </button>  
+    </h1>
+    <mat-divider></mat-divider>
+
+    <div class="row" *ngIf="showBoats"> 
+        <div class="card"  *ngFor="let c of boats" >
+            <img :src="assets/Images/{{c.image}}" class="card-img-top" sty alt="Missing image">
+            <ul class="list-group list-group-flush">
+                <li class = "list-group-item">
+                <strong>{{c.name}}</strong>
+                </li>
+                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                    &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>   
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
+                <li class="list-group-item" style="height: 70px;">  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
+                </li> 
+            </ul> 
+        </div>
+    
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h1>Fishing adventures 
+        <button class="staticIcon" (click)="viewAdventures()" mat-icon-button>
+            <mat-icon *ngIf="showAdventures">expand_more</mat-icon>
+            <mat-icon *ngIf="!showAdventures">expand_less</mat-icon>
+        </button>  
+    </h1>
+    <mat-divider></mat-divider>
+
+    <div class="row" *ngIf="showAdventures"> 
+        <div class="card" *ngFor="let c of adventures">
+            <img :src="assets/Images/{{c.image}}" class="card-img-top" sty alt="Missing image">
+            <ul class="list-group list-group-flush">
+                <li class = "list-group-item">
+                <strong>{{c.name}}</strong>
+                </li>
+                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 70px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
+                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                    &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>    
+                <li class="list-group-item" style="height: 70px;">  
+                    <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
+                </li> 
+            </ul>  
+        </div>
+    
+    </div>
+
+</div> 
+
+
+<!-- Modal for adding new review -->
+<div class="modal fade" id="reserve" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to book {{name}}?</h5>
+        </div> 
+ 
+        <div class="modal-body" style="margin-left: 20%;"> 
+            <label><strong>From: </strong>{{from}}</label>
+            <label><strong>To:</strong> {{to}}</label>    
+            <label><strong>Total price: </strong> <label style="color: red;"><s>{{beforePrice}}€</s></label>
+                &nbsp; -> &nbsp; <label style="color:green">  {{totalPrice}}€</label> </label>
+        </div>
+        <div class="modal-footer" >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" style="margin-right: 25%;"  class="btn btn-primary" (click)="submit()" data-dismiss="modal">Submit</button>
+        </div>
+    </div>
+    </div>
+</div>
+ 
+
+<div *ngIf="penalties >= 3" style="margin: 9.5ch; font-size: 40px; text-align: center; ">
+    <label style="color: red;">Currently, you have 3 or more penalties and your booking is disabled. 
+      <br> Penalties are cleared on the 1st of the month and reservations will be made available to you then.
+    </label>
+</div>
