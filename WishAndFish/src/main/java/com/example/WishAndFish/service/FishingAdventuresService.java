@@ -1,12 +1,10 @@
 package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.*;
-import com.example.WishAndFish.model.Appointment;
-import com.example.WishAndFish.model.Boat;
-import com.example.WishAndFish.model.Cottage;
-import com.example.WishAndFish.model.FishingAdventure;
+import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.FishingAdventureRepository;
 import com.example.WishAndFish.repository.FishingInstructorRepository;
+import com.example.WishAndFish.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,6 +21,11 @@ public class FishingAdventuresService {
 
     @Autowired
     private FishingInstructorRepository fishingInstructorRepository;
+
+
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private ClientService clientService;
@@ -133,7 +136,7 @@ public class FishingAdventuresService {
 
     }
 
-    public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO criteria){
+    public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO criteria, String email){
 
         FishingAdventureDTO adventure = new FishingAdventureDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
         AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons());
@@ -145,6 +148,10 @@ public class FishingAdventuresService {
 
         for(FishingAdventure a : adventures){
 
+            if (canceledAppointment(email, a.getId(), appointment)) {
+                continue;
+            }
+
             if(findAppointments(a.getAppointments(), appointment)){
                 ret.add(new FishingAdventureDTO(a));
             }
@@ -153,6 +160,32 @@ public class FishingAdventuresService {
 
         return ret;
     }
+
+    private boolean canceledAppointment(String email, long adventureId, AppointmentDTO criteria) {
+
+        for (Reservation r : reservationRepository.findAll()) {
+            Appointment a = r.getAppointment();
+
+            if (!r.getCanceled() || a.getFishingAdventure() == null || a.getFishingAdventure().getId() != adventureId || !r.getClient().getEmail().equals(email)) {
+                continue;
+            }
+
+            if (a.getStartDate().isAfter(criteria.getStartDate()) && a.getStartDate().isBefore(criteria.getEndDate())) {
+                return true;
+            }
+
+            if (a.getEndDate().isAfter(criteria.getStartDate()) && a.getEndDate().isBefore(criteria.getEndDate())) {
+                return true;
+            }
+
+            if (criteria.getStartDate().isEqual(a.getStartDate()) || a.getEndDate().isEqual(criteria.getEndDate())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
 

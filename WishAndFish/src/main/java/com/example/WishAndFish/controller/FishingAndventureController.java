@@ -46,10 +46,10 @@ public class FishingAndventureController {
         return this.fishingAdventuresService.searchClient(dto, email);
     }
 
-    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    @RequestMapping(value = "/searchAppointments/{email}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public List<FishingAdventureDTO> searchAppointments(AppointmentSearchDTO data){
+    public List<FishingAdventureDTO> searchAppointments(@PathVariable String email, AppointmentSearchDTO data){
 
-        return this.fishingAdventuresService.searchAppointments(data);
+        return this.fishingAdventuresService.searchAppointments(data, email);
     }
 }
