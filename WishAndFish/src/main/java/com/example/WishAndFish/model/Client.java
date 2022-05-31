@@ -30,6 +30,9 @@ public class Client extends User{
     @Column(name = "penalties", nullable = false)
     private Integer penalties;
 
+    @ManyToMany(targetEntity = Reservation.class, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Set<Reservation> cancellations;
+
 }
 
 

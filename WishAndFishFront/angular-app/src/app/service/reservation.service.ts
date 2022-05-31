@@ -174,7 +174,7 @@ export class ReservationService {
       }));  
     }
     
-    cancelRegistration(id : number) {
+    cancelReservation(id : number) {
 
       var email = localStorage.getItem('user');
 
@@ -183,7 +183,7 @@ export class ReservationService {
         "action": id, 
       }
 
-      return this.apiService.post(this.config.reservation_url + `/cancelRegistration`, body)
+      return this.apiService.post(this.config.reservation_url + `/cancelReservation`, body)
       .pipe(map((data) => {
         console.log('Registration canceled successfully:');
       }));  

@@ -520,7 +520,7 @@ public class AppointmentService {
 
         for (Appointment a :  appointmentRepository.findAll(Sort.by(Sort.Direction.ASC, "startDate"))) {
 
-            if (a.getIsAction() && !a.getReserved() && !a.isDeleted() && (a.getStartDate()).isAfter(LocalDateTime.now())) {
+            if (a.getIsAction() && !a.getReserved() && !a.isDeleted() &&  a.getExpirationDate().isAfter(LocalDateTime.now()) && (a.getStartDate()).isAfter(LocalDateTime.now())) {
 
                 List<AdditionalServicesDTO> services = additionalServiceService.getAllByAppointment(a.getId());
                 BookingHistoryDTO action = new BookingHistoryDTO(a, services);

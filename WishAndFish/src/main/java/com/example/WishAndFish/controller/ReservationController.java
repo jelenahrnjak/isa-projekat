@@ -271,11 +271,11 @@ public class ReservationController {
 
     }
 
-    @RequestMapping(value = "/cancelRegistration", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancelReservation", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public ResponseEntity<Boolean> cancelRegistration(@RequestBody ActionReservationDTO dto) throws MessagingException {
+    public ResponseEntity<Boolean> cancelReservation(@RequestBody ActionReservationDTO dto){
 
-        if (!this.reservationService.cancelRegistration(dto)) {
+        if (!this.reservationService.cancelReservation(dto)) {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(true, HttpStatus.OK);

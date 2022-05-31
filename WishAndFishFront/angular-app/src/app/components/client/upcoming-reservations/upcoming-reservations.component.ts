@@ -50,6 +50,13 @@ export class UpcomingReservationsComponent implements OnInit {
   }
 
   refreshData(){
+
+    this.cottages = [];  
+    this.boats = [];  
+    this.adventures = [];  
+    this.all = []
+  
+    
     this.reservationService.getUpcomingReservations().subscribe((data : BookingHistory[]) => {  
 
       this.all = data;
@@ -107,7 +114,7 @@ export class UpcomingReservationsComponent implements OnInit {
 
   submit(){
 
-    this.reservationService.cancelRegistration(this.currentId)
+    this.reservationService.cancelReservation(this.currentId)
     .subscribe(
       result => { 
         Swal.fire({

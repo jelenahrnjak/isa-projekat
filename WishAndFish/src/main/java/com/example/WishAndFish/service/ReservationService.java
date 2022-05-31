@@ -770,7 +770,8 @@ public class ReservationService {
         return addReservationToClient(client, appointment);
     }
 
-    public boolean cancelRegistration(ActionReservationDTO dto) {
+    @Transactional
+    public boolean cancelReservation(ActionReservationDTO dto) {
 
         Client client = clientRepository.findByEmail(dto.getClient());
         Reservation reservation = reservationRepository.findById(dto.getAction()).orElseGet(null);
@@ -779,7 +780,7 @@ public class ReservationService {
             return false;
         }
 
-        if(reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now()) || !reservation.getAppointment().getReserved()){
+        if(reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now())){// || !reservation.getAppointment().getReserved()){
             return false;
         }
 
@@ -796,7 +797,24 @@ public class ReservationService {
     }
 
     private boolean cancelAction(Client client, Reservation reservation) {
-        
+
+        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
+
+        if(appointment == null){
+            return false;
+        }
+
+        appointment.setReserved(Boolean.FALSE);
+        appointmentRepository.save(appointment);
+
+        reservation.setCanceled(true);
+        reservation.getAppointment().setReserved(Boolean.FALSE);
+        reservation.setAppointment(appointment);
+        reservationRepository.save(reservation);
+
+        client.getCancellations().add(reservation);
+        clientRepository.save(client);
+
         return true;
     }
 }
