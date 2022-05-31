@@ -46,7 +46,7 @@ export class CottageService {
   
   searchAppointments(data) {
 
-    return this.apiService.get(this.config.cottage_url + `/searchAppointments` , data )
+    return this.apiService.get(this.config.cottage_url + `/searchAppointments/` + localStorage.getItem('user') , data )
     .pipe(map(cottages => {   
       return cottages;
     }));

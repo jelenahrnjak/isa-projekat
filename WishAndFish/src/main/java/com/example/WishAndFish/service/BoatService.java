@@ -2,10 +2,7 @@ package com.example.WishAndFish.service;
 
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
-import com.example.WishAndFish.repository.BoatOwnerRepository;
-import com.example.WishAndFish.repository.BoatRepository;
-import com.example.WishAndFish.repository.ClientRepository;
-import com.example.WishAndFish.repository.UserRepository;
+import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -33,6 +30,10 @@ public class BoatService {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
 
     public List<BoatDTO> findAll() {
 
@@ -105,8 +106,8 @@ public class BoatService {
         return search.isEmpty() || boat.toLowerCase().contains(search.toLowerCase());
     }
 
-    private boolean checkPrice(Double cottage, Double search){
-        return cottage <= search || cottage <= 0 || search == 0;
+    private boolean checkPrice(Double boat, Double search){
+        return boat <= search || boat <= 0 || search == 0;
     }
 
     private boolean checkRating(Double boat, Double search){
@@ -242,7 +243,7 @@ public class BoatService {
         return null;
     }
 
-    public List<BoatDTO> searchAppointments(AppointmentSearchDTO criteria){
+    public List<BoatDTO> searchAppointments(AppointmentSearchDTO criteria, String email){
 
         BoatDTO boat = new BoatDTO(criteria.getName(), criteria.getAddress(), criteria.getRating(), criteria.getPrice());
         AppointmentDTO appointment = new AppointmentDTO(criteria.getStartDate(), criteria.getEndDate(), criteria.getMaxPersons()); 
@@ -253,6 +254,11 @@ public class BoatService {
 
         for(Boat b : boats){
 
+            if (canceledAppointment(email, b.getId(), appointment)) {
+                continue;
+            }
+
+
             if(findAppointments(b.getAppointments(), appointment)){
                 ret.add(new BoatDTO(b));
             }
@@ -261,6 +267,33 @@ public class BoatService {
 
         return ret;
     }
+
+
+    private boolean canceledAppointment(String email, long boatId, AppointmentDTO criteria) {
+
+        for (Reservation r : reservationRepository.findAll()) {
+            Appointment a = r.getAppointment();
+
+            if (!r.getCanceled() || a.getBoat() == null || a.getBoat().getId() != boatId || !r.getClient().getEmail().equals(email)) {
+                continue;
+            }
+
+            if (a.getStartDate().isAfter(criteria.getStartDate()) && a.getStartDate().isBefore(criteria.getEndDate())) {
+                return true;
+            }
+
+            if (a.getEndDate().isAfter(criteria.getStartDate()) && a.getEndDate().isBefore(criteria.getEndDate())) {
+                return true;
+            }
+
+            if (criteria.getStartDate().isEqual(a.getStartDate()) || a.getEndDate().isEqual(criteria.getEndDate())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     private boolean findAppointments(Set<Appointment> appointments, AppointmentDTO criteria) {
 

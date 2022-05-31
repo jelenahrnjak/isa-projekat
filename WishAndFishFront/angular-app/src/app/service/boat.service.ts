@@ -45,7 +45,7 @@ export class BoatService {
 
   searchAppointments(data) {
 
-    return this.apiService.get(this.config.boat_url + `/searchAppointments` , data )
+    return this.apiService.get(this.config.boat_url + `/searchAppointments/` + localStorage.getItem('user') , data )
     .pipe(map(boats => {   
       return boats;
     }));

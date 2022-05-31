@@ -82,10 +82,10 @@ public class BoatController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   
-    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    @RequestMapping(value = "/searchAppointments/{email}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){
-        return this.boatService.searchAppointments(data);
+    public List<BoatDTO> searchAppointments(@PathVariable String email ,AppointmentSearchDTO data){
+        return this.boatService.searchAppointments(data, email);
     }
 
 }

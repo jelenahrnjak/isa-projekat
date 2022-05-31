@@ -75,11 +75,11 @@ public class CottageController {
         return this.cottageService.editBasicInfo(editedCottage);
     }
 
-    @RequestMapping(value = "/searchAppointments", method = RequestMethod.GET)
+    @RequestMapping(value = "/searchAppointments/{email}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
+    public List<CottageDTO> searchAppointments(@PathVariable String email, AppointmentSearchDTO data){
 
-        return this.cottageService.searchAppointments(data);
+        return this.cottageService.searchAppointments(data, email);
     }
 }
 
