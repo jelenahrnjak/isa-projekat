@@ -157,8 +157,7 @@ export class ReservationService {
       .pipe(map((data) => {
         console.log('Adding review success:');
       }));  
-    }
-
+    } 
 
     bookAction(id : number) {
 
@@ -174,5 +173,19 @@ export class ReservationService {
         console.log('Action booked successfully:');
       }));  
     }
+    
+    cancelRegistration(id : number) {
 
+      var email = localStorage.getItem('user');
+
+      const body = {
+        "client": email,
+        "action": id, 
+      }
+
+      return this.apiService.post(this.config.reservation_url + `/cancelRegistration`, body)
+      .pipe(map((data) => {
+        console.log('Registration canceled successfully:');
+      }));  
+    }
 }

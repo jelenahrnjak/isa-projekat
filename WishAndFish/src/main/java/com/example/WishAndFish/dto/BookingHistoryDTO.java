@@ -37,6 +37,7 @@ public class BookingHistoryDTO {
     public Boolean complaintOwner;
     public Boolean complaintEntity;
     public Boolean inProgress;
+    public Boolean soon;
 
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
@@ -55,12 +56,17 @@ public class BookingHistoryDTO {
         this.complaintOwner = r.getComplaintOwner();
         this.complaintEntity = r.getComplaintEntity();
         this.owner = getOwnerOfProperty(r.getAppointment());
-
+        this.soon = false;
         if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;
         }else{
             this.inProgress = false;
+
+            if(r.getAppointment().getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+                this.soon = true;
+            }
         }
+
     }
 
     public BookingHistoryDTO(Appointment r, List<AdditionalServicesDTO> services) {
@@ -76,12 +82,16 @@ public class BookingHistoryDTO {
         this.name = getNameOfProperty(r);
         this.address = getAddressOfProperty(r);
         this.owner = getOwnerOfProperty(r);
-
+        this.soon = false;
 
         if(r.getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;
         }else{
             this.inProgress = false;
+
+            if(r.getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+                this.soon = true;
+            }
         }
     }
 

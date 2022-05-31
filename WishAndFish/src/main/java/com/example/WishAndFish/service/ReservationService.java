@@ -769,4 +769,34 @@ public class ReservationService {
 
         return addReservationToClient(client, appointment);
     }
+
+    public boolean cancelRegistration(ActionReservationDTO dto) {
+
+        Client client = clientRepository.findByEmail(dto.getClient());
+        Reservation reservation = reservationRepository.findById(dto.getAction()).orElseGet(null);
+
+        if(client == null || reservation == null || reservation.getCanceled()){
+            return false;
+        }
+
+        if(reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now()) || !reservation.getAppointment().getReserved()){
+            return false;
+        }
+
+        if(reservation.getAppointment().getIsAction()){
+            return cancelAction(client, reservation);
+        }
+
+        
+        return cancelNormalRegistration(client,reservation);
+    }
+
+    private boolean cancelNormalRegistration(Client client, Reservation reservation) {
+        return true;
+    }
+
+    private boolean cancelAction(Client client, Reservation reservation) {
+        
+        return true;
+    }
 }

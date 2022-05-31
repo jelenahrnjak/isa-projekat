@@ -270,4 +270,15 @@ public class ReservationController {
         return new ResponseEntity<>(true, HttpStatus.OK);
 
     }
+
+    @RequestMapping(value = "/cancelRegistration", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
+    public ResponseEntity<Boolean> cancelRegistration(@RequestBody ActionReservationDTO dto) throws MessagingException {
+
+        if (!this.reservationService.cancelRegistration(dto)) {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
+
+    }
 }
