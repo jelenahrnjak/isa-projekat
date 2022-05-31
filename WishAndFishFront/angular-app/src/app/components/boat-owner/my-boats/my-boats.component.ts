@@ -43,7 +43,6 @@ export class MyBoatsComponent implements OnInit {
     this.form = this.formBuilder.group({  
       name: [''],
       address: [''], 
-      description: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
     })  
 
@@ -60,7 +59,7 @@ export class MyBoatsComponent implements OnInit {
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
     //this.searchDTO.price = this.form.get('price').value
-    this.searchDTO.description = this.form.get('description').value 
+    //this.searchDTO.description = this.form.get('description').value 
     this.boatService.search(this.searchDTO).subscribe((data : any) => { 
       this.boats = data; 
     }); 
