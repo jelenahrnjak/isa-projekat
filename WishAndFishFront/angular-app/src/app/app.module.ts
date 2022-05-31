@@ -62,7 +62,6 @@ import { UpcomingReservationsComponent } from './components/client/upcoming-rese
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
-import { AuthguardService } from './service/authguard.service'
 import {
   MapsAPILoader
 } from '@agm/core';

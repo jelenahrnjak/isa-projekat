@@ -262,13 +262,17 @@ reserve(){
         })  
         this.startDate = "",
         this.endDate = "",
-        setTimeout(() => {window.location.reload()}, 2000); 
-
+        //setTimeout(() => {window.location.reload()}, 2000); 
+        this.refreshPage()
       }
     );
   }
   
 } 
+
+refreshPage(){
+  setTimeout(() => {window.location.reload()}, 2000); 
+}
 
 calculatePrice($event){
 

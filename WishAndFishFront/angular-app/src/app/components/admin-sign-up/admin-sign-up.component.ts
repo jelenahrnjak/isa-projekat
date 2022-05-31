@@ -85,7 +85,8 @@ export class AdminSignUpComponent implements OnInit {
     console.log(this.form.value[0]);
     var User = { 
       "id" : 232,
-      "password" : "admin",
+      //"password" : "admin",
+      "password" : "",
       "email" : this.form.get('email').value,
       "name" : this.form.get('name').value,
       "surname" : this.form.get('surname').value,
