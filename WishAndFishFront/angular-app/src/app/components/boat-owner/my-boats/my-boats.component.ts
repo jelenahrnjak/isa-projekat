@@ -1,3 +1,4 @@
+import { AppointmentService } from 'src/app/service/appointment.service';
 import { BoatOwnerService } from './../../../service/boat-owner.service';
 import { BoatService } from 'src/app/service/boat.service';
 import { Component, OnInit } from '@angular/core';
@@ -36,7 +37,8 @@ export class MyBoatsComponent implements OnInit {
     private route: ActivatedRoute,
     private boatService: BoatService,
     private boatOwnerService: BoatOwnerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appointmentService: AppointmentService
     ) { }
 
   ngOnInit() {
@@ -87,7 +89,10 @@ export class MyBoatsComponent implements OnInit {
     }
 
   details(id){
+    //window.location.reload()
+
     this.router.navigate(['boat-details/' + id])
+
   }
 
 }

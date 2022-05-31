@@ -95,4 +95,11 @@ public class AppointmentController {
         return appointmentService.getActions();
     }
 
+
+    @RequestMapping(value = "/checkExpiredActionsBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public boolean checkExpiredActionsBoat(@PathVariable Long id) {
+        return appointmentService.checkExpiredActionsBoat(id);
+    }
+
 }

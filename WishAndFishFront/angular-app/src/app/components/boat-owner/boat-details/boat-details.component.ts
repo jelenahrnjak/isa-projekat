@@ -121,6 +121,8 @@ export class BoatDetailsComponent implements OnInit {
 
     });
 
+ 
+
   }
 
 

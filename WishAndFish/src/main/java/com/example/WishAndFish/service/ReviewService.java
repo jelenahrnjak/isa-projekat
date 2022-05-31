@@ -26,11 +26,14 @@ public class ReviewService {
         for(Review r: reviewRepository.findAll()){
             if(r.isApproved() && !r.isForOwner()){
                 Reservation reservation = reservationRepository.findById(r.getReservationId()).orElseGet(null);
-                if(reservation.getAppointment().getCottage() != null){
-                    if(id.equals(reservation.getAppointment().getCottage().getId())){
-                        ret.add(new ReviewDTO(r));
+                if(reservation != null){
+                    if(reservation.getAppointment().getCottage() != null){
+                        if(id.equals(reservation.getAppointment().getCottage().getId())){
+                            ret.add(new ReviewDTO(r));
+                        }
                     }
                 }
+
             }
 
         }
@@ -44,11 +47,14 @@ public class ReviewService {
         for(Review r: reviewRepository.findAll()){
             if(r.isApproved() && !r.isForOwner()){
                 Reservation reservation = reservationRepository.findById(r.getReservationId()).orElseGet(null);
-                if(reservation.getAppointment().getBoat() != null){
-                    if(id.equals(reservation.getAppointment().getBoat().getId())){
-                        ret.add(new ReviewDTO(r));
+                if(reservation != null){
+                    if(reservation.getAppointment().getBoat() != null){
+                        if(id.equals(reservation.getAppointment().getBoat().getId())){
+                            ret.add(new ReviewDTO(r));
+                        }
                     }
                 }
+
             }
 
         }

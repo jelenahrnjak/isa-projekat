@@ -76,7 +76,7 @@ export class AppointmentService {
     .pipe(map(() => {
       console.log('Adding action success');
     }))
-    .pipe(catchError(error => this.checkError(error)));
+    .pipe(catchError(error => this.freePeriod(error)));
 
   }
 
@@ -107,5 +107,9 @@ export class AppointmentService {
 
     return this.apiService.get(this.config.appointment_url + `/getActions`) 
   
+  }
+
+  checkExpiredActionsBoat(id) {
+    return this.apiService.get(this.config.appointment_url + `/checkExpiredActionsBoat/${id}`, id)
   }
 }

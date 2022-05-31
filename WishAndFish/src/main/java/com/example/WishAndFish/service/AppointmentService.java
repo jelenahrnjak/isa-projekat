@@ -55,7 +55,7 @@ public class AppointmentService {
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getCottage() != null){
-                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
                     ret.add(new AppointmentDTO(as));
                 }
             }
@@ -68,7 +68,15 @@ public class AppointmentService {
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getBoat() != null){
                 if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted()){
-                    ret.add(new AppointmentDTO(as));
+                    if(!as.getIsAction()){
+                        ret.add(new AppointmentDTO(as));
+                    }
+                    else{
+                        if(as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
+                            System.out.println("akcija");
+                            ret.add(new AppointmentDTO(as));
+                        }
+                    }
                 }
             }
         }
@@ -559,6 +567,89 @@ public class AppointmentService {
 
         return totalPrice;
 
+    }
+
+
+    public boolean checkExpiredActionsBoat(Long id){
+        List<Appointment> expiredActions = findExpiredAction();
+        System.out.println("istekle:" + expiredActions.size());
+
+        for(Appointment a: expiredActions){
+           if(mergeAppointmetsBoat(a,id)){
+               return true;
+           }
+        }
+
+        return false;
+    }
+
+
+    private List<Appointment> findExpiredAction(){
+        List<Appointment> ret = new ArrayList<>();
+        for(Appointment a: appointmentRepository.findAll()){
+            if(a.getIsAction() && a.getExpirationDate() !=null && a.getExpirationDate().isBefore(LocalDateTime.now())){
+                ret.add(a);
+            }
+        }
+
+        return  ret;
+    }
+
+    private boolean mergeAppointmetsBoat(Appointment action, Long idBoat){
+
+        LocalDateTime start = action.getStartDate();
+        LocalDateTime end = action.getEndDate();
+        boolean saved = false;
+
+        Appointment newApp = new Appointment();
+        newApp.setReserved(false);
+        newApp.setIsAction(false);
+        newApp.setDeleted(false);
+        newApp.setStartDate(start);
+        newApp.setEndDate(end);
+        newApp.setDuration(Duration.between(start, end));
+        newApp.setBoat(boatRepository.findById(idBoat).orElseGet(null));
+        newApp.setPrice(boatRepository.findById(idBoat).orElseGet(null).getPricePerDay());
+        newApp.setMaxPersons(boatRepository.findById(idBoat).orElseGet(null).getCapacity());
+
+        appointmentRepository.delete(action);
+
+        //spoji slobodne
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return true;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return true;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return true;
+        }
+        if(!saved){
+            appointmentRepository.save(newApp);
+        }
+
+        return true;
     }
 
 }

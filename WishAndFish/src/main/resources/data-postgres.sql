@@ -84,40 +84,40 @@ INSERT INTO ROOMS(id, bed_number, cottage_id)
 
 
 --special action
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (133, '5', '05-30-2021 12:00', 7, 145, false, '05-05-2021 14:00', 111, false, true);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (134, '5', '04-30-2022 12:00', 7, 350, false, '04-15-2022 14:00', 111, false, true);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (137, '5', '04-12-2022 12:00', 7, 220, false, '04-10-2022 14:00', 111, false, true);
-
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (138, '5', '07-30-2022 12:00', 7, 360, false, '07-10-2022 14:00', 111, false, true);
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (135, '2', '12-02-2022 12:00', 7, 135, true, '10-02-2022 14:00', 111, false, false);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (133, '5', '05-30-2021 12:00', 7, 145, false, '05-05-2021 14:00', 111, false, true);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (134, '5', '04-30-2022 12:00', 7, 350, false, '04-15-2022 14:00', 111, false, true);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (137, '5', '04-12-2022 12:00', 7, 220, false, '04-10-2022 14:00', 111, false, true);
+--
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (138, '5', '07-30-2022 12:00', 7, 360, false, '07-10-2022 14:00', 111, false, true);
 
 --normal
 
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (139, '5', '10-05-2022 12:00', 7, 0, false, '05-10-2022 14:00', 112, false, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (140, '5', '01-05-2022 12:00', 7, 10, false, '01-02-2022 14:00', 111, false, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (141, '5', '10-05-2022 12:00', 7, 180, false, '05-10-2022 14:00', 111, false, false);
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (139, '5', '10-05-2022 12:00', 7, 0, false, '05-10-2022 14:00', 112, false, false);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (140, '5', '01-05-2022 12:00', 7, 10, false, '01-02-2022 14:00', 111, false, false);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (141, '5', '10-05-2022 12:00', 7, 180, false, '05-10-2022 14:00', 111, false, false);
 
 INSERT INTO BOATS(
 	id, average_grade, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_day, type, address_id, boat_owner_id, rating, number_of_ratings, deleted, cancellation_conditions)
@@ -127,34 +127,34 @@ INSERT INTO BOATS(
 
 	VALUES (125, 4.7, 10, 'boat2.jpg', 'Good', 3, 70, 10, 120, 'FishBo', 21, 'Fishing boat', 303, 75, 5.0 , 31, false, '10% of the reservation price');
 
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (1232, '5', '10-05-2022 12:00', 7, 140, false, '06-10-2022 14:00', 111, false, true);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1236, '5', '05-30-2022 12:00', 7, 130, false, '05-10-2022 14:00', 125, false, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1233, '5', '10-05-2022 12:00', 7, 150, false, '05-10-2022 14:00', 123, false, false);
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (999, '5', '02-02-2022 12:00', 7, 120, false, '01-01-2022 14:00', 111, false, false);
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (9999, '5', '02-03-2021 12:00', 7, 110, false, '01-02-2021 14:00', 123, false, false);
-
-
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (113, '2', '05-05-2022 12:00', 7, 135, false, '05-01-2022 14:00', 110, false, false);
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (233, '2', '05-15-2022 12:00', 7, 135, false, '05-10-2022 14:00', 110, false, false);
-
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (1232, '5', '10-05-2022 12:00', 7, 140, false, '06-10-2022 14:00', 111, false, true);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+--	VALUES (1236, '5', '05-30-2022 12:00', 7, 130, false, '05-10-2022 14:00', 125, false, false);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+--	VALUES (1233, '5', '10-05-2022 12:00', 7, 150, false, '05-10-2022 14:00', 123, false, false);
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (999, '5', '02-02-2022 12:00', 7, 120, false, '01-01-2022 14:00', 111, false, false);
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+--	VALUES (9999, '5', '02-03-2021 12:00', 7, 110, false, '01-02-2021 14:00', 123, false, false);
+--
+--
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (113, '2', '05-05-2022 12:00', 7, 135, false, '05-01-2022 14:00', 110, false, false);
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+--	VALUES (233, '2', '05-15-2022 12:00', 7, 135, false, '05-10-2022 14:00', 110, false, false);
+--
 
 
 
@@ -184,16 +184,16 @@ INSERT INTO public.rules(id, content, boat_id, deleted)
 --    VALUES (904, 'Fruit', 2, false, 137, 111, null);
 --INSERT INTO public.additional_services(id, name, price, deleted, appointment_id, cottage_id, boat_id)
 --    VALUES (905, 'Swimming', 2, false, null, null, 125);
-INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
-    VALUES (906, 'Coctel', 2, false, null, 125);
-INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
-    VALUES (907, 'Free fruit', 2, false, null, 125);
-INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (906, 1232);
-INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (907, 1232);
-INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (907, 133);
+--INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
+--    VALUES (906, 'Coctel', 2, false, null, 125);
+--INSERT INTO public.additional_services(id, name, price, deleted,cottage_id, boat_id)
+--    VALUES (907, 'Free fruit', 2, false, null, 125);
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (906, 1232);
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (907, 1232);
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (907, 133);
 
 INSERT INTO  fishing_adventures(id, cover_image, description, deleted, name, number_of_ratings, price_per_day, rating, address_id, fishing_instructor_id, capacity)
 	VALUES (100, 'adventure1.jpg', 'Have fun with your friends!', false, 'Sharks hunting', 120, 20, 4.3, 400, 55, 10);
@@ -241,55 +241,68 @@ INSERT INTO public.fishing_equipment(
 	id, name, boat_id, deleted)
 	VALUES (101, 'Udica', 125, false );
 
+--
+--INSERT INTO APPOINTMENTS(
+--	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+--	VALUES (1111, '5', '10-03-2021 12:00', 7, 750, true, '09-29-2021 14:00', 125, false, false);
+--
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (1113, false, 1111, 35, true , false, 750, false, false, false, false);
+--
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (906, 1111);
+--
+--INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
+--	VALUES (907, 1111);
 
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (1111, '5', '10-03-2021 12:00', 7, 750, true, '09-29-2021 14:00', 125, false, false);
-
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (1113, false, 1111, 35, true , false, 750, false, false, false, false);
-
-INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (906, 1111);
-
-INSERT INTO public.appointment_additional_services(additional_service_id, appointment_id)
-	VALUES (907, 1111);
-
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (1111, false, 133, 35, false , false, 500, false, false, false, false);
-
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (2222, false, 140, 35, false, false, 250,  false, false, false, false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (1111, false, 133, 35, false , false, 500, false, false, false, false);
+--
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (2222, false, 140, 35, false, false, 250,  false, false, false, false);
 
 --INSERT INTO public.reservations(
 --	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
 --	VALUES (3333, false, 139, 35, false , false, 400, false, false);
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (4444, false, 1233, 35, false , false, 300,  false, false, false, false);
-INSERT INTO public.reservations( 
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (5, false, 1232, 35, false , false, 150,  false, false, false, false);
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (55, false, 999, 35, false , false, 100,  false, false, false, false);
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
-	VALUES (555, false, 9999, 36, false , false, 100, false,false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (4444, false, 1233, 35, false , false, 300,  false, false, false, false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (5, false, 1232, 35, false , false, 150,  false, false, false, false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+--	VALUES (55, false, 999, 35, false , false, 100,  false, false, false, false);
+--INSERT INTO public.reservations(
+--	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity)
+--	VALUES (555, false, 9999, 36, false , false, 100, false,false);
 
 INSERT INTO public.comments(id, content, client_id) VALUES (111, 'Kasnio je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Neuredan je', 35);
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je', 35);
 
 
+--
+--INSERT INTO public.reviews(
+--	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
+--	VALUES (10, 'Super je bilo', '04-30-2022 12:00' , true, false, true, 4, 1111, 35);
+--
+--INSERT INTO public.reviews(
+--	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
+--	VALUES (12, 'Vlasnik je ocajan', '04-30-2022 12:00' , true, false, true, 4, 555, 35);
+--
 
-INSERT INTO public.reviews(
-	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
-	VALUES (10, 'Super je bilo', '04-30-2022 12:00' , true, false, true, 4, 1111, 35);
 
-INSERT INTO public.reviews(
-	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
-	VALUES (12, 'Vlasnik je ocajan', '04-30-2022 12:00' , true, false, true, 4, 555, 35);
+
+INSERT INTO public.appointments(
+	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
+	VALUES (12, false, null, '10-10-2022 12:00', '05-10-2022 12:00', true, 3, 33, false, '10-05-2022 14:00', 123, null, null);
+INSERT INTO public.appointments(
+	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
+	VALUES (13, false, null, '06-05-2022 12:00', null, false, 3, 33, false, '06-01-2022 14:00', 123, null, null);
+INSERT INTO public.appointments(
+	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
+	VALUES (14, false, null, '06-15-2022 12:00', null, false, 3, 33, false, '06-10-2022 14:00', 123, null, null);
