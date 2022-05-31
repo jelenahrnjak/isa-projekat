@@ -10,6 +10,8 @@ import com.example.WishAndFish.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+
 @Service
 public class CommentService {
     @Autowired
@@ -21,7 +23,10 @@ public class CommentService {
     @Autowired
     ReservationRepository reservationRepository;
 
-    public Comment addCommentToClient(CommentDTO comment){
+    @Autowired
+    EmailService emailService;
+
+    public Comment addCommentToClient(CommentDTO comment) throws MessagingException {
         Comment c = new Comment();
         Client client = clientRepository.findByEmail(comment.getClient());
 
@@ -48,6 +53,8 @@ public class CommentService {
 
         c.setClient(client);
         commentRepository.save(c);
+
+        emailService.sendCommentToClient(c);
 
         Reservation r = this.reservationRepository.findById(comment.getReservationID()).orElse(null);
         if(r != null){

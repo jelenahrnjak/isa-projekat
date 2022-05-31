@@ -3,6 +3,7 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.AdditionalServicesDTO;
 import com.example.WishAndFish.dto.DeclinedRegistrationDTO;
 import com.example.WishAndFish.model.AdditionalService;
+import com.example.WishAndFish.model.Comment;
 import com.example.WishAndFish.model.Reservation;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.repository.UserRepository;
@@ -188,5 +189,38 @@ public class EmailService {
         }
 
         return "";
+    }
+
+    public void sendCommentToClient(Comment comment) throws MessagingException{
+
+        User user = userRepository.findByEmail(comment.getClient().getEmail());
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mail);
+        helper.setTo(user.getEmail());
+        helper.setFrom(env.getProperty("spring.mail.username"));
+        helper.setSubject("You got new comment");
+        String client = user.getName() + " " + user.getSurname();
+
+        String text = "";
+
+        if(comment.getBadComment()){
+            text = "Someone has requested your sanction.<br>";
+        }
+
+        if (comment.getContent() != null && !comment.getContent().isEmpty() && comment.getContent().trim() != "" && comment.getCame()) {
+
+            if (!comment.getBadComment()){
+                text += "Someone commented you.<br>";
+            }
+
+            text += "Here is comment: <br><br><strong>" + comment.getContent() + "</strong>";
+        }
+
+        if (!comment.getCame()){
+            text += "You got bad review because you did not show up at agreed time.";
+        }
+
+        helper.setText("Hello " + client + "!<br>"+ text, true);
+        javaMailSender.send(mail);
     }
 }
