@@ -29,10 +29,10 @@ public class Cottage {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @Column(name = "numberOfRatings")
+    @Column(name = "numberOfRatings", nullable = false)
     private int numberOfRatings;
 
-    @Column(name="rating")
+    @Column(name="rating", nullable = false)
     private double rating;
 
     @Column(name="coverImage")

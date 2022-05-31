@@ -79,10 +79,12 @@ public class Boat {
     @JoinColumn(name = "boat_owner_id")
     private BoatOwner boatOwner;
 
-    @Column(name = "numberOfRatings")
+    @Column(name = "numberOfRatings", nullable = false)
     private int numberOfRatings;
-    @Column(name="rating")
+
+    @Column(name="rating", nullable = false)
     private double rating;
+
     @Column(name = "deleted", unique = false, nullable = false)
     private boolean deleted;
 

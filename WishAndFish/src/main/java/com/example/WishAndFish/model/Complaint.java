@@ -49,5 +49,6 @@ public class Complaint {
         this.date = LocalDateTime.now();
         this.isForOwner = isForOwner;
         this.isReviewed = true;
+        this.isApproved = true;
     }
 }
