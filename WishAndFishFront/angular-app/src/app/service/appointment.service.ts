@@ -105,7 +105,8 @@ export class AppointmentService {
 
   getActions() {
 
-    return this.apiService.get(this.config.appointment_url + `/getActions`) 
+    var email = localStorage.getItem('user');
+    return this.apiService.get(this.config.appointment_url + `/getActions/` + email) 
   
   }
 }

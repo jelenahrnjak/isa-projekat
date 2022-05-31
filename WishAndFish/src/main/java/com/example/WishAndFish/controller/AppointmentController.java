@@ -89,10 +89,10 @@ public class AppointmentController {
         return new ResponseEntity<>(added,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getActions", method = RequestMethod.GET)
+    @RequestMapping(value = "/getActions/{email}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
-    public List<BookingHistoryDTO> getActions() {
-        return appointmentService.getActions();
+    public List<BookingHistoryDTO> getActions(@PathVariable String email) {
+        return appointmentService.getActions(email);
     }
 
 }

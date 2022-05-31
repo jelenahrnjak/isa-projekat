@@ -514,15 +514,15 @@ public class AppointmentService {
         return ret;
     }
 
-    public List<BookingHistoryDTO> getActions() {
+    public List<BookingHistoryDTO> getActions(String email) {
 
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
         for (Appointment a :  appointmentRepository.findAll(Sort.by(Sort.Direction.ASC, "startDate"))) {
 
-//            if(haveBeenCanceled(a)){
-//
-//            }
+            if(haveBeenCanceled(email, a.getId())){
+                continue;
+            }
 
             if (a.getIsAction() && !a.getReserved() && !a.isDeleted() &&  a.getExpirationDate().isAfter(LocalDateTime.now()) && (a.getStartDate()).isAfter(LocalDateTime.now())) {
 
@@ -535,6 +535,21 @@ public class AppointmentService {
         }
 
         return ret;
+    }
+
+    private boolean haveBeenCanceled(String email, Long id) {
+
+        Client client = clientRepository.findByEmail(email);
+
+        for(Reservation r : client.getCancellations()){
+
+            if(r.getAppointment().getId() == id){
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
     private Double getBeforePriceForAction(Appointment a, List<AdditionalServicesDTO> services) {
