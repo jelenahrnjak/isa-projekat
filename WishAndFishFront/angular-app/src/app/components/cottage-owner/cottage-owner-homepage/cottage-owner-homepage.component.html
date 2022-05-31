@@ -1,7 +1,36 @@
-<h1>{{ title }}</h1>
-
-<!-- this creates a google map on the page with the given lat/lng from -->
-<!-- the component as the initial center of the map: -->
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-</agm-map>
+<!-- Testimonials section-->
+<section class="py-5 border-bottom">
+  <div class="container px-5 my-5 px-5">
+      <div class="text-center mb-5">
+          <h2 class="fw-bolder">Customer reviews</h2> 
+      </div>
+      <div class="row gx-5 justify-content-center">
+          <div class="col-lg-6">
+              <!-- Testimonial 1-->
+              <div class="card mb-4">
+                  <div class="card-body p-4">
+                      <div class="d-flex">
+                          <div class="flex-shrink-0"><em class="bi bi-chat-right-quote-fill text-primary fs-1"></em></div>
+                          <div class="ms-4">
+                              <p class="mb-1">Thank you for making our dream vacation possible! We loved our trip! Jelena, Dušan and Kristina are the best fishing instructors!</p>
+                              <div class="small text-muted">- Pera Perić, Trešnjevac, Serbia</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- Testimonial 2-->
+              <div class="card">
+                  <div class="card-body p-4">
+                      <div class="d-flex">
+                          <div class="flex-shrink-0"><em class="bi bi-chat-right-quote-fill text-primary fs-1"></em></div>
+                          <div class="ms-4">
+                              <p class="mb-1">The whole fishing instructors team was a huge help with learning new things. We will be hiring them again in the near future for additional help!</p>
+                              <div class="small text-muted">- Justin Bieber, Ontario, Canada</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

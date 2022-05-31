@@ -289,3 +289,7 @@ INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je'
 INSERT INTO public.reviews(
 	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
 	VALUES (10, 'Super je bilo', '04-30-2022 12:00' , true, false, true, 4, 1111, 35);
+
+INSERT INTO public.reviews(
+	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
+	VALUES (12, 'Vlasnika je ocajan', '04-30-2022 12:00' , false, false, true, 4, 1111, 35);

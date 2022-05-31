@@ -24,12 +24,15 @@ public class ReviewService {
         List<ReviewDTO> ret = new ArrayList<>();
 
         for(Review r: reviewRepository.findAll()){
-            Reservation reservation = reservationRepository.findById(r.getReservationId()).orElseGet(null);
-            if(reservation.getAppointment().getCottage() != null){
-                if(id.equals(reservation.getAppointment().getCottage().getId())){
-                    ret.add(new ReviewDTO(r));
+            if(r.isApproved() && !r.isForOwner()){
+                Reservation reservation = reservationRepository.findById(r.getReservationId()).orElseGet(null);
+                if(reservation.getAppointment().getCottage() != null){
+                    if(id.equals(reservation.getAppointment().getCottage().getId())){
+                        ret.add(new ReviewDTO(r));
+                    }
                 }
             }
+
         }
 
         return ret;

@@ -52,6 +52,7 @@ export class CottageDetailsComponent implements OnInit {
   rules: any;
   images: any;
   appointments: any;
+  comments: any;
   src
   //today's date
 todayDate:Date = new Date();
@@ -104,6 +105,12 @@ todayDate:Date = new Date();
         this.cottage.isSubscribed = data; 
       })
     }
+
+    this.cottageService.getAllCommentsCottage(this.id).subscribe((data) => {
+      this.comments = data;
+      console.log(this.comments)
+
+    });
   }
 
   
