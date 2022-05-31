@@ -29,7 +29,7 @@ export class CottageProfileComponent implements OnInit {
     "name" : "",
     "address" : "",
     "rating" : "",
-    "description" : ""
+    //"description" : ""
   }
   constructor(private userService: UserService,
     private configService: ConfigService,
@@ -44,7 +44,7 @@ export class CottageProfileComponent implements OnInit {
     this.form = this.formBuilder.group({  
       name: [''],
       address: [''], 
-      description: [''],  
+      //description: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
     })
     
@@ -65,7 +65,7 @@ export class CottageProfileComponent implements OnInit {
     this.searchDTO.name = this.form.get('name').value
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
-    this.searchDTO.description = this.form.get('description').value 
+    //this.searchDTO.description = this.form.get('description').value 
     this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
       this.cottages = data; 
     }); 
