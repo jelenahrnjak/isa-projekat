@@ -292,4 +292,4 @@ INSERT INTO public.reviews(
 
 INSERT INTO public.reviews(
 	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
-	VALUES (12, 'Vlasnika je ocajan', '04-30-2022 12:00' , false, false, true, 4, 1111, 35);
+	VALUES (12, 'Vlasnik je ocajan', '04-30-2022 12:00' , true, false, true, 4, 555, 35);

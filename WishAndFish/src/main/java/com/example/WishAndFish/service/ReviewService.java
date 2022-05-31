@@ -37,4 +37,22 @@ public class ReviewService {
 
         return ret;
     }
+
+    public List<ReviewDTO> getAllCommentsBoat(Long id){
+        List<ReviewDTO> ret = new ArrayList<>();
+
+        for(Review r: reviewRepository.findAll()){
+            if(r.isApproved() && !r.isForOwner()){
+                Reservation reservation = reservationRepository.findById(r.getReservationId()).orElseGet(null);
+                if(reservation.getAppointment().getBoat() != null){
+                    if(id.equals(reservation.getAppointment().getBoat().getId())){
+                        ret.add(new ReviewDTO(r));
+                    }
+                }
+            }
+
+        }
+
+        return ret;
+    }
 }
