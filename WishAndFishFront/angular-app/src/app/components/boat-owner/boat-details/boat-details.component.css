@@ -109,6 +109,11 @@
   }
 
 
+  agm-map {
+    height: 500px;
+  }
+
+
   .buttons-wrapper {
     position: relative;
   }

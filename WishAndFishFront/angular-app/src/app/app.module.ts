@@ -62,6 +62,10 @@ import { UpcomingReservationsComponent } from './components/client/upcoming-rese
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 
+import { AuthguardService } from './service/authguard.service'
+import {
+  MapsAPILoader
+} from '@agm/core';
 import { AuthguardService } from './service/authguard.service';
 import { ActionViewComponent } from './components/client/action-view/action-view.component'; 
 
@@ -120,7 +124,7 @@ import { ActionViewComponent } from './components/client/action-view/action-view
     ReactiveFormsModule, 
     NgbRatingModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAIJe9K-7u1ejWxpCH_X7cIJoaiJIlmf8Y'   // za google maps
+      apiKey: 'AIzaSyCX5DQFPxHlQlEeFkkWzTJ41PU6FehGzVs'   // za google maps
   }),
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyBZDx6ISSPAxZfodnJrb5AhMD5omR9CcWg',

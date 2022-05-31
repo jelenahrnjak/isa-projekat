@@ -18,15 +18,15 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "street", unique = false, nullable = false)
+    @Column(name = "street", unique = false, nullable = true)
     private String street;
-    @Column(name = "streetNumber", unique = false, nullable = false)
+    @Column(name = "streetNumber", unique = false, nullable = true)
     private String streetNumber;
-    @Column(name = "postalCode", unique = false, nullable = false)
+    @Column(name = "postalCode", unique = false, nullable = true)
     private String postalCode;
-    @Column(unique = false, nullable = false)
+    @Column(unique = false, nullable = true)
     private String cityName;
-    @Column(unique = false, nullable = false)
+    @Column(unique = false, nullable = true)
     private String countryName;
     @Column(name = "longitude", unique = false, nullable = true)
     private double longitude;

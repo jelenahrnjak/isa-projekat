@@ -650,5 +650,7 @@
     margin-bottom: 15px; }
     
     
-    
+    agm-map {
+      height: 300px;
+    }
   

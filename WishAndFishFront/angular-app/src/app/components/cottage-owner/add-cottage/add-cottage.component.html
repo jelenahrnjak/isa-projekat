@@ -22,6 +22,15 @@
         </div>
 
         <div class="form-group" class="center">
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+          </agm-map>
+        </div>
+
+        <div class="form-group" class="center">
+         <label>Address: {{address}}</label>
+        </div>
+        <!-- <div class="form-group" class="center">
           <input type="text" class="form-control" formControlName="street" placeholder="Street">
         </div>
       <div class="form-group" class="center">
@@ -44,7 +53,7 @@
 
       <div class="form-group" class="center">
         <input type="text" class="form-control" formControlName="countryName" placeholder="Country Name">
-      </div>
+      </div> -->
 
       <div class="form-group" class="center">
         <label style="font-size: 13px;">Cover image:</label>

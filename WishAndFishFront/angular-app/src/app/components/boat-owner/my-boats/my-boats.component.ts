@@ -6,6 +6,7 @@ import { AuthService, UserService } from '../../../service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -78,7 +79,11 @@ export class MyBoatsComponent implements OnInit {
       window.location.reload();
     },
       error => {
-        window.alert('The boat is reserved!');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'The boat is reserved!',
+        })
       });
     }
 
