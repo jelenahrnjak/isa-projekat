@@ -493,7 +493,7 @@ public class ReservationService {
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
         for (Reservation r : sortedHistory()) {
-            if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -518,7 +518,7 @@ public class ReservationService {
 
         for (Reservation r : sortedReservations()) {
             System.out.println(r.getAppointment().getStartDate());
-            if (r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -770,7 +770,7 @@ public class ReservationService {
         return addReservationToClient(client, appointment);
     }
 
-    @Transactional
+//    @Transactional
     public boolean cancelReservation(ActionReservationDTO dto) {
 
         Client client = clientRepository.findByEmail(dto.getClient());
@@ -788,11 +788,30 @@ public class ReservationService {
             return cancelAction(client, reservation);
         }
 
-        
+
         return cancelNormalRegistration(client,reservation);
     }
 
     private boolean cancelNormalRegistration(Client client, Reservation reservation) {
+
+        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
+
+        if(appointment == null){
+            return false;
+        }
+
+        Long id = reservation.getId();
+
+        appointmentService.cancelNormalReservation(appointment);
+
+        Reservation editedReservation = reservationRepository.findById(id).orElseGet(null);
+        if(editedReservation == null){
+            return false;
+        }
+
+        editedReservation.setCanceled(true);
+        reservationRepository.save(editedReservation);
+
         return true;
     }
 
@@ -809,7 +828,6 @@ public class ReservationService {
 
         reservation.setCanceled(true);
         reservation.getAppointment().setReserved(Boolean.FALSE);
-        reservation.setAppointment(appointment);
         reservationRepository.save(reservation);
 
         client.getCancellations().add(reservation);
