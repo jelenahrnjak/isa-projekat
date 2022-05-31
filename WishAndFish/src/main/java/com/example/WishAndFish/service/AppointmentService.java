@@ -520,6 +520,10 @@ public class AppointmentService {
 
         for (Appointment a :  appointmentRepository.findAll(Sort.by(Sort.Direction.ASC, "startDate"))) {
 
+//            if(haveBeenCanceled(a)){
+//
+//            }
+
             if (a.getIsAction() && !a.getReserved() && !a.isDeleted() &&  a.getExpirationDate().isAfter(LocalDateTime.now()) && (a.getStartDate()).isAfter(LocalDateTime.now())) {
 
                 List<AdditionalServicesDTO> services = additionalServiceService.getAllByAppointment(a.getId());

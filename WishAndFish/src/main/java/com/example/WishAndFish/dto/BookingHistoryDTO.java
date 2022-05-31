@@ -62,7 +62,11 @@ public class BookingHistoryDTO {
         }else{
             this.inProgress = false;
 
-            if(r.getAppointment().getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+            if(!r.getAppointment().getIsAction() && r.getAppointment().getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+                this.soon = true;
+            }
+
+            if(r.getAppointment().getIsAction() && r.getAppointment().getExpirationDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
                 this.soon = true;
             }
         }
@@ -89,7 +93,11 @@ public class BookingHistoryDTO {
         }else{
             this.inProgress = false;
 
-            if(r.getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+            if(!r.getIsAction() && r.getStartDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
+                this.soon = true;
+            }
+
+            if(r.getIsAction() && r.getExpirationDate().isBefore((LocalDate.now().plusDays(3)).atTime(14,0))){
                 this.soon = true;
             }
         }

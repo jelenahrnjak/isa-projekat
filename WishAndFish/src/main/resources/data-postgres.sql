@@ -129,7 +129,7 @@ INSERT INTO BOATS(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action, expiration_date)
-	VALUES (1232, '5', '10-05-2022 12:00', 7, 140, true, '06-10-2022 14:00', 111, false, true,'06-06-2022 14:00');
+	VALUES (1232, '5', '10-05-2022 12:00', 7, 140, true, '06-10-2022 14:00', 111, false, true,'06-04-2022 14:00');
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
