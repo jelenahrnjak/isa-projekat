@@ -61,6 +61,8 @@ export class BoatDetailsComponent implements OnInit {
   startTime: any;
   endTime: any;
   src
+  comments: any
+
   constructor(private route: ActivatedRoute,
     private boatService: BoatService,
     private sanitizer : DomSanitizer,
@@ -112,6 +114,12 @@ export class BoatDetailsComponent implements OnInit {
         this.boat.isSubscribed = data; 
       })
     }
+
+    this.boatService.getAllCommentsBoat(this.id).subscribe((data) => {
+      this.comments = data;
+      console.log(this.comments)
+
+    });
 
   }
 

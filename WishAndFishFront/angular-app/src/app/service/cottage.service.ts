@@ -81,6 +81,11 @@ export class CottageService {
     }));
   }
 
- 
+  getAllCommentsCottage(id) {
+    return this.apiService.get(this.config.cottage_url + `/getAllComments/${id}`, id)
+      .pipe(map(comments => { 
+        return comments;
+      }));
+  } 
  
 }

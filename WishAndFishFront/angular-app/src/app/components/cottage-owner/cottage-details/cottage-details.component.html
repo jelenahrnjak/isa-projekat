@@ -201,7 +201,33 @@
 </div>
 </div>
 
+<div class="container row" style="margin-left: 215px;">
+    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Reviews</h1>
+    <hr class="mt-2 mb-5">
+    
+<!-- Testimonials section-->
+<section>
+    <div class="containe">
+        <div class="row gx-5 ">
+                <!-- Testimonial 1-->
+                <div class="card mb-4" *ngFor="let c of comments">
+                    <div class="card-body p-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0"><em class="bi bi-chat-right-quote-fill text-primary fs-1"></em></div>
+                            <div class="ms-4">
+                                <p class="mb-1">{{c.content}}</p>
+                                <div class="small text-muted">- {{c.client.name}} {{c.client.surname}}, {{c.client.address.cityName}}, {{c.client.address.countryName}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2-->
+                
+        </div>
+    </div>
+  </section>
 
+</div>
 
 
 

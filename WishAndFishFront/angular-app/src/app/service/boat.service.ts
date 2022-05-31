@@ -81,4 +81,13 @@ export class BoatService {
       console.log('Editing boat success');
     }));
   }
+
+
+  
+  getAllCommentsBoat(id) {
+    return this.apiService.get(this.config.boat_url + `/getAllCommentsBoat/${id}`, id)
+      .pipe(map(comments => { 
+        return comments;
+      }));
+  } 
 }

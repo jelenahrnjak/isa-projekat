@@ -2,8 +2,10 @@ package com.example.WishAndFish.controller;
 
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.Cottage;
+import com.example.WishAndFish.model.Review;
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.CottageService;
+import com.example.WishAndFish.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class CottageController {
 
     @Autowired
     private CottageService cottageService;
+
+    @Autowired
+    private ReviewService reviewService;
+
 
     @Autowired
     TokenUtils tokenUtils;
@@ -80,6 +86,12 @@ public class CottageController {
     public List<CottageDTO> searchAppointments(AppointmentSearchDTO data){
 
         return this.cottageService.searchAppointments(data);
+    }
+
+    @RequestMapping(value = "/getAllComments/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public List<ReviewDTO> getAllCommentsCottage(@PathVariable Long id){
+        return this.reviewService.getAllCommentsCottage(id);
     }
 }
 

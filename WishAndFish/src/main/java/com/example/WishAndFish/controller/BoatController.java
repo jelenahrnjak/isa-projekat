@@ -5,6 +5,7 @@ import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage; 
 import com.example.WishAndFish.security.util.TokenUtils;
 import com.example.WishAndFish.service.BoatService;
+import com.example.WishAndFish.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class BoatController {
 
     @Autowired
     private TokenUtils tokenUtils;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<BoatDTO> getAll() {
@@ -86,6 +90,13 @@ public class BoatController {
     @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     public List<BoatDTO> searchAppointments(AppointmentSearchDTO data){
         return this.boatService.searchAppointments(data);
+    }
+
+
+    @RequestMapping(value = "/getAllCommentsBoat/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    public List<ReviewDTO> getAllCommentsBoat(@PathVariable Long id){
+        return this.reviewService.getAllCommentsBoat(id);
     }
 
 }
