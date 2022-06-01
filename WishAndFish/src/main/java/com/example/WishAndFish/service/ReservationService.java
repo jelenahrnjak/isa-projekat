@@ -73,6 +73,9 @@ public class ReservationService {
     @Autowired
     FishingInstructorRepository instructorRepository;
 
+    @Autowired
+    AdditionalServiceRepository additionalServiceRepository;
+
 
     public List<ReservationDTO> findAll() {
 
@@ -823,16 +826,34 @@ public class ReservationService {
             return false;
         }
 
-        appointment.setReserved(Boolean.FALSE);
-        appointmentRepository.save(appointment);
-
         reservation.setCanceled(true);
-        reservation.getAppointment().setReserved(Boolean.FALSE);
         reservationRepository.save(reservation);
 
-        client.getCancellations().add(reservation);
-        clientRepository.save(client);
+        Appointment newAppointment = new Appointment(appointment);
+        newAppointment.setReserved(false);
+        appointmentRepository.save(newAppointment);
+
+        for (AdditionalService service : additionalServiceRepository.findAll()) {
+
+            if(service.getAppointments() == null){
+                continue;
+            }
+            addAdditionalService(newAppointment, service, appointment.getId());
+
+        }
+
 
         return true;
+    }
+
+    private void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment){
+
+        for(Appointment a : service.getAppointments()){
+            if(a.getId() == oldAppointment){
+                service.getAppointments().add(newAppointment);
+                additionalServiceRepository.save(service);
+                return;
+            }
+        }
     }
 }

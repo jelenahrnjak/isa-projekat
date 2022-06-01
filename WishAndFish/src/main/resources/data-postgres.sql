@@ -200,7 +200,7 @@ INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (100, '5', '06-30-2022 12:00', 7, 0, false, '06-01-2022 14:00', 110, false, false);
+	VALUES (100, '5', '06-30-2022 12:00', 7, 0, false, '05-31-2022 14:00', 110, false, false);
 
 
 --booked normal
@@ -216,7 +216,7 @@ INSERT INTO public.reservations(
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (201, '5', '06-01-2022 12:00', 7, 200, true, '05-30-2022 14:00', 110, false, false);
+	VALUES (201, '5', '05-31-2022 12:00', 7, 200, true, '05-30-2022 14:00', 110, false, false);
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
 	VALUES (101, false, 201, 35, false , false, 200, true, true, false, false);
