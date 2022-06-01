@@ -38,6 +38,7 @@ public class BookingHistoryDTO {
     public Boolean complaintEntity;
     public Boolean inProgress;
     public Boolean soon;
+    public Boolean canceled;
 
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
@@ -57,6 +58,7 @@ public class BookingHistoryDTO {
         this.complaintEntity = r.getComplaintEntity();
         this.owner = getOwnerOfProperty(r.getAppointment());
         this.soon = false;
+        this.canceled = r.getCanceled();
         if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;
         }else{

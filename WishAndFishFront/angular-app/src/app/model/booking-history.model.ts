@@ -19,6 +19,8 @@ export class BookingHistory{
         public beforePrice : number,
         public discount : number,
         public soon : boolean,
+        public canceled : boolean,
+        public cancelation : string
       ) {}
       
 }
