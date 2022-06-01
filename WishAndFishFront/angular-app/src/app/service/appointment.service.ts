@@ -76,7 +76,7 @@ export class AppointmentService {
     .pipe(map(() => {
       console.log('Adding action success');
     }))
-    .pipe(catchError(error => this.checkError(error)));
+    .pipe(catchError(error => this.freePeriod(error)));
 
   }
 
@@ -108,5 +108,13 @@ export class AppointmentService {
     var email = localStorage.getItem('user');
     return this.apiService.get(this.config.appointment_url + `/getActions/` + email) 
   
+  }
+
+  checkExpiredActionsBoat(id) {
+    return this.apiService.get(this.config.appointment_url + `/checkExpiredActionsBoat/${id}`, id)
+  }
+
+  checkExpiredActionsCottage(id) {
+    return this.apiService.get(this.config.appointment_url + `/checkExpiredActionsCottage/${id}`, id)
   }
 }

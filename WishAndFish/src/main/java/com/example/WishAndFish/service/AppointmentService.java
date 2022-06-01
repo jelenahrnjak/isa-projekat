@@ -53,10 +53,18 @@ public class AppointmentService {
 
     public List<AppointmentDTO> getAllByCottage(Long id) {
         List<AppointmentDTO> ret = new ArrayList<>();
-        for (Appointment as : appointmentRepository.findAll()) {
-            if (as.getCottage() != null) {
-                if (id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()) {
-                    ret.add(new AppointmentDTO(as));
+        for(Appointment as: appointmentRepository.findAll()){
+            if(as.getCottage() != null){
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
+                    if(!as.getIsAction()){
+                        ret.add(new AppointmentDTO(as));
+                    }
+                    else{
+                        if(as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
+                            System.out.println("akcija");
+                            ret.add(new AppointmentDTO(as));
+                        }
+                    }
                 }
             }
         }
@@ -65,10 +73,18 @@ public class AppointmentService {
 
     public List<AppointmentDTO> getAllByBoat(Long id) {
         List<AppointmentDTO> ret = new ArrayList<>();
-        for (Appointment as : appointmentRepository.findAll()) {
-            if (as.getBoat() != null) {
-                if (id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted()) {
-                    ret.add(new AppointmentDTO(as));
+        for(Appointment as: appointmentRepository.findAll()){
+            if(as.getBoat() != null){
+                if(id.equals(as.getBoat().getId()) && !as.getReserved() && !as.isDeleted()){
+                    if(!as.getIsAction()){
+                        ret.add(new AppointmentDTO(as));
+                    }
+                    else{
+                        if(as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
+                            System.out.println("akcija");
+                            ret.add(new AppointmentDTO(as));
+                        }
+                    }
                 }
             }
         }
@@ -118,15 +134,16 @@ public class AppointmentService {
         Appointment sameStart = null;
         Appointment sameEnd = null;
 
-        for (Appointment a : appointmentRepository.findAll()) {
-            if (!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)) {
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start) && a.getCottage() != null && dto.getId().equals(a.getCottage().getId())){
                 sameStart = a;
             }
 
-            if (!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))) {
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))  && a.getCottage() != null && dto.getId().equals(a.getCottage().getId())){
                 sameEnd = a;
             }
         }
+
 
 
         if (sameEnd == null && sameStart != null) {
@@ -143,6 +160,9 @@ public class AppointmentService {
             appointmentRepository.delete(sameEnd);
             return sameStart;
         }
+
+        System.out.println("dodajem novi");
+
         Appointment a = new Appointment();
         a.setDeleted(false);
         a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
@@ -166,11 +186,12 @@ public class AppointmentService {
         LocalDateTime start = findDate(dto.getStartDate());
 
         //ako postoji rezervacija u tom periodu
-        for (Reservation r : reservationRepository.findAll()) {
-            if (r.getAppointment().getBoat() != null) {
-                if (dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))) {
+      for(Reservation r: reservationRepository.findAll()){
+            if(r.getAppointment().getBoat() != null){
+                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) &&  start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
                     return null;
-                } else if (r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)) {
+                }
+                else if(r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)){
                     return null;
                 }
             }
@@ -191,15 +212,16 @@ public class AppointmentService {
         Appointment sameStart = null;
         Appointment sameEnd = null;
 
-        for (Appointment a : appointmentRepository.findAll()) {
-            if (!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)) {
+       for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)  && a.getBoat() != null && dto.getId().equals(a.getBoat().getId())){
                 sameStart = a;
             }
 
-            if (!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))) {
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2)) && a.getBoat() != null && dto.getId().equals(a.getBoat().getId())){
                 sameEnd = a;
             }
         }
+
 
 
         if (sameEnd == null && sameStart != null) {
@@ -570,6 +592,163 @@ public class AppointmentService {
         return totalPrice;
 
     }
+
+
+    public boolean checkExpiredActionsBoat(Long id){
+        List<Appointment> expiredActions = findExpiredAction();
+        System.out.println("istekle:" + expiredActions.size());
+
+        for(Appointment a: expiredActions){
+           if(mergeAppointmetsBoat(a,id)){
+               return true;
+           }
+        }
+
+        return false;
+    }
+
+
+    public boolean checkExpiredActionsCottage(Long id){
+        List<Appointment> expiredActions = findExpiredAction();
+        System.out.println("istekle:" + expiredActions.size());
+
+        for(Appointment a: expiredActions){
+            if(mergeAppointmetsCottage(a,id)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    private List<Appointment> findExpiredAction(){
+        List<Appointment> ret = new ArrayList<>();
+        for(Appointment a: appointmentRepository.findAll()){
+            if(a.getIsAction() && a.getExpirationDate() !=null && a.getExpirationDate().isBefore(LocalDateTime.now())){
+                ret.add(a);
+            }
+        }
+
+        return  ret;
+    }
+
+    private boolean mergeAppointmetsBoat(Appointment action, Long idBoat){
+
+        LocalDateTime start = action.getStartDate();
+        LocalDateTime end = action.getEndDate();
+        boolean saved = false;
+
+        Appointment newApp = new Appointment();
+        newApp.setReserved(false);
+        newApp.setIsAction(false);
+        newApp.setDeleted(false);
+        newApp.setStartDate(start);
+        newApp.setEndDate(end);
+        newApp.setDuration(Duration.between(start, end));
+        newApp.setBoat(boatRepository.findById(idBoat).orElseGet(null));
+        newApp.setPrice(boatRepository.findById(idBoat).orElseGet(null).getPricePerDay());
+        newApp.setMaxPersons(boatRepository.findById(idBoat).orElseGet(null).getCapacity());
+
+        appointmentRepository.delete(action);
+
+        //spoji slobodne
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return true;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return true;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return true;
+        }
+        if(!saved){
+            appointmentRepository.save(newApp);
+        }
+
+        return true;
+    }
+
+
+
+    private boolean mergeAppointmetsCottage(Appointment action, Long idCottage){
+
+        LocalDateTime start = action.getStartDate();
+        LocalDateTime end = action.getEndDate();
+        boolean saved = false;
+
+        Appointment newApp = new Appointment();
+        newApp.setReserved(false);
+        newApp.setIsAction(false);
+        newApp.setDeleted(false);
+        newApp.setStartDate(start);
+        newApp.setEndDate(end);
+        newApp.setDuration(Duration.between(start, end));
+        newApp.setCottage(cottageRepository.findById(idCottage).orElseGet(null));
+        newApp.setPrice(cottageRepository.findById(idCottage).orElseGet(null).getPricePerDay());
+        newApp.setMaxPersons(cottageRepository.findById(idCottage).orElseGet(null).getNumberOfRooms() * cottageRepository.findById(idCottage).orElseGet(null).getBedsPerRoom());
+
+        appointmentRepository.delete(action);
+
+        //spoji slobodne
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return true;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return true;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return true;
+        }
+        if(!saved){
+            appointmentRepository.save(newApp);
+        }
+
+        return true;
+    }
+
 
     public void cancelNormalReservation(Appointment canceled) {
 
