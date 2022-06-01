@@ -3,7 +3,6 @@ package com.example.WishAndFish.service;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -533,7 +532,7 @@ public class AppointmentService {
 
         for (Appointment a : appointmentRepository.findAll(Sort.by(Sort.Direction.ASC, "startDate"))) {
 
-            if (isActionCanceledByClient(email, a.getId())) {
+            if (isActionCanceledByClient(email, a)){
                 continue;
             }
 
@@ -550,16 +549,38 @@ public class AppointmentService {
         return ret;
     }
 
-    private boolean isActionCanceledByClient(String email, Long id) {
+    private boolean isActionCanceledByClient(String email, Appointment appointment) {
 
-        Client client = clientRepository.findByEmail(email);
+        for (Reservation r : reservationRepository.findAll()) {
+            Appointment a = r.getAppointment();
 
-        for (Reservation r : client.getCancellations()) {
+            if (!r.getCanceled() || !r.getClient().getEmail().equals(email)) {
+                continue;
+            }
 
-            if (r.getAppointment().getId() == id) {
+            if(a.getCottage() != null && appointment.getCottage() != null && a.getCottage().getId() != appointment.getCottage().getId()){
+                continue;
+            }
+
+            if(a.getBoat() != null && appointment.getBoat() != null && a.getBoat().getId() != appointment.getBoat().getId()){
+                continue;
+            }
+
+            if(a.getFishingAdventure() != null && appointment.getFishingAdventure() != null && a.getFishingAdventure().getId() != appointment.getFishingAdventure().getId()){
+                continue;
+            }
+
+            if (a.getStartDate().isAfter(appointment.getStartDate()) && a.getStartDate().isBefore(appointment.getEndDate())) {
                 return true;
             }
 
+            if (a.getEndDate().isAfter(appointment.getStartDate()) && a.getEndDate().isBefore(appointment.getEndDate())) {
+                return true;
+            }
+
+            if (appointment.getStartDate().isEqual(a.getStartDate()) || a.getEndDate().isEqual(appointment.getEndDate())) {
+                return true;
+            }
         }
 
         return false;

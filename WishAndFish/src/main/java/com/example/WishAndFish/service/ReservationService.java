@@ -73,6 +73,9 @@ public class ReservationService {
     @Autowired
     FishingInstructorRepository instructorRepository;
 
+    @Autowired
+    AdditionalServiceRepository additionalServiceRepository;
+
 
     public List<ReservationDTO> findAll() {
 
@@ -493,7 +496,7 @@ public class ReservationService {
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
         for (Reservation r : sortedHistory()) {
-            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate()).isBefore(LocalDateTime.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -518,7 +521,7 @@ public class ReservationService {
 
         for (Reservation r : sortedReservations()) {
             System.out.println(r.getAppointment().getStartDate());
-            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate()).isAfter(LocalDateTime.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -823,16 +826,34 @@ public class ReservationService {
             return false;
         }
 
-        appointment.setReserved(Boolean.FALSE);
-        appointmentRepository.save(appointment);
-
         reservation.setCanceled(true);
-        reservation.getAppointment().setReserved(Boolean.FALSE);
         reservationRepository.save(reservation);
 
-        client.getCancellations().add(reservation);
-        clientRepository.save(client);
+        Appointment newAppointment = new Appointment(appointment);
+        newAppointment.setReserved(false);
+        appointmentRepository.save(newAppointment);
+
+        for (AdditionalService service : additionalServiceRepository.findAll()) {
+
+            if(service.getAppointments() == null){
+                continue;
+            }
+            addAdditionalService(newAppointment, service, appointment.getId());
+
+        }
+
 
         return true;
+    }
+
+    private void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment){
+
+        for(Appointment a : service.getAppointments()){
+            if(a.getId() == oldAppointment){
+                service.getAppointments().add(newAppointment);
+                additionalServiceRepository.save(service);
+                return;
+            }
+        }
     }
 }

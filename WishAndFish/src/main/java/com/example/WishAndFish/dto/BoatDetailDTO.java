@@ -28,7 +28,6 @@ public class BoatDetailDTO {
     private AddressDTO address;
     private String description;
     private Integer capacity;
-    private Double averageGrade;
     private List<ImageDTO> images = new ArrayList<>();
     private List<RuleDTO> rules = new ArrayList<>();
     private Double pricePerDay;
@@ -51,7 +50,6 @@ public class BoatDetailDTO {
         this.maxSpeed = b.getMaxSpeed();
         this.description = b.getDescription();
         this.capacity = b.getCapacity();
-        this.averageGrade = b.getAverageGrade();
         this.pricePerDay = b.getPricePerDay();
         this.coverImage = b.getCoverImage();
         this.numberOfRatings = b.getNumberOfRatings();

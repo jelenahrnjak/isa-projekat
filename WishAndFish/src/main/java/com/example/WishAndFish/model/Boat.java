@@ -45,9 +45,6 @@ public class Boat {
     @Column(name = "capacity", unique = false, nullable = false)
     private Integer capacity;
 
-    @Column(name = "average_grade", unique = false, nullable = true)
-    private Double averageGrade;
-
     @Column(name = "cancellation_conditions", unique = false, nullable = false)
     private String cancellationConditions;
 
@@ -94,7 +91,7 @@ public class Boat {
         this.numberOfRatings = 0;
     }
 
-    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Double averageGrade, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerDay, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
+    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerDay, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String cancellationConditions, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -105,7 +102,6 @@ public class Boat {
         this.address = address;
         this.description = description;
         this.capacity = capacity;
-        this.averageGrade = averageGrade;
         this.images = images;
         this.appointments = appointments;
         this.rules = rules;
@@ -131,7 +127,6 @@ public class Boat {
         this.address = address;
         this.description = description;
         this.capacity = capacity;
-        this.averageGrade = 0.0;
         this.images = null;
         this.appointments = null;
         this.rules = null;
