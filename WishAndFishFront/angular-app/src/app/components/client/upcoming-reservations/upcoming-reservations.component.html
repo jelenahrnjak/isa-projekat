@@ -24,7 +24,8 @@
                 <li class="list-group-item" > 
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
                     <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
-                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                    <label style="height: 35px;" *ngIf="c.canceled" class="list-group-item"><strong>CANCELED</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon && !c.canceled" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
                 </li>  
             </ul> 
         </div>
@@ -54,11 +55,12 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li class="list-group-item" >
+                <li class="list-group-item" > 
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
                     <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
-                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
-                </li>  
+                    <label style="height: 35px;" *ngIf="c.canceled" class="list-group-item"><strong>CANCELED</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon && !c.canceled" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                </li> 
             </ul> 
         </div>
     
@@ -90,8 +92,9 @@
                 <li class="list-group-item" > 
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
                     <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
-                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
-                </li>  
+                    <label style="height: 35px;" *ngIf="c.canceled" class="list-group-item"><strong>CANCELED</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon && !c.canceled" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                </li> 
             </ul>  
         </div>
     
@@ -104,13 +107,13 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to book {{name}}?</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to cancel reservation for {{name}}?</h5>
         </div> 
  
         <div class="modal-body" style="margin-left: 20%;"> 
-            <label><strong>From: </strong>{{from}}</label>
-            <label><strong>To:</strong> {{to}}</label>    
-            <label><strong>Total price: </strong> {{totalPrice}}€</label>
+            <label><strong>From: </strong>{{from}}</label><br>
+            <label><strong>To:</strong> {{to}}</label><br>   
+            <label><strong>Total price: </strong> {{totalPrice}}€</label> 
         </div>
         <div class="modal-footer" >
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

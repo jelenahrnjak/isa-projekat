@@ -38,7 +38,7 @@ export class UpcomingReservationsComponent implements OnInit {
   name : string = "";
   totalPrice : number = 0; 
   from : string = "";
-  to : string = "";
+  to : string = ""; 
   currentId : number = 0;
 
   ngOnInit() {
@@ -78,7 +78,7 @@ export class UpcomingReservationsComponent implements OnInit {
     this.name = "";
     this.totalPrice = 0; 
     this.from = "";
-    this.to = "";
+    this.to = ""; 
   }
 
   viewCottages() {
@@ -103,7 +103,7 @@ export class UpcomingReservationsComponent implements OnInit {
         this.name = val.name;
         this.totalPrice = val.totalPrice 
         this.from = val.start;
-        this.to = val.end;
+        this.to = val.end; 
          
         return
       } 

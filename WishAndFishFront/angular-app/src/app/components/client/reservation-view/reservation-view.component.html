@@ -21,13 +21,16 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
                     <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
+                </li> 
+                <li class="list-group-item" style="height: 140px;" *ngIf="c.canceled">  
+                    <label style="height: 35px;"  class="list-group-item"><strong>CANCELED</strong></label>
                 </li> 
             </ul> 
         </div>
@@ -57,13 +60,16 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
                     <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
+                </li> 
+                <li class="list-group-item" style="height: 140px;" *ngIf="c.canceled">  
+                    <label style="height: 35px;"  class="list-group-item"><strong>CANCELED</strong></label>
                 </li> 
             </ul> 
         </div>
@@ -93,14 +99,16 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
- 
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.commentedEntity && c.commentedOwner" class="list-group-item"><strong>Reviewed</strong></label>
                     <button *ngIf="!c.commentedEntity || !c.commentedOwner" class="small-btn" (click)="openReview(c.id)"data-toggle="modal" data-target="#addReview">Leave review</button>  
                 </li> 
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 70px;" *ngIf="!c.canceled">  
                     <label style="height: 35px;" *ngIf="c.complaintEntity && c.complaintOwner" class="list-group-item"><strong>Complained</strong></label>
                     <button *ngIf="!c.complaintEntity || !c.complaintOwner" class="small-btn-red" (click)="openReview(c.id)"data-toggle="modal" data-target="#addComplaint">Complain</button>  
+                </li> 
+                <li class="list-group-item" style="height: 140px;" *ngIf="c.canceled">  
+                    <label style="height: 35px;"  class="list-group-item"><strong>CANCELED</strong></label>
                 </li> 
             </ul>  
         </div>
