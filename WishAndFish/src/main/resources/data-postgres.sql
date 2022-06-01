@@ -299,10 +299,10 @@ INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Podnosljiv je'
 
 INSERT INTO public.appointments(
 	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
-	VALUES (12, false, null, '10-10-2022 12:00', '05-10-2022 12:00', true, 3, 33, false, '10-05-2022 14:00', 123, null, null);
+	VALUES (12, false, null, '06-10-2022 12:00', '05-10-2022 12:00', true, 3, 33, false, '06-05-2022 14:00', null, 111, null);
 INSERT INTO public.appointments(
 	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
-	VALUES (13, false, null, '06-05-2022 12:00', null, false, 3, 33, false, '06-01-2022 14:00', 123, null, null);
+	VALUES (13, false, null, '06-05-2022 12:00', null, false, 3, 33, false, '06-01-2022 14:00', null, 111, null);
 INSERT INTO public.appointments(
 	id, deleted, duration, end_date, expiration_date, action, max_persons, price, reserved, start_date, boat_id, cottage_id, fishing_adventure_id)
-	VALUES (14, false, null, '06-15-2022 12:00', null, false, 3, 33, false, '06-10-2022 14:00', 123, null, null);
+	VALUES (14, false, null, '06-15-2022 12:00', null, false, 3, 33, false, '06-10-2022 14:00', null, 111, null);

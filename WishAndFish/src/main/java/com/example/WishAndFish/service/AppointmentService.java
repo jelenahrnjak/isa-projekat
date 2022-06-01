@@ -55,8 +55,16 @@ public class AppointmentService {
         List<AppointmentDTO> ret = new ArrayList<>();
         for(Appointment as: appointmentRepository.findAll()){
             if(as.getCottage() != null){
-                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted() && as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
-                    ret.add(new AppointmentDTO(as));
+                if(id.equals(as.getCottage().getId()) && !as.getReserved() && !as.isDeleted()){
+                    if(!as.getIsAction()){
+                        ret.add(new AppointmentDTO(as));
+                    }
+                    else{
+                        if(as.getExpirationDate() != null && as.getExpirationDate().isAfter(LocalDateTime.now())){
+                            System.out.println("akcija");
+                            ret.add(new AppointmentDTO(as));
+                        }
+                    }
                 }
             }
         }
@@ -129,11 +137,11 @@ public class AppointmentService {
         Appointment sameEnd = null;
 
         for(Appointment a: appointmentRepository.findAll()){
-            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start) && a.getCottage() != null && dto.getId().equals(a.getCottage().getId())){
                 sameStart = a;
             }
 
-            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))  && a.getCottage() != null && dto.getId().equals(a.getCottage().getId())){
                 sameEnd = a;
             }
         }
@@ -155,6 +163,9 @@ public class AppointmentService {
             appointmentRepository.delete(sameEnd);
             return sameStart;
         }
+
+        System.out.println("dodajem novi");
+
         Appointment a = new Appointment();
             a.setDeleted(false);
             a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
@@ -180,7 +191,7 @@ public class AppointmentService {
         //ako postoji rezervacija u tom periodu
         for(Reservation r: reservationRepository.findAll()){
             if(r.getAppointment().getBoat() != null){
-                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
+                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) &&  start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
                     return null;
                 }
                 else if(r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)){
@@ -206,11 +217,11 @@ public class AppointmentService {
         Appointment sameEnd = null;
 
         for(Appointment a: appointmentRepository.findAll()){
-            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)  && a.getBoat() != null && dto.getId().equals(a.getBoat().getId())){
                 sameStart = a;
             }
 
-            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2)) && a.getBoat() != null && dto.getId().equals(a.getBoat().getId())){
                 sameEnd = a;
             }
         }
