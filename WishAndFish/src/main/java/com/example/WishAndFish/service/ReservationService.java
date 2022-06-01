@@ -493,7 +493,7 @@ public class ReservationService {
         List<BookingHistoryDTO> ret = new ArrayList<>();
 
         for (Reservation r : sortedHistory()) {
-            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isBefore(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate()).isBefore(LocalDateTime.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
@@ -518,7 +518,7 @@ public class ReservationService {
 
         for (Reservation r : sortedReservations()) {
             System.out.println(r.getAppointment().getStartDate());
-            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate().toLocalDate()).isAfter(LocalDate.now())) {
+            if (r.getClient() != null && r.getClient().getId() == client && !r.getCanceled() && (r.getAppointment().getEndDate()).isAfter(LocalDateTime.now())) {
                 ret.add(new BookingHistoryDTO(r, additionalServiceService.getAllByAppointment(r.getAppointment().getId())));
             }
         }
