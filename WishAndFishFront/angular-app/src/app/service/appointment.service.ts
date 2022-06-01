@@ -112,4 +112,8 @@ export class AppointmentService {
   checkExpiredActionsBoat(id) {
     return this.apiService.get(this.config.appointment_url + `/checkExpiredActionsBoat/${id}`, id)
   }
+
+  checkExpiredActionsCottage(id) {
+    return this.apiService.get(this.config.appointment_url + `/checkExpiredActionsCottage/${id}`, id)
+  }
 }

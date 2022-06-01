@@ -595,6 +595,20 @@ public class AppointmentService {
     }
 
 
+    public boolean checkExpiredActionsCottage(Long id){
+        List<Appointment> expiredActions = findExpiredAction();
+        System.out.println("istekle:" + expiredActions.size());
+
+        for(Appointment a: expiredActions){
+            if(mergeAppointmetsCottage(a,id)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     private List<Appointment> findExpiredAction(){
         List<Appointment> ret = new ArrayList<>();
         for(Appointment a: appointmentRepository.findAll()){
@@ -662,5 +676,65 @@ public class AppointmentService {
 
         return true;
     }
+
+
+
+    private boolean mergeAppointmetsCottage(Appointment action, Long idCottage){
+
+        LocalDateTime start = action.getStartDate();
+        LocalDateTime end = action.getEndDate();
+        boolean saved = false;
+
+        Appointment newApp = new Appointment();
+        newApp.setReserved(false);
+        newApp.setIsAction(false);
+        newApp.setDeleted(false);
+        newApp.setStartDate(start);
+        newApp.setEndDate(end);
+        newApp.setDuration(Duration.between(start, end));
+        newApp.setCottage(cottageRepository.findById(idCottage).orElseGet(null));
+        newApp.setPrice(cottageRepository.findById(idCottage).orElseGet(null).getPricePerDay());
+        newApp.setMaxPersons(cottageRepository.findById(idCottage).orElseGet(null).getNumberOfRooms() * cottageRepository.findById(idCottage).orElseGet(null).getBedsPerRoom());
+
+        appointmentRepository.delete(action);
+
+        //spoji slobodne
+        Appointment sameStart = null;
+        Appointment sameEnd = null;
+
+        for(Appointment a: appointmentRepository.findAll()){
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getEndDate().plusHours(2).isEqual(start)){
+                sameStart = a;
+            }
+
+            if(!a.isDeleted() && !a.getIsAction() && !a.getReserved() && a.getStartDate().isEqual(end.plusHours(2))){
+                sameEnd = a;
+            }
+        }
+
+
+        if(sameEnd == null && sameStart != null){
+            sameStart.setEndDate(end);
+            appointmentRepository.save(sameStart);
+            return true;
+        }
+        else if(sameStart == null && sameEnd != null){
+            sameEnd.setStartDate(start);
+            appointmentRepository.save(sameEnd);
+            return true;
+        }
+        else if(sameStart != null && sameEnd != null){
+            sameStart.setEndDate(sameEnd.getEndDate());
+            appointmentRepository.save(sameStart);
+            appointmentRepository.delete(sameEnd);
+            return true;
+        }
+        if(!saved){
+            appointmentRepository.save(newApp);
+        }
+
+        return true;
+    }
+
 
 }

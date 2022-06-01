@@ -42,6 +42,11 @@ export class ShowFreeAppointmentsComponent implements OnInit {
 
     this.id = +this.route.snapshot.paramMap.get('id')!;
 
+    this.appointmentService.checkExpiredActionsCottage(this.id).subscribe((data) => {  
+      //window.location.reload()
+    }); 
+
+
     this.appointmentService.findAppointments(this.id).subscribe((data : any) => {
       this.appointments = data;
       console.log(this.appointments)

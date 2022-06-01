@@ -102,4 +102,11 @@ public class AppointmentController {
         return appointmentService.checkExpiredActionsBoat(id);
     }
 
+
+    @RequestMapping(value = "/checkExpiredActionsCottage/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    public boolean checkExpiredActionsCottage(@PathVariable Long id) {
+        return appointmentService.checkExpiredActionsCottage(id);
+    }
+
 }
