@@ -1,3 +1,4 @@
+import { AppointmentService } from 'src/app/service/appointment.service';
 import { BoatOwnerService } from './../../../service/boat-owner.service';
 import { BoatService } from 'src/app/service/boat.service';
 import { Component, OnInit } from '@angular/core';
@@ -36,14 +37,14 @@ export class MyBoatsComponent implements OnInit {
     private route: ActivatedRoute,
     private boatService: BoatService,
     private boatOwnerService: BoatOwnerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appointmentService: AppointmentService
     ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({  
       name: [''],
       address: [''], 
-      description: [''],  
       rating: ['',Validators.compose([Validators.min(0), Validators.pattern('([0-9]+\.?[0-9]*|\.[0-9]+)$')])]  
     })  
 
@@ -60,7 +61,7 @@ export class MyBoatsComponent implements OnInit {
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
     //this.searchDTO.price = this.form.get('price').value
-    this.searchDTO.description = this.form.get('description').value 
+    //this.searchDTO.description = this.form.get('description').value 
     this.boatService.search(this.searchDTO).subscribe((data : any) => { 
       this.boats = data; 
     }); 
@@ -88,7 +89,10 @@ export class MyBoatsComponent implements OnInit {
     }
 
   details(id){
+    //window.location.reload()
+
     this.router.navigate(['boat-details/' + id])
+
   }
 
 }

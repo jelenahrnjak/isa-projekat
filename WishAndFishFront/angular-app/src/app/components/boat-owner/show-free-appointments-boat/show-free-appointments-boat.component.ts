@@ -27,11 +27,17 @@ export class ShowFreeAppointmentsBoatComponent implements OnInit {
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    //window.location.reload()
+    
+    this.appointmentService.checkExpiredActionsBoat(this.id).subscribe((data) => {  
+      //window.location.reload()
+    }); 
 
     this.appointmentService.findAppointmentsBoat(this.id).subscribe((data : any) => {
       this.appointments = data;
       console.log(this.appointments)
       });
+
   }
 
   findAdditionalService(id){
@@ -42,6 +48,8 @@ export class ShowFreeAppointmentsBoatComponent implements OnInit {
       console.log(this.additionalServices)
       });
 
+
+      
   }
 
   

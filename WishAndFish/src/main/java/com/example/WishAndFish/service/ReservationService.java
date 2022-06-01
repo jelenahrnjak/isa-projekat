@@ -96,7 +96,7 @@ public class ReservationService {
         List<ReservationDTO> ret = new ArrayList<>();
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getCottage() != null) {
-                if (id.equals(r.getAppointment().getCottage().getId())) {
+                if (id.equals(r.getAppointment().getCottage().getId()) && !r.getCanceled()) {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
                     }
@@ -111,7 +111,7 @@ public class ReservationService {
         List<ReservationDTO> ret = new ArrayList<>();
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getBoat() != null) {
-                if (id.equals(r.getAppointment().getBoat().getId())) {
+                if (id.equals(r.getAppointment().getBoat().getId()) && !r.getCanceled()) {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
                     }
