@@ -18,6 +18,7 @@ export class BookingHistory{
         public inProgress : boolean = false,
         public beforePrice : number,
         public discount : number,
+        public soon : boolean,
       ) {}
       
 }

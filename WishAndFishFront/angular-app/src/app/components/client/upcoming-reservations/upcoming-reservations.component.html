@@ -21,12 +21,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <!-- <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li> -->
-                <li class="list-group-item"> 
+                <li class="list-group-item" > 
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
-                    <button *ngIf="!c.inProgress" class="small-btn" (click)="cancelReservation(c.id)">Cancel reservation</button>  
-                </li> 
+                    <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                </li>  
             </ul> 
         </div>
     
@@ -55,12 +54,11 @@
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <!-- <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>   -->
-                <li class="list-group-item"> 
+                <li class="list-group-item" >
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
-                    <button *ngIf="!c.inProgress" class="small-btn" (click)="cancelReservation(c.id)">Cancel reservation</button>  
-                </li> 
+                    <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                </li>  
             </ul> 
         </div>
     
@@ -88,16 +86,36 @@
                 <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
                 <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
                 <li style="height: 70px; text-align: center;" class="list-group-item">Total price: {{c.totalPrice}}€</li>  
-                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>  
-                <!-- <li style="height: 35px;" *ngIf="c.isAction" class="list-group-item"><strong>ACTION</strong></li>
-                <li style="height: 35px;" *ngIf="!c.isAction" class="list-group-item"><strong>NORMAL RESERVATION</strong></li>   -->
-                <li class="list-group-item"> 
-                <li class="list-group-item"> 
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
+                <li class="list-group-item" > 
                     <label style="height: 35px;" *ngIf="c.inProgress" class="list-group-item"><strong>IN PROGRESS</strong></label>
-                    <button *ngIf="!c.inProgress" class="small-btn" (click)="cancelReservation(c.id)">Cancel reservation</button>                  </li> 
+                    <label style="height: 35px;" *ngIf="c.soon" class="list-group-item"><strong>STARTING SOON</strong></label>
+                    <button *ngIf="!c.inProgress && !c.soon" class="small-btn" (click)="cancelReservation(c.id)"  data-toggle="modal" data-target="#reserve">Cancel reservation</button>            
+                </li>  
             </ul>  
         </div>
     
     </div>
 
 </div> 
+
+<!-- Modal for adding new review -->
+<div class="modal fade" id="reserve" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to book {{name}}?</h5>
+        </div> 
+ 
+        <div class="modal-body" style="margin-left: 20%;"> 
+            <label><strong>From: </strong>{{from}}</label>
+            <label><strong>To:</strong> {{to}}</label>    
+            <label><strong>Total price: </strong> {{totalPrice}}€</label>
+        </div>
+        <div class="modal-footer" >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" style="margin-right: 25%;"  class="btn btn-primary" (click)="submit()" data-dismiss="modal">Submit</button>
+        </div>
+    </div>
+    </div>
+</div>

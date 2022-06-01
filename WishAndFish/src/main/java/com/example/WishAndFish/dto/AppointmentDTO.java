@@ -59,8 +59,8 @@ public class AppointmentDTO {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
 
-        this.startDate = start.atStartOfDay();
-        this.endDate = end.atStartOfDay();
+        this.startDate = start.atTime(14,0);
+        this.endDate = end.atTime(12,0);
         this.maxPersons = maxPersons;
     }
 
