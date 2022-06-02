@@ -66,7 +66,8 @@ import {
   MapsAPILoader
 } from '@agm/core';
 import { AuthguardService } from './service/authguard.service';
-import { ActionViewComponent } from './components/client/action-view/action-view.component'; 
+import { ActionViewComponent } from './components/client/action-view/action-view.component';
+import { SuccessfullySingUpComponent } from './components/successfully-sing-up/successfully-sing-up.component'; 
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { ActionViewComponent } from './components/client/action-view/action-view
     CottageReportComponent,
     BoatReportComponent,
     ActionViewComponent,
+    SuccessfullySingUpComponent,
   ],
   imports: [
     BrowserModule,

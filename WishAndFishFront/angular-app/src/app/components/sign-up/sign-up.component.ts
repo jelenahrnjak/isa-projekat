@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, UserService } from '../../service';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -89,7 +90,7 @@ export class SignUpComponent implements OnInit {
     this.submitted = true;
     console.log(this.form.value[0]);
     var User = { 
-      "id" : 232,
+      "id" : "",
       "password" : this.form.get('password').value,
       "email" : this.form.get('email').value,
       "name" : this.form.get('name').value,
@@ -108,15 +109,30 @@ export class SignUpComponent implements OnInit {
       "reasonForRegistration" : this.form.get('reasonForRegistration').value
   }
 
-    this.authService.signup(User)
+    if(this.form.valid){
+      this.authService.signup(User)
       .subscribe(data => {
         this.router.navigate([this.returnUrl]);
       },
         error => {
           this.submitted = false;
           console.log('Sign up error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email already exists.',
+          })   
           this.notification = { msgType: 'error', msgBody: error['error'].message };
         });
+
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill all fields.',
+      })   
+    }
 
   }
 

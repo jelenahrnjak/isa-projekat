@@ -111,4 +111,9 @@ export class ConfigService {
     return this._signup_url;
   }
 
+  private _verifyAccount_url = this._auth_url + '/verify';
+  get verifyAccount_url(): string {
+    return this._verifyAccount_url;
+  }
+
 }

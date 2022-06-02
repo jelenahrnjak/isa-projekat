@@ -75,17 +75,17 @@ public class AuthentificationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
+    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest,HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
         User existUser = this.userService.findByEmail(userRequest.getEmail());
         if (existUser != null) {
             throw new ResourceConflictException(userRequest.getId(), "Email already exists");
         }
 
-        if (userRequest.getRoleName().equals("COTTAGE_OWNER")){
+        if (userRequest.getRoleName().equals("ROLE_COTTAGE_OWNER")){
             User user = this.cottageOwnerService.save(userRequest);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
-        else if(userRequest.getRoleName().equals("CLIENT")){
+        else if(userRequest.getRoleName().equals("ROLE_CLIENT")){
             try{
                 String randomCode = RandomString.make(64);
                 userRequest.setVerificationCode(randomCode);
@@ -114,8 +114,8 @@ public class AuthentificationController {
         }
     }
 
-    @GetMapping("/verify")
-    public String verifyUser(@Param("code") String code) {
+    @GetMapping("/verify/{code}")
+    public String verifyUser(@PathVariable String code) {
         if (userService.verify(code)) {
             return "success";
         } else {

@@ -1,3 +1,4 @@
+import { SuccessfullySingUpComponent } from './components/successfully-sing-up/successfully-sing-up.component';
 import { BoatReportComponent } from './components/boat-owner/boat-report/boat-report.component';
 import { CottageReportComponent } from './components/cottage-owner/cottage-report/cottage-report.component';
 import { BoatReservationHistoryComponent } from './components/boat-owner/boat-reservation-history/boat-reservation-history.component';
@@ -263,6 +264,10 @@ const routes: Routes = [
     data: { 
       expectedRole: 'ROLE_CLIENT'   
     }
+  },
+  {
+    path: 'successfully-sing-up/:id',
+    component: SuccessfullySingUpComponent, 
   },
 ];
 
