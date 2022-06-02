@@ -44,7 +44,7 @@ public class CottageOwnerService {
         user.setLoyaltyCategory(loyaltyCategoryRepository.findByLevel(1));
         user.setVerificationCode(requestUser.getVerificationCode());
         user.setReasonForRegistration(requestUser.getReasonForRegistration());
-
+        user.setEnabled(true);
         Role role = roleRepository.findByName(requestUser.getRoleName());
         user.setRole(role);
 

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, UserService } from '../../service';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 interface DisplayMessage {
   msgType: string;
@@ -29,6 +30,7 @@ export class SignUpComponent implements OnInit {
   submitted = false;
   showAddress = false;
   showReasonForRegistry = false;
+  message = ""
 
   /**
    * Notification message from received
@@ -58,18 +60,16 @@ export class SignUpComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({ 
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
-      passwordRepeated: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
-      name: [''],
-      surname: [''],
-      email: [''],
-      phoneNumber: [''],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-+_!@#$%^&*.,?:;<>=`~\\]\x22\x27\(\)\{\}\|\/\[\\\\?]).{8,}$')])],
+      passwordRepeated: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-+_!@#$%^&*.,?:;<>=`~\\]\x22\x27\(\)\{\}\|\/\[\\\\?]).{8,}$')])],
+      name: ['', Validators.compose([Validators.required])],
+      surname: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])],
+      phoneNumber: ['', Validators.compose([Validators.required])],
       role : [''],
       street : [''],
       streetNumber : [''],
-      postalCode : [''],
-      longitude : [''],
-      latitude : [''],
+      postalCode : [''], 
       cityName : [''],
       countryName : [''],
       reasonForRegistration : [''],
@@ -85,11 +85,17 @@ export class SignUpComponent implements OnInit {
     /**
      * Innocent until proven guilty
      */
+
+    if(this.form.get('password').value != this.form.get('passwordRepeated').value){
+      this.message = "Passwords do not match!"
+      return
+    }
+
     this.notification = undefined;
     this.submitted = true;
     console.log(this.form.value[0]);
     var User = { 
-      "id" : 232,
+      "id" : "",
       "password" : this.form.get('password').value,
       "email" : this.form.get('email').value,
       "name" : this.form.get('name').value,
@@ -99,8 +105,8 @@ export class SignUpComponent implements OnInit {
           "street" : this.form.get('street').value,
           "streetNumber" : this.form.get('streetNumber').value,
           "postalCode" : this.form.get('postalCode').value,
-          "longitude" : this.form.get('longitude').value,
-          "latitude" : this.form.get('latitude').value, 
+          "longitude" : 0.0,
+          "latitude" : 0.0, 
           "cityName" : this.form.get('cityName').value,
           "countryName" : this.form.get('countryName').value    
       },
@@ -108,22 +114,38 @@ export class SignUpComponent implements OnInit {
       "reasonForRegistration" : this.form.get('reasonForRegistration').value
   }
 
-    this.authService.signup(User)
+    if(this.form.valid){
+      this.authService.signup(User)
       .subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Verification email sent. Please check your email.',
+        })   
         this.router.navigate([this.returnUrl]);
       },
         error => {
           this.submitted = false;
           console.log('Sign up error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email already exists.',
+          })   
           this.notification = { msgType: 'error', msgBody: error['error'].message };
         });
 
-  }
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill all fields.',
+      })   
+    }
 
-  showAddressForm() {
-    this.showAddress = true;
   }
-
+ 
   changeRole(value){
     if(value != "ROLE_CLIENT"){
       this.showReasonForRegistry = true;
