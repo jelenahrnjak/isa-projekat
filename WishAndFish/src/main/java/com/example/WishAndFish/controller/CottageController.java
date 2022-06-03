@@ -85,7 +85,7 @@ public class CottageController {
         if(c==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
+
         return new ResponseEntity<>(c,HttpStatus.OK);
     }
 

@@ -2,7 +2,9 @@ import { Boat } from './../model/boat.model';
 import { Injectable } from '@angular/core';
 import {ApiService} from './api.service';
 import {ConfigService} from './config.service';
-import {map} from 'rxjs/operators';  
+import { map, catchError } from 'rxjs/operators';  
+import { throwError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +81,9 @@ export class BoatService {
     return this.apiService.put(this.config.boat_url + `/editBasicInfo`, boat)
     .pipe(map(c => {
       console.log('Editing boat success');
-    }));
+    }))
+    .pipe(catchError(error => this.edit(error)));
+    ;
   }
 
 
@@ -90,4 +94,16 @@ export class BoatService {
         return comments;
       }));
   } 
+
+
+  
+  private edit(error: any): any {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Boat is reserved! Yoou can't edit it!" //error.error.message,
+    })
+    return throwError(error);
+  }
+
 }
