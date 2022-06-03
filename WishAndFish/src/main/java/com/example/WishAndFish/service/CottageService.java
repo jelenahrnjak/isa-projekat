@@ -4,10 +4,12 @@ import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -147,8 +149,12 @@ public class CottageService {
     }
 
 
+    @Transactional
     public EditCottageDTO editBasicInfo(EditCottageDTO editedCottage) {
-        for (Cottage c : cottageRepository.findAll()) {
+        try {
+            Cottage c = cottageRepository.findOneById(editedCottage.getId());
+        //for (Cottage c : cottageRepository.findAll()) {
+
             if (editedCottage.getId().equals(c.getId())) {
                 c.setName(editedCottage.getName());
                 c.setDescription(editedCottage.getDescription());
@@ -165,6 +171,12 @@ public class CottageService {
                 cottageRepository.save(c);
                 return new EditCottageDTO(c);
             }
+        //}
+        } catch(
+                PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Cottage already reserved!");
+
         }
         return null;
     }
