@@ -9,6 +9,7 @@ import com.example.WishAndFish.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -77,8 +78,15 @@ public class CottageController {
 
     @RequestMapping(value = "/editBasicInfo", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
-    public EditCottageDTO editBasicInfo(@RequestBody EditCottageDTO editedCottage) {
-        return this.cottageService.editBasicInfo(editedCottage);
+    public ResponseEntity<EditCottageDTO> editBasicInfo(@RequestBody EditCottageDTO editedCottage) {
+
+        EditCottageDTO c = cottageService.editBasicInfo(editedCottage);
+
+        if(c==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(c,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/searchAppointments/{email}", method = RequestMethod.GET)

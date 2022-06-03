@@ -49,6 +49,7 @@ public class AppointmentController {
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Appointment> editAvailability(@RequestBody AvailabilityDTO dto) {
         Appointment a = this.appointmentService.editAvailability(dto);
+        System.out.println("kraj" + a.getEndDate());
         if(a == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

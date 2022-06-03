@@ -112,20 +112,24 @@ public class AppointmentService {
         //ako postoji rezervacija u tom periodu
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getCottage() != null) {
-                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))) {
-                    return null;
-                } else if (r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)) {
+                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && !r.getCanceled() &&
+                        ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
+                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))
+                        || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))){
                     return null;
                 }
             }
         }
 
+
         //ako postoji vec slobodan termin u tom periodu
         for (Appointment a : appointmentRepository.findAll()) {
-            if (a.getCottage() != null) {
-                if (dto.getId().equals(a.getCottage().getId()) && ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate())) || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())))) {
-                    return null;
-                } else if (a.getStartDate().isAfter(start) && a.getEndDate().isBefore(end)) {
+            if (a.getCottage() != null && !a.isDeleted()) {
+                if (dto.getId().equals(a.getCottage().getId()) && !a.isDeleted() &&
+                        ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate()))
+                                || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())) ||
+                                (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))) {
                     return null;
                 }
             }
@@ -187,12 +191,13 @@ public class AppointmentService {
         LocalDateTime start = findDate(dto.getStartDate());
 
         //ako postoji rezervacija u tom periodu
-      for(Reservation r: reservationRepository.findAll()){
-            if(r.getAppointment().getBoat() != null){
-                if(dto.getId().equals(r.getAppointment().getBoat().getId()) && ((start.isAfter(r.getAppointment().getStartDate()) &&  start.isBefore(r.getAppointment().getEndDate())) || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())))){
-                    return null;
-                }
-                else if(r.getAppointment().getStartDate().isAfter(start) && r.getAppointment().getEndDate().isBefore(end)){
+        for (Reservation r : reservationRepository.findAll()) {
+            if (r.getAppointment().getBoat() != null) {
+                if (dto.getId().equals(r.getAppointment().getBoat().getId()) && !r.getCanceled() &&
+                        ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
+                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))
+                        || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))){
                     return null;
                 }
             }
@@ -200,10 +205,11 @@ public class AppointmentService {
 
         //ako postoji vec slobodan termin u tom periodu
         for (Appointment a : appointmentRepository.findAll()) {
-            if (a.getBoat() != null) {
-                if (dto.getId().equals(a.getBoat().getId()) && ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate())) || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())))) {
-                    return null;
-                } else if (a.getStartDate().isAfter(start) && a.getEndDate().isBefore(end)) {
+            if (a.getBoat() != null && !a.isDeleted()) {
+                if (dto.getId().equals(a.getBoat().getId()) && !a.isDeleted() &&
+                        ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate()))
+                                || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())) ||
+                                (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))) {
                     return null;
                 }
             }
@@ -254,16 +260,6 @@ public class AppointmentService {
 
         return a;
 
-//        Appointment a = new Appointment();
-//        a.setDeleted(false);
-//        a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
-//        a.setIsAction(false);
-//        a.setStartDate(findDate(dto.getStartDate()));
-//        a.setEndDate(findDate(dto.getEndDate()));
-//        a.setDuration(Duration.between(start, end));
-//        a.setReserved(false);
-//        this.appointmentRepository.save(a);
-//        return a;
     }
 
     private LocalDateTime findDate(String start) {
@@ -281,16 +277,20 @@ public class AppointmentService {
         //ako postoji rezervacija
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getCottage() != null) {
-                if (start.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()) && dto.getId().equals(r.getAppointment().getCottage().getId())) {
+                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && !r.getCanceled() &&
+                        ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
+                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))) {
                     return null;
                 }
             }
         }
+
         try{
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getCottage() != null) {
-                    if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getCottage().getId())) {
+                    if (!free.isDeleted() && (start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getCottage().getId())) {
                         Cottage cottage = cottageRepository.findOneById(dto.getId());
 
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
@@ -350,7 +350,10 @@ public class AppointmentService {
         //ako postoji rezervacija
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getBoat() != null) {
-                if (start.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()) && dto.getId().equals(r.getAppointment().getBoat().getId())) {
+                if (dto.getId().equals(r.getAppointment().getBoat().getId()) && !r.getCanceled() &&
+                        ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
+                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))) {
                     return null;
                 }
             }
@@ -359,7 +362,7 @@ public class AppointmentService {
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getBoat() != null) {
-                    if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getBoat().getId())) {
+                    if (!free.isDeleted() && (start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getBoat().getId())) {
                         Boat b = boatRepository.findOneById(dto.getId());
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
                         Appointment newApp = new Appointment(free); //treci koji se dobije
@@ -382,10 +385,6 @@ public class AppointmentService {
                         appointmentRepository.save(a);
 
                         for (Long as : dto.getAdditionalServices()) {
-//            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
-//            aservice.setBoat(boatRepository.getById(dto.getId()));
-//            additionalServiceRepository.save(aservice);
-//            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
                             AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
                             add.getAppointments().add(a);
                             additionalServiceRepository.save(add);

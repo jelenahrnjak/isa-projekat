@@ -155,6 +155,15 @@ public class CottageService {
             Cottage c = cottageRepository.findOneById(editedCottage.getId());
         //for (Cottage c : cottageRepository.findAll()) {
 
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getCottage() != null) {
+                    if (r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) && r.getAppointment().getCottage().getId() == c.getId()) {
+                        return null;
+                    }
+                }
+            }
+
+
             if (editedCottage.getId().equals(c.getId())) {
                 c.setName(editedCottage.getName());
                 c.setDescription(editedCottage.getDescription());
