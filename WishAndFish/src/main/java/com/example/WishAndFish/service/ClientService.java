@@ -1,19 +1,18 @@
 package com.example.WishAndFish.service;
 
-import com.example.WishAndFish.dto.BoatDTO;
-import com.example.WishAndFish.dto.BookingHistoryDTO;
-import com.example.WishAndFish.dto.CottageDTO;
-import com.example.WishAndFish.dto.FishingAdventureDTO;
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
-import com.example.WishAndFish.repository.BoatRepository;
-import com.example.WishAndFish.repository.ClientRepository;
-import com.example.WishAndFish.repository.CottageRepository;
-import com.example.WishAndFish.repository.FishingAdventureRepository;
+import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +30,21 @@ public class ClientService {
 
     @Autowired
     private BoatRepository boatRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private LoyaltyCategoryRepository loyaltyCategoryRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private FishingAdventureRepository fishingAdventureRepository;
@@ -259,5 +273,54 @@ public class ClientService {
             c.setPenalties(0);
             clientRepository.save(c);
         }
+    }
+
+    @Transactional
+    public User findByEmail(String email) {
+        try {
+            for (User u : userRepository.findAllPessimistic()) {
+                if (u.getEmail().equals(email))
+                    return u;
+            }
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("User with this email already exists!");
+
+        }
+        return null;
+    }
+
+    @Transactional
+    public User save(UserDTO requestUser, String url) {
+
+        try {
+            if(findByEmail(requestUser.getEmail()) == null && requestUser.getRoleName().equals("ROLE_CLIENT")){
+
+                AddressDTO a = requestUser.getAddress();
+                Client user = new Client(passwordEncoder.encode(requestUser.getPassword()), requestUser.getEmail(), requestUser.getName(), requestUser.getSurname(), requestUser.getPhoneNumber());
+                Address address = new Address(a.getStreet(),a.getStreetNumber(),a.getPostalCode(),a.getCityName(), a.getCountryName());
+                user.setAddress(address);
+                user.setLoyaltyCategory(loyaltyCategoryRepository.findByLevel(1));
+                user.setVerificationCode(requestUser.getVerificationCode());
+                Role role = roleRepository.findByName(requestUser.getRoleName());
+                user.setRole(role);
+
+                User newClient = this.clientRepository.save(user);
+
+                emailService.sendMailForVerfication(newClient, url);
+
+                return newClient;
+            }
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("User with this email already exists!");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

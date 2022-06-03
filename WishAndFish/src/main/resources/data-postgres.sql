@@ -50,7 +50,7 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 	VALUES (36, false, 'jelenahrnjak99+2@gmail.com', true, null, 10, 'Jovan', 'jelena', '064352658', 0, 'Jovanović', 300, 1, null);
  
 INSERT INTO CLIENT(id, penalties)
-    VALUES(35, 1);
+    VALUES(35, 2);
 INSERT INTO CLIENT(id, penalties)
     VALUES(36, 2);
 

@@ -8,6 +8,7 @@ import com.example.WishAndFish.dto.JwtAuthenticationRequest;
 import com.example.WishAndFish.dto.UserDTO;
 import com.example.WishAndFish.dto.UserTokenState;
 import com.example.WishAndFish.exception.ResourceConflictException;
+import com.example.WishAndFish.model.Client;
 import com.example.WishAndFish.model.User;
 import com.example.WishAndFish.service.*;
 import com.example.WishAndFish.security.util.TokenUtils;
@@ -45,6 +46,9 @@ public class AuthentificationController {
 
     @Autowired
     private BoatOwnerService boatOwnerService;
+
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private FishingInstructorService fishingInstructorService;
@@ -89,8 +93,8 @@ public class AuthentificationController {
             try{
                 String randomCode = RandomString.make(64);
                 userRequest.setVerificationCode(randomCode);
-                User user = this.userService.save(userRequest);
-                emailService.sendMailForVerfication(user, getSiteURL(request));
+                User user = this.clientService.save(userRequest, getSiteURL(request));
+
                 return new ResponseEntity<>(user, HttpStatus.CREATED);
 
             } catch (Exception e){

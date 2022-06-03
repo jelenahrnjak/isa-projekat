@@ -110,10 +110,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Do you want to cancel reservation for {{name}}?</h5>
-        </div> 
- 
+            <h5 style="text-align: center;" class="modal-title" id="exampleModalLongTitle">Do you want to cancel reservation for {{name}}?</h5> 
+        </div>  
+        
         <div class="modal-body" style="margin-left: 20%;"> 
+            <label style="margin-left: -25%; text-align: center;">If you cancel, you can't make a new reservation during this period for {{name}}.</label>
+            <hr style="margin-left: -25%;">
             <label><strong>From: </strong>{{from}}</label><br>
             <label><strong>To:</strong> {{to}}</label><br>   
             <label><strong>Total price: </strong> {{totalPrice}}€</label> 
