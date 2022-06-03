@@ -30,7 +30,7 @@ public class CottageDTO {
         this.rating = Double.toString(c.getRating());
         this.price = Double.toString(c.getPricePerDay());
         this.coverImage = c.getCoverImage();
-        this.maximumPeople = c.getBedsPerRoom();
+        this.maximumPeople = c.getBedsPerRoom() * c.getNumberOfRooms();
     }
 
     public CottageDTO(String name, String address, String rating, String price){

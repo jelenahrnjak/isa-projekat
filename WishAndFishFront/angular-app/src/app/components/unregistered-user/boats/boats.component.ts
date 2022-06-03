@@ -5,6 +5,7 @@ import { BoatService } from 'src/app/service/boat.service';
 import { Boat } from 'src/app/model/boat.model';
 import { ClientService } from 'src/app/service/client.service';
 import { clear } from 'console';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-boats',
@@ -99,11 +100,19 @@ export class BoatsComponent implements OnInit {
             v.isSubscribed = true;
           }
         }
-        alert("Successfully subscribed") 
-      },
-      (err) => {  
-        alert('Already subscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully subscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already subscribed!',
+        })  
+       })  
   }
 
   unsubscribe(id){  
@@ -115,11 +124,19 @@ export class BoatsComponent implements OnInit {
             v.isSubscribed = false;
           }
         }
-        alert("Successfully unsubscribed") 
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
   }
 
   changeSorting(){

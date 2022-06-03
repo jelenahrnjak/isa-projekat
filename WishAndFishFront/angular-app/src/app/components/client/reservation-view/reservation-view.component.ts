@@ -156,6 +156,7 @@ export class ReservationViewComponent implements OnInit {
           title: 'Oops...',
           text: 'Something went wrong. Please try again.',
         })  
+        this.resetHistory()
   
       },
       () => {
