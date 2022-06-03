@@ -39,6 +39,7 @@ public class BookingHistoryDTO {
     public Boolean inProgress;
     public Boolean soon;
     public Boolean canceled;
+    public Integer maxPersons;
 
     public BookingHistoryDTO(Reservation r, List<AdditionalServicesDTO> services) {
 
@@ -59,6 +60,7 @@ public class BookingHistoryDTO {
         this.owner = getOwnerOfProperty(r.getAppointment());
         this.soon = false;
         this.canceled = r.getCanceled();
+        this.maxPersons = r.getAppointment().getMaxPersons();
         if(r.getAppointment().getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;
         }else{
@@ -89,6 +91,7 @@ public class BookingHistoryDTO {
         this.address = getAddressOfProperty(r);
         this.owner = getOwnerOfProperty(r);
         this.soon = false;
+        this.maxPersons = r.getMaxPersons();
 
         if(r.getStartDate().isBefore(LocalDate.now().atTime(14,0))){
             this.inProgress = true;

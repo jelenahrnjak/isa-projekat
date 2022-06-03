@@ -15,14 +15,15 @@
                 <li class = "list-group-item">
                 <strong>{{c.name}}</strong>
                 </li>
-                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
-                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price:&nbsp; </strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                <li style="height: 60px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Max persons:</strong> {{c.maxPersons}}</li>     
+                <li style="height: 60px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
                     &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
-                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
-                <li class="list-group-item" style="height: 70px;">  
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>    
+                <li class="list-group-item" style="height: 60px;">  
                     <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul> 
@@ -47,14 +48,15 @@
                 <li class = "list-group-item">
                 <strong>{{c.name}}</strong>
                 </li>
-                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
-                <li style="height: 70px;" class="list-group-item"><strong>Owner:</strong> {{c.owner}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
-                    &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>   
-                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>   
-                <li class="list-group-item" style="height: 70px;">  
+                <li style="height: 60px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Max persons:</strong> {{c.maxPersons}}</li>     
+                <li style="height: 60px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                    &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
+                <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>    
+                <li class="list-group-item" style="height: 60px;">  
                     <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul> 
@@ -79,14 +81,15 @@
                 <li class = "list-group-item">
                 <strong>{{c.name}}</strong>
                 </li>
-                <li style="height: 70px;" class="list-group-item">{{c.address}}</li> 
-                <li style="height: 70px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
-                <li style="height: 70px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li>   
-                <li style="height: 70px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
+                <li style="height: 60px;" class="list-group-item">{{c.address}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Instructor:</strong> {{c.owner}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>From:</strong> {{c.start}}</li>  
+                <li style="height: 60px;" class="list-group-item"><strong>To:</strong> {{c.end}}</li> 
+                <li style="height: 60px;" class="list-group-item"><strong>Max persons:</strong> {{c.maxPersons}}</li>     
+                <li style="height: 60px; text-align: center;" class="list-group-item"><strong>Total price: &nbsp;</strong> <label style="color: red;"><s>{{c.beforePrice}}€</s></label>
                     &nbsp; -> &nbsp; <label style="color:green">  {{c.totalPrice}}€</label></li>  
                 <li style="height: 80px;" class="list-group-item"><strong>Additional services:</strong> {{c.additionalServices}}</li>    
-                <li class="list-group-item" style="height: 70px;">  
+                <li class="list-group-item" style="height: 60px;">  
                     <button class="small-btn-red" (click)="findCurrent(c.id)" data-toggle="modal" data-target="#reserve">Book now</button>  
                 </li> 
             </ul>  

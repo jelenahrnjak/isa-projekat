@@ -421,8 +421,6 @@ public class AppointmentService {
 
             }
 
-
-
         } else if (dto.getEntity() == 2) {
 
             try{
@@ -452,7 +450,6 @@ public class AppointmentService {
                 throw  new PessimisticLockingFailureException("Adventure already reserved!");
 
             }
-
         }
 
         return reserveEntity(appointments, dto);

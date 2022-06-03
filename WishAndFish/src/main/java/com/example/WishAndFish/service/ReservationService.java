@@ -467,16 +467,25 @@ public class ReservationService {
         return addReservationToClient(client, appointment);
     }
 
-    private boolean addReservationToClient(Client client, Appointment appointment) throws MessagingException {
+    @Transactional
+    public boolean addReservationToClient(Client client, Appointment appointment) throws MessagingException {
 
-        Reservation reservation = new Reservation(client, appointment);
-        Reservation ret = reservationRepository.save(reservation);
+        try {
+            Reservation reservation = new Reservation(client, appointment);
+            Reservation ret = reservationRepository.save(reservation);
 
-        if (ret == null) {
+            if (ret == null) {
+                return false;
+            }
+
+            emailService.sendEmailForNewReservation(client.getEmail(), ret);
+
+
+        }catch(PessimisticLockingFailureException ex){
             return false;
         }
 
-        emailService.sendEmailForNewReservation(client.getEmail(), ret);
+
 
         return true;
     }
@@ -752,28 +761,35 @@ public class ReservationService {
         return true;
     }
 
-
     @Transactional
     public boolean bookAction(ActionReservationDTO dto) throws MessagingException {
 
         Client client = clientRepository.findByEmail(dto.getClient());
-        Appointment appointment = appointmentRepository.findById(dto.getAction()).orElseGet(null);
-
         if (client == null || client.getPenalties() >= 3 || client.isDeleted()) {
             return false;
         }
 
-        if (appointment == null || !appointment.getIsAction() || appointment.isDeleted() || appointment.getReserved()) {
-            return false;
+        try {
+            Appointment appointment = appointmentRepository.findOneById(dto.getAction());
+
+
+            if (appointment == null || !appointment.getIsAction() || appointment.isDeleted() || appointment.getReserved()) {
+                return false;
+            }
+
+            appointment.setReserved(Boolean.TRUE);
+            appointmentRepository.save(appointment);
+
+            return addReservationToClient(client, appointment);
+
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Action already booked!");
+
         }
 
-        appointment.setReserved(Boolean.TRUE);
-        appointmentRepository.save(appointment);
-
-        return addReservationToClient(client, appointment);
     }
 
-//    @Transactional
     public boolean cancelReservation(ActionReservationDTO dto) {
 
         Client client = clientRepository.findByEmail(dto.getClient());
