@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { CottageService } from 'src/app/service/cottage.service';
 import { ClientService } from 'src/app/service/client.service';
 import { Cottage } from 'src/app/model/cottage';
+import Swal from 'sweetalert2'
 
 interface DisplayMessage {
   msgType: string;
@@ -113,11 +114,19 @@ export class CottageComponent implements OnInit {
             v.isSubscribed = true;
           }
         }
-        alert("Successfully subscribed") 
-      },
-      (err) => {  
-        alert('Already subscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully subscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already subscribed!',
+        })  
+       })   
   }
 
   unsubscribe(id){  
@@ -129,11 +138,19 @@ export class CottageComponent implements OnInit {
             v.isSubscribed = false;
           }
         }
-        alert("Successfully unsubscribed") 
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
   }
 
   changeSorting(){

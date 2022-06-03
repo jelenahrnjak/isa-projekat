@@ -259,22 +259,38 @@ todayDate:Date = new Date();
       this.clientService.subscribeToCottage(this.id, localStorage.getItem('user')).subscribe(
         (data) => {  
           this.cottage.isSubscribed = true;
-          alert("Successfully subscribed") 
-        },
-        (err) => {  
-          alert('Already subscribed!') 
-        })  
+          Swal.fire({
+            icon: 'success',
+            title: 'Yay!',
+            text: 'Successfully subscribed!',
+          })   
+         },
+         (err) => {  
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'Already subscribed!',
+          })  
+         })  
    }
 
    unsubscribe(){ 
     this.clientService.unsubscribeFromCottage(this.id, localStorage.getItem('user')).subscribe(
       (data) => {  
         this.cottage.isSubscribed = false;
-        alert("Successfully unsubscribed") 
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      })  
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
    }
 
 }

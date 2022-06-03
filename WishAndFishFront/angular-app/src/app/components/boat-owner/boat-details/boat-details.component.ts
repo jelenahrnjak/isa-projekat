@@ -335,10 +335,18 @@ export class BoatDetailsComponent implements OnInit {
        this.clientService.subscribeToBoat(this.id, localStorage.getItem('user')).subscribe(
          (data) => {  
            this.boat.isSubscribed = true;
-           alert("Successfully subscribed") 
+           Swal.fire({
+            icon: 'success',
+            title: 'Yay!',
+            text: 'Successfully subscribed!',
+          })   
          },
          (err) => {  
-           alert('Already subscribed!') 
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'Already subscribed!',
+          })  
          })  
     }
  
@@ -346,11 +354,19 @@ export class BoatDetailsComponent implements OnInit {
      this.clientService.unsubscribeFromBoat(this.id, localStorage.getItem('user')).subscribe(
        (data) => {  
          this.boat.isSubscribed = false;
-         alert("Successfully unsubscribed") 
+         Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
        },
        (err) => {  
-         alert('Already unsubscribed!') 
-       })  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
     }
 
 }

@@ -6,6 +6,7 @@ import { ClientService } from 'src/app/service/client.service';
 import { Cottage } from 'src/app/model/cottage';
 import { Boat } from 'src/app/model/boat.model';
 import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
+import Swal from 'sweetalert2'
 
 interface DisplayMessage {
   msgType: string;
@@ -66,11 +67,19 @@ export class SubscriptionsComponent implements OnInit {
         this.clientService.getCottageSubscriptions().subscribe((data : any) => {
           this.cottages = data; 
         }); 
-        alert("Successfully unsubscribed")  
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
   }
 
   unsubscribeBoat(id){  
@@ -80,11 +89,19 @@ export class SubscriptionsComponent implements OnInit {
         this.clientService.getBoatSubscriptions().subscribe((data : any) => {
           this.boats = data; 
         }); 
-        alert("Successfully unsubscribed")  
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      }) 
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })   
   }
 
   unsubscribeAdventure(id){  
@@ -95,11 +112,19 @@ export class SubscriptionsComponent implements OnInit {
         this.adventures = data; 
       }); 
   
-        alert("Successfully unsubscribed")  
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      }) 
+      Swal.fire({
+        icon: 'success',
+        title: 'Yay!',
+        text: 'Successfully unsubscribed!',
+      })   
+     },
+     (err) => {  
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops...',
+        text: 'Already unsubscribed!',
+      })  
+     })   
   }
 
   viewCottages() {

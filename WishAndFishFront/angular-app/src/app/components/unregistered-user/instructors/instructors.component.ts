@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { AdventureService } from 'src/app/service/adventure.service';
 import { FishingAdventure } from 'src/app/model/fishingAdventure.model';
 import { ClientService } from 'src/app/service/client.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-instructors',
@@ -99,11 +100,19 @@ export class InstructorsComponent implements OnInit {
             v.isSubscribed = true;
           }
         }
-        alert("Successfully subscribed") 
-      },
-      (err) => {  
-        alert('Already subscribed!') 
-      }) 
+          Swal.fire({
+            icon: 'success',
+            title: 'Yay!',
+            text: 'Successfully subscribed!',
+          })   
+       },
+       (err) => {  
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'Already subscribed!',
+          })  
+       })  
   }
 
   unsubscribe(id){  
@@ -115,11 +124,19 @@ export class InstructorsComponent implements OnInit {
             v.isSubscribed = false;
           }
         }
-        alert("Successfully unsubscribed") 
-      },
-      (err) => {  
-        alert('Already unsubscribed!') 
-      })  
+        Swal.fire({
+          icon: 'success',
+          title: 'Yay!',
+          text: 'Successfully unsubscribed!',
+        })   
+       },
+       (err) => {  
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'Already unsubscribed!',
+        })  
+       })     
   }
 
   changeSorting(){
