@@ -4,10 +4,12 @@ import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.time.Duration;
@@ -399,42 +401,66 @@ public class AppointmentService {
     }
 
 
+    @Transactional
     public Appointment createReservation(CreateReservationDTO dto) {
 
         Set<Appointment> appointments = new HashSet<>();
 
         if (dto.getEntity() == 1) {
+            try {
 
-            Cottage cottage = cottageRepository.findById(dto.getEntityId()).orElseGet(null);
-            if (cottage == null || cottage.isDeleted()) {
-                return null;
+                Cottage cottage = cottageRepository.findOneById(dto.getEntityId());
+                if (cottage == null || cottage.isDeleted()) {
+                    return null;
+                }
+                appointments = cottage.getAppointments();
+
+            } catch(PessimisticLockingFailureException ex) {
+
+                throw  new PessimisticLockingFailureException("Cottage already reserved!");
+
             }
-            appointments = cottage.getAppointments();
+
+
 
         } else if (dto.getEntity() == 2) {
 
-            Boat boat = boatRepository.findById(dto.getEntityId()).orElseGet(null);
-            if (boat == null || boat.isDeleted()) {
-                return null;
+            try{
+                Boat boat = boatRepository.findById(dto.getEntityId()).orElseGet(null);
+                if (boat == null || boat.isDeleted()) {
+                    return null;
+                }
+                appointments = boat.getAppointments();
+
+            } catch(PessimisticLockingFailureException ex) {
+
+                throw  new PessimisticLockingFailureException("Boat already reserved!");
+
             }
-            appointments = boat.getAppointments();
 
         } else if (dto.getEntity() == 3) {
 
-            FishingAdventure adventure = fishingAdventureRepository.findById(dto.getEntityId()).orElseGet(null);
-            if (adventure == null || adventure.isDeleted()) {
-                return null;
+            try{
+                FishingAdventure adventure = fishingAdventureRepository.findById(dto.getEntityId()).orElseGet(null);
+                if (adventure == null || adventure.isDeleted()) {
+                    return null;
+                }
+                appointments = adventure.getAppointments();
+
+            } catch(PessimisticLockingFailureException ex) {
+
+                throw  new PessimisticLockingFailureException("Adventure already reserved!");
+
             }
-            appointments = adventure.getAppointments();
 
         }
-
 
         return reserveEntity(appointments, dto);
 
     }
 
-    private Appointment reserveEntity(Set<Appointment> appointments, CreateReservationDTO dto) {
+    @Transactional
+    public Appointment reserveEntity(Set<Appointment> appointments, CreateReservationDTO dto) {
 
         Long appointmentId = checkAvailability(appointments, dto);
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseGet(null);
@@ -450,27 +476,38 @@ public class AppointmentService {
 
     }
 
-    private Appointment getBeforeAppointment(Appointment appointment, CreateReservationDTO dto) {
+    @Transactional
+    public Appointment getBeforeAppointment(Appointment appointment, CreateReservationDTO dto) {
 
         if (dto.getStartDate().isAfter(appointment.getStartDate())) {
-            Appointment newAppointment = new Appointment(appointment);
-            newAppointment.setEndDate(dto.getStartDate().with(LocalTime.of(12, 0)));
-            newAppointment.setReserved(false);
-            appointmentRepository.save(newAppointment);
-            return newAppointment;
+            try{
+                Appointment newAppointment = new Appointment(appointment);
+                newAppointment.setEndDate(dto.getStartDate().with(LocalTime.of(12, 0)));
+                newAppointment.setReserved(false);
+                appointmentRepository.save(newAppointment);
+
+                return newAppointment;
+            }catch(PessimisticLockingFailureException ex){
+                return null;
+            }
         }
 
         return null;
     }
 
-    private Appointment getAfterAppointment(Appointment appointment, CreateReservationDTO dto) {
+    @Transactional
+    public Appointment getAfterAppointment(Appointment appointment, CreateReservationDTO dto) {
 
         if (appointment.getEndDate().isAfter(dto.getEndDate())) {
-            Appointment newAppointment = new Appointment(appointment);
-            newAppointment.setStartDate(dto.getEndDate().with(LocalTime.of(14, 0)));
-            newAppointment.setReserved(false);
-            appointmentRepository.save(newAppointment);
-            return newAppointment;
+            try{
+                Appointment newAppointment = new Appointment(appointment);
+                newAppointment.setStartDate(dto.getEndDate().with(LocalTime.of(14, 0)));
+                newAppointment.setReserved(false);
+                appointmentRepository.save(newAppointment);
+                return newAppointment;
+            }catch(PessimisticLockingFailureException ex){
+                return null;
+            }
         }
         return null;
     }
@@ -494,32 +531,46 @@ public class AppointmentService {
         return null;
     }
 
+    @Transactional
     public Appointment editAppointmentForReservation(Appointment appointment, CreateReservationDTO dto) {
 
         for (Appointment a : appointmentRepository.findAll()) {
             if (a.getId() == appointment.getId()) {
-                a.setReserved(true);
-                a.setStartDate(dto.getStartDate());
-                a.setEndDate(dto.getEndDate());
-                a.setPrice(dto.getTotalPrice());
-                Appointment newAppointment = this.appointmentRepository.save(a);
-                mapAdditionalServices(dto.getAdditionalServices(), newAppointment);
-                return newAppointment;
+
+                try {
+
+                    a.setReserved(true);
+                    a.setStartDate(dto.getStartDate());
+                    a.setEndDate(dto.getEndDate());
+                    a.setPrice(dto.getTotalPrice());
+                    Appointment newAppointment = this.appointmentRepository.save(a);
+                    mapAdditionalServices(dto.getAdditionalServices(), newAppointment);
+                    return newAppointment;
+
+                }catch(PessimisticLockingFailureException ex){
+                    return null;
+                }
             }
         }
         return null;
     }
 
-    private Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices, Appointment appointment) {
+    @Transactional
+    public Set<AdditionalService> mapAdditionalServices(ArrayList<AdditionalServicesDTO> additionalServices, Appointment appointment) {
 
         Set<AdditionalService> ret = new HashSet<>();
 
         for (AdditionalServicesDTO a : additionalServices) {
-            AdditionalService mapped = additionalServiceRepository.findById(a.getId()).orElseGet(null);
-            if (mapped != null) {
-                mapped.getAppointments().add(appointment);
-                additionalServiceRepository.save(mapped);
-                ret.add(mapped);
+
+            try{
+                AdditionalService mapped = additionalServiceRepository.findById(a.getId()).orElseGet(null);
+                if (mapped != null) {
+                    mapped.getAppointments().add(appointment);
+                    additionalServiceRepository.save(mapped);
+                    ret.add(mapped);
+                }
+            }catch(PessimisticLockingFailureException ex){
+                continue;
             }
         }
 
