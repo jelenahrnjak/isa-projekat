@@ -129,6 +129,7 @@ export class UpcomingReservationsComponent implements OnInit {
           title: 'Oops...',
           text: 'Something went wrong. Please try again.',
         })  
+        this.refreshData()
       },
       () => { 
         this.refreshData()

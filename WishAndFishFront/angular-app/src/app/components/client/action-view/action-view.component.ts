@@ -122,6 +122,8 @@ export class ActionViewComponent implements OnInit {
             title: 'Oops...',
             text: 'Something went wrong. Please try again.',
           })  
+          
+          this.resetData()
         },
         () => { 
           this.resetData()
