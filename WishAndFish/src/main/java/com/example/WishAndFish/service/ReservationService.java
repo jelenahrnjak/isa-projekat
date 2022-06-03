@@ -810,7 +810,7 @@ public class ReservationService {
                 return cancelAction(client, reservation);
             }
 
-            return cancelNormalRegistration(client, reservation);
+            return cancelNormalReservation(client, reservation);
 
         } catch(PessimisticLockingFailureException ex) {
 
@@ -820,7 +820,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public boolean cancelNormalRegistration(Client client, Reservation reservation) {
+    public boolean cancelNormalReservation(Client client, Reservation reservation) {
 
         try{
         Appointment appointment = appointmentRepository.findOneById(reservation.getAppointment().getId());
