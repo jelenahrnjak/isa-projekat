@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
     let role = localStorage.getItem("role");
     switch (role) { 
       case "ROLE_COTTAGE_OWNER":
-        this.router.navigate(['/cottage-owner']);
+        this.router.navigate(['/cottage-profile']);
 		    break 
       case "ROLE_CLIENT":
         this.router.navigate(['/client']);
