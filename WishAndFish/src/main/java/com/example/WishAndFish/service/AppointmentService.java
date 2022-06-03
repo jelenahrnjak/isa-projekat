@@ -103,7 +103,7 @@ public class AppointmentService {
         return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
     }
 
-
+    @Transactional
     public Appointment editAvailability(AvailabilityDTO dto) {
 
         LocalDateTime end = findDate(dto.getEndDate());
@@ -272,6 +272,7 @@ public class AppointmentService {
     }
 
 
+    @Transactional
     public Appointment addNewAction(AddActionDTO dto) throws MessagingException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
@@ -285,55 +286,62 @@ public class AppointmentService {
                 }
             }
         }
+        try{
+            //ako postoji slobodan termin
+            for (Appointment free : appointmentRepository.findAll()) {
+                if (free.getCottage() != null) {
+                    if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getCottage().getId())) {
+                        Cottage cottage = cottageRepository.findOneById(dto.getId());
 
-        //ako postoji slobodan termin
-        for (Appointment free : appointmentRepository.findAll()) {
-            if (free.getCottage() != null) {
-                if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getCottage().getId())) {
+                        //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
+                        Appointment newApp = new Appointment(free); //treci koji se dobije
+                        newApp.setStartDate(end);
+                        newApp.setEndDate(free.getEndDate());
+                        free.setEndDate(start); //kraj prvog
 
-                    //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
-                    Appointment newApp = new Appointment(free); //treci koji se dobije
-                    newApp.setStartDate(end);
-                    newApp.setEndDate(free.getEndDate());
-                    free.setEndDate(start); //kraj prvog
-
-                    appointmentRepository.save(free);
-                    appointmentRepository.save(newApp);
-
-
-                    Appointment a = new Appointment();
-                    a.setIsAction(true);
-                    a.setStartDate(start);
-                    a.setEndDate(end);
-                    a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
-                    a.setCottage(cottageRepository.findById(dto.getId()).orElseGet(null));
-                    a.setMaxPersons(dto.getMaxPersons());
-                    a.setPrice(dto.getPrice());
-                    appointmentRepository.save(a);
-
-                    for (Long as : dto.getAdditionalServices()) {
-                        AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
-                        add.getAppointments().add(a);
-                        additionalServiceRepository.save(add);
-                        //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-                    }
+                        appointmentRepository.save(free);
+                        appointmentRepository.save(newApp);
 
 
-                    for (Client c : clientRepository.findAll()) {
-                        for (Cottage cot : c.getCottageSubscriptions()) {
-                            if (dto.getId().equals(cot.getId())) {
-                                emailService.sendEmailForNewAction(c.getEmail(), cot.getName());
+                        Appointment a = new Appointment();
+                        a.setIsAction(true);
+                        a.setStartDate(start);
+                        a.setEndDate(end);
+                        a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
+
+                        a.setCottage(cottage);
+                        a.setMaxPersons(dto.getMaxPersons());
+                        a.setPrice(dto.getPrice());
+                        appointmentRepository.save(a);
+
+                        for (Long as : dto.getAdditionalServices()) {
+                            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+                            add.getAppointments().add(a);
+                            additionalServiceRepository.save(add);
+                            //a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
+                        }
+
+
+                        for (Client c : clientRepository.findAll()) {
+                            for (Cottage cot : c.getCottageSubscriptions()) {
+                                if (dto.getId().equals(cot.getId())) {
+                                    emailService.sendEmailForNewAction(c.getEmail(), cot.getName());
+                                }
                             }
                         }
+                        return a;
                     }
-                    return a;
                 }
             }
+        } catch(PessimisticLockingFailureException ex) {
+
+        throw  new PessimisticLockingFailureException("Cottage already reserved!");
         }
         return null;
+
     }
 
-
+    @Transactional
     public Appointment addNewActionBoat(AddActionDTO dto) throws MessagingException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
@@ -347,57 +355,62 @@ public class AppointmentService {
                 }
             }
         }
+        try {
+            //ako postoji slobodan termin
+            for (Appointment free : appointmentRepository.findAll()) {
+                if (free.getBoat() != null) {
+                    if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getBoat().getId())) {
+                        Boat b = boatRepository.findOneById(dto.getId());
+                        //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
+                        Appointment newApp = new Appointment(free); //treci koji se dobije
+                        newApp.setStartDate(end);
+                        newApp.setEndDate(free.getEndDate());
+                        free.setEndDate(start); //kraj prvog
 
-        //ako postoji slobodan termin
-        for (Appointment free : appointmentRepository.findAll()) {
-            if (free.getBoat() != null) {
-                if ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate())) && dto.getId().equals(free.getBoat().getId())) {
-
-                    //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
-                    Appointment newApp = new Appointment(free); //treci koji se dobije
-                    newApp.setStartDate(end);
-                    newApp.setEndDate(free.getEndDate());
-                    free.setEndDate(start); //kraj prvog
-
-                    appointmentRepository.save(free);
-                    appointmentRepository.save(newApp);
+                        appointmentRepository.save(free);
+                        appointmentRepository.save(newApp);
 
 
-                    Appointment a = new Appointment();
-                    a.setIsAction(true);
-                    a.setStartDate(start);
-                    a.setEndDate(end);
-                    a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
-                    a.setBoat(boatRepository.findById(dto.getId()).orElseGet(null));
-                    a.setMaxPersons(dto.getMaxPersons());
-                    a.setPrice(dto.getPrice());
-                    appointmentRepository.save(a);
+                        Appointment a = new Appointment();
+                        a.setIsAction(true);
+                        a.setStartDate(start);
+                        a.setEndDate(end);
+                        a.setExpirationDate(LocalDateTime.parse(dto.getExpirationDate(), formatter));
+                        a.setBoat(b);
+                        a.setMaxPersons(dto.getMaxPersons());
+                        a.setPrice(dto.getPrice());
+                        appointmentRepository.save(a);
 
-                    for (Long as : dto.getAdditionalServices()) {
+                        for (Long as : dto.getAdditionalServices()) {
 //            AdditionalService aservice = additionalServiceRepository.findById(as).orElseGet(null);
 //            aservice.setBoat(boatRepository.getById(dto.getId()));
 //            additionalServiceRepository.save(aservice);
 //            a.getAdditionalServices().add(additionalServiceRepository.findById(as).orElseGet(null));
-                        AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
-                        add.getAppointments().add(a);
-                        additionalServiceRepository.save(add);
-                    }
+                            AdditionalService add = additionalServiceRepository.findById(as).orElseGet(null);
+                            add.getAppointments().add(a);
+                            additionalServiceRepository.save(add);
+                        }
 
-                    for (Client c : clientRepository.findAll()) {
-                        for (Boat boat : c.getBoatSubscriptions()) {
-                            if (dto.getId().equals(boat.getId())) {
-                                emailService.sendEmailForNewActionBoat(c.getEmail(), boat.getName());
+                        for (Client c : clientRepository.findAll()) {
+                            for (Boat boat : c.getBoatSubscriptions()) {
+                                if (dto.getId().equals(boat.getId())) {
+                                    emailService.sendEmailForNewActionBoat(c.getEmail(), boat.getName());
+                                }
                             }
                         }
-                    }
 
-                    return a;
+                        return a;
+                    }
                 }
             }
+
+
+            return null;
         }
+        catch(PessimisticLockingFailureException ex) {
 
-
-        return null;
+                throw  new PessimisticLockingFailureException("Boat already reserved!");
+            }
     }
 
 

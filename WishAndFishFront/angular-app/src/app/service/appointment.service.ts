@@ -98,7 +98,7 @@ export class AppointmentService {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "There is no free period in selected dates" //error.error.message,
+      text: "Something went wrong" //error.error.message,
     })
     return throwError(error);
   }
