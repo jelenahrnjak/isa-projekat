@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
 
-  private _api_url =  'http://localhost:8080/api';
+  // private _api_url =  'http://localhost:8080/api';
+  private _api_url = environment.baseUrl
   private _auth_url = this._api_url + '/auth';
   private _user_url = this._api_url + '/users';
   private _client_url = this._api_url + '/clients';
