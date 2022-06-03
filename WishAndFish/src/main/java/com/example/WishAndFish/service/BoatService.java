@@ -4,10 +4,12 @@ import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,9 +218,12 @@ public class BoatService {
         return boat;
     } 
 
+    @Transactional
     public Boat editBasicInfo(EditBoatDTO editedBoat){
-        for (Boat b: boatRepository.findAll()){
-            if(editedBoat.getId().equals(b.getId())){
+        try {
+            Boat b = boatRepository.findOneById(editedBoat.getId());
+            //for (Boat b: boatRepository.findAll()){
+            if (editedBoat.getId().equals(b.getId())) {
                 b.setName(editedBoat.getName());
                 b.setType(editedBoat.getType());
                 b.setLength(editedBoat.getLength());
@@ -239,6 +244,12 @@ public class BoatService {
                 boatRepository.save(b);
                 return b;
             }
+            //}
+        } catch(
+            PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Boat already reserved!");
+
         }
         return null;
     }
