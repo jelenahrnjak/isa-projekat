@@ -11,6 +11,7 @@ import com.example.WishAndFish.dto.SearchClientDTO;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -449,7 +450,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public boolean createReservation(CreateReservationDTO dto) throws MessagingException {
+    public boolean createReservation(CreateReservationDTO dto) throws MessagingException, PessimisticLockingFailureException {
 
         Client client = clientRepository.findByEmail(dto.getUser());
 

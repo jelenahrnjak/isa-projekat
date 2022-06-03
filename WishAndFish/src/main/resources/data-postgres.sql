@@ -52,7 +52,7 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO CLIENT(id, penalties)
     VALUES(35, 1);
 INSERT INTO CLIENT(id, penalties)
-    VALUES(36, 3);
+    VALUES(36, 2);
 
 INSERT INTO COTTAGE_OWNER(id, number_of_ratings, rating)
 	VALUES (50, 0 , 0.0);
@@ -274,4 +274,4 @@ INSERT INTO public.comments(id, content, client_id) VALUES (222, 'Messy! Room wa
 INSERT INTO public.comments(id, content, client_id) VALUES (333, 'Everything was fine!', 36);
 
 INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
-	VALUES (100, false, false, 'I do not use this site anymore', 35);
+	VALUES (100, false, false, 'I do not use this site anymore', 36);
