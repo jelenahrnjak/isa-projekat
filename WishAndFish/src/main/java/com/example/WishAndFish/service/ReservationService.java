@@ -790,30 +790,40 @@ public class ReservationService {
 
     }
 
+    @Transactional
     public boolean cancelReservation(ActionReservationDTO dto) {
 
-        Client client = clientRepository.findByEmail(dto.getClient());
-        Reservation reservation = reservationRepository.findById(dto.getAction()).orElseGet(null);
+        try {
+            Client client = clientRepository.findByEmail(dto.getClient());
 
-        if(client == null || reservation == null || reservation.getCanceled()){
-            return false;
+            Reservation reservation = reservationRepository.findOneById(dto.getAction());
+
+            if (client == null || reservation == null || reservation.getCanceled()) {
+                return false;
+            }
+
+            if (reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now())) {// || !reservation.getAppointment().getReserved()){
+                return false;
+            }
+
+            if (reservation.getAppointment().getIsAction()) {
+                return cancelAction(client, reservation);
+            }
+
+            return cancelNormalRegistration(client, reservation);
+
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Appointments are changed");
+
         }
-
-        if(reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now())){// || !reservation.getAppointment().getReserved()){
-            return false;
-        }
-
-        if(reservation.getAppointment().getIsAction()){
-            return cancelAction(client, reservation);
-        }
-
-
-        return cancelNormalRegistration(client,reservation);
     }
 
-    private boolean cancelNormalRegistration(Client client, Reservation reservation) {
+    @Transactional
+    public boolean cancelNormalRegistration(Client client, Reservation reservation) {
 
-        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
+        try{
+        Appointment appointment = appointmentRepository.findOneById(reservation.getAppointment().getId());
 
         if(appointment == null){
             return false;
@@ -823,7 +833,7 @@ public class ReservationService {
 
         appointmentService.cancelNormalReservation(appointment);
 
-        Reservation editedReservation = reservationRepository.findById(id).orElseGet(null);
+        Reservation editedReservation = reservationRepository.findOneById(id);
         if(editedReservation == null){
             return false;
         }
@@ -832,44 +842,63 @@ public class ReservationService {
         reservationRepository.save(editedReservation);
 
         return true;
+
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Appointments are changed");
+
+        }
     }
 
-    private boolean cancelAction(Client client, Reservation reservation) {
+    @Transactional
+    public boolean cancelAction(Client client, Reservation reservation) {
 
-        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
+        try {
+            Appointment appointment = appointmentRepository.findOneById(reservation.getAppointment().getId());
 
-        if(appointment == null){
-            return false;
-        }
-
-        reservation.setCanceled(true);
-        reservationRepository.save(reservation);
-
-        Appointment newAppointment = new Appointment(appointment);
-        newAppointment.setReserved(false);
-        appointmentRepository.save(newAppointment);
-
-        for (AdditionalService service : additionalServiceRepository.findAll()) {
-
-            if(service.getAppointments() == null){
-                continue;
+            if (appointment == null) {
+                return false;
             }
-            addAdditionalService(newAppointment, service, appointment.getId());
+
+            reservation.setCanceled(true);
+            reservationRepository.save(reservation);
+
+            Appointment newAppointment = new Appointment(appointment);
+            newAppointment.setReserved(false);
+            appointmentRepository.save(newAppointment);
+
+            for (AdditionalService service : additionalServiceRepository.findAll()) {
+
+                if (service.getAppointments() == null) {
+                    continue;
+                }
+                addAdditionalService(newAppointment, service, appointment.getId());
+
+            }
+
+            return true;
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Appointments are changed");
 
         }
-
-
-        return true;
     }
 
-    private void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment){
+    @Transactional
+    public void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment){
 
+        try{
         for(Appointment a : service.getAppointments()){
             if(a.getId() == oldAppointment){
                 service.getAppointments().add(newAppointment);
                 additionalServiceRepository.save(service);
                 return;
             }
+        }
+        } catch(PessimisticLockingFailureException ex) {
+
+            throw  new PessimisticLockingFailureException("Appointments are changed");
+
         }
     }
 }
