@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from './api.service';
 import {ConfigService} from './config.service';
-import {map} from 'rxjs/operators';   
+import { map, catchError } from 'rxjs/operators';   
 import { HttpHeaders, HttpParams } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +80,18 @@ export class CottageService {
     return this.apiService.put(this.config.cottage_url + `/editBasicInfo`, cottage)
     .pipe(map(c => {
       console.log('Editing cottage success');
-    }));
+    }))
+    .pipe(catchError(error => this.edit(error)));
+    ;
+  }
+
+  private edit(error: any): any {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Cottage is reserved! Yoou can't edit it!" //error.error.message,
+    })
+    return throwError(error);
   }
 
   getAllCommentsCottage(id) {
