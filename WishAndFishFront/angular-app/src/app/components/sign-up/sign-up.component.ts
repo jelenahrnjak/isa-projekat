@@ -66,12 +66,12 @@ export class SignUpComponent implements OnInit {
       surname: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])],
       phoneNumber: ['', Validators.compose([Validators.required])],
-      role : [''],
+      role : ['', Validators.compose([Validators.required])],
       street : [''],
-      streetNumber : [''],
-      postalCode : [''], 
-      cityName : [''],
-      countryName : [''],
+      streetNumber : ['', Validators.compose([Validators.required])],
+      postalCode : ['', Validators.compose([Validators.required])], 
+      cityName : ['', Validators.compose([Validators.required])],
+      countryName : ['', Validators.compose([Validators.required])],
       reasonForRegistration : [''],
     })
   }
@@ -88,6 +88,11 @@ export class SignUpComponent implements OnInit {
 
     if(this.form.get('password').value != this.form.get('passwordRepeated').value){
       this.message = "Passwords do not match!"
+      return
+    }
+  
+    if(this.form.get('role').value != "ROLE_CLIENT" && (!this.form.get('reasonForRegistration').value || this.form.get('reasonForRegistration').value.trim() == "")){
+      this.message = "Write reason for registration!"
       return
     }
 
@@ -114,13 +119,18 @@ export class SignUpComponent implements OnInit {
       "reasonForRegistration" : this.form.get('reasonForRegistration').value
   }
 
+    var mess = "Successfull registration!"
+    if(this.form.get('role').value == "ROLE_CLIENT"){
+      mess = "Verification email sent. Please check your email." 
+    }
+
     if(this.form.valid){
       this.authService.signup(User)
       .subscribe(data => {
         Swal.fire({
           icon: 'success',
           title: 'Success!',
-          text: 'Verification email sent. Please check your email.',
+          text: mess,
         })   
         this.router.navigate([this.returnUrl]);
       },
