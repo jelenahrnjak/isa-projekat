@@ -57,6 +57,8 @@ export class CottageProfileComponent implements OnInit {
    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/cottage-profile';
    this.cottageOwnerService.getCottagesFromOwner().subscribe((data : any) => {
      this.cottages = data;
+     console.log(this.cottages)
+
    });
  
   }
@@ -66,15 +68,23 @@ export class CottageProfileComponent implements OnInit {
     this.searchDTO.address = this.form.get('address').value
     this.searchDTO.rating = this.form.get('rating').value
     //this.searchDTO.description = this.form.get('description').value 
-    this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
-      this.cottages = data; 
-    }); 
+    if(this.searchDTO.name == "" && this.searchDTO.address == "" && this.searchDTO.rating == ""){
+      console.log("sve prazno")
+    }
+    else{
+      this.cottageService.search(this.searchDTO).subscribe((data : any) => { 
+        this.cottages = data; 
+      });
+    }
+ 
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
-    this.cottageService.getAll().subscribe((data : any) => {
+    this.form.setValue({"name" : "", "address" : "", "rating": ""})
+    this.cottageOwnerService.getCottagesFromOwner().subscribe((data : any) => {
+      this.cottages = []
       this.cottages = data;
+      console.log(this.cottages)
     }); 
   }
 

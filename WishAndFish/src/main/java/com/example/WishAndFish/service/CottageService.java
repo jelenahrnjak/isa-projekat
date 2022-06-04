@@ -127,20 +127,24 @@ public class CottageService {
         return this.cottageRepository.save(cottage);
     }
 
-    public ResponseEntity<Long> deleteCottage(Long id) {
+    public Long deleteCottage(Long id) {
         for (Cottage c : this.cottageRepository.findAll()) {
             if (c.getId() == id) {
-                for (Appointment a : c.getAppointments()) {
-                    if (a.getReserved()) {
-                        System.out.println("Rezervisano");
-                        return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+                if(c.getAppointments() != null){
+                    for (Appointment a : c.getAppointments()) {
+                        if (a.getReserved() && a.getEndDate().isAfter(LocalDateTime.now())) {
+                            System.out.println("Rezervisano");
+                            return null;
+                        }
                     }
                 }
                 c.setDeleted(true);
                 this.cottageRepository.save(c);
+                return id;
+
             }
         }
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return null;
 
     }
 
@@ -157,7 +161,7 @@ public class CottageService {
 
             for (Reservation r : reservationRepository.findAll()) {
                 if (r.getAppointment().getCottage() != null) {
-                    if (r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) && r.getAppointment().getCottage().getId() == c.getId()) {
+                    if ((r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) || (r.getAppointment().getStartDate().isBefore(LocalDateTime.now()) && r.getAppointment().getEndDate().isAfter(LocalDateTime.now())))&& r.getAppointment().getCottage().getId() == c.getId()) {
                         return null;
                     }
                 }

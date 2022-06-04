@@ -29,7 +29,8 @@ export class AddActionComponent implements OnInit {
   maxPersons: string;
   price: string;
   error: boolean = false
-
+  startTime: any;
+  endTime: any;
   
 
   constructor(private formBuilder: FormBuilder,
@@ -47,6 +48,11 @@ export class AddActionComponent implements OnInit {
       this.additionalServices = data;
       console.log(this.additionalServices)
     });
+
+    this.startTime = "14:00"
+    this.endTime = "12:00"
+    this.todayDate = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1));
+
   }
   
   
@@ -104,19 +110,32 @@ export class AddActionComponent implements OnInit {
 
 
   if(!this.error){
-    var dto = {
-      "id": this.id,
-      "startDate": formatDate(this.startDate,'dd/MM/yyyy HH:mm','en_US'),
-      "endDate": formatDate(this.endDate,'dd/MM/yyyy HH:mm','en_US'),
-      "expirationDate": formatDate(this.expirationDate,'dd/MM/yyyy HH:mm','en_US'),
-      "maxPersons": this.maxPersons,
-      "price": this.price,
-      "additionalServices": this.selectedServices
+    var start = formatDate(this.startDate,'dd-MM-yyyy','en_US');
+    var end  = formatDate(this.endDate,'dd-MM-yyyy','en_US');
+  
+    if(this.startDate >= this.endDate){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Start date is greater or equal then end date!',
+      }) 
+    }else{
+      var dto = {
+        "id": this.id,
+        "startDate": start + " " + this.startTime,
+        "endDate": end  + " " + this.endTime,
+        "expirationDate": formatDate(this.expirationDate,'dd/MM/yyyy HH:mm','en_US'),
+        "maxPersons": this.maxPersons,
+        "price": this.price,
+        "additionalServices": this.selectedServices
+      }
+      this.appointmentService.addNewAction(dto).subscribe((data) =>{
+        this.router.navigate(['/show-free-appointments/'+this.id]);
+  
+      });  
     }
-    this.appointmentService.addNewAction(dto).subscribe((data) =>{
-      this.router.navigate(['/show-free-appointments/'+this.id]);
 
-    });      
+    
   }
 
 }

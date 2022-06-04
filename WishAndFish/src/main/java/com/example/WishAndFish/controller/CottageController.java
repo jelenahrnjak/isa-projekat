@@ -66,7 +66,14 @@ public class CottageController {
     @DeleteMapping(value = "/deleteCottage/{id}")
     @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
     public ResponseEntity<Long> deleteCottage(@PathVariable Long id) {
-        return this.cottageService.deleteCottage(id);
+
+        Long c = this.cottageService.deleteCottage(id);
+
+        if(c ==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 

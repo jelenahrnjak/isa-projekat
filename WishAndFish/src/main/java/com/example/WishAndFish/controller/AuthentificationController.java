@@ -101,15 +101,15 @@ public class AuthentificationController {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
-        else if(userRequest.getRoleName().equals("BOAT_OWNER")){
+        else if(userRequest.getRoleName().equals("ROLE_BOAT_OWNER")){
             User user = this.boatOwnerService.save(userRequest);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
-        else if(userRequest.getRoleName().equals("FISHING_INSTRUCTOR")){
+        else if(userRequest.getRoleName().equals("ROLE_FISHING_INSTRUCTOR")){
             User user = this.fishingInstructorService.save(userRequest);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
-        else if(userRequest.getRoleName().equals("ADMIN")){
+        else if(userRequest.getRoleName().equals("ROLE_ADMIN")){
             User user = this.adminService.save(userRequest);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }

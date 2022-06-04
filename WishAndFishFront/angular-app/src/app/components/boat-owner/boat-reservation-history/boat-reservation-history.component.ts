@@ -62,6 +62,8 @@ export class BoatReservationHistoryComponent implements OnInit{
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.startTime = "14:00"
     this.endTime = "12:00"
+    this.todayDate = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1));
+
 
     this.reservationService.getAllByBoat(this.id).subscribe((data : any) => {
       this.reservations = data;

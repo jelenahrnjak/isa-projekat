@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -137,21 +138,24 @@ public class BoatService {
     }
 
 
-    public ResponseEntity<Long> deleteBoat(Long id){
+    public Long deleteBoat(Long id){
         for(Boat b: this.boatRepository.findAll()){
             if(b.getId() == id) {
                 if(b.getAppointments() != null) {
-                    for(Appointment a:b.getAppointments()){
-                        if(a.getReserved()){
-                            return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+                    for (Appointment a : b.getAppointments()) {
+                        if (a.getReserved() && a.getEndDate().isAfter(LocalDateTime.now())) {
+                            System.out.println("Rezervisano");
+                            return null;
                         }
                     }
                 }
                 b.setDeleted(true);
                 this.boatRepository.save(b);
+                return id;
+
             }
         }
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return null;
 
     }
 
@@ -222,6 +226,15 @@ public class BoatService {
     public Boat editBasicInfo(EditBoatDTO editedBoat){
         try {
             Boat b = boatRepository.findOneById(editedBoat.getId());
+
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    if ((r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) || (r.getAppointment().getStartDate().isBefore(LocalDateTime.now()) && r.getAppointment().getEndDate().isAfter(LocalDateTime.now())))&& r.getAppointment().getBoat().getId() == b.getId()) {
+                        return null;
+                    }
+                }
+            }
+
             //for (Boat b: boatRepository.findAll()){
             if (editedBoat.getId().equals(b.getId())) {
                 b.setName(editedBoat.getName());

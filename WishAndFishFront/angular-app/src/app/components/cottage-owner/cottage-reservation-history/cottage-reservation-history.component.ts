@@ -63,27 +63,29 @@ export class CottageReservationHistoryComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.startTime = "14:00"
     this.endTime = "12:00"
-   
+    this.todayDate = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1));
+
 
     this.reservationService.getAllByCottage(this.id).subscribe((data : any) => {
       this.reservations = data;
       console.log(this.reservations)
-      });
+    });
 
-      this.form = this.formBuilder.group({  
+    this.form = this.formBuilder.group({  
         name: [''],         
-      }) 
+    }) 
 
 
     
-      this.additionalServicesService.findAdditionalServices(this.id).subscribe((data : any) => {
+    this.additionalServicesService.findAdditionalServices(this.id).subscribe((data : any) => {
         this.additionalServices = data;
         console.log(data)
-      }); 
+    }); 
 
-      this.cottageService.findCottage(this.id).subscribe((data) => {
+    this.cottageService.findCottage(this.id).subscribe((data) => {
         this.pricePerDay = data.pricePerDay
-      })
+    })
+
   }
 
   came($event){

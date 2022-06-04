@@ -101,6 +101,10 @@ public class ReservationService {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
                     }
+                    if (r.getAppointment().getEndDate().isAfter(LocalDateTime.now()) && r.getAppointment().getStartDate().isBefore(LocalDateTime.now())) {
+                        r.setDuring(true);
+                    }
+
                     ret.add(new ReservationDTO(r));
                 }
             }
@@ -115,6 +119,9 @@ public class ReservationService {
                 if (id.equals(r.getAppointment().getBoat().getId()) && !r.getCanceled()) {
                     if (r.getAppointment().getEndDate().isBefore(LocalDateTime.now())) {
                         r.setFinished(true);
+                    }
+                    if (r.getAppointment().getEndDate().isAfter(LocalDateTime.now()) && r.getAppointment().getStartDate().isBefore(LocalDateTime.now())) {
+                        r.setDuring(true);
                     }
                     ret.add(new ReservationDTO(r));
                 }

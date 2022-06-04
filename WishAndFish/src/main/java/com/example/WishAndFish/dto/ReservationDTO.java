@@ -25,6 +25,8 @@ public class ReservationDTO {
     private Boolean canceled;
     private Boolean finished;
     private Boolean commented;
+    private Boolean during;
+    private Double price;
 
     public ReservationDTO(Reservation r){
         this.id = r.getId();
@@ -33,5 +35,7 @@ public class ReservationDTO {
         this.canceled = r.getCanceled();
         this.finished = r.getFinished();
         this.commented = r.getCommented();
+        this.during = r.getDuring();
+        this.price = r.getTotalPrice();
     }
 }

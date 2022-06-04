@@ -52,6 +52,9 @@ public class Reservation {
     private Boolean complaintEntity;
 
 
+    @Column(name = "during", columnDefinition = "boolean default false")
+    private Boolean during;
+
     public Reservation(Client client, Appointment appointment){
 
         this.client = client;
