@@ -112,11 +112,13 @@ public class AppointmentService {
         //ako postoji rezervacija u tom periodu
         for (Reservation r : reservationRepository.findAll()) {
             if (r.getAppointment().getCottage() != null) {
-                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && !r.getCanceled() &&
+                if (dto.getId().equals(r.getAppointment().getCottage().getId()) && !r.getCanceled()
+                        &&
                         ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
-                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
-                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))
-                        || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))){
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()))
+                                || (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate()))
+                                || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))))
+                {
                     return null;
                 }
             }

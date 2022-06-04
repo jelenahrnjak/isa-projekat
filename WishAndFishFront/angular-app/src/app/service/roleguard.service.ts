@@ -25,6 +25,9 @@ export class RoleguardService {
 
     if (!this.authguardService.gettoken() || !currentRole.includes(expectedRole)) {
       let role =  localStorage.getItem('role')
+
+      console.log("u roleguradu sam")
+
       if(role == "ROLE_CLIENT"){
 
         this.router.navigate(['/client']);
