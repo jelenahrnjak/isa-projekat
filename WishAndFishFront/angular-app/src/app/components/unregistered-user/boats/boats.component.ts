@@ -146,12 +146,17 @@ export class BoatsComponent implements OnInit {
       this.boats.sort(function(a, b) {  
         return a.price - b.price;}) 
 
-    }else{ 
+    }else if(this.form.get('sorting').value == 2){ 
 
       this.boats.sort(function(a, b) {
 
         return b.rating - a.rating  })
-    }
+
+    }else if(this.form.get('sorting').value == 3){
+
+      return this.boats.sort((a, b) => a.name.localeCompare(b.name));
+
+    } 
 
   }
 

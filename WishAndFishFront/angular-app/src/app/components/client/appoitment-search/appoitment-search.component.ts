@@ -279,12 +279,17 @@ export class AppoitmentSearchComponent implements OnInit {
         this.items.sort(function(a, b) { 
           return a.price - b.price;})
   
-      }else{ 
+      }else if(this.form.get('sorting').value == 2){  
   
         this.items.sort(function(a, b) {
   
           return b.rating - a.rating  })
-      }
+
+      }else if(this.form.get('sorting').value == 3){
+
+      return this.items.sort((a, b) => a.name.localeCompare(b.name));
+
+      } 
   
     }
  
