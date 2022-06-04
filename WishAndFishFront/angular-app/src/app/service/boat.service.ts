@@ -101,7 +101,7 @@ export class BoatService {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "Boat is reserved! Yoou can't edit it!" //error.error.message,
+      text: "Boat is reserved! You can't edit it!" //error.error.message,
     })
     return throwError(error);
   }

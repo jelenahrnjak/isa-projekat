@@ -168,6 +168,7 @@ const routes: Routes = [
   {
     path:'add-action/:id',
     component: AddActionComponent,
+    canActivate: [RoleGuard], 
     data: { 
       expectedRole: 'ROLE_COTTAGE_OWNER'  
     }
@@ -189,6 +190,7 @@ const routes: Routes = [
   {
     path:'add-boat-action/:id',
     component: AddBoatActionComponent,
+    canActivate: [RoleGuard],
     data: { 
       expectedRole: 'ROLE_BOAT_OWNER'  
     }
@@ -197,6 +199,7 @@ const routes: Routes = [
   {
     path:'show-free-appointments-boat/:id',
     component: ShowFreeAppointmentsBoatComponent,
+    canActivate: [RoleGuard], 
     data: { 
       expectedRole: 'ROLE_BOAT_OWNER'  
     }

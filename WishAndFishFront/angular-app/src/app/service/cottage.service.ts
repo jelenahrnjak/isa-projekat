@@ -89,7 +89,7 @@ export class CottageService {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: "Cottage is reserved! Yoou can't edit it!" //error.error.message,
+      text: "Cottage is reserved! You can't edit it!" //error.error.message,
     })
     return throwError(error);
   }
