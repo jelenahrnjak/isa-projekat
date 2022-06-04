@@ -36,8 +36,8 @@
             <li style="height: 70px;" class="list-group-item">{{c.address}}</li>  
             <li style="height: 35px; text-align: center;" class="list-group-item"><strong>Price per day:</strong> {{c.price}}€</li>  
             <li    class="list-group-item"><strong>Maximum people per room:</strong> {{c.maximumPeople}}</li>  
-            <li style="height: 70px;" *ngIf="c.rating !== 0" class="list-group-item"><strong>Average rating:</strong> {{c.rating}}</li>
-            <li style="height: 70px;" *ngIf="c.rating === 0" class="list-group-item">The cottage currently does not have any ratings.</li>  
+            <li style="height: 70px;" *ngIf="c.rating != 0.0" class="list-group-item"><strong>Average rating:</strong> {{c.rating}}</li>
+            <li style="height: 70px;" *ngIf="c.rating == 0.0" class="list-group-item">The cottage currently does not have any ratings.</li>  
             <li  *ngIf="c.description !== null" style="height: 70px;" class="list-group-item">{{c.description}}</li> 
             <li  *ngIf="c.description == null" style="height: 70px;" class="list-group-item">The cottage currently does not have decription.</li> 
             <li class="list-group-item">
