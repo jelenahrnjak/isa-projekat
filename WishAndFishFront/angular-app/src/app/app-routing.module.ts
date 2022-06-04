@@ -95,6 +95,7 @@ const routes: Routes = [
   {
     path: 'add-cottage',
     component: AddCottageComponent,
+    canActivate: [RoleGuard], 
     data: { 
       expectedRole: 'ROLE_COTTAGE_OWNER'  
     }
