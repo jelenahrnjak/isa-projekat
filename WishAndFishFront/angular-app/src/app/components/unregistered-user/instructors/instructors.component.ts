@@ -146,12 +146,17 @@ export class InstructorsComponent implements OnInit {
       this.adventures.sort(function(a, b) { 
         return a.price - b.price;})
 
-    }else{ 
+    }else if(this.form.get('sorting').value == 2){ 
 
       this.adventures.sort(function(a, b) {
 
         return b.rating - a.rating  })
-    }
+    
+    }else if(this.form.get('sorting').value == 3){
+
+      return this.adventures.sort((a, b) => a.name.localeCompare(b.name));
+  
+      }
 
   }
 }

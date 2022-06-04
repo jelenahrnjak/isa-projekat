@@ -863,7 +863,6 @@ public class AppointmentService {
 
     public void cancelNormalReservation(Appointment canceled) {
 
-
         Appointment before = null;
         Appointment after = null;
 

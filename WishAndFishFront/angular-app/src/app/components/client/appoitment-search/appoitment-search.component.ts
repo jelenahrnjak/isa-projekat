@@ -61,6 +61,11 @@ export class AppoitmentSearchComponent implements OnInit {
     penalties = 0;
 
     ngOnInit() {
+
+      var currenttimestamp = (new Date()).getTime(); 
+      var onedayaftertimestamp=currenttimestamp+(86400000);//1 day=86400000 ms; 
+
+      this.minDate = new Date(onedayaftertimestamp) 
  
       this.clientService.getPenalties().subscribe((data : number) => {
         this.penalties = data; 
@@ -274,12 +279,17 @@ export class AppoitmentSearchComponent implements OnInit {
         this.items.sort(function(a, b) { 
           return a.price - b.price;})
   
-      }else{ 
+      }else if(this.form.get('sorting').value == 2){  
   
         this.items.sort(function(a, b) {
   
           return b.rating - a.rating  })
-      }
+
+      }else if(this.form.get('sorting').value == 3){
+
+      return this.items.sort((a, b) => a.name.localeCompare(b.name));
+
+      } 
   
     }
  

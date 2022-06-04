@@ -488,10 +488,9 @@ public class ReservationService {
             emailService.sendEmailForNewReservation(client.getEmail(), ret);
 
 
-        }catch(PessimisticLockingFailureException ex){
+        } catch (PessimisticLockingFailureException ex) {
             return false;
         }
-
 
 
         return true;
@@ -789,50 +788,40 @@ public class ReservationService {
 
             return addReservationToClient(client, appointment);
 
-        } catch(PessimisticLockingFailureException ex) {
+        } catch (PessimisticLockingFailureException ex) {
 
-            throw  new PessimisticLockingFailureException("Action already booked!");
+            throw new PessimisticLockingFailureException("Action already booked!");
 
         }
 
     }
 
-    @Transactional
     public boolean cancelReservation(ActionReservationDTO dto) {
 
-        try {
-            Client client = clientRepository.findByEmail(dto.getClient());
 
-            Reservation reservation = reservationRepository.findOneById(dto.getAction());
+        Reservation reservation = reservationRepository.findById(dto.getAction()).orElseGet(null);
 
-            if (client == null || reservation == null || reservation.getCanceled()) {
-                return false;
-            }
-
-            if (reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now())) {// || !reservation.getAppointment().getReserved()){
-                return false;
-            }
-
-            if (reservation.getAppointment().getIsAction()) {
-                return cancelAction(client, reservation);
-            }
-
-            return cancelNormalReservation(client, reservation);
-
-        } catch(PessimisticLockingFailureException ex) {
-
-            throw  new PessimisticLockingFailureException("Appointments are changed");
-
+        if (reservation == null || reservation.getCanceled()) {
+            return false;
         }
+
+        if (reservation.getAppointment().getStartDate().isBefore(LocalDateTime.now())) {// || !reservation.getAppointment().getReserved()){
+            return false;
+        }
+
+        if (reservation.getAppointment().getIsAction()) {
+            return cancelAction(reservation);
+        }
+
+        return cancelNormalReservation(reservation);
+
     }
 
-    @Transactional
-    public boolean cancelNormalReservation(Client client, Reservation reservation) {
+    public boolean cancelNormalReservation(Reservation reservation) {
 
-        try{
-        Appointment appointment = appointmentRepository.findOneById(reservation.getAppointment().getId());
+        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
 
-        if(appointment == null){
+        if (appointment == null) {
             return false;
         }
 
@@ -840,8 +829,8 @@ public class ReservationService {
 
         appointmentService.cancelNormalReservation(appointment);
 
-        Reservation editedReservation = reservationRepository.findOneById(id);
-        if(editedReservation == null){
+        Reservation editedReservation = reservationRepository.findById(id).orElseGet(null);
+        if (editedReservation == null) {
             return false;
         }
 
@@ -850,62 +839,44 @@ public class ReservationService {
 
         return true;
 
-        } catch(PessimisticLockingFailureException ex) {
 
-            throw  new PessimisticLockingFailureException("Appointments are changed");
-
-        }
     }
 
-    @Transactional
-    public boolean cancelAction(Client client, Reservation reservation) {
+    public boolean cancelAction(Reservation reservation) {
 
-        try {
-            Appointment appointment = appointmentRepository.findOneById(reservation.getAppointment().getId());
+        Appointment appointment = appointmentRepository.findById(reservation.getAppointment().getId()).orElseGet(null);
 
-            if (appointment == null) {
-                return false;
+        if (appointment == null) {
+            return false;
+        }
+
+        reservation.setCanceled(true);
+        reservationRepository.save(reservation);
+
+        Appointment newAppointment = new Appointment(appointment);
+        newAppointment.setReserved(false);
+        appointmentRepository.save(newAppointment);
+
+        for (AdditionalService service : additionalServiceRepository.findAll()) {
+
+            if (service.getAppointments() == null) {
+                continue;
             }
-
-            reservation.setCanceled(true);
-            reservationRepository.save(reservation);
-
-            Appointment newAppointment = new Appointment(appointment);
-            newAppointment.setReserved(false);
-            appointmentRepository.save(newAppointment);
-
-            for (AdditionalService service : additionalServiceRepository.findAll()) {
-
-                if (service.getAppointments() == null) {
-                    continue;
-                }
-                addAdditionalService(newAppointment, service, appointment.getId());
-
-            }
-
-            return true;
-        } catch(PessimisticLockingFailureException ex) {
-
-            throw  new PessimisticLockingFailureException("Appointments are changed");
+            addAdditionalService(newAppointment, service, appointment.getId());
 
         }
+
+        return true;
     }
 
-    @Transactional
-    public void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment){
+    public void addAdditionalService(Appointment newAppointment, AdditionalService service, Long oldAppointment) {
 
-        try{
-        for(Appointment a : service.getAppointments()){
-            if(a.getId() == oldAppointment){
+        for (Appointment a : service.getAppointments()) {
+            if (a.getId() == oldAppointment) {
                 service.getAppointments().add(newAppointment);
                 additionalServiceRepository.save(service);
                 return;
             }
-        }
-        } catch(PessimisticLockingFailureException ex) {
-
-            throw  new PessimisticLockingFailureException("Appointments are changed");
-
         }
     }
 }

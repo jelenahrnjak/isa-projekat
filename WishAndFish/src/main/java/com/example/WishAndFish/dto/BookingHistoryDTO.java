@@ -45,8 +45,8 @@ public class BookingHistoryDTO {
 
         this.id = r.getId();
         this.image = getImage(r.getAppointment());
-        this.start = getDateWithTime(r.getAppointment().getStartDate());
-        this.end = getDateWithTime(r.getAppointment().getEndDate());
+        this.start = getDateWithTime(r.getAppointment().getStartDate().toLocalDate().atTime(14,0));
+        this.end = getDateWithTime(r.getAppointment().getEndDate().toLocalDate().atTime(12,0));
         this.totalPrice = r.getTotalPrice();
         this.isAction = r.getAppointment().getIsAction();
         this.additionalServices = getAdditionalServices(services);
@@ -81,8 +81,8 @@ public class BookingHistoryDTO {
 
         this.id = r.getId();
         this.image = getImage(r);
-        this.start = getDateWithTime(r.getStartDate());
-        this.end = getDateWithTime(r.getEndDate());
+        this.start = getDateWithTime(r.getStartDate().toLocalDate().atTime(14,0));
+        this.end = getDateWithTime(r.getEndDate().toLocalDate().atTime(12,0));
         this.totalPrice = r.getPrice();
         this.isAction = r.getIsAction();
         this.additionalServices = getAdditionalServices(services);
