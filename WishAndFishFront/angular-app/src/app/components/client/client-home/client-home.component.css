@@ -1,0 +1,26 @@
+.feature {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
+  }
+  
+    .col{display:flex;}
+    .col div{flex:1}
+  
+  .card-img-top{ 
+    height: 190px;
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+  }
+  
+  .card{
+    height: 450px;
+  }
+
+  app-card {
+    margin: 0 50px 0 0;
+}

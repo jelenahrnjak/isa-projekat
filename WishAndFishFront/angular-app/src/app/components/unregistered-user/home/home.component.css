@@ -1,0 +1,6 @@
+app-card {
+    margin: 0 50px 0 0;
+}
+
+  .col{display:flex;}
+  .col div{flex:1}
