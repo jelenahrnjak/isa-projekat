@@ -157,7 +157,7 @@ public class CottageService {
 
             for (Reservation r : reservationRepository.findAll()) {
                 if (r.getAppointment().getCottage() != null) {
-                    if (r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) && r.getAppointment().getCottage().getId() == c.getId()) {
+                    if ((r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) || (r.getAppointment().getStartDate().isBefore(LocalDateTime.now()) && r.getAppointment().getEndDate().isAfter(LocalDateTime.now())))&& r.getAppointment().getCottage().getId() == c.getId()) {
                         return null;
                     }
                 }

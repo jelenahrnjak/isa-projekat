@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -222,6 +223,15 @@ public class BoatService {
     public Boat editBasicInfo(EditBoatDTO editedBoat){
         try {
             Boat b = boatRepository.findOneById(editedBoat.getId());
+
+            for (Reservation r : reservationRepository.findAll()) {
+                if (r.getAppointment().getBoat() != null) {
+                    if ((r.getAppointment().getStartDate().isAfter(LocalDateTime.now()) || (r.getAppointment().getStartDate().isBefore(LocalDateTime.now()) && r.getAppointment().getEndDate().isAfter(LocalDateTime.now())))&& r.getAppointment().getBoat().getId() == b.getId()) {
+                        return null;
+                    }
+                }
+            }
+
             //for (Boat b: boatRepository.findAll()){
             if (editedBoat.getId().equals(b.getId())) {
                 b.setName(editedBoat.getName());
