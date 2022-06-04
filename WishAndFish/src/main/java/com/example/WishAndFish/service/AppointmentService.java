@@ -129,7 +129,8 @@ public class AppointmentService {
                 if (dto.getId().equals(a.getCottage().getId()) && !a.isDeleted() &&
                         ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate()))
                                 || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())) ||
-                                (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))) {
+                                (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))
+                        || (start.isEqual(a.getStartDate()) && end.isEqual(a.getEndDate()))) {
                     return null;
                 }
             }
@@ -195,9 +196,10 @@ public class AppointmentService {
             if (r.getAppointment().getBoat() != null) {
                 if (dto.getId().equals(r.getAppointment().getBoat().getId()) && !r.getCanceled() &&
                         ((start.isAfter(r.getAppointment().getStartDate()) && start.isBefore(r.getAppointment().getEndDate()))
-                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate())) ||
-                                (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))
-                        || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))){
+                                || (end.isAfter(r.getAppointment().getStartDate()) && end.isBefore(r.getAppointment().getEndDate()))
+                                || (start.isBefore(r.getAppointment().getStartDate()) && end.isAfter(r.getAppointment().getEndDate())))
+                                || (start.isEqual(r.getAppointment().getStartDate()) && end.isEqual(r.getAppointment().getEndDate()))){
+
                     return null;
                 }
             }
@@ -208,8 +210,10 @@ public class AppointmentService {
             if (a.getBoat() != null && !a.isDeleted()) {
                 if (dto.getId().equals(a.getBoat().getId()) && !a.isDeleted() &&
                         ((start.isAfter(a.getStartDate()) && start.isBefore(a.getEndDate()))
-                                || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate())) ||
-                                (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))) {
+                                || (end.isAfter(a.getStartDate()) && end.isBefore(a.getEndDate()))
+                                || (start.isBefore(a.getStartDate()) && end.isAfter(a.getEndDate())))
+                                || (start.isEqual(a.getStartDate()) && end.isEqual(a.getEndDate()))) {
+
                     return null;
                 }
             }
@@ -270,9 +274,13 @@ public class AppointmentService {
 
     @Transactional
     public Appointment addNewAction(AddActionDTO dto) throws MessagingException {
+        LocalDateTime end = findDate(dto.getEndDate());
+        LocalDateTime start = findDate(dto.getStartDate());
+
+//
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
-        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+//        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
+//        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
 
         //ako postoji rezervacija
         for (Reservation r : reservationRepository.findAll()) {
@@ -334,8 +342,7 @@ public class AppointmentService {
                 }
             }
         } catch(PessimisticLockingFailureException ex) {
-
-        throw  new PessimisticLockingFailureException("Cottage already reserved!");
+            throw  new PessimisticLockingFailureException("Cottage already reserved!");
         }
         return null;
 
@@ -344,8 +351,11 @@ public class AppointmentService {
     @Transactional
     public Appointment addNewActionBoat(AddActionDTO dto) throws MessagingException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
-        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+//        LocalDateTime start = LocalDateTime.parse(dto.getStartDate(), formatter);
+//        LocalDateTime end = LocalDateTime.parse(dto.getEndDate(), formatter);
+
+        LocalDateTime end = findDate(dto.getEndDate());
+        LocalDateTime start = findDate(dto.getStartDate());
 
         //ako postoji rezervacija
         for (Reservation r : reservationRepository.findAll()) {
@@ -403,13 +413,12 @@ public class AppointmentService {
                 }
             }
 
-
-            return null;
         }
         catch(PessimisticLockingFailureException ex) {
+            throw  new PessimisticLockingFailureException("Boat already reserved!");
+        }
 
-                throw  new PessimisticLockingFailureException("Boat already reserved!");
-            }
+        return null;
     }
 
 
