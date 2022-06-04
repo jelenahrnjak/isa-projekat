@@ -72,9 +72,11 @@ export class CottageProfileComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
-    this.cottageService.getAll().subscribe((data : any) => {
+    this.form.setValue({"name" : "", "address" : "", "rating": ""})
+    this.cottageOwnerService.getCottagesFromOwner().subscribe((data : any) => {
+      this.cottages = []
       this.cottages = data;
+      console.log(this.cottages)
     }); 
   }
 

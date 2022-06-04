@@ -13,6 +13,7 @@ export class CottageOwnerService {
 
 
   getCottagesFromOwner() {
+    console.log("evo me ")
     return this.apiService.get(this.config.cottage_owner_url + `/getCottagesFromOwner/${localStorage.getItem('user')}`)
       .pipe(map(cottages => {
         return cottages;

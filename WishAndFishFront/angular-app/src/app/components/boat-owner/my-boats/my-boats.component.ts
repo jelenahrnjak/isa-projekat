@@ -68,9 +68,11 @@ export class MyBoatsComponent implements OnInit {
   }
 
   clear(){
-    this.form.setValue({"name" : "", "address" : "", "rating": "", "description" : ""})
-    this.boatService.getAll().subscribe((data : any) => {
+    this.form.setValue({"name" : "", "address" : "", "rating": ""})
+    this.boatOwnerService.getBoatsFromOwner().subscribe((data : any) => {
+      this.boats = []
       this.boats = data;
+      console.log(this.boats)
     }); 
   }
 
