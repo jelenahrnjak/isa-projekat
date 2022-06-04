@@ -19,15 +19,18 @@
                     
                         <li style="height: 70px;" class="list-group-item">Duration: {{r.appointment.startDate}} - {{r.appointment.endDate}}</li>  
                         <li style="height: 70px;" class="list-group-item">Max persons: {{r.appointment.maxPersons}}</li>  
-                        <li style="height: 70px;" class="list-group-item">Price: {{r.appointment.price}}</li> 
+                        <li style="height: 70px;" class="list-group-item">Price: {{r.price}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client name: {{r.client.name}} {{r.client.surname}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client email: {{r.client.email}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client phone: {{r.client.phoneNumber}}</li> 
                         <li style="height: 70px;" class="list-group-item">Client address: {{r.client.address.street}} {{r.client.address.streetNumber}}, {{r.client.address.cityName}}</li> 
                         <li *ngIf="r.finished  && !r.commented" style="height: 70px;" class="list-group-item">
                             <button class="btn btn-primary" style="align-items: center;" data-toggle="modal" data-target="#addComment" (click)="findClient(r.client.email, r.id)">Add comment</button>
-                        </li> 
-                        <li *ngIf="!r.finished" style="height: 100px;" class="list-group-item">
+                        </li>
+                        <li *ngIf="!r.finished && !r.during" style="height: 100px;" class="list-group-item">
+                            Adding comment will be enabled after the reservation expires!
+                        </li>  
+                        <li *ngIf="!r.finished && r.during" style="height: 100px;" class="list-group-item">
                             Adding comment will be enabled after the reservation expires!
                             <br><button class="btn btn-primary" data-toggle="modal" data-target="#addReservation" (click)="findClient(r.client.email, r.id)">Create new reservation</button>
                         </li> 

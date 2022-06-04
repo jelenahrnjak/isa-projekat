@@ -68,22 +68,23 @@ export class CottageReservationHistoryComponent implements OnInit {
     this.reservationService.getAllByCottage(this.id).subscribe((data : any) => {
       this.reservations = data;
       console.log(this.reservations)
-      });
+    });
 
-      this.form = this.formBuilder.group({  
+    this.form = this.formBuilder.group({  
         name: [''],         
-      }) 
+    }) 
 
 
     
-      this.additionalServicesService.findAdditionalServices(this.id).subscribe((data : any) => {
+    this.additionalServicesService.findAdditionalServices(this.id).subscribe((data : any) => {
         this.additionalServices = data;
         console.log(data)
-      }); 
+    }); 
 
-      this.cottageService.findCottage(this.id).subscribe((data) => {
+    this.cottageService.findCottage(this.id).subscribe((data) => {
         this.pricePerDay = data.pricePerDay
-      })
+    })
+
   }
 
   came($event){
