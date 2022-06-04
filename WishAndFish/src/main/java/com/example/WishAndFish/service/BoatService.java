@@ -138,21 +138,24 @@ public class BoatService {
     }
 
 
-    public ResponseEntity<Long> deleteBoat(Long id){
+    public Long deleteBoat(Long id){
         for(Boat b: this.boatRepository.findAll()){
             if(b.getId() == id) {
                 if(b.getAppointments() != null) {
-                    for(Appointment a:b.getAppointments()){
-                        if(a.getReserved()){
-                            return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+                    for (Appointment a : b.getAppointments()) {
+                        if (a.getReserved() && a.getEndDate().isAfter(LocalDateTime.now())) {
+                            System.out.println("Rezervisano");
+                            return null;
                         }
                     }
                 }
                 b.setDeleted(true);
                 this.boatRepository.save(b);
+                return id;
+
             }
         }
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return null;
 
     }
 

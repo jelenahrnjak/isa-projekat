@@ -60,7 +60,14 @@ public class BoatController {
     @DeleteMapping(value="/deleteBoat/{id}")
     @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
     public ResponseEntity<Long> deleteBoat(@PathVariable Long id) {
-        return this.boatService.deleteBoat(id);
+
+        Long b = this.boatService.deleteBoat(id);
+        if(b == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else{
+            return new ResponseEntity<>(id,HttpStatus.OK);
+        }
     }
 
 

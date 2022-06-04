@@ -280,7 +280,7 @@ INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
 
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (122, '5', '06-06-2022 12:00', 15, 0, true, '06-01-2022 14:00', 113, false, false);
+	VALUES (122, '5', '06-03-2022 12:00', 15, 0, true, '06-01-2022 14:00', 113, false, false);
 
 INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
