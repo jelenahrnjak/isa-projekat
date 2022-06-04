@@ -12,10 +12,10 @@ function requireHTTPS(req, res, next) {
   app.use(requireHTTPS);
   
 
-  app.use(express.static(`../src`));
+  app.use(express.static(`./src`));
 
   app.get('/*', function(req, res) {
-    res.sendFile('index.html', {root: '/'}
+    res.sendFile('index.html', {root: 'src/'}
     );
   }); 
 
