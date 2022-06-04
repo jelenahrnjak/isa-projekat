@@ -51,6 +51,8 @@ export class AddActionComponent implements OnInit {
 
     this.startTime = "14:00"
     this.endTime = "12:00"
+    this.todayDate = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1));
+
   }
   
   
