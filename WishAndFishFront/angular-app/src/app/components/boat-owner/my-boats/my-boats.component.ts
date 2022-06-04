@@ -62,15 +62,22 @@ export class MyBoatsComponent implements OnInit {
     this.searchDTO.rating = this.form.get('rating').value
     //this.searchDTO.price = this.form.get('price').value
     //this.searchDTO.description = this.form.get('description').value 
-    this.boatService.search(this.searchDTO).subscribe((data : any) => { 
-      this.boats = data; 
-    }); 
+    if(this.searchDTO.name == "" && this.searchDTO.address == "" && this.searchDTO.rating == ""){
+      console.log("sve prazno")
+    }
+    else{
+      this.boatService.search(this.searchDTO).subscribe((data : any) => { 
+        this.boats = data; 
+      }); 
+    }
+
   }
 
   clear(){
     this.form.setValue({"name" : "", "address" : "", "rating": ""})
     this.boatOwnerService.getBoatsFromOwner().subscribe((data : any) => {
       this.boats = []
+      console.log(this.boats)
       this.boats = data;
       console.log(this.boats)
     }); 
