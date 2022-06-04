@@ -9,10 +9,10 @@ function requireHTTPS(req, res, next) {
   const app = express();
   app.use(requireHTTPS);
   
-  app.use(express.static(`./dist/WishAndFishFront`));
+  app.use(express.static(`./`));
   
   app.get('/*', function(req, res) {
-    res.sendFile('index.html', {root: 'dist/WishAndFishFront/'}
+    res.sendFile('index.html', {root: ''}
     );
   });
   
