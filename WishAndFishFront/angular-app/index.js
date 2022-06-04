@@ -11,11 +11,12 @@ function requireHTTPS(req, res, next) {
   const app = express();
   app.use(requireHTTPS);
   
-  app.use(express.static(`./src`));
-  
+
+  app.use(express.static(`../`));
+
   app.get('/*', function(req, res) {
     res.sendFile('index.html', {root: '/'}
     );
-  });
-  
+  }); 
+
   app.listen(process.env.PORT || 8080)
