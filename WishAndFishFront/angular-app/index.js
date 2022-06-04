@@ -3,7 +3,7 @@ function requireHTTPS(req, res, next) {
     if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
 
       return res.redirect('https://' + req.get('host') + req.url);
-      
+
     }
     next();
   }
@@ -11,7 +11,7 @@ function requireHTTPS(req, res, next) {
   const app = express();
   app.use(requireHTTPS);
   
-  app.use(express.static(`./`));
+  app.use(express.static(`./src`));
   
   app.get('/*', function(req, res) {
     res.sendFile('index.html', {root: '/'}
