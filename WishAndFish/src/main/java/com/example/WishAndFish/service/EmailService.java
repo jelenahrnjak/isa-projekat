@@ -34,12 +34,23 @@ public class EmailService {
     @Autowired
     private AdditionalServiceService additionalServiceService;
 
+    private String localBack = "http://localhost:8080";
+    private String herokuBack = "https://wish-and-fish-back.herokuapp.com";
+    private String localFront = "http://localhost:4200";
+    private String herokuFront = "https://wish-and-fish.herokuapp.com";
+
     public void sendMailForVerfication(User user, String url) throws MessagingException, UnsupportedEncodingException {
 
         String text = "<br>Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>";
-       // String verifyURL = url + "/api/auth/verify?code=" + user.getVerificationCode();
-        String verifyURL = "http://localhost:4200/successfully-sing-up/" + user.getVerificationCode();;
+
+       String verifyURL = localFront;
+
+        if(url.equals(herokuBack)){
+            verifyURL = herokuFront;
+        }
+
+        verifyURL += ("/successfully-sing-up/" + user.getVerificationCode());
         text = text.replace("[[URL]]", verifyURL);
 
         MimeMessage mail = javaMailSender.createMimeMessage();
