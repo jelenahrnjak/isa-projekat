@@ -1,12 +1,12 @@
-
   const express = require('express');
-  const app = express(); 
-  
-  app.use(express.static('./dist/client'));
+  const app1 = express(); 
+  app1.disable("x-powered-by");
 
-  app.get('/*', function(req, res) {
+  app1.use(express.static('./dist/client'));
+
+  app1.get('/*', function(req, res) {
     res.sendFile('index.html', {root: 'dist/client/'}
   );
   });
 
-  app.listen(process.env.PORT || 8080)
+  app1.listen(process.env.PORT || 8080)
