@@ -1,0 +1,59 @@
+name: Main Branch
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  test:
+    env:
+      working-directory: ./WishAndFish
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Maven Package
+        working-directory: ${{env.working-directory}}
+        run: mvn clean package
+      - name: Maven Verify
+        working-directory: ${{env.working-directory}}
+        run: mvn clean verify
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Maven Package
+        working-directory: ${{env.working-directory}}
+        run : echo "cao"
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_BACK_APP_NAME}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: deploy-backend #free heroku doesn't allow parallel builds
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Push to Heroku
+        run: git subtree push --prefix ${{secrets.HEROKU_FRONT_APP_NAME}} https://git.heroku.com/wish-and-fish.git main
