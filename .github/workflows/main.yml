@@ -1,8 +1,8 @@
 name: Main Branch
 on:
-  push:
+  pull_request:
     branches:
-      - 'feat/workflow'
+      - 'develop'
 jobs:
   test:
     env:
@@ -23,9 +23,6 @@ jobs:
         run: mvn clean verify
 
 
-
-
-
   deploy-backend:
     env:
       working-directory: ./WishAndFish
@@ -40,6 +37,7 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_BACK_APP_NAME}} #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
 
+
   deploy-frontend:
     env:
       working-directory: ./WishAndFish
@@ -53,28 +51,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_FRONT_APP_NAME}} #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-
-
-  # deploy-frontend:
-  #   runs-on: ubuntu-latest
-  #   needs: deploy-backend #free heroku doesn't allow parallel builds
-  #   steps:
-  #     - name: Check out repository
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Heroku login credentials
-  #       run: |
-  #         cat > ~/.netrc <<EOF
-  #           machine api.heroku.com
-  #             login $HEROKU_EMAIL
-  #             password $HEROKU_API_KEY
-  #           machine git.heroku.com
-  #             login $HEROKU_EMAIL
-  #             password $HEROKU_API_KEY
-  #         EOF
-  #       env:
-  #         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  #         HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-  #     - name: Push to Heroku
-  #       run: git subtree push --prefix ${{secrets.HEROKU_FRONT_APP_NAME}} https://git.heroku.com/wish-and-fish.git master
