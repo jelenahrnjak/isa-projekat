@@ -87,7 +87,7 @@ export class InstructorsComponent implements OnInit {
     }
   }
   
-  details(){
+  details(id){
 
   }
 
