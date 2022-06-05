@@ -65,4 +65,4 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
       - name: Push to Heroku
-        run: git subtree push --prefix ${{secrets.HEROKU_FRONT_APP_NAME}} https://git.heroku.com/wish-and-fish.git main
+        run: git subtree push --prefix ${{secrets.HEROKU_FRONT_APP_NAME}} https://git.heroku.com/wish-and-fish.git master
