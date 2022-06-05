@@ -1,7 +1,0 @@
-deploy:
-  provider: heroku
-  api_key: 7b8eb002-b6a8-4106-9aec-1ecbc3c84c8
-
-app:
-  master: wish-and-fish
-  production: wish-and-fish
