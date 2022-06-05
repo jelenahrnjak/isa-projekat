@@ -79,7 +79,7 @@ public class AuthentificationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest,HttpServletRequest request) throws UnsupportedEncodingException{
+    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest,HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
         User existUser = this.userService.findByEmail(userRequest.getEmail());
         if (existUser != null) {
             throw new ResourceConflictException(userRequest.getId(), "Email already exists");
