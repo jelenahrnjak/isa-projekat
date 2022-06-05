@@ -21,19 +21,28 @@ jobs:
       - name: Maven Verify
         working-directory: ${{env.working-directory}}
         run: mvn clean verify
+
+
+
+
+
   deploy-backend:
+    env:
+      working-directory: ./WishAndFish
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Maven Package
-        working-directory: ${{env.working-directory}}
-        run : echo "cao"
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
+          working-directory: ${{env.working-directory}}
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_BACK_APP_NAME}} #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+
+
+
+
   deploy-frontend:
     runs-on: ubuntu-latest
     needs: deploy-backend #free heroku doesn't allow parallel builds
