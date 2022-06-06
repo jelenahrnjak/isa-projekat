@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 public class AppointmentConstants {
 
     public static final Long DB_ID = 1L;
-    public static final LocalDateTime DB_START_DATE = LocalDateTime.now();
-    public static final LocalDateTime DB_END_DATE = LocalDateTime.now().plusDays(5);
-    public static final LocalDateTime DB_EXPIRATION_DATE = LocalDateTime.now().plusDays(4);
+    public static final LocalDateTime DB_START_DATE = LocalDateTime.now().minusDays(10);
+    public static final LocalDateTime DB_END_DATE = LocalDateTime.now().minusDays(5);
+    public static final LocalDateTime DB_EXPIRATION_DATE = LocalDateTime.now().minusDays(14);
     public static final Integer DB_MAX_PERSONS = 5;
     public static final Double DB_PRICE = 750.0;
     public static final Boolean DB_RESERVED = false;
