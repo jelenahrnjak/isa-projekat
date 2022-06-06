@@ -16,5 +16,6 @@ public class CottageConstants {
     public static final Integer beds = 5;
     public static final Integer rooms = 4;
     public static final Double price = 150.5;
+    public static final Double rating = 3.4;
 
 }

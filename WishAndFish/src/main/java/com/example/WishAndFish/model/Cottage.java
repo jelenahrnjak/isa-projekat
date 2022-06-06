@@ -121,4 +121,13 @@ public class Cottage {
     public Cottage(long l) {
         this.id = l;
     }
+
+    public Cottage(long id, String name, Double rating, Double pricePerDay, Address address) {
+        this.id = id;
+        this.name = name;
+        this.pricePerDay = pricePerDay;
+        this.address = address;
+        this.rating = rating;
+        this.numberOfRatings = 0;
+    }
 }
