@@ -1,4 +1,5 @@
 package com.example.WishAndFish.service;
+import com.example.WishAndFish.constants.AdditionalServiceConstants;
 import com.example.WishAndFish.constants.BoatsConstants;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
@@ -32,12 +33,6 @@ public class AdditionalServiceServiceTest {
     private BoatRepository boatRepositoryMock;
 
     @Mock
-    private ReservationRepository reservationRepositoryMock;
-
-    @Mock
-    private UserRepository userRepositoryMock;
-
-    @Mock
     private AdditionalServiceRepository additionalServiceRepositoryMock;
 
     @InjectMocks
@@ -48,21 +43,21 @@ public class AdditionalServiceServiceTest {
     public void testGetAllForAppointment() {
         // 1. Definisanje ponašanja mock objekata
         AdditionalService a1 = new AdditionalService();
-        a1.setId(1L);
+        a1.setId(AdditionalServiceConstants.id1);
         a1.setDeleted(false);
-        a1.setName("Wi-Fi");
+        a1.setName(AdditionalServiceConstants.name2);
         Appointment ap1 = new Appointment();
-        ap1.setId(1L);
+        ap1.setId(AdditionalServiceConstants.id1);
         Appointment ap2 = new Appointment();
-        ap2.setId(2L);
+        ap2.setId(AdditionalServiceConstants.id2);
         a1.getAppointments().add(ap1);
         a1.getAppointments().add(ap2);
 
 
         AdditionalService a2 = new AdditionalService();
-        a2.setId(4L);
+        a2.setId(AdditionalServiceConstants.id4);
         a2.setDeleted(true);
-        a2.setName("Fruit");
+        a2.setName(AdditionalServiceConstants.name1);
         a2.getAppointments().add(ap1);
 
         when(additionalServiceRepositoryMock.findAll()).thenReturn(Arrays.asList(a1, a2));

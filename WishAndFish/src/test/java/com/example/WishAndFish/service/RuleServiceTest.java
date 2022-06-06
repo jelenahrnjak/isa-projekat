@@ -1,5 +1,6 @@
 package com.example.WishAndFish.service;
 import com.example.WishAndFish.constants.BoatsConstants;
+import com.example.WishAndFish.constants.CottageConstants;
 import com.example.WishAndFish.constants.RuleConstants;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
@@ -47,14 +48,14 @@ public class RuleServiceTest {
     @Test
     public void testGetAll() {
         // 1. Definisanje ponašanja mock objekata (ja mu kazem kada se pozove metoda mock-a, da mi vrati tu konkretnu kucu (definisem ponasanje metode))
-        when(ruleRepositoryMock.findAll()).thenReturn(Arrays.asList(new Rule(15l, "content", new Cottage(112L), null, false)));
+        when(ruleRepositoryMock.findAll()).thenReturn(Arrays.asList(new Rule(RuleConstants.id2, "content", new Cottage(CottageConstants.id), null, false)));
 
         // 2. Akcija
-        List<RuleDTO> rules = ruleService.getAllByCottage(112L);
+        List<RuleDTO> rules = ruleService.getAllByCottage(CottageConstants.id);
 
         // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
         assertThat(rules).hasSize(1);
-        assertTrue(rules.get(0).getId() == 15L);
+        assertTrue(rules.get(0).getId() == RuleConstants.id2);
 
 		/*
 		Možemo verifikovati ponašanje mokovanih objekata pozivanjem verify* metoda.
@@ -68,22 +69,22 @@ public class RuleServiceTest {
     @Transactional
     public void testRemove() {
 
-        Rule rule = new Rule(26L, RuleConstants.DB_CONTENT, new Cottage(112L), null, false);
+        Rule rule = new Rule(RuleConstants.id3, RuleConstants.content, new Cottage(112L), null, false);
         Rule ruleToDelete  = new Rule(rule);
-        ruleToDelete.setId(15L);
+        ruleToDelete.setId(RuleConstants.id2);
 
         // 1. Definisanje ponašanja mock objekata
         when(ruleRepositoryMock.findAll()).thenReturn(Arrays.asList(rule, ruleToDelete));
         when(ruleRepositoryMock.save(rule)).thenReturn(rule);
 
         // 2. Akcija
-        int dbSizeBeforeRemove = ruleService.getAllByCottage(112L).size();
-        ruleService.deleteRule(15L);
+        int dbSizeBeforeRemove = ruleService.getAllByCottage(CottageConstants.id).size();
+        ruleService.deleteRule(RuleConstants.id2);
 
         when(ruleRepositoryMock.findAll()).thenReturn(Arrays.asList(rule));
 
         // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        List<RuleDTO> rules = ruleService.getAllByCottage(112l);
+        List<RuleDTO> rules = ruleService.getAllByCottage(CottageConstants.id);
         assertThat(rules).hasSize(dbSizeBeforeRemove - 1);
 
 
@@ -97,13 +98,13 @@ public class RuleServiceTest {
     @Transactional
     public void testAddToBoat(){
         RuleDTO newRule = new RuleDTO();
-        newRule.setContent("No smoking");
-        newRule.setId(1L); //boat id
+        newRule.setContent(RuleConstants.content);
+        newRule.setId(RuleConstants.id); //boat id
 
         Boat b  = new Boat();
-        b.setId(1L);
+        b.setId(BoatsConstants.id);
         Boat b2 = new Boat();
-        b2.setId(2L);
+        b2.setId(BoatsConstants.id4);
 
 
         when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(b,b2));

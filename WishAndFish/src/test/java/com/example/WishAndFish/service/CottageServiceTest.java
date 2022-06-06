@@ -1,6 +1,8 @@
 package com.example.WishAndFish.service;
 
+import com.example.WishAndFish.constants.AddressConstants;
 import com.example.WishAndFish.constants.BoatsConstants;
+import com.example.WishAndFish.constants.CottageConstants;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
 import com.example.WishAndFish.repository.*;
@@ -53,23 +55,26 @@ public class CottageServiceTest {
     public void testGetAllFromOwner() {
         // 1. Definisanje ponašanja mock objekata
         Cottage c1 = new Cottage();
-        c1.setId(1L);
-        c1.setName("yachta");
+        c1.setId(CottageConstants.id1);
+        c1.setName(CottageConstants.name);
         User u = new User();
-        u.setId(2L);
-        u.setEmail("stojic.kris@gmail.com");
+        u.setId(CottageConstants.id2);
+        u.setEmail(CottageConstants.email);
         c1.setCottageOwner(new CottageOwner(u));
-        c1.setAddress(new Address("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
+        c1.setAddress(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd));
         c1.setDeleted(false);
 
         Cottage c2 = new Cottage();
-        c2.setId(2L);
-        c2.setName("yachta2");
+        c2.setId(CottageConstants.id2);
+        c2.setName(CottageConstants.name2);
+        c2.setAddress(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd));
         User u2 = new User();
-        u2.setId(22L);
-        u2.setEmail("owner@gmail.com");
+        u2.setId(CottageConstants.id3);
+        u2.setEmail(CottageConstants.email2);
         c2.setCottageOwner(new CottageOwner(u2));
         c2.setDeleted(false);
 
@@ -82,7 +87,7 @@ public class CottageServiceTest {
 
         // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
         assertThat(cottages).hasSize(1);
-        assertEquals(1L, (long) cottages.get(0).getId());
+        assertEquals(CottageConstants.id1, cottages.get(0).getId());
 
 		/*
 		Možemo verifikovati ponašanje mokovanih objekata pozivanjem verify* metoda.
@@ -97,16 +102,16 @@ public class CottageServiceTest {
     @Test
     public void getByIdTest() {
         Cottage c = new Cottage();
-        c.setId(1L);
-        c.setName("House");
-        c.setBedsPerRoom(5);
-        c.setNumberOfRooms(4);
-        when(cottageRepositoryMock.findById(1L)).thenReturn(Optional.of(cottageMock));
+        c.setId(CottageConstants.id1);
+        c.setName(CottageConstants.name3);
+        c.setBedsPerRoom(CottageConstants.beds);
+        c.setNumberOfRooms(CottageConstants.rooms);
+        when(cottageRepositoryMock.findById(CottageConstants.id1)).thenReturn(Optional.of(cottageMock));
 
-        Cottage cottage = cottageService.findCottage(1L);
+        Cottage cottage = cottageService.findCottage(CottageConstants.id1);
 
         assertEquals(cottage, cottageMock);
-        verify(cottageRepositoryMock, times(1)).findById(1L);
+        verify(cottageRepositoryMock, times(1)).findById(CottageConstants.id1);
         verifyNoMoreInteractions(cottageRepositoryMock);
     }
 

@@ -1,4 +1,5 @@
 package com.example.WishAndFish.service;
+import com.example.WishAndFish.constants.AddressConstants;
 import com.example.WishAndFish.constants.BoatsConstants;
 import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.*;
@@ -58,13 +59,13 @@ public class BoatServiceTest {
     public void testUpdate() {
         // 1. Definisanje ponašanja mock objekata
         Boat forUpdate = new Boat();
-        forUpdate.setId(1L);
-        forUpdate.setName("The best boat");
-        forUpdate.setType("Fishing");
-        forUpdate.setLength(15.5);
-        forUpdate.setAddress(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
+        forUpdate.setId(BoatsConstants.id);
+        forUpdate.setName(BoatsConstants.name);
+        forUpdate.setType(BoatsConstants.type);
+        forUpdate.setLength(BoatsConstants.length);
+        forUpdate.setAddress(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd));
 
         when(boatRepositoryMock.findOneById(1L)).thenReturn(forUpdate);
         when(reservationRepositoryMock.findAll()).thenReturn(new ArrayList<>());
@@ -72,21 +73,21 @@ public class BoatServiceTest {
 
         Boat updated = new Boat();
         updated.setId(1L);
-        updated.setName("The best");
-        updated.setType("Cruiser");
-        updated.setLength(17.0);
-        updated.setAddress(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
+        updated.setName(BoatsConstants.name2);
+        updated.setType(BoatsConstants.type2);
+        updated.setLength(BoatsConstants.length2);
+        updated.setAddress(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd));
 
         EditBoatDTO edit = new EditBoatDTO();
-        edit.setId(1L);
-        edit.setName("The best");
-        edit.setType("Cruiser");
-        edit.setLength(17.0);
-        edit.setAddress(new AddressDTO(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12)));
+        edit.setId(BoatsConstants.id);
+        edit.setName(BoatsConstants.name2);
+        edit.setType(BoatsConstants.type2);
+        edit.setLength(BoatsConstants.length2);
+        edit.setAddress(new AddressDTO(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd)));
         // 2. Akcija
         Boat edited = boatService.editBasicInfo(edit);
 
@@ -95,14 +96,14 @@ public class BoatServiceTest {
         assertThat(edited).isNotNull();
 
         when(boatRepositoryMock.findById(1L)).thenReturn(Optional.of(edited));
-        BoatDetailDTO found = boatService.findBoat(1L); // verifikacija da se u bazi nalaze izmenjeni podaci
+        BoatDetailDTO found = boatService.findBoat(BoatsConstants.id); // verifikacija da se u bazi nalaze izmenjeni podaci
 
         assertThat(found.getName()).isEqualTo(updated.getName());
         assertThat(found.getType()).isEqualTo(updated.getType());
         assertThat(found.getLength()).isEqualTo(updated.getLength());
 
-        verify(boatRepositoryMock, times(1)).findById(1L);
-        verify(boatRepositoryMock, times(1)).findOneById(1L);
+        verify(boatRepositoryMock, times(1)).findById(BoatsConstants.id);
+        verify(boatRepositoryMock, times(1)).findOneById(BoatsConstants.id);
         verify(reservationRepositoryMock, times(1)).findAll();
         verify(boatRepositoryMock, times(1)).save(edited);
         verifyNoMoreInteractions(boatRepositoryMock);
@@ -114,22 +115,22 @@ public class BoatServiceTest {
         // 1. Definisanje ponašanja mock objekata (ja mu kazem kada se pozove metoda mock-a, da mi vrati tu konkretnu kucu (definisem ponasanje metode))
         Boat b1 = new Boat();
         b1.setId(1L);
-        b1.setName("yachta");
+        b1.setName(BoatsConstants.name3);
         User u = new User();
-        u.setId(2L);
-        u.setEmail("markomarko@gmail.com");
+        u.setId(BoatsConstants.id4);
+        u.setEmail(BoatsConstants.ownerEmail);
         b1.setBoatOwner(new BoatOwner(u));
-        b1.setAddress(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
+        b1.setAddress(new Address (AddressConstants.street,AddressConstants.streetNumber,
+                AddressConstants.postalCode,AddressConstants.city,AddressConstants.country,
+                AddressConstants.lng,AddressConstants.ltd));
         b1.setDeleted(false);
 
         Boat b2 = new Boat();
         b2.setId(2L);
-        b2.setName("yachta2");
+        b2.setName(BoatsConstants.name4);
         User u2 = new User();
-        u2.setId(22L);
-        u2.setEmail("owner@gmail.com");
+        u2.setId(BoatsConstants.id5);
+        u2.setEmail(BoatsConstants.ownerEmail2);
         b2.setBoatOwner(new BoatOwner(u2));
         b2.setDeleted(false);
 

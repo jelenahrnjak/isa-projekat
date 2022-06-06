@@ -1,4 +1,6 @@
 package com.example.WishAndFish.service;
+import com.example.WishAndFish.constants.BoatsConstants;
+import com.example.WishAndFish.constants.NavigationEquipmentsConstants;
 import com.example.WishAndFish.constants.RuleConstants;
 import com.example.WishAndFish.dto.NavigationEquipmentDTO;
 import com.example.WishAndFish.dto.RuleDTO;
@@ -40,22 +42,22 @@ public class NavigationEquipmentsServiceTest {
     @Transactional
     public void testAdd(){
         NavigationEquipmentDTO newNE = new NavigationEquipmentDTO();
-        newNE.setName("Stap");
+        newNE.setName(NavigationEquipmentsConstants.name);
         newNE.setId(1L);
 
         NavigationEquipment oldNE = new NavigationEquipment();
-        newNE.setName("Udica");
-        newNE.setId(1L);
+        oldNE.setName(NavigationEquipmentsConstants.name2);
+        oldNE.setId(1L);
 
         NavigationEquipment n = new NavigationEquipment();
-        n.setName("Stap");
+        n.setName(NavigationEquipmentsConstants.name);
         n.setDeleted(false);
-        n.setId(1L);
+        n.setId(NavigationEquipmentsConstants.id3);
 
         Boat b  = new Boat();
-        b.setId(1L);
+        b.setId(BoatsConstants.id);
         Boat b2 = new Boat();
-        b2.setId(2L);
+        b2.setId(BoatsConstants.id4);
 
 
         when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(b,b2));
@@ -77,22 +79,22 @@ public class NavigationEquipmentsServiceTest {
     public void testRemove() {
         Boat boat = new Boat();
         boat.setId(125L);
-        NavigationEquipment nav = new NavigationEquipment(14L, "Stap",false, boat);
+        NavigationEquipment nav = new NavigationEquipment(14L, NavigationEquipmentsConstants.name,false, boat);
         NavigationEquipment navToDelete  = new NavigationEquipment(nav);
-        navToDelete.setId(15L);
+        navToDelete.setId(NavigationEquipmentsConstants.id2);
 
         // 1. Definisanje ponašanja mock objekata
         when(navigationEquipmentRepositoryMock.findAll()).thenReturn(Arrays.asList(nav, navToDelete));
         //when(navigationEquipmentRepositoryMock.save(nav)).thenReturn(nav);
 
         // 2. Akcija
-        int dbSizeBeforeRemove = navigationEquipmentService.getAllByBoat(125L).size();
-        navigationEquipmentService.deleteNavigationEquipment(15L);
+        int dbSizeBeforeRemove = navigationEquipmentService.getAllByBoat(BoatsConstants.id6).size();
+        navigationEquipmentService.deleteNavigationEquipment(NavigationEquipmentsConstants.id2);
 
         when(navigationEquipmentRepositoryMock.findAll()).thenReturn(List.of(nav));
 
         // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        List<NavigationEquipmentDTO> rules = navigationEquipmentService.getAllByBoat(125L);
+        List<NavigationEquipmentDTO> rules = navigationEquipmentService.getAllByBoat(BoatsConstants.id6);
         assertThat(rules).hasSize(dbSizeBeforeRemove - 1);
 
         verify(navigationEquipmentRepositoryMock, times(1)).save(navToDelete);
