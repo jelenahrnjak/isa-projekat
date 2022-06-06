@@ -264,15 +264,18 @@ reserve(){
         })
       },
       () => {
-        this.startDate = "",
-        this.endDate = "",
-        console.log("error")
+       this.resetDates()
       }
 
     );
   }
   
 } 
+
+resetDates(){
+  this.startDate = "",
+  this.endDate = ""
+}
 
 refreshPage(){
   setTimeout(() => {window.location.reload()}, 2000); 
