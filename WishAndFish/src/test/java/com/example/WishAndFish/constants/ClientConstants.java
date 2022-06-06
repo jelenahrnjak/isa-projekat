@@ -4,7 +4,7 @@ public class ClientConstants {
 
     public static final Long DB_ID = 1L;
     public static final String DB_PASS = "jelena";
-    public static final String DB_EMAIL = "jelena@gmail.com";
+    public static final String DB_EMAIL = "jelenahrnjak99@gmail.com";
     public static final String DB_NAME = "Jelena";
     public static final String DB_SURNAME = "Hrnjak";
     public static final String DB_NAME2 = "Ivan";

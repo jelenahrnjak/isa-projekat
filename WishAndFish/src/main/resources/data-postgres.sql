@@ -196,6 +196,22 @@ INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 INSERT INTO public.images(id, path, boat_id, cottage_id, deleted)
 	VALUES (673, 'boat2.jpg', 125, null, false);
 
+INSERT INTO public.client_cottage_subscriptions(
+	client_id, cottage_subscriptions_id)
+	VALUES (35, 110);
+INSERT INTO public.client_cottage_subscriptions(
+	client_id, cottage_subscriptions_id)
+	VALUES (35, 113);
+
+INSERT INTO public.client_boat_subscriptions(
+	client_id, boat_subscriptions_id)
+	VALUES (35, 124);
+
+INSERT INTO public.client_adventure_subscriptions(
+	client_id, adventure_subscriptions_id)
+	VALUES (35, 101);
+
+
 --normal
 
 INSERT INTO APPOINTMENTS(
