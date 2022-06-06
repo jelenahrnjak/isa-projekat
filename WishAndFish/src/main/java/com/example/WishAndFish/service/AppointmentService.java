@@ -305,7 +305,8 @@ public class AppointmentService {
                 if (free.getCottage() != null) {
                     if (!free.isDeleted() && !free.getIsAction() && dto.getId().equals(free.getCottage().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
-                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
+                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))
+                            || (start.isEqual(free.getStartDate()) && end.isBefore(free.getEndDate()))) {
                         Cottage cottage = cottageRepository.findOneById(dto.getId());
 
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
@@ -387,7 +388,8 @@ public class AppointmentService {
                 if (free.getBoat() != null) {
                     if (!free.isDeleted()  && !free.getIsAction()  && dto.getId().equals(free.getBoat().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
-                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
+                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate()))
+                            || (start.isEqual(free.getStartDate()) && end.isBefore(free.getEndDate())))) {
                         Boat b = boatRepository.findOneById(dto.getId());
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
                         Appointment newApp = new Appointment(free); //treci koji se dobije
