@@ -104,7 +104,7 @@ public class CottageController {
     }
 
     @RequestMapping(value = "/getAllComments/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_COTTAGE_OWNER') || hasAuthority('ROLE_CLIENT')")
     public List<ReviewDTO> getAllCommentsCottage(@PathVariable Long id){
         return this.reviewService.getAllCommentsCottage(id);
     }

@@ -52,7 +52,7 @@ INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty
 INSERT INTO CLIENT(id, penalties)
     VALUES(35, 2);
 INSERT INTO CLIENT(id, penalties)
-    VALUES(36, 2);
+    VALUES(36, 3);
 
 INSERT INTO COTTAGE_OWNER(id, number_of_ratings, rating)
 	VALUES (50, 0 , 0.0);
@@ -282,6 +282,23 @@ INSERT INTO public.appointment_additional_services(additional_service_id, appoin
 INSERT INTO public.reviews(
 	id, content, date, is_approved, is_for_owner, is_reviewed, rating, reservation_id, client_id)
 	VALUES (12, 'Owner was great!!', '05-20-2022 12:00' , true, true, true, 5, 200, 35);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (401, '5', '05-15-2021 12:00', 5, 250, true, '05-10-2021 14:00', 124, false, true);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (201, false, 401, 35, false , false, 250, false, false, true, false);
+INSERT INTO public.complaints(
+	id, content, date, is_approved, is_for_owner, is_reviewed, reservation_id, client_id)
+	VALUES (150, 'Rude!' ,'06-10-2021 14:00', true, true, true, 201, 35);
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, fishing_adventure_id, deleted, action)
+	VALUES (402, '5', '06-15-2021 12:00', 5, 100, true, '06-10-2021 14:00', 100, false, true);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (202, false, 402, 35, false , false, 100, false, false, false, false);
 
 
 
