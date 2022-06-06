@@ -267,7 +267,9 @@ export class BoatReservationHistoryComponent implements OnInit{
           this.startDate = "",
           this.endDate = "",
           //setTimeout(() => {window.location.reload()}, 2000); 
-          this.refreshPage()
+          //this.refreshPage()
+          console.log("error")
+
         }
       );
     }

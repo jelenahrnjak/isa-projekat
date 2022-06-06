@@ -265,7 +265,8 @@ reserve(){
         this.startDate = "",
         this.endDate = "",
         //setTimeout(() => {window.location.reload()}, 2000); 
-        this.refreshPage()
+        console.log("error")
+
       }
     );
   }
