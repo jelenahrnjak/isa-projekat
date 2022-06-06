@@ -265,9 +265,8 @@ export class BoatReservationHistoryComponent implements OnInit{
             text: 'Something went wrong. Please try again.',
           })},
           () => {
-            this.startDate = "",
-            this.endDate = "",
-            console.log("error")
+            this.resetDates()
+
           }
     
         );
@@ -275,6 +274,10 @@ export class BoatReservationHistoryComponent implements OnInit{
       
     } 
 
+    resetDates(){
+      this.startDate = "",
+      this.endDate = ""
+    }
 
   refreshPage(){
     setTimeout(() => {window.location.reload()}, 2000); 
