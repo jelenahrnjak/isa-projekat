@@ -19,4 +19,12 @@ public class CommentDTO {
     private Boolean isOwner;
     private Boolean approved;
 
+    public CommentDTO(String content, String client, Long reservationID, Integer rate, Boolean isOwner){
+        this.content = content;
+        this.client = client;
+        this.reservationID = reservationID;
+        this.rate = rate;
+        this.isOwner = isOwner;
+    }
+
 }

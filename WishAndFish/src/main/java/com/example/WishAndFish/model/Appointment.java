@@ -110,4 +110,19 @@ public class Appointment {
 //        this.additionalServices = a.getAdditionalServices();
 
     }
+
+    public Appointment(long id, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime expirationDate, Integer maxPersons, Double price, Boolean reserved, boolean deleted, Boolean isAction, Cottage cottage, Boat boat, FishingAdventure fishingAdventure) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.expirationDate = expirationDate;
+        this.maxPersons = maxPersons;
+        this.price = price;
+        this.reserved = reserved;
+        this.deleted = deleted;
+        this.isAction = isAction;
+        this.cottage = cottage;
+        this.boat = boat;
+        this.fishingAdventure = fishingAdventure;
+    }
 }

@@ -55,4 +55,11 @@ public class FishingAdventure {
 
     @OneToMany(mappedBy = "fishingAdventure", fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     private Set<Appointment> appointments = new HashSet<>();
+
+    public FishingAdventure(Long id, String name, Double rating, Double pricePerDay){
+        this.id = id;
+        this.name = name;
+        this.rating = rating;
+        this.pricePerDay = pricePerDay;
+    }
 }
