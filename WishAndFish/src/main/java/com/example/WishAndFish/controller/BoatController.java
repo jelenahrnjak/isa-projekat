@@ -101,7 +101,7 @@ public class BoatController {
 
 
     @RequestMapping(value = "/getAllCommentsBoat/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER')")
+    @PreAuthorize("hasAuthority('ROLE_BOAT_OWNER') || hasAuthority('ROLE_CLIENT')")
     public List<ReviewDTO> getAllCommentsBoat(@PathVariable Long id){
         return this.reviewService.getAllCommentsBoat(id);
     }
