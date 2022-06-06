@@ -1,7 +1,7 @@
 package com.example.WishAndFish.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.http.RequestEntity.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -58,15 +58,13 @@ public class ClientControllerTest {
 
 
     @Test
-    @Transactional
     @WithMockUser(authorities = "ROLE_CLIENT")
-    public void testGetcottageSubscriptions() throws Exception {
+    public void testGetCottageSubscriptions() throws Exception {
         mockMvc.perform(get(URL_PREFIX + "/cottageSubscriptions/" + ClientConstants.DB_EMAIL)).andExpect(status().isOk())
                 .andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
-    @Transactional
     @WithMockUser(authorities = "ROLE_CLIENT")
     public void testGetBoatSubscriptions() throws Exception {
         mockMvc.perform(get(URL_PREFIX + "/boatSubscriptions/" + ClientConstants.DB_EMAIL)).andExpect(status().isOk())
@@ -74,7 +72,6 @@ public class ClientControllerTest {
     }
 
     @Test
-    @Transactional
     @WithMockUser(authorities = "ROLE_CLIENT")
     public void testGetAdventureSubscriptions() throws Exception {
         mockMvc.perform(get(URL_PREFIX + "/adventureSubscriptions/" + ClientConstants.DB_EMAIL)).andExpect(status().isOk())
@@ -94,15 +91,8 @@ public class ClientControllerTest {
         String json = TestUtil.json(dto);
         String newURL = URL_PREFIX + "/subscribeToCottage";
 
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(newURL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(json);
 
-        this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status()
-                        .isOk())
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.text").value("Successfully subscribed"));
     }
 
@@ -119,14 +109,95 @@ public class ClientControllerTest {
         String json = TestUtil.json(dto);
         String newURL = URL_PREFIX + "/subscribeToCottage";
 
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put(newURL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(json);
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isBadRequest());
+    }
 
-        this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status()
-                        .isBadRequest());
+    @Test
+    @WithMockUser(authorities = "ROLE_CLIENT")
+    public void testGetPenalties() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "/getPenalties/" + ClientConstants.DB_EMAIL)).andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$").value(ClientConstants.DB_NUM_OF_PENALITES));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    @WithMockUser(authorities = "ROLE_ADMIN")
+    public void testAddPenaltyToClient() throws Exception {
+
+        String json = TestUtil.json(ClientConstants.DB_EMAIL);
+        String newURL = URL_PREFIX + "/addPenaltyToClient";
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(ClientConstants.DB_EMAIL)).andExpect(status().isOk());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    @WithMockUser(authorities = "ROLE_CLIENT")
+    public void testUnsubscribeFromCottage() throws Exception {
+
+        SubscriptionDTO dto = new SubscriptionDTO();
+        dto.setCottageId(CottageConstants.id5);
+        dto.setUserEmail(ClientConstants.DB_EMAIL);
+
+        String json = TestUtil.json(dto);
+        String newURL = URL_PREFIX + "/unsubscribeFromCottage";
+
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value("Successfully subscribed"));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    @WithMockUser(authorities = "ROLE_CLIENT")
+    public void testUnsubscribeFromCottageThatDoesNotExists() throws Exception {
+
+        SubscriptionDTO dto = new SubscriptionDTO();
+        dto.setCottageId(CottageConstants.id4);
+        dto.setUserEmail(ClientConstants.DB_EMAIL);
+
+        String json = TestUtil.json(dto);
+        String newURL = URL_PREFIX + "/unsubscribeFromCottage";
+
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    @WithMockUser(authorities = "ROLE_CLIENT")
+    public void testSubscribeToBoat() throws Exception {
+
+        SubscriptionDTO dto = new SubscriptionDTO();
+        dto.setBoatId(BoatsConstants.id6);
+        dto.setUserEmail(ClientConstants.DB_EMAIL);
+
+        String json = TestUtil.json(dto);
+        String newURL = URL_PREFIX + "/subscribeToBoat";
+
+
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value("Successfully subscribed"));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    @WithMockUser(authorities = "ROLE_CLIENT")
+    public void testUnsubscribeToBoat() throws Exception {
+
+        SubscriptionDTO dto = new SubscriptionDTO();
+        dto.setBoatId(BoatsConstants.id7);
+        dto.setUserEmail(ClientConstants.DB_EMAIL);
+
+        String json = TestUtil.json(dto);
+        String newURL = URL_PREFIX + "/unsubscribeFromBoat";
+
+
+        this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value("Successfully subscribed"));
     }
 }

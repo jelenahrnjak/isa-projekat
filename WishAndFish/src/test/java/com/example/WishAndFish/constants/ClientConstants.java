@@ -18,4 +18,5 @@ public class ClientConstants {
     public static final Long DB_BOAT_ID2 = 4l;
     public static final Long DB_COTTAGE_ID2 = 5l;
     public static final Long DB_ADVENTURE_ID2 = 6l;
+    public static final Integer DB_NUM_OF_PENALITES = 2;
 }
