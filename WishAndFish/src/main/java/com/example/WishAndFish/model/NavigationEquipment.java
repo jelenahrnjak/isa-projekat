@@ -30,4 +30,11 @@ public class NavigationEquipment {
     @JoinColumn(name = "boat_id", nullable = false)
     @JsonBackReference
     private Boat boat;
+
+    public NavigationEquipment(NavigationEquipment nav) {
+        this.id = nav.getId();
+        this.name = nav.getName();
+        this.deleted = nav.isDeleted();
+        this.boat = nav.getBoat();
+    }
 }

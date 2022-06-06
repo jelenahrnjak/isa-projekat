@@ -1,11 +1,11 @@
 package com.example.WishAndFish.service;
 import com.example.WishAndFish.constants.BoatsConstants;
 import com.example.WishAndFish.dto.*;
-import com.example.WishAndFish.model.Address;
-import com.example.WishAndFish.model.Boat;
-import com.example.WishAndFish.model.Reservation;
+import com.example.WishAndFish.model.*;
+import com.example.WishAndFish.repository.BoatOwnerRepository;
 import com.example.WishAndFish.repository.BoatRepository;
 import com.example.WishAndFish.repository.ReservationRepository;
+import com.example.WishAndFish.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,11 +16,14 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -35,176 +38,120 @@ public class BoatServiceTest {
     private ReservationRepository reservationRepositoryMock;
 
     @Mock
+    private UserRepository userRepositoryMock;
+
+    @Mock
+    private BoatOwnerRepository boatOwnerRepositoryMock;
+
+    @Mock
     private Boat boatMock;
 
     @InjectMocks
     private BoatService boatService;
 
-
-    @Test
-    public void testGetBoatById(){
-        // 1. Definisanje ponašanja mock objekata
-        when(boatRepositoryMock.getById(BoatsConstants.id)).thenReturn(boatMock);
-        System.out.println(BoatsConstants.id);
-        // 2. Akcija
-        BoatDetailDTO dbBoat = boatService.findBoat(123L);
-
-        // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        assertEquals(boatMock, dbBoat);
-
-        verify(boatRepositoryMock, times(1)).getById(BoatsConstants.id);
-        verifyNoMoreInteractions(boatRepositoryMock);
-    }
-
-
-    @Test
-    public void testGetAll() {
-        // 1. Definisanje ponašanja mock objekata (ja mu kazem kada se pozove metoda mock-a, da mi vrati tu konkretnu kucu (definisem ponasanje metode))
-        when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(new Boat()));
-
-        // 2. Akcija
-        List<BoatDTO> boats = boatService.findAll();
-
-        // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        assertThat(boats).hasSize(3);
-
-		/*
-		Možemo verifikovati ponašanje mokovanih objekata pozivanjem verify* metoda.
-		 */
-        verify(boatRepositoryMock, times(1)).findAll();
-        verifyNoMoreInteractions(boatRepositoryMock);
-    }
-
-
-    @Test
-    @Transactional
-    @Rollback(true) // uključeno po default-u, ne mora se navesti
-    public void testAdd() {
-        AddBoatDTO boat = new AddBoatDTO();
-
-        boat.setName(BoatsConstants.name);
-        boat.setType(BoatsConstants.type);
-        boat.setLength(BoatsConstants.length);
-        boat.setEngineNumber(BoatsConstants.engineNumber);
-        boat.setEnginePower(BoatsConstants.enginePower);
-        boat.setMaxSpeed(BoatsConstants.length);
-        boat.setAddress(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
-        boat.setDescription(null);
-        boat.setCapacity(BoatsConstants.capacity);
-        boat.setPricePerDay(BoatsConstants.length);
-        boat.setMaxSpeed(BoatsConstants.length);
-        boat.setOwnerEmail(BoatsConstants.ownerEmail);
-        boat.setCancellationConditions(BoatsConstants.cancellationConditions);
-        boat.setCoverImage(BoatsConstants.image);
-
-
-
-        Boat newBoat = new Boat();
-
-        newBoat.setName("brod");
-        newBoat.setType(BoatsConstants.type);
-        newBoat.setLength(BoatsConstants.length);
-        newBoat.setEngineNumber(BoatsConstants.engineNumber);
-        newBoat.setEnginePower(BoatsConstants.enginePower);
-        newBoat.setMaxSpeed(BoatsConstants.length);
-        newBoat.setAddress(new Address ("ulica","123",
-                "21000","grad","drzava",
-                62.12,12.12));
-        newBoat.setDescription(null);
-        newBoat.setCapacity(BoatsConstants.capacity);
-        newBoat.setPricePerDay(BoatsConstants.length);
-        newBoat.setMaxSpeed(BoatsConstants.length);
-        //newBoat.setBoatOwner(null);
-        newBoat.setCancellationConditions(BoatsConstants.cancellationConditions);
-        newBoat.setCoverImage(BoatsConstants.image);
-
-
-        //Boat b = new Boat();
-        // 1. Definisanje ponašanja mock objekata
-        when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(new Boat()));
-        when(boatRepositoryMock.save(newBoat)).thenReturn(newBoat);
-
-        // 2. Akcija
-        int dbSizeBeforeAdd = boatService.findAll().size();
-
-        AddBoatDTO dbBoat = boatService.addBoat(boat);
-
-        when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(new Boat(), newBoat));
-
-        // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        assertThat(dbBoat).isNotNull();
-
-        List<BoatDTO> boats = boatService.findAll();
-        assertThat(boats).hasSize(dbSizeBeforeAdd + 1); //verifikacija da je novi brod upisan u bazu
-
-        BoatDTO b2 = new BoatDTO();
-        b2 = boats.get(boats.size() - 1); // preuzimanje poslednjeg broda
-
-        assertThat(dbBoat.getName()).isEqualToIgnoringCase(BoatsConstants.name);
-        assertThat(dbBoat.getType()).isEqualTo(BoatsConstants.type);
-        assertThat(dbBoat.getLength()).isEqualTo(BoatsConstants.length);
-        assertThat(dbBoat.getEngineNumber()).isEqualTo(BoatsConstants.engineNumber);
-        assertThat(dbBoat.getEnginePower()).isEqualTo(BoatsConstants.enginePower);
-        assertThat(dbBoat.getMaxSpeed()).isEqualTo(BoatsConstants.length);
-        assertThat(dbBoat.getAddress()).isEqualTo(null);
-        assertThat(dbBoat.getDescription()).isEqualTo(BoatsConstants.description);
-        assertThat(dbBoat.getCapacity()).isEqualTo(BoatsConstants.capacity);
-        assertThat(dbBoat.getLength()).isEqualTo(BoatsConstants.length);
-        assertThat(dbBoat.getMaxSpeed()).isEqualTo(BoatsConstants.maxSpeed);
-        assertThat(dbBoat.getOwnerEmail()).isEqualTo(BoatsConstants.ownerEmail);
-        assertThat(dbBoat.getCancellationConditions()).isEqualTo(BoatsConstants.cancellationConditions);
-        assertThat(dbBoat.getCoverImage()).isEqualTo(BoatsConstants.image);
-
-        verify(boatRepositoryMock, times(2)).findAll();
-        verify(boatRepositoryMock, times(1)).save(newBoat);
-        verifyNoMoreInteractions(boatRepositoryMock);
-    }
+    @InjectMocks
+    private BoatOwnerService boatOwnerService;
 
 
     @Test
     @Transactional
     public void testUpdate() {
         // 1. Definisanje ponašanja mock objekata
-        when(boatRepositoryMock.findOneById(BoatsConstants.id)).thenReturn(new Boat());
+        Boat forUpdate = new Boat();
+        forUpdate.setId(1L);
+        forUpdate.setName("The best boat");
+        forUpdate.setType("Fishing");
+        forUpdate.setLength(15.5);
+        forUpdate.setAddress(new Address ("ulica","123",
+                "21000","grad","drzava",
+                62.12,12.12));
 
-        Reservation r = new Reservation();
-        when(reservationRepositoryMock.findAll()).thenReturn(Arrays.asList(new Reservation(), r));
-
-        Boat b= new Boat();
-        when(boatRepositoryMock.save(b)).thenReturn(b);
-
-        EditBoatDTO boat = new EditBoatDTO();
-        boat.setId(125L);
-        boat.setName(BoatsConstants.name);
-        boat.setType(BoatsConstants.type);
-        boat.setLength(BoatsConstants.length);
-        boat.setEngineNumber(BoatsConstants.engineNumber);
-        boat.setEnginePower(BoatsConstants.enginePower);
-        boat.setMaxSpeed(BoatsConstants.length);
-        boat.setAddress(new AddressDTO("ulica","123",
-                "21000", 15, 16, "grad","drzava"));
-        boat.setDescription(BoatsConstants.description);
-        boat.setCapacity(BoatsConstants.capacity);
-        boat.setCancellationConditions(BoatsConstants.cancellationConditions);
-        boat.setPricePerHour(BoatsConstants.pricePerDay);
+        when(boatRepositoryMock.findOneById(1L)).thenReturn(forUpdate);
+        when(reservationRepositoryMock.findAll()).thenReturn(new ArrayList<>());
 
 
+        Boat updated = new Boat();
+        updated.setId(1L);
+        updated.setName("The best");
+        updated.setType("Cruiser");
+        updated.setLength(17.0);
+        updated.setAddress(new Address ("ulica","123",
+                "21000","grad","drzava",
+                62.12,12.12));
+
+        EditBoatDTO edit = new EditBoatDTO();
+        edit.setId(1L);
+        edit.setName("The best");
+        edit.setType("Cruiser");
+        edit.setLength(17.0);
+        edit.setAddress(new AddressDTO(new Address ("ulica","123",
+                "21000","grad","drzava",
+                62.12,12.12)));
         // 2. Akcija
-        Boat boatForUpdate = boatService.editBasicInfo(boat);
+        Boat edited = boatService.editBasicInfo(edit);
 
 
         // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
-        assertThat(boatForUpdate).isNotNull();
+        assertThat(edited).isNotNull();
 
-        BoatDetailDTO edited = boatService.findBoat(125l); // verifikacija da se u bazi nalaze izmenjeni podaci
-        assertThat(edited.getName()).isEqualTo(BoatsConstants.name);
-        assertThat(edited.getType()).isEqualTo(BoatsConstants.type);
+        when(boatRepositoryMock.findById(1L)).thenReturn(Optional.of(edited));
+        BoatDetailDTO found = boatService.findBoat(1L); // verifikacija da se u bazi nalaze izmenjeni podaci
 
-        verify(boatRepositoryMock, times(2)).getById(125L);
-        verify(boatRepositoryMock, times(1)).save(boatForUpdate);
+        assertThat(found.getName()).isEqualTo(updated.getName());
+        assertThat(found.getType()).isEqualTo(updated.getType());
+        assertThat(found.getLength()).isEqualTo(updated.getLength());
+
+        verify(boatRepositoryMock, times(1)).findById(1L);
+        verify(boatRepositoryMock, times(1)).findOneById(1L);
+        verify(reservationRepositoryMock, times(1)).findAll();
+        verify(boatRepositoryMock, times(1)).save(edited);
         verifyNoMoreInteractions(boatRepositoryMock);
     }
+
+
+    @Test
+    public void testGetAllFromOwner() {
+        // 1. Definisanje ponašanja mock objekata (ja mu kazem kada se pozove metoda mock-a, da mi vrati tu konkretnu kucu (definisem ponasanje metode))
+        Boat b1 = new Boat();
+        b1.setId(1L);
+        b1.setName("yachta");
+        User u = new User();
+        u.setId(2L);
+        u.setEmail("markomarko@gmail.com");
+        b1.setBoatOwner(new BoatOwner(u));
+        b1.setAddress(new Address ("ulica","123",
+                "21000","grad","drzava",
+                62.12,12.12));
+        b1.setDeleted(false);
+
+        Boat b2 = new Boat();
+        b2.setId(2L);
+        b2.setName("yachta2");
+        User u2 = new User();
+        u2.setId(22L);
+        u2.setEmail("owner@gmail.com");
+        b2.setBoatOwner(new BoatOwner(u2));
+        b2.setDeleted(false);
+
+
+        when(boatRepositoryMock.findAll()).thenReturn(Arrays.asList(b1, b2));
+        when(userRepositoryMock.findByEmail(u.getEmail())).thenReturn(u);
+
+        // 2. Akcija
+        List<BoadDisplayDTO> boats = boatOwnerService.getBoatsFromOwner(u.getEmail());
+
+        // 3. Verifikacija: asertacije i/ili verifikacija interakcije sa mock objektima
+        assertThat(boats).hasSize(1);
+        assertEquals(1L, (long) boats.get(0).getId());
+
+		/*
+		Možemo verifikovati ponašanje mokovanih objekata pozivanjem verify* metoda.
+		 */
+        verify(boatRepositoryMock, times(1)).findAll();
+        verify(userRepositoryMock, times(1)).findByEmail(u.getEmail());
+
+        verifyNoMoreInteractions(boatRepositoryMock);
+    }
+
 
 }
