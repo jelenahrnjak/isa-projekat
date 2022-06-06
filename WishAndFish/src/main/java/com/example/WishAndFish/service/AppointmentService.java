@@ -984,4 +984,19 @@ public class AppointmentService {
         return ret;
     }
 
+    public List<Appointment> findAll() {
+        return appointmentRepository.findAll();
+    }
+
+    public Appointment save(Appointment appointment2) {
+        return appointmentRepository.save(appointment2);
+    }
+
+    public Appointment findOne(Long id) {
+        return appointmentRepository.findById(id).orElse(null);
+    }
+
+    public void remove(Long id) {
+        appointmentRepository.deleteById(id);
+    }
 }
