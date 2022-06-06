@@ -117,4 +117,13 @@ public class BoatControllerTest {
         this.mockMvc.perform(put(newURL).contentType(contentType).content(json)).andExpect(status().isOk());
     }
 
+
+
+    @Test
+    @Transactional
+    @WithMockUser(authorities = "ROLE_BOAT_OWNER")
+    public void testDeleteBoat() throws Exception {
+        this.mockMvc.perform(delete(URL_PREFIX + "/deleteBoat/" + 125L)).andExpect(status().isOk());
+    }
+
 }
