@@ -55,7 +55,7 @@ public class CottageOwnerService {
         List<CottageDisplayDTO> ret = new ArrayList<>();
         for(Cottage c: cottageRepository.findAll()){
             User u = userRepository.findByEmail(c.getCottageOwner().getEmail());
-            if(u.getEmail().equals(email) && !c.isDeleted()){
+            if(u!=null && u.getEmail().equals(email) && !c.isDeleted()){
                 ret.add(new CottageDisplayDTO(c));
             }
         }

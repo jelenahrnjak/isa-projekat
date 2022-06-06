@@ -118,4 +118,7 @@ public class Cottage {
         this.deleted = false;
     }
 
+    public Cottage(long l) {
+        this.id = l;
+    }
 }

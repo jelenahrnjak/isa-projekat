@@ -140,4 +140,54 @@ public class Boat {
         this.deleted = false;
     }
 
+    public Boat(long id, String name, String type, Double length, Integer engineNumber, String enginePower, Double maxSpeed, Address address, String description, Integer capacity, String cancellationConditions, Set<Image> images, Set<Appointment> appointments, Set<Rule> rules, Double pricePerDay, Set<NavigationEquipment> navigationEquipments, Set<FishingEquipment> fishingEquipments, String coverImage, BoatOwner boatOwner, int numberOfRatings, double rating, boolean deleted) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.length = length;
+        this.engineNumber = engineNumber;
+        this.enginePower = enginePower;
+        this.maxSpeed = maxSpeed;
+        this.address = address;
+        this.description = description;
+        this.capacity = capacity;
+        this.cancellationConditions = cancellationConditions;
+        this.images = images;
+        this.appointments = appointments;
+        this.rules = rules;
+        this.pricePerDay = pricePerDay;
+        this.navigationEquipments = navigationEquipments;
+        this.fishingEquipments = fishingEquipments;
+        this.coverImage = coverImage;
+        this.boatOwner = boatOwner;
+        this.numberOfRatings = numberOfRatings;
+        this.rating = rating;
+        this.deleted = deleted;
+    }
+
+    public Boat(long l, String name, String type, double v, int i, int i1, double v1, Object o, String string_description, int i2, String string_cancellationConditions, Object o1, Object o2, Object o3, double v2, Object o4, Object o5, String string_coverImage, String s, int i3, int i4, boolean b) {
+    }
+
+    public Boat(BoatDetailDTO dbBoat) {
+        this.id = dbBoat.getId();
+        this.name = dbBoat.getName();
+        this.length =  dbBoat.getLength();
+        this.engineNumber =  dbBoat.getEngineNumber();
+        this.enginePower =  dbBoat.getEnginePower();
+        this.maxSpeed =  dbBoat.getMaxSpeed();
+        this.description =  dbBoat.getName();
+        this.capacity =  dbBoat.getCapacity();
+        this.cancellationConditions =  dbBoat.getCancellationConditions();
+        this.pricePerDay =  dbBoat.getPricePerDay();
+        this.coverImage =  dbBoat.getCoverImage();
+        this.numberOfRatings =  dbBoat.getNumberOfRatings();
+        this.rating =  dbBoat.getRating();
+    }
+
+    public Boat(Long id, String name, String type, Boolean deleted) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.deleted = deleted;
+    }
 }

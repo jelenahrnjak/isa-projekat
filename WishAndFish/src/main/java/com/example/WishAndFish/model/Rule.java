@@ -49,4 +49,10 @@ public class Rule {
         this.boat = boat;
     }
 
+    public Rule(Rule rule) {
+        this.content = rule.getContent();
+        this.cottage = rule.getCottage();
+        this.boat = rule.getBoat();
+        this.deleted = rule.getDeleted();
+    }
 }
