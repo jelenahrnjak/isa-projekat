@@ -6,6 +6,7 @@ public class CottageConstants {
     public static final Long id2 = 2L;
     public static final Long id3 = 22L;
     public static final Long id4 = 111L;
+    public static final Long id5 = 110L;
     public static final String email = "stojic.kris@gmail.com";
     public static final String email2 = "owner@gmail.com";
     public static final String name = "yachta";
