@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -117,6 +119,8 @@ public class ClientServiceTest {
 
 
     @Test
+    @Transactional
+    @Rollback(true)
     public void testUnsubscribeToCottage(){
 
         User user = new User(DB_PASS, DB_EMAIL, DB_NAME, DB_SURNAME, DB_PHONE);
@@ -146,6 +150,8 @@ public class ClientServiceTest {
     }
 
     @Test
+    @Transactional
+    @Rollback(true)
     public void testSubscribeToCottage(){
 
         User user = new User(DB_PASS, DB_EMAIL, DB_NAME, DB_SURNAME, DB_PHONE);

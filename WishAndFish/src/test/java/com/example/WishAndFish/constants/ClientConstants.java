@@ -7,6 +7,8 @@ public class ClientConstants {
     public static final String DB_EMAIL = "jelena@gmail.com";
     public static final String DB_NAME = "Jelena";
     public static final String DB_SURNAME = "Hrnjak";
+    public static final String DB_NAME2 = "Ivan";
+    public static final String DB_SURNAME2 = "Peric";
     public static final String DB_PHONE = "0683920133";
 
     public static final Long DB_BOAT_ID = 2l;

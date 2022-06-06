@@ -76,7 +76,7 @@ public class FishingAdventuresService {
 
     private boolean checkAdventureForSearch(FishingAdventure c, FishingAdventureDTO dto, double rating, double price){
 
-        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getFishingInstructor().getName(), dto.getInstructor()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerDay(), price);
+        return checkStrings(c.getName(), dto.getName()) && checkStrings(c.getFishingInstructor().getName() + " " + c.getFishingInstructor().getSurname(), dto.getInstructor()) && checkStrings(c.getAddress().toString(), dto.getAddress()) && checkRating(c.getRating(), rating) && checkPrice(c.getPricePerDay(), price);
     }
 
     private boolean checkStrings(String adventure, String search){
