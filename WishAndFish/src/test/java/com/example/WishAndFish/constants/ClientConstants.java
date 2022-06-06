@@ -3,6 +3,7 @@ package com.example.WishAndFish.constants;
 public class ClientConstants {
 
     public static final Long DB_ID = 1L;
+    public static final Long DB_REAL_ID = 35L;
     public static final String DB_PASS = "jelena";
     public static final String DB_EMAIL = "jelenahrnjak99@gmail.com";
     public static final String DB_NAME = "Jelena";
@@ -17,4 +18,5 @@ public class ClientConstants {
     public static final Long DB_BOAT_ID2 = 4l;
     public static final Long DB_COTTAGE_ID2 = 5l;
     public static final Long DB_ADVENTURE_ID2 = 6l;
+    public static final Integer DB_NUM_OF_PENALITES = 2;
 }

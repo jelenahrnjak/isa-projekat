@@ -15,6 +15,7 @@ public class BoatsConstants {
     public static final Long id4 = 2L;
     public static final Long id5 = 22L;
     public static final Long id6 = 125L;
+    public static final Long id7 = 124L;
 
     public static final String name = "The best boat";
     public static final String name2 = "The best";

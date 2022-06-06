@@ -178,6 +178,28 @@ public class ClientServiceTest {
         verify(cottageRepositoryMock, times(1)).getById(DB_COTTAGE_ID2);
         verifyNoMoreInteractions(cottageRepositoryMock);
     }
+
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testClearPenalites(){
+
+        User user = new User(DB_PASS, DB_EMAIL, DB_NAME, DB_SURNAME, DB_PHONE);
+        user.setId(DB_ID);
+
+        Client client = new Client(user);
+        client.setPenalties(3);
+
+        when(clientRepositoryMock.findAll()).thenReturn(Arrays.asList(client));
+
+        clientService.clearPenalties();
+
+        assertTrue(client.getPenalties() == 0);
+
+        verify(clientRepositoryMock, times(1)).findAll();
+    }
+
 }
 
 
