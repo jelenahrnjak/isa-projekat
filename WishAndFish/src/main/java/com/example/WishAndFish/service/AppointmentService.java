@@ -303,7 +303,7 @@ public class AppointmentService {
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getCottage() != null) {
-                    if (!free.isDeleted() && dto.getId().equals(free.getCottage().getId())
+                    if (!free.isDeleted() && !free.getIsAction() && dto.getId().equals(free.getCottage().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
                             || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
                         Cottage cottage = cottageRepository.findOneById(dto.getId());
@@ -385,7 +385,7 @@ public class AppointmentService {
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getBoat() != null) {
-                    if (!free.isDeleted() && dto.getId().equals(free.getBoat().getId())
+                    if (!free.isDeleted()  && !free.getIsAction()  && dto.getId().equals(free.getBoat().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
                             || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
                         Boat b = boatRepository.findOneById(dto.getId());
