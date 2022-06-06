@@ -193,8 +193,10 @@ public class BoatService {
         Boat b = boatRepository.findById(id).orElseGet(null);
         BoatDetailDTO boat = new BoatDetailDTO(b);
 
-        AddressDTO address = new AddressDTO(b.getAddress());
-        boat.setAddress(address);
+        if(b.getAddress() != null){
+            AddressDTO address = new AddressDTO(b.getAddress());
+            boat.setAddress(address);
+        }
 
         List<ImageDTO> images = new ArrayList<>();
         for(Image i: b.getImages()){

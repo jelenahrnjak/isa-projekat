@@ -17,10 +17,10 @@ jobs:
           java-version: 17
       - name: Maven Package
         working-directory: ${{env.working-directory}}
-        run: mvn clean package
+        run: mvn clean package -DskipTests
       - name: Maven Verify
         working-directory: ${{env.working-directory}}
-        run: mvn clean verify
+        run: mvn clean verify -DskipTests
 
 
   deploy-backend:
