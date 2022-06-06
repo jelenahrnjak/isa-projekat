@@ -118,14 +118,19 @@ public class BoatService {
     }
 
     public AddBoatDTO addBoat(AddBoatDTO newBoat){
-        Address address = new Address(newBoat.getAddress().getStreet(),newBoat.getAddress().getStreetNumber(),
-                newBoat.getAddress().getPostalCode(),newBoat.getAddress().getCityName(),newBoat.getAddress().getCountryName(),
-                newBoat.getAddress().getLongitude(),newBoat.getAddress().getLatitude());
+        System.out.println(newBoat.getOwnerEmail());
+        Address address = new Address();
+        if(newBoat.getAddress() != null){
+            address = new Address(newBoat.getAddress().getStreet(),newBoat.getAddress().getStreetNumber(),
+                    newBoat.getAddress().getPostalCode(),newBoat.getAddress().getCityName(),newBoat.getAddress().getCountryName(),
+                    newBoat.getAddress().getLongitude(),newBoat.getAddress().getLatitude());
+        }
+
 
         Boat boat = new Boat(newBoat.getName(),newBoat.getType(),newBoat.getLength(),newBoat.getEngineNumber(), newBoat.getEnginePower(), newBoat.getMaxSpeed(), address,
                 newBoat.getDescription(),newBoat.getCapacity(), newBoat.getPricePerDay());
         boat.setCancellationConditions(newBoat.getCancellationConditions());
-        User user = this.userRepository.findByEmail(newBoat.getOwnerEmail());
+        User user = userRepository.findByEmail(newBoat.getOwnerEmail());
 
         for(BoatOwner b: this.boatOwnerRepository.findAll()){
             if(b.getEmail().equals(user.getEmail())){
@@ -184,6 +189,7 @@ public class BoatService {
     }
 
     public BoatDetailDTO findBoat(Long id){
+        System.out.println("id" + id);
         Boat b = boatRepository.findById(id).orElseGet(null);
         BoatDetailDTO boat = new BoatDetailDTO(b);
 

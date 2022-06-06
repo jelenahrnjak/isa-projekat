@@ -1,6 +1,6 @@
 package com.example.WishAndFish.controller;
 
-import com.example.WishAndFish.dto.*;  
+import com.example.WishAndFish.dto.*;
 import com.example.WishAndFish.model.Boat;
 import com.example.WishAndFish.model.Cottage; 
 import com.example.WishAndFish.security.util.TokenUtils;
