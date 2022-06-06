@@ -1,12 +1,8 @@
 name: Main Branch
-# on:
-#   pull_request:
-#     branches:
-#       - 'develop'
 on:
-  push:
+  pull_request:
     branches:
-      - 'fix-unit-tests'
+      - 'develop'
 jobs:
   test:
     env:
