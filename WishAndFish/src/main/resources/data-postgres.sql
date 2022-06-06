@@ -218,9 +218,16 @@ INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
 	VALUES (100, '5', '06-30-2022 12:00', 6, 0, false, '05-31-2022 14:00', 110, false, false);
 
+
 INSERT INTO APPOINTMENTS(
 	id, duration, end_date, max_persons, price, reserved, start_date, fishing_adventure_id, deleted, action)
 	VALUES (101, '5', '08-20-2022 12:00', 10, 0, false, '06-20-2022 14:00', 100, false, false);
+
+
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (102, '5', '07-30-2022 12:00', 10, 0, false, '06-12-2022 14:00', 125, false, false);
 
 --booked normal
 
@@ -258,6 +265,22 @@ INSERT INTO public.reservations(
 	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
 	VALUES (102, false, 202, 35, false , false, 27, false, false, false, false);
 
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
+	VALUES (122, '5', '06-03-2022 12:00', 4, 0, true, '06-01-2022 14:00', 113, false, false);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (122, false, 122, 36, false , false, 503, false, false, false, false);
+
+
+INSERT INTO APPOINTMENTS(
+	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
+	VALUES (135, '5', '06-12-2022 12:00', 5, 0, true, '06-01-2022 14:00', 124, false, false);
+INSERT INTO public.reservations(
+	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
+	VALUES (135, false, 135, 36, false , false, 503, false, false, false, false);
+
+
 --free special action
 
 INSERT INTO APPOINTMENTS(
@@ -293,24 +316,4 @@ INSERT INTO request_for_deleting( id, approved, processed, reason, user_id)
 	VALUES (100, false, false, 'I do not use this site anymore', 36);
 
 
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, cottage_id, deleted, action)
-	VALUES (122, '5', '06-03-2022 12:00', 15, 0, true, '06-01-2022 14:00', 113, false, false);
-
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (122, false, 122, 36, false , false, 503, false, false, false, false);
-
-
-
-
-
-INSERT INTO APPOINTMENTS(
-	id, duration, end_date, max_persons, price, reserved, start_date, boat_id, deleted, action)
-	VALUES (135, '5', '06-12-2022 12:00', 15, 0, true, '06-01-2022 14:00', 124, false, false);
-
-INSERT INTO public.reservations(
-	id, canceled, appointment_id, client_id, finished, commented ,total_price, commented_owner, commented_entity, complaint_owner, complaint_entity)
-	VALUES (135, false, 135, 36, false , false, 503, false, false, false, false);
 
