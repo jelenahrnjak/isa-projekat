@@ -261,13 +261,14 @@ reserve(){
           icon: 'error',
           title: 'Oops...',
           text: 'Something went wrong. Please try again.',
-        })  
+        })
+      },
+      () => {
         this.startDate = "",
         this.endDate = "",
-        //setTimeout(() => {window.location.reload()}, 2000); 
         console.log("error")
-
       }
+
     );
   }
   

@@ -303,9 +303,10 @@ public class AppointmentService {
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getCottage() != null) {
-                    if (!free.isDeleted() && dto.getId().equals(free.getCottage().getId())
+                    if (!free.isDeleted() && !free.getIsAction() && dto.getId().equals(free.getCottage().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
-                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
+                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))
+                            || (start.isEqual(free.getStartDate()) && end.isBefore(free.getEndDate()))) {
                         Cottage cottage = cottageRepository.findOneById(dto.getId());
 
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
@@ -385,9 +386,10 @@ public class AppointmentService {
             //ako postoji slobodan termin
             for (Appointment free : appointmentRepository.findAll()) {
                 if (free.getBoat() != null) {
-                    if (!free.isDeleted() && dto.getId().equals(free.getBoat().getId())
+                    if (!free.isDeleted()  && !free.getIsAction()  && dto.getId().equals(free.getBoat().getId())
                             && ((start.isAfter(free.getStartDate()) && end.isBefore(free.getEndDate()))
-                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate())))) {
+                            || (start.isEqual(free.getStartDate()) && end.isEqual(free.getEndDate()))
+                            || (start.isEqual(free.getStartDate()) && end.isBefore(free.getEndDate())))) {
                         Boat b = boatRepository.findOneById(dto.getId());
                         //podijeli pronadjeni termin na 2 slobodna i 1 zauzeti
                         Appointment newApp = new Appointment(free); //treci koji se dobije

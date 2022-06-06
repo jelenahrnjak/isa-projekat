@@ -53,9 +53,6 @@
             <button *ngIf="isCottageOwner()" mat-button mat-ripple routerLink="/add-cottage">
                 <span>Add cottage</span>
             </button>
-            <button *ngIf="(isCottageOwner() && isSelectedCottage())" [matMenuTriggerFor]="cottageOptions" class="greeting-button" mat-button mat-ripple>
-                <span>Options</span>
-            </button>
             <mat-menu #cottageOptions [overlapTrigger]="false" class="app-header-cottageOptions" yposition="below">
                 <app-cottage-options-menu></app-cottage-options-menu>
             </mat-menu>

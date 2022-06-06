@@ -263,18 +263,17 @@ export class BoatReservationHistoryComponent implements OnInit{
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong. Please try again.',
-          })  
-          this.startDate = "",
-          this.endDate = "",
-          //setTimeout(() => {window.location.reload()}, 2000); 
-          //this.refreshPage()
-          console.log("error")
-
-        }
-      );
-    }
+          })},
+          () => {
+            this.startDate = "",
+            this.endDate = "",
+            console.log("error")
+          }
     
-  } 
+        );
+      }
+      
+    } 
 
 
   refreshPage(){
