@@ -18,19 +18,19 @@ INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_c
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (300, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-   	VALUES (301, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
+   	VALUES (301, 'Valencia', 'Spain', 39.469029, 0.324970, '25230', 'El Cabanya', '19');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (400, 'Novi Sad', 'Srbija', 35.455, 29.519380, '32000', 'Dušana Petrovića', '16');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-	VALUES (401, 'Novi Sad', 'Srbija', 35.455, 29.519380, '32000', 'Dušana Petrovića', '16');
+	VALUES (401, 'Ruma', 'Srbija', 45.004962, 19.815988, '32000', 'Vladimira Nazora', '22');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
 	VALUES (500, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-	VALUES (501, 'Niš', 'Srbija', 345.45, 291.121, '23000', 'Marka Markovića', '25');
+	VALUES (501, 'Nice', 'France', 43.695253, 7.256604, '23000', 'Rue de Prance', '81');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-   	VALUES (302, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
+   	VALUES (302, 'Dubrovnik', 'Hrvatska', 42.648247, 18.094242, '25230', 'Ul. od Svetog Mihajla', '4');
 INSERT INTO ADDRESSES(id, city_name, country_name, latitude, longitude, postal_code, street, street_number)
-       	VALUES (303, 'Kula', 'Srbija', 45.609740, 19.519380, '25230', 'Novaka Pejčića', '128');
+       	VALUES (303, 'Venezia', 'Italy', 45.433649, 12.328198, '12356', 'Campo San Samuele', '3231');
 
 INSERT INTO USERS(id, deleted, email, enabled, last_password_reset_date, loyalty_category_id, name, password, phone_number, points, surname, address_id, role_id, verification_code)
 	VALUES (55, false, 'jelenahrnjak99+1@gmail.com', true, null, 30,  'Dušan', 'jelena', '0607363683',1510, 'Šišarica', 100, 5, null);
@@ -70,7 +70,7 @@ INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_o
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
 	VALUES (112, null, 'The River', 75, 300, 95,4.6,10,'cottage2.jpg',false,2, 1);
 INSERT INTO COTTAGES(id, description, name, price_per_day, address_id, cottage_owner_id, rating, number_of_ratings, cover_image,deleted, number_of_rooms, beds_per_room)
-	VALUES (113, 'Great cottage with nice view', 'Acros', 75, 401, 50,0.0,0,'cottage3.jpg', false, 2, 2);
+	VALUES (113, 'Great cottage with nice view', 'Acros', 75, 302, 50,0.0,0,'cottage3.jpg', false, 2, 2);
 
 INSERT INTO BOATS(
 	id, capacity, cover_image, description, engine_number, engine_power, length, max_speed, name, price_per_day, type, address_id, boat_owner_id, rating, number_of_ratings, deleted, cancellation_conditions)
